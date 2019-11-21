@@ -1,0 +1,147 @@
+{include file="common/mainHead"/}
+<div class="admin-main fadeInUp animated" ng-app="hd" ng-controller="ctrl">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>{:lang('systemSet')}</legend>
+    </fieldset>
+    <form class="layui-form layui-form-pane">
+        <div class="layui-form-item">
+            <label class="layui-form-label">{:lang('websiteName')}</label>
+            <div class="layui-input-4">
+                <input type="text" ng-model="field.name" lay-verify="required" placeholder="{:lang('pleaseEnter')}{:lang('websiteName')}" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">网站首页图</label>
+            <div class="layui-input-block">
+                <div class="site-demo-upload">
+                    <img id="cltLogo" src="__ADMIN__/images/tong.png">
+                    <div class="site-demo-upbar">
+                        <input type="file" name="logo" lay-type="images" class="layui-upload-file" id="logo">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">{:lang('recordNum')}</label>
+            <div class="layui-input-3">
+                <input type="text" ng-model="field.bah" placeholder="{:lang('pleaseEnter')}{:lang('recordNum')}" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">Copyright</label>
+            <div class="layui-input-3">
+                <input type="text" ng-model="field.copyright" placeholder="{:lang('pleaseEnter')}Copyright" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">{:lang('companyAddress')}</label>
+            <div class="layui-input-3">
+                <input type="text" ng-model="field.ads" placeholder="{:lang('pleaseEnter')}{:lang('companyAddress')}" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">{:lang('tel')}</label>
+            <div class="layui-input-3">
+                <input type="text" ng-model="field.tel" placeholder="{:lang('pleaseEnter')}{:lang('tel')}" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">{:lang('email')}</label>
+            <div class="layui-input-3">
+                <input type="text" ng-model="field.email" placeholder="{:lang('pleaseEnter')}{:lang('email')}" class="layui-input">
+            </div>
+        </div>
+		<div class="layui-form-item">
+            <label class="layui-form-label">虚拟会员数</label>
+            <div class="layui-input-3">
+                <input type="text" ng-model="field.number" placeholder="虚拟会员数" class="layui-input">
+            </div>
+        </div>
+		<div class="layui-form-item">
+            <label class="layui-form-label">挂买冻结资产</label>
+            <div class="layui-input-3">
+                <input type="text" ng-model="field.dj" placeholder="挂买冻结nmct" class="layui-input">(如设置为0.01；挂卖100则冻结1)
+            </div>
+        </div>
+      <div class="layui-form-item">
+            <label class="layui-form-label">NMCT单价</label>
+            <div class="layui-input-3">
+                <input type="text" ng-model="field.money_nmct" placeholder="NMCT单价" class="layui-input">
+            </div>
+        </div>
+      <div class="layui-form-item">
+            <label class="layui-form-label">XMT单价</label>
+            <div class="layui-input-3">
+                <input type="text" ng-model="field.money_xmt" placeholder="XMT单价" class="layui-input">
+            </div>
+        </div>
+		<div class="layui-form-item">
+            <label class="layui-form-label">USDT打款地址</label>
+            <div class="layui-input-3">
+                <input type="text" ng-model="field.usdt_addres" placeholder="USDT打款地址" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="button" class="layui-btn" lay-submit="" lay-filter="sys">{:lang('submit')}</button>
+                <button type="reset" class="layui-btn layui-btn-primary">{:lang('reset')}</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/angular.min.js"></script>
+{include file="common/mainFoot"/}
+<script>
+    var m = angular.module('hd',[]);
+    m.controller('ctrl',['$scope','$http',function($scope,$http){
+        $scope.field = {$system};
+        layui.use(['form', 'layer','upload'], function () {
+            var form = layui.form,layer = layui.layer,upload = layui.upload;
+            if($scope.field.logo){
+                cltLogo.src = "__PUBLIC__"+ $scope.field.logo;
+            }
+             var uploadInst = upload.render({
+                elem: '#cltLogo'
+                ,url: '{:url("UpFiles/upload")}'
+                ,ext: 'jpg|png|gif'
+                ,before: function(obj){
+                  //预读本地文件示例，不支持ie8
+                  obj.preview(function(index, file, result){
+                    $('#logo').attr('src', result); //图片链接（base64）
+                  });
+                }
+                ,done: function(res){
+                  //如果上传失败
+                  if(res.code > 0){
+                    cltLogo.src = "__PUBLIC__"+res.url;
+                    $scope.field.logo = res.url;
+                    return layer.msg('上传成功');
+                  }
+                  //上传成功
+                }
+                ,error: function(){
+                  //演示失败状态，并实现重传
+                  var demoText = $('#demoText');
+                  demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                  demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
+                  });
+                }
+              });
+            // 登录提交监听
+            form.on('submit(sys)', function () {
+                // 提交到方法 默认为本身
+                $.post("{:url('system/system')}",$scope.field,function(res){
+                    if(res.code > 0){
+                        layer.msg(res.msg,{time:1800},function(){
+                            location.href = res.url;
+                        });
+                    }else{
+                        layer.msg(res.msg,{time:1800});
+                    }
+                });
+            })
+        })
+    }]);
+</script>

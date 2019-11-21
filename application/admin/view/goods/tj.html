@@ -1,0 +1,250 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CSS Tables</title>
+<link href="styles.css" mce_href="styles.css" rel="stylesheet" type="text/css" />
+</head>
+<style type="text/css" mce_bogus="1">/* CSS Document */
+body {
+ font: normal 11px auto "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+ color: #4f6b72;
+ background: #E6EAE9;
+}
+a {
+ color: #c75f3e;
+}
+#mytable {
+ width: 100%; 
+ padding: 0;
+ margin: 0;
+}
+caption {
+ padding: 0 0 5px 0;
+ width: 100%; 
+ font-size:18px;
+ text-align: center;
+ font-weight:600;
+}
+th {
+font-size:15px;
+ font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+ color: #4f6b72;
+ border-right: 1px solid #C1DAD7;
+ border-bottom: 1px solid #C1DAD7;
+ border-top: 1px solid #C1DAD7;
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ text-align: left;
+ padding: 6px 6px 6px 12px;
+ background: #CAE8EA url(images/bg_header.jpg) no-repeat;
+}
+th.nobg {
+ border-top: 0;
+ border-left: 0;
+ border-right: 1px solid #C1DAD7;
+ background: none;
+}
+td {
+ border-right: 1px solid #C1DAD7;
+ border-bottom: 1px solid #C1DAD7;
+ background: #fff;
+ font-size:11px;
+ padding: 6px 6px 6px 12px;
+ color: #4f6b72;
+}
+ 
+td.alt {
+ background: #F5FAFA;
+ color: #797268;
+}
+th.spec {
+ border-left: 1px solid #C1DAD7;
+ border-top: 0;
+ background: #fff url(images/bullet1.gif) no-repeat;
+ font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+}
+th.specalt {
+ border-left: 1px solid #C1DAD7;
+ border-top: 0;
+ background: #f5fafa url(images/bullet2.gif) no-repeat;
+ font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+ color: #797268;
+}
+a{
+color:#000;text-decoration: none;
+}
+html>body td{ font-size:15px;}</style>
+<body>
+	 <form method="post" action="">
+		<input type="text" name="rq" value="{$rq}"/>
+		<input value="搜索"id="upTo" type="submit" id="sub"/>
+	</form> 
+<table id="mytable" cellspacing="0" summary="The technical specifications of the Apple PowerMac G5 series">
+	<caption> 统计</caption>
+	<tr>
+		<th scope="col" abbr="Configurations">会员统计</th>
+		<th scope="col" abbr="Dual 1.8">USDT统计</th>
+		<th scope="col" abbr="Dual 2">NMCT统计</th>
+		<th scope="col" abbr="Dual 2.5">XMT统计</th>
+	</tr>
+	<tr>
+		<td>
+			总会员：{$user['count']}
+		</td>
+		<td>
+			剩余总USDT：{$user['usdt']}
+		</td>
+		<td>
+			剩余总NMCT资产：{$user['nmct_dj']}
+		</td>
+		<td>
+			剩余总XMT：{$user['xmt']}
+		</td>
+	</tr>
+	<tr>
+		<td class="alt">
+			充值会员：{$user['count_today']}
+		</td>
+		<td>
+           累积充值USDT：{$usdt['usdt1']}
+		</td>
+		<td>
+		   剩余总NMCT通证：{$user['nmct']}
+		</td>
+		<td>
+		   NMCT通证转XMT通证：{$usdt['nmct2xmt']}
+		</td>
+	</tr>
+    <tr>
+        <td>
+           未充值会员：{$user['count']- $user['count_today']}
+        </td>
+        <td>
+           充值USDT笔数：{$usdt['count']}
+        </td>
+        <td>
+          累积领取NMCT红包：{$usdt['lqhb']}({$usdt['count6']}个),未领取NMCT红包：({$hongbao_}个)
+        </td>
+        <td>
+           
+        </td>
+    </tr>
+    <tr>
+        <td>
+           VIP1会员：{$user['level1']}
+        </td>
+        <td>
+			购买激活码使用USDT：{$usdt['usdt10']}
+        </td>
+        <td>
+            红包复投NMCT资产：-{$usdt['hbft']}NMCT通证,+{$usdt['hbft']}NMCT资产
+        </td>
+        <td>
+        </td>
+    </tr>
+	<tr>
+        <td>
+           VIP2会员：{$user['level2']}
+        </td>
+        <td>
+        </td>
+        <td>
+            NMCT通证复投NMCT资产：-{$usdt['tz2zc']}NMCT通证,+{$usdt['tz2zc']*6}NMCT资产
+        </td>
+        <td>
+        </td>
+    </tr>
+	<tr>
+        <td>
+            VIP3会员：{$user['level3']}
+        </td>
+        <td>
+        </td>
+        <td>
+		挂卖NMCT通证：{$gm['gm_gs']}NMCT通证({$gm['count']}单)
+        </td>
+        <td>
+        </td>
+    </tr>
+	<tr>
+        <td>
+           VIP4会员：{$user['level4']}
+        </td>
+        <td>
+		
+        </td>
+        <td>
+		求购NMCT：{$gm['gs1']}NMCT通证({$gm['count1']}单)
+        </td>
+        <td>
+        </td>
+    </tr>
+	<tr>
+        <td>
+           VIP5会员：{$user['level5']}
+        </td>
+        <td>
+        </td>
+        <td>
+		NMCT交易成功：{$gm['gm_3']}NMCT通证({$gm['count3']}单)
+        </td>
+        <td>
+        </td>
+    </tr>
+	<tr>
+	</tr>
+  <tr>
+        <td>
+           赠送帐号：{$user['zs']}
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+    </tr>
+	<tr>
+	</tr>
+   <tr>
+        <td>
+           G1：{$user['g1']}
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+    </tr>
+	<tr>
+	</tr>
+   <tr>
+        <td>
+           G2：{$user['g2']}
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+    </tr>
+	<tr>
+	</tr>
+   <tr>
+        <td>
+          G3：{$user['g3']}
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+    </tr>
+	<tr>
+	</tr>
+</table>
+</body>
+</html> 

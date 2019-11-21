@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html style="background-color:#fff;">
+<head>
+    <meta charset="utf-8">
+    <title>{$title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+    <meta name="description" content="{$title}">
+    <link rel="stylesheet" href="__STATIC__/admin/plugins/layui/css/layui.css">
+    <link rel="stylesheet" href="__STATIC__/user/css/global.css">
+</head>
+       <style>
+			#js{
+				input[type=button], input[type=submit], input[type=file], button { cursor: pointer; -webkit-appearance: none; } ;
+				outline:0px; -webkit-appearance:none;
+			}
+	   </style>
+<body style="margin-top:0px;background-color:#FFF;">
+<div style="margin-bottom;border-radius:5px;">
+
+        <div class="three columns mobile-two" style="background-color:#d100b0;">
+
+			<p style="text-align:center;padding:10px;font-size:16px;font-weight:900;">
+				推广二维码
+			</p>
+        </div>
+		
+</div>
+<body style="margin-top:5%;background-color:#ebebeb;">
+<div style="width:90%;margin:auto;margin-bottom;border-radius:5px;">
+<div style="width:200px;margin:auto;margin-top:20%;">
+<div id="qrcode" style="display:none;"></div> 
+    <img id="download" download="qrcode.jpg">
+</div>
+<script type="text/javascript" src="__STATIC__/user/css/qr.js"></script> 
+<script type="text/javascript" src="__STATIC__/user/css/qr1.js"></script> 
+<script> 
+jQuery('#qrcode').qrcode({width: 200,height: 200,text: "http://www.runyuhui.com/user-login-reg-code-{$users['0']['user_id']}.html"}); 
+
+$(function() { 
+   var canvas = $('#qrcode').find("canvas").get(0); 
+   var url = canvas.toDataURL('image/jpeg'); 
+   $("#download").attr('src', url).get(0).click(); 
+ });
+</script>
+</div>
+<style>
+	#a4{
+		color:#fff;background-color:#ea2027;
+	}
+</style>
+{include file="common/footer"/}
+</body>
+</html>

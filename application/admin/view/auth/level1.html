@@ -1,0 +1,19 @@
+{include file="common/mainHead"/}
+<div class="admin-main fadeInUp animated">
+
+    <fieldset class="layui-elem-field">
+        <legend>代理</legend>
+    </fieldset>
+	<div style="margin-bottom;border-radius:5px;margin-bottom:160px;">
+
+	{volist name="xx" id="vo"}
+        <div style="background-color:#fff;width:auto;;line-height:30px;">
+		 {if $vo['status']==10 }<span style="color:red;">审核成功</span>
+			{$vo['name']}（{$vo['note']}）时间:{:date("Y-m-d",$vo['createtime'])}
+		{/if}
+		 </div>
+	{/volist}
+       
+</div>
+</div>
+{include file="common/mainFoot"/}

@@ -1,0 +1,371 @@
+{include file="common/mainHead"/}
+<style>
+	.green{
+		background-color:#ff4700;
+	}
+	.red{
+		background:#FFB800;
+	}
+</style>
+<div class="admin-main fadeInUp animated">
+    <!--<blockquote class="layui-elem-quote">
+        <form  class="layui-form">
+            <div class="layui-form-item search-input"  style="margin:0;">
+                <div class="layui-input-inline">
+                    <input type="text" name="key" id="key" class="layui-input" placeholder="{:lang('pleaseEnter')}关键字！">
+                </div>
+                <div class="layui-form-mid layui-word-aux" style="padding:0;">
+                    <button type="button" class="layui-btn" id="search">{:lang('search')}</button>
+                    <a href="{:url('check1')}" class="layui-btn">显示全部</a>
+                </div>
+            </div>
+        </form>
+    </blockquote> -->
+	<div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+		<blockquote class="layui-elem-quote layui-quote-nm">
+			NMCT最新价：<b style="color:red">{$nmct}</b>
+			
+			{if $system['jy']==1}
+            <a class="red" href="javascript:" onclick="return jy(0,'关闭c2c交易');">
+                <div id="zt">
+                    <button class="layui-btn layui-btn-warm layui-btn-mini">交易已开启（点击关闭）</button>
+                </div>
+            </a>
+            {else}
+            <a class="red" href="javascript:" onclick="return jy(1,'开启c2c交易');">
+                <div id="zt">
+                    <button class="layui-btn layui-btn-danger layui-btn-mini">交易已关闭（点击开启）</button>
+                </div>
+            </a>
+            {/if}
+			<p>
+				{volist name="$price" id="v"}
+					<b>NMCT{$v['rq']}：{$v['price']};</b>
+				{/volist}
+			</p>
+		</blockquote>
+	</div>
+	<table class="layui-table table-hover">
+        	<thead>
+					<tr>
+						<th>
+			<div class="layui-form-mid layui-word-aux" style="padding:0;">
+                 <a href="{:url('index')}?type=0" class="layui-btn {if $type==0}red{/if}">挂卖中</a>
+            </div>
+						</th>
+						<th>
+			<div class="layui-form-mid layui-word-aux" style="padding:0;">
+                 <a href="{:url('index')}?type=10" class="layui-btn {if $type==10}red{/if}">求购中</a>
+            </div>
+						</th>
+						<th>
+			<div class="layui-form-mid layui-word-aux" style="padding:0;">
+                 <a href="{:url('index')}?type=2" class="layui-btn {if $type==2}red{/if}">交易待完成</a>
+            </div>
+						</th>
+						<th>
+			<div class="layui-form-mid layui-word-aux type3" style="padding:0;">
+                 <a href="{:url('index')}?type=3" class="layui-btn {if $type==3}red{/if}">交易成功</a>
+            </div>
+						</th>
+						<th>
+			<div class="layui-form-mid layui-word-aux" style="padding:0;">
+                 <a href="{:url('sellbuy')}?type=0" class="layui-btn">发布挂卖</a>
+            </div>
+						</th>
+						<th>
+			<div class="layui-form-mid layui-word-aux" style="padding:0;">
+                 <a href="{:url('sellbuy')}?type=10" class="layui-btn">发布求购</a>
+            </div>
+						</th>
+					</tr>
+					<tr>
+						<th>NMCT:{$gm['gm_0']}，合计:{$gm['zg_0']}</th>
+						<th>NMCT:{$gm['gm_10']}，合计:{$gm['zg_10']}</th>
+						<th>NMCT:{$gm['gm_2']}，合计:{$gm['zg_2']}</th>
+						<th>NMCT:{$gm['gm_3']}，合计:{$gm['zg_3']}</th>
+					</tr>
+                </thead>
+		</table>
+    <fieldset class="layui-elem-field">
+        <legend>{$title}</legend>
+        <div class="layui-field-box table-responsive">
+            <table class="layui-table table-hover">
+                <thead>
+                <tr>
+                    <th><input type="checkbox" id="selected-all" onclick="$('input[name*=\'userId\']').prop('checked', this.checked);"></th>
+                    <th>编号</th>
+                    <th>卖方</th>
+                    <th>状态</th>
+                    <th>挂卖价格</th>
+                    <th>合计</th>
+					<th>收款信息</th>
+                    <th>买方</th>
+                    <th>付款信息</th>
+                    <th>时间</th>
+					<th>操作</th>
+                </tr>
+                </thead>
+                <!--内容容器-->
+                <tbody id="con">
+                </tbody>
+                <tfoot>
+                <tr>
+                <td colspan="2">
+				 <button type="button" class="layui-btn layui-btn-small" onclick="window.history.back();">{:lang('back')}</button>
+               <!--  <a href="{:url('index')}" class="layui-btn layui-btn-primary">{:lang('back')}</a> -->
+				</td>
+                    <td colspan="10">
+                        <!--分页容器-->
+                        <div id="paged" style="text-align: right"></div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </fieldset>
+</div>
+
+<!--模板-->
+<script type="text/html" id="conTemp">
+    {{# layui.each(d.list, function(index, item){ }}
+    <tr>
+        <td><input type="checkbox" name="userId[]" value="{{ item.user_id }}"></td>
+        <td>{{ item.id }}</td>
+		<td>
+		{{# if((item.status==0 ||item.status==1 ||item.status==2 || item.status==12 || item.status==11) && item.user_id==0){ }}
+		(系统操作)
+		{{# } }}
+		{{ item.nickname }}
+		</td>
+        <td>{{ item.zt }}（{{ item.gs }},冻结：{{ item.dj }}）</td>
+		<td>{{ item.jg }}</td>
+		<td>{{ item.zg }}</td>
+        <td>
+        {{# if((item.pay==0)){ }}
+		银行：{{ item.yhk }}<br>
+		银行卡号：{{ item.yhk_h }}<br>
+		开户名：{{ item.yhk_name }}<br>
+		{{# } }}
+		 {{# if((item.pay==1)){ }}
+		钱包地址：{{ item.token_address }}<br>
+		{{# } }}
+         {{# if((item.pay==2)){ }}
+		支付宝账号：{{ item.alipay }}<br>
+		{{# } }}
+		</td>
+		<td>
+		{{# if((item.status==2 || item.status==12 || item.status==10 || item.status==11) && item.buy_id==0){ }}
+		(系统操作)
+		{{# } }}
+		{{ item.buyname }}
+		</td>
+		<td> 
+		{{# if(item.img==0){ }}
+		 {{# }else{  }}
+				支付凭证：
+		<div id="layer-photos-demo{{ item.id }}" onclick="view({{ item.id }})">
+		  <img layer-pid="图片id，可以不写" layer-src="{{ item.img }}" src="{{ item.img }}" alt="{{ item.img }}" style="max-width: 70px;">
+		</div>
+		{{# } }}
+		</td>
+		<td>{{ getdate(item.time) }}</td>
+		<td>
+		{{# if(item.status==0){ }}
+			<a href="{:url('buy')}?id={{ item.id }}" class="layui-btn" style="height:26px;" title="购买">
+                <div id="zt{{ item.id }}">
+                    <button class="layui-btn">购买</button>
+                </div>
+            </a>
+			<button class="layui-btn" onclick="black({{ item.id }},{{ item.user_id }})">撤回</button>
+			{{# }else if(item.status==10){ }}
+			<a href="{:url('sell')}?id={{ item.id }}" class="layui-btn" style="height:26px;" title="卖出">
+                <div id="zt{{ item.id }}">
+                    <button class="layui-btn">卖出</button>
+                </div>
+            </a>
+            <button class="layui-btn" onclick="black({{ item.id }},{{ item.buy_id }})">撤回</button>
+			{{# }else if(item.status==12 && item.user_id==0){ }}
+			<a onclick="status12({{ item.id }})" class="layui-btn" style="height:26px;" title="卖出">
+                <div id="zt{{ item.id }}">
+                    <button class="layui-btn">{{item.zt}}</button>
+                </div>
+            </a>
+			{{# }else if((item.status==1 || item.status==11) && item.buy_id==0){ }}
+			<a class="red" href="{:url('buy')}?id={{ item.id }}" class="layui-btn layui-btn-warm layui-btn-mini" title="购买">
+                <div id="zt{{ item.id }}">
+                    <button class="layui-btn layui-btn-warm layui-btn-mini">系统待打款</button>
+                </div>
+            </a>
+            {{# }else if((item.status==1 || item.status==11)){ }}
+            {{item.zt}}
+			 <button class="layui-btn" onclick="black({{ item.id }},{{ item.buy_id }})">撤回</button>
+              {{# }else if((item.status==12 || item.status==2)){ }}
+            {{item.zt}}
+			 <button class="layui-btn" onclick="ok({{ item.id }},{{ item.buy_id }})">强制完成</button>
+			{{# }else{  }}
+				{{item.zt}}
+		{{# } }}
+		</td>
+    </tr>
+    {{# }); }}
+</script>
+{include file="common/mainFoot"/}
+<script>
+    layui.config({
+        base: '__ADMIN__/js/'
+    }).use(['paging', 'code','icheck','layer'], function() {
+        layui.code();
+        var paging = layui.paging(),layer = parent.layer === undefined ? layui.layer : parent.layer;
+        paging.init({
+            url: "", //地址
+            elem: '#con', //内容容器
+            params: {}, //发送到服务端的参数
+            tempElem: '#conTemp', //模块容器
+            pageConfig: { //分页参数配置
+                elem: 'paged', //分页容器
+                pageSize: 15 //分页大小
+            },
+            success: function() { //渲染成功的回调
+                //alert('渲染成功');
+            },
+            fail: function(msg) { //获取数据失败的回调
+                //alert('获取数据失败')
+            },
+            complate: function() { //完成的回调
+                //alert('处理完成');
+            }
+        });
+        //搜索
+        $('#search').on('click', function() {
+            var $this = $(this);
+            var key = $('#key').val();
+            if($.trim(key)=='') {
+                layer.msg('{:lang('pleaseEnter')}关键字！');
+                return;
+            }
+            //调用get方法获取数据
+            paging.get({
+                key: key //获取输入的关键字。
+            });
+        });
+    });
+	function jy(jy,title) {
+        layer.confirm(title, {icon: 6}, function (index) {
+            $.post('{:url("jy")}', {jy: jy}, function (data) {
+                    layer.msg(data.msg,{time:1000,icon:2});
+					history.go(0); 
+                    return false;
+            });
+            return false;
+      });
+    }
+  function ok(id,userid) {
+        layer.confirm('您确定强制完成该交易？', {icon: 3}, function (index) {
+            $.post('{:url("ok")}', {id: id,userid:userid}, function (data) {
+                if (data.status==1) {
+                    layer.msg(data.msg,{time:1000,icon:3});
+					history.go(0);
+                    return false;
+                }else{
+                    layer.msg(data.msg,{time:1000,icon:2});
+					history.go(0); 
+                    return false;
+                }
+            });
+            return false;
+      });
+    }
+	function black(id,userid) {
+        layer.confirm('您确定撤回？', {icon: 3}, function (index) {
+            $.post('{:url("black")}', {id: id,userid:userid}, function (data) {
+                if (data.status==1) {
+                    layer.msg(data.msg,{time:1000,icon:3});
+					history.go(0);
+                    return false;
+                }else{
+                    layer.msg(data.msg,{time:1000,icon:2});
+					history.go(0); 
+                    return false;
+                }
+            });
+            return false;
+      });
+    }
+    function view(id) {
+    	  layer.photos({
+            photos: '#layer-photos-demo'+id
+            ,closeBtn: 1
+            ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+          }); 
+    }
+    function stateyes(id,ok) {
+        var v=$("#zt"+id+' button').text();
+        var t='';
+         if (v=='未审核'||v=='审核不通过') {
+             t='你确定审核通过吗?';
+         }
+         if (v=='已审核'||v=='审核通过') {
+             t='你确定审核不通过吗?';
+         }
+        layer.confirm(t, {icon: 3}, function (index) {
+            $.post('{:url("editState")}', {id: id,ok:ok}, function (data) {
+                if (data.status) {
+                    if (data.info == '审核不通过') {
+                        var a = '<button class="layui-btn layui-btn-danger layui-btn-mini">审核不通过</button>'
+                        $('#zt' + id).html(a);
+                        layer.msg(data.info, {icon: 5});
+						alert('操作成功');
+						history.go(0); 
+                        return false;
+                    } else {
+                        var b = '<button class="layui-btn layui-btn-warm layui-btn-mini">审核通过</button>'
+                        $('#zt' + id).html(b);
+                        layer.msg(data.info, {icon: 6});
+						alert('操作成功');
+						history.go(0); 
+                        return false;
+                    }
+                }else{
+                    layer.msg(data.msg,{time:1000,icon:2});
+					history.go(0); 
+                    return false;
+                }
+            });
+            return false;
+      });
+    }
+
+    function del(id) {
+        layer.confirm('你确定要删除吗？', {icon: 3}, function (index) {
+            layer.close(index);
+            window.location.href = "{:url('check1del')}?id=" + id;
+        });
+    }
+    function delall() {
+        var ids = '';
+        $('input[name*=\'userId\']:checked').each(function (){
+            ids += $(this).val() + ',';
+        });
+        layer.confirm('确认要删除选中信息吗？', {icon: 3}, function(index){
+            $.post("{:url('delall')}", {ids:ids}, function (result) {
+                layer.alert(result.msg,{icon:6},function(){
+                    window.location.href = result.url;
+                });
+                return false;
+            });
+            layer.close(index);
+        })
+
+    }
+    function getdate(date){
+        var date = new Date(date*1000);//如果date为10位不需要乘1000
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+        var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+        var m = (date.getMinutes() <10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+        var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
+        return Y+M+D+h+m+s;
+    }
+</script>

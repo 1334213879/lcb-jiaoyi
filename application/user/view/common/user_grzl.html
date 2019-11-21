@@ -1,0 +1,256 @@
+<style>
+	.layui-tab-title{
+	width:100%;
+	}
+	.layui-tab-title>li{
+		color:#ffffff;width:25%;
+	}
+	.header_dh{
+	width:25%;height:35px;float:left;color:#fff;text-align:center;line-height:35px;
+	}
+	.layui-form-item{
+	margin-bottom:-19px;
+	}
+	.grzl_dhl{
+	width:25%;height:80px;float:left;
+	}
+	.grzl_dhl>div{
+	width:80px;height:80px;margin:auto;
+	}
+	.grzl_dhl>div>img{
+	width:80px;height:80px;text-align:center;
+	}
+	 .show1,.show2,.show3,.show4{width:100%; height:0px; overflow:hidden;}
+	 .layui-form-item>button{
+	 float:right;
+	 }
+</style>
+<script>
+	function grzl_dhl(id){
+	if($('.show'+id).height()==0){
+	$('.show'+id).siblings().css({height:'0px'});$('.layui-form').hide();$('.show'+id).show().css({height:'200px',transition:'all 0.5s'});
+	}else{
+	$('.show'+id).siblings().css({height:'0px'});$('.layui-form').hide();$('.show'+id).hide().css({height:'0px',transition:'all 0.5s'});
+	}
+	}
+</script>
+<div style="width:100%;height:80px;margin-top:20px;margin-bottom:20px;">
+		<div class="grzl_dhl"onclick="grzl_dhl(1)">
+			<div>
+				<img src="__HOME__/btb/grzl_1.png"/>
+			</div>
+		</div>
+		<div class="grzl_dhl" onclick="grzl_dhl(2)">
+		<div>
+				<img src="__HOME__/btb/grzl_2.png"/>
+			</div>
+		</div>
+		<div class="grzl_dhl"onclick="grzl_dhl(3)">
+			<div>
+				<img src="__HOME__/btb/grzl_3.png"/>
+			</div>
+		</div>
+		<div class="grzl_dhl"onclick="grzl_dhl(4)">
+			<div>
+				<img src="__HOME__/btb/grzl_4.png"/>
+			</div>
+		</div>
+	 </div>
+<div class="main fly-user-main layui-clear"style="width:100%;height:500px;">
+
+                <div class="layui-form layui-form-pane layui-tab-item show1" style="display:block;">
+                    <form method="post">
+                        <div class="layui-form-item">
+                            <label for="L_mobile" class="layui-form-label">帐号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="L_mobile" lay-verify="mobile" maxlength=20 value="{$user['mobile']}" class="layui-input" readonly="">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="L_username" class="layui-form-label">姓名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="L_username" name="xm" lay-verify="required" maxlength=5 value="{$user['xm']}" class="layui-input"onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')">
+                            </div>
+                        </div>
+						 <div class="layui-form-item">
+                            <label for="sfz" class="layui-form-label">身份证</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="sfz" name="sfz" lay-verify="required" maxlength=20 value="{$user['sfz']}" class="layui-input">
+                            </div>
+                        </div>
+						<div class="layui-form-item">
+                            <button class="layui-btn" key="set-mine" lay-filter="*" lay-submit>确认修改</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="layui-form layui-form-pane layui-tab-item show2">
+                    <form action="{:url('repass')}" method="post">
+                        <div class="layui-form-item">
+                            <label for="L_nowpass" class="layui-form-label">登陆密码</label>
+                            <div class="layui-input-inline">
+                                <input type="password" id="L_nowpass" name="nowpass" maxlength=20 lay-verify="required" placeholder="当前密码" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="L_pass" class="layui-form-label">新密码</label>
+                            <div class="layui-input-inline">
+                                <input type="password" id="L_pass" name="pass" maxlength=20 lay-verify="required" placeholder="6到16个字符" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="L_repass" class="layui-form-label">确认密码</label>
+                            <div class="layui-input-inline">
+                                <input type="password" id="L_repass" name="repass" maxlength=20 lay-verify="required" placeholder="确认密码" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <button style="margin:auto;" class="layui-btn" key="repass" lay-filter="*" lay-submit>提交</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="layui-form layui-form-pane layui-tab-item show3">
+                    <form action="{:url('aqmm')}" method="post">
+					{if $user['aqmm']==''}
+						<div class="layui-form-item">
+                            <label for="L_pass" class="layui-form-label">设置安全密码</label>
+                            <div class="layui-input-inline">
+                                <input type="password" onkeyup="value=value.replace(/[^\d]/g,'');" name="pass" lay-verify="required" maxlength='6' placeholder="设置安全密码（6位数字）" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="L_repass" class="layui-form-label">确认密码</label>
+                            <div class="layui-input-inline">
+                                <input type="password" name="repass" lay-verify="required" maxlength='6' placeholder="确认密码" class="layui-input">
+                            </div>
+                        </div>
+					{else}
+						<div class="layui-form-item">
+                            <label for="L_nowpass" class="layui-form-label">登录密码</label>
+                            <div class="layui-input-inline">
+                                <input type="password"onkeyup="value=value.replace(/[^\d]/g,'');" maxlength='6' name="nowpass" lay-verify="required" placeholder="登录密码" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="L_pass" class="layui-form-label">新安全密码</label>
+                            <div class="layui-input-inline">
+                                <input type="password" name="pass" lay-verify="required" maxlength='6' placeholder="6位数字" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="L_repass" class="layui-form-label">确认密码</label>
+                            <div class="layui-input-inline">
+                                <input type="password" name="repass" lay-verify="required" maxlength='6' placeholder="确认密码" class="layui-input">
+                            </div>
+                        </div>
+					{/if}
+                        <div class="layui-form-item">
+                            <button style="margin:auto;" class="layui-btn" key="repass" lay-filter="*" lay-submit>重置安全密码</button>
+                        </div>
+                    </form>
+                </div>
+          
+              <div class="layui-form layui-form-pane layui-tab-item show4">
+                     <form action="{:url('yhk')}" method="post">
+                        <div class="layui-form-item">
+                            <label for="L_nowpass" class="layui-form-label">所在银行</label>
+                            <div class="layui-input-inline">
+                                <!-- <input type="text"  name="yh" lay-verify="required" value="{$yz['yh']}" placeholder="所在银行" class="layui-input"> -->
+                                <?php if(empty($yz['yh'])) { $yz['yh'] = '请选择'; }?>
+								<select lay-filter="aihao" name="yh" id="yh" style="background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF));" class="layui-input">
+								<option value="{$yz['yh']}">{$yz['yh']}</option>
+								<option value="工商银行">工商银行</option>
+								<option value="农业银行">农业银行</option>
+								<option value="建设银行">建设银行</option>
+								<option value="中国银行">中国银行</option>
+								<option value="光大银行">光大银行</option>
+								<option value="中信实业银行">中信实业银行</option>
+								<option value="恒丰银行">恒丰银行</option>
+								<option value="广东发展银行">广东发展银行</option>
+								<option value="深圳发展银行">深圳发展银行</option>
+								<option value="兴业银行">兴业银行</option>
+								<option value="交通银行">交通银行</option>
+								<option value="民生银行">民生银行</option>
+								<option value="华夏银行">华夏银行</option>
+								<option value="上海浦东发展银行">上海浦东发展银行</option>
+								<option value="农村商业">农村商业</option>
+								<option value="邮政银行">邮政银行</option>
+							  </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="L_pass" class="layui-form-label">持卡姓名</label>
+                            <div class="layui-input-inline">
+                                <?php if(empty($yz['name'])) { $yz['name'] = ''; }?>
+                                <input type="text"  maxlength="5" name="name" lay-verify="required" value="{$yz['name']}"placeholder="持卡姓名" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="L_repass" class="layui-form-label">银行卡账号</label>
+                            <div class="layui-input-inline">
+                                <?php if(empty($yz['yhk'])) { $yz['yhk'] = ''; }?>
+                                <input type="text" maxlength="20" name="yhk" lay-verify="required" value="{$yz['yhk']}"placeholder="银行卡账号" class="layui-input"onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <button class="layui-btn" key="yz" lay-filter="*" lay-submit>确认修改</button>
+                        </div>
+                    </form>
+                </div>
+</div>
+<div>
+</div>
+<script src="__HOME__/js/jquery.min.js"></script>
+<script src="__STATIC__/user/layui/layui.js"></script>
+<!-- footer end here -->
+<script>
+    $('#noscript').remove();
+    jQuery(function($){
+        //external加上target="_blank"
+        $("a[rel*=external]").attr("target","_blank");
+    });
+</script>
+</body>
+</html>
+<script>
+    layui.use(['form', 'layer'], function () {
+        var form = layui.form(), layer = layui.layer;
+        form.on('select(province)', function (data) {
+            var pid = data.value;
+            $.get("{:url('getRegion')}?pid=" + pid, function (data) {
+                var html = '<option value="">请选择市</option>';
+                $.each(data, function (i, value) {
+                    html += '<option value="' + value.id + '">' + value.name + '</option>';
+                });
+                $('#city').html(html);
+                $('#district').html('<option value="">请选择县/区</option>');
+                form.render()
+            });
+        });
+        form.on('select(city)', function(data) {
+            var pid = data.value;
+            $.get("{:url('getRegion')}?pid=" + pid, function (data) {
+                var html='<option value="">请选择县/区</option>';
+                $.each(data, function (i, value) {
+                    html += '<option value="'+value.id+'">'+value.name+'</option>';
+                });
+                $('#district').html(html);
+                form.render()
+            });
+        });
+    });
+
+    layui.cache.page = 'user';
+    layui.cache.user = {
+        username: '游客'
+        ,uid: -1
+        ,avatar: '../../res/images/avatar/00.jpg'
+        ,experience: 83
+        ,sex: '男'
+    };
+    layui.config({
+        version: "2.0.0"
+        ,base: '__STATIC__/user/mods/'
+    }).extend({
+        fly: 'index'
+    }).use('fly');
+</script>

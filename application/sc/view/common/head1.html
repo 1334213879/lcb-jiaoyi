@@ -1,0 +1,45 @@
+{include file="common/loginHead"/}
+<style>
+	.head_p p{
+		line-height:14px;font-size:14px;
+	}
+</style>
+<div style="width:100%;height:100px;margin-top:10px;margin-bottom:10px;border-radius:5px;">
+	<div style="width:40%;float:left;">
+	<div style="border-radius: 50%;  border: 2px solid #1AA1E1;width:90px;height:90px;margin-left:20%;overflow:hidden;">
+		<img src="{if $userInfo.head_pic}{$userInfo.head_pic}{else}__HOME__/images/tx.png{/if}">
+	</div>
+	</div>
+	<div style="width:50%;float:left;"class="head_p">
+		<p style="padding:0px;margin-top:0px;">
+			姓名：{$userInfo.xm}
+		</p>
+		<p style="padding:0px;margin-top:0px;">
+			账号：{$userInfo.nickname}
+		</p>
+		<p style="padding:0px;">
+			金积分：{$userInfo.jf}
+		</p>
+		<p style="padding:0px;">
+			银积分：{if $userInfo.jf1}{$userInfo.jf1}{else}0{/if}
+		</p>
+		<p style="padding:0px;">
+			邀请码：{$userInfo.dwm}
+		</p>
+
+		<p style="padding:0px;">
+			职位：{if $userInfo.zwlevel==0}暂无{/if}
+					{if $userInfo.zwlevel==1}销售员{/if}
+					{if $userInfo.zwlevel==2}班子{/if}
+					{if $userInfo.zwlevel==3}组长{/if}
+					{if $userInfo.zwlevel==4}主管{/if}
+					{if $userInfo.zwlevel==5}主任{/if}
+					{if $userInfo.zwlevel==6}经理{/if}
+					{if $userInfo.zwlevel==7}副总{/if}
+					{if $userInfo.zwlevel==7}总经理{/if} <a class="layui-btn" href="{:url('index/logout')}"style="float:right">退出</a>
+		</p>
+		<p style="padding:0px;margin-top:0px;">
+			称号：村长
+		</p>
+	</div>
+</div>

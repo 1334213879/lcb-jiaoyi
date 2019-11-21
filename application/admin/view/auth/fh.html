@@ -1,0 +1,45 @@
+{include file="common/mainHead"/}
+<div class="admin-main fadeInUp animated">
+
+    <fieldset class="layui-elem-field">
+        <legend>商品兑换发货</legend>
+    </fieldset>
+
+	<div style="margin-bottom;border-radius:5px;margin-bottom:10px;margin-left:40px;">
+        <div style="background-color:#fff;width:auto;line-height:30px;">
+	收件人：{$vo['xm']}<br>
+	手机：{$vo['mobile']}<br>
+	地址：{$vo['dz']}<br>
+	{$vo['note']}<br>
+	时间:{:date("Y-m-d",$vo['createtime'])}
+        </div>
+</div>
+<form method="post" action="" style="width:100%;"enctype="multipart/form-data">
+        <div class="layui-form-item">
+            <label class="layui-form-label">快递公司</label>
+            <div class="layui-input-4">
+                <input type="text" name="kdgs" lay-verify="required" placeholder="快递公司" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">快递单号</label>
+            <div class="layui-input-4">
+                <input type="text" name="kddh" lay-verify="required" placeholder="快递单号" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+				<input value="提交" type="submit" class="layui-btn">
+                <a href="{:url('goods_order')}" class="layui-btn layui-btn-primary">{:lang('back')}</a>
+            </div>
+        </div>
+</form>
+</div>
+{include file="common/mainFoot"/}
+<!-- <script>
+    function list(id) {
+            $.post("{:url('ty')}", {id:id}, function (result) {
+            	 alert('成功');history.go(0); 
+            });
+    }
+</script> -->

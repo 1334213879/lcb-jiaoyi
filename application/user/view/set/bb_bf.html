@@ -1,0 +1,618 @@
+{include file="common/head"/}
+<link rel="stylesheet" href="__STATIC__/xmt/css/pages/wallet-index.css">
+<script src="__STATIC__/xmt/js/mathlib-min.js"></script>
+<script src="__STATIC__/xmt/js/k3d-min.js"></script>
+<script src="__STATIC__/xmt/js/radiation.js"></script>
+<link rel="stylesheet" href="__STATIC__/xmt/css/style.css">
+<body>
+ <div class="page-group">
+    <div class="page page-current">
+	<header class="bar bar-nav">
+		<h3>我的钱包</h3>
+	</header>
+<div class="content">
+<!-- 选项卡 -->
+  <div class="buttons-tab">
+    <a href="#tab1" class="tab-link  button"><i></i>NMCT</a>
+    <a href="#tab2" class="tab-link button active"><i></i>USDT</a>
+  </div>
+
+  <div class="content-block" style="padding:0">
+    <div class="tabs">
+
+	<!-- TAB1 -->
+      <div id="tab1" class="tab">
+        <div class="content-block" style="padding: 0">         	
+        	
+        	<!-- 红包 -->
+        	<div class="qd" style="width: 96%;margin:10px auto" v-if="user.hongbao>0">
+        		<img src="__STATIC__/xmt/images/hb.gif" alt="" style="width: 100%"  @click='getData(1)'>
+        	</div>
+		<!-- 红包end -->
+        	<div class="wallet-function">
+				<a class="open-popup" style="font-size: 12px;" data-popup=".popup-transfer"><i><img src="__STATIC__/xmt/images/i-icon1.png" alt=""></i>NMCT复投</a>
+				<a class="open-popup" style="font-size: 12px;"data-popup=".popup-xmt"><i><img src="__STATIC__/xmt/images/i-icon2.png" alt=""></i>NMCT转XMT</a>
+				<a class="open-popup" style="font-size: 12px;"data-popup=".popup-xmt_zc"><i><img src="__STATIC__/xmt/images/i-icon3.png" alt=""></i>XMT转出</a>
+			</div>
+        <!-- XMT钱包 -->
+		<!-- 价格、资产 -->
+		<div class="list-zc">
+			<ul>
+				<li><i><img src="__STATIC__/xmt/images/fcon1.png" alt=""></i><span>NMCT当前价格 :{{system.money_nmct}}$</span></li>
+				<li><i><img src="__STATIC__/xmt/images/fcon2.png" alt=""></i><span>XMT当前价格 :{{system.money_xmt}}$</span></li>
+				<li><i><img src="__STATIC__/xmt/images/fcon3.png" alt=""></i><span>XMT通证:{{user.xmt}}</span></li>
+				<li><i><img src="__STATIC__/xmt/images/fcon4.png" alt=""></i><span>NMCT资产:{{user.nmct_dj}}</span></li>
+				<li><i><img src="__STATIC__/xmt/images/fcon5.png" alt=""></i><span>NMCT通证:{{user.nmct}}</span></li>
+				<li style="border: none;overflow: hidden;width:100%;height:36px;" v-if="user.token_address">
+					<div style="float:left;">钱包地址:</div>
+					<div onclick="copy(49)" style="display: inline-block;float:right;float:right">复制地址</div>
+					<div style="width:206px;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 1;overflow: hidden;display:block;">{{user.token_address}}...</div>
+				</li>
+				<div id="qbdz49" oncopy="myFunction()" style=" position: absolute;right: -1000;top: -1000;opacity: 0;z-index:-100">{{user.token_address}}</div>
+			</ul>
+		</div>
+		<!-- 价格、资产end -->
+       <!-- 记录 -->
+		 <div class="content-block1 record" style="margin: 0;padding: 0 1rem;color: #6d6d72;">
+			 <h2>NMCT记录</h2>
+			 <ul class="record-list">
+			 	<li v-for="a in list" v-if="a.nmct!=0 || a.nmct_dj!=0 || a.xmt!=0">
+					<p class="source" style="width:100%">
+						<span class="money-num">
+							<span v-if="a.nmct!=0">{{a.nmct|int_}}NMCT通证</span>
+							<span v-if="a.xmt!=0">{{a.xmt|int_}}XMT通证</span>
+							<span v-if="a.nmct_dj!=0">{{a.nmct_dj|int_}}NMCT资产</span>
+						</span>
+
+					</p>
+					<p class="source">
+						<span>{{a.title}}</span>
+						<BR>
+						<span style="width:14px;">{{a.time|timestampToTime}}</span>
+					</p>
+			 	</li>
+			 		
+			 </ul>
+		 </div>
+
+        </div>
+      </div>
+      <!-- TAB1 end -->
+
+      <!-- TABS3 -->
+      <div id="tab2" class="tab active">
+        <div class="content-block" style="padding:0;background:#fff;">
+
+         <div class="card">
+		    <div class="card-content">
+		      <div class="card-content-inner">
+				<p>USDT账户</p>	
+				<div class="xmtt-acc">			
+					<h3>${{user.money_usdt}}</h3>
+					<p>USDT ACCOUNT</p>
+				</div>				
+		      </div>		      
+		    </div>		  	   
+		  </div>
+      
+        
+        <div class="wallet-function">
+			<a class="open-popup" data-popup=".popup-cz">
+			<i><img src="__STATIC__/xmt/images/charge.png" alt=""/></i>
+			充值
+		</a>
+			<a class="open-popup jh_code" data-popup=".popup-jh">
+				<i><img src="__STATIC__/xmt/images/active.png" alt=""></i>
+			激活码
+		</a>
+			<!-- <a class="open-popup" data-popup=".popup-usdt">转至NMCT资产</a> -->
+			<a class="open-popup" data-popup=".popup-level">
+				<i><img src="__STATIC__/xmt/images/vip.png" alt=""></i>
+			VIP
+		</a>
+		</div>
+
+		<div class="content-block1" style="margin: 0;padding: 0 1rem;color: #6d6d72;">
+			 <h2>USDT记录</h2>
+			 <ul class="record-list">
+			 	<li v-for="a in list" v-if="a.usdt!=0 || a.type==5">
+					<p class="source" style="width:100%">
+						<span class="money-num">
+							<span v-if="a.usdt!=0">{{a.usdt|int_}}USDT</span>
+						</span>
+					</p>
+					<p class="source">
+						<span>{{a.title}}</span>
+						<BR>
+						<span style="width:14px;">{{a.time|timestampToTime}}</span>
+					</p>
+			 	</li>
+			 </ul>
+		</div>
+
+	  </div>
+
+
+    </div>
+    <!-- TABS3 END -->
+
+    </div>
+    <!-- TABS END -->   
+
+  </div>
+  <!-- content-block END -->
+
+  <div class="popup zc popup-jh">	
+	<div class="buttons-tab" style="top:6vh;">
+		<a href="#cz_1" class="tab-link active button">购买激活码</a>
+		<a href="#cz_2" class="tab-link button">我的激活码</a>
+		<a href="#cz_3" v-if="user.pass==0" class="tab-link button">激活帐号</a>
+	</div>
+	<div class="content-block" style="padding-top:2rem">
+		<div class="tabs">
+			<div id="cz_1" class="tab active">
+				<div class="trans-info">
+					<div class="trans-pic">
+						<img src="__STATIC__/xmt/images/transfer.png" alt="">
+					</div>
+					<p>购买激活码（10USDT一枚）</p>
+					<span>请输入购买数量：</span>
+					<input type="number" id="jh_1" class="trans-num" />
+				</div>
+				<div class="btns">
+					<a class="close-popup cancel">取消</a>
+					<a @click="zc_(4);" class="confirm">确定购买</a>
+				</div>
+			</div>
+			<div id="cz_2" class="tab">
+				<p v-for="(a,i) in code">
+					激活码：{{a.code}}
+					<span style="float:right" v-if="a.status==0">已使用</span>
+					<span style="float:right" v-else>未使用</span>
+				</p>
+			</div>
+			<div id="cz_3" class="tab">
+				<div class="trans-info">
+					<div class="trans-pic">
+						<img src="__STATIC__/xmt/images/transfer.png" alt=""/>
+					</div>
+					<p>激活帐号</p>
+					<span>请输入激活码：</span>
+					<input type="text" id="jh_2" class="trans-num" />
+				</div>
+				<div class="btns">
+					<a class="close-popup cancel">取消</a>
+					<a @click="zc_(5);" class="confirm">确定激活</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+  <div class="popup zc popup-transfer">
+	<header class="bar bar-nav">
+		<h3>NMCT通证复投</h3>
+	</header>
+	<div class="trans-info">
+		<div class="trans-pic">
+			<img src="__STATIC__/xmt/images/transfer.png" alt="">
+		</div>
+		<p>NMCT通证复投NMCT资产</p>
+		<span>请输入复投数量：</span>
+		<input type="number" id="nmct" class="trans-num" />
+	</div>
+	<div class="btns">
+		<a class="close-popup cancel">取消</a>
+		<a @click="zc_(0);" class="confirm">确定复投</a>
+	</div>
+</div>
+
+
+
+
+<div class="popup zc popup-usdt">
+	<header class="bar bar-nav">
+		<h3>USDT转至NMCT资产</h3>
+	</header>
+	<div class="trans-info">
+		<div class="trans-pic">
+			<img src="__STATIC__/xmt/images/transfer.png" alt="">
+		</div>
+		<p>将从USDT账户转至NMCT资产账户</p>
+		<span>请输入转出数量：</span>
+		<input type="number" id="usdt" class="trans-num"/>
+	</div>
+	<div class="btns">
+		<a class="close-popup cancel">取消</a>
+		<a @click="zc_(1);" class="confirm">确定转出</a>
+	</div>
+</div>
+
+
+
+
+<div class="popup zc popup-level">
+	<header class="bar bar-nav">
+		<h3>升级VIP</h3>
+	</header>
+	<div class="trans-info">
+		<div class="trans-pic">
+			<img src="__STATIC__/xmt/images/transfer.png" alt=""/>
+		</div>
+		<p>当前级别VIP{{user.level-1}}</p>
+		<span>请选择升级VIP：</span>
+		 <select name="level" v-model='level_'>
+			<option v-for="a in level" v-bind:value="a.level_id">{{a.level_name}}（{{a.money}}USDT）</option>
+		</select>
+	</div>
+	<div class="btns">
+		<a class="close-popup cancel">取消</a>
+		<a @click="zc_(6);" class="confirm">确定转出</a>
+	</div>
+</div>
+
+
+
+
+<div class="popup zc popup-xmt_zc">
+	<header class="bar bar-nav">
+		<h3>转出XMT通证</h3>
+	</header>
+	<div class="trans-info">
+		<div class="trans-pic">
+			<img src="__STATIC__/xmt/images/transfer.png" alt="">
+		</div>
+		<p>转出XMT通证</p>
+		<span>转出ID或手机号：</span>
+		<input type="number" id="xmt_p" class="trans-num" />
+		<p>
+		<span>转出XMT通证数：</span>
+		<input type="number" id="xmt_num" class="trans-num" />
+		</p>
+	</div>
+	<div class="btns">
+		<a class="close-popup cancel">取消</a>
+		<a @click="zc_(7);" class="confirm">确定转出</a>
+	</div>
+</div>
+
+
+
+
+<div class="popup zc popup-xmt">
+	<header class="bar bar-nav">
+		<h3>NMCT通证转XMT通证</h3>
+	</header>
+	<div class="trans-info">
+		<div class="trans-pic">
+			<img src="__STATIC__/xmt/images/transfer.png" alt="">
+		</div>
+		<p>NMCT通证转XMT通证</p>
+		<span>请输入转投数量：</span>
+		<input type="number" id="xmt" class="trans-num" />
+	</div>
+	<div class="btns">
+		<a class="close-popup cancel">取消</a>
+		<a @click="zc_(2);" class="confirm">确定转投</a>
+	</div>
+</div>
+
+
+
+
+<div class="popup zc popup-cz">
+	<header class="bar bar-nav">
+		<h3>充值USDT</h3>
+	</header>
+	<div class="trans-info">
+		<div class="trans-pic">
+			<img src="__STATIC__/xmt/images/transfer.png" alt="">
+		</div>
+		<p>汇入USDT钱包地址：</p>
+		<p id="qbdz50" oncopy="myFunction()">{{system.usdt_addres}}</p>
+		<div onclick="copy(50)" class='cope'>复制地址</div>
+		<p><span>充值数量：</span>
+		<input type="number" id="money_usdt" class="trans-num"/>
+		</p>
+		<a href="javascript:;" class="a-upload">
+			<input type="file" name='file-avatar' id='file-avatar' @change="upload()" accept='image/*'/>点击这里上传打款凭证
+		</a>
+		<div v-if="img" onclick="$('#ck_img').show();" class='cope'>查看凭证</div>
+		<img v-bind:src="img" id="ck_img" style='width:100%;display:none;z-index:22;position: fixed;top:0;left:0' onclick="$(this).hide()"/>
+	</div>
+	<div class="btns">
+		<a class="close-popup cancel">取消</a>
+		<a @click="zc_(3);" class="confirm">确定充值</a>
+	</div>
+</div>
+
+<!-- xmt账户转出到usdt弹出页end -->
+
+<p style="width:100%;height:50px;"></p>
+
+
+</div>
+
+
+</div>
+
+<canvas id="canvas" style="position: relative; background-color: #fed261;display:none;"></canvas>
+<div class="container" id="container"style="display:none;">
+	<div class="RedBox">
+		<div class="topcontent">
+			<h2 class="bounceInDown" style="padding-top:40px;">恭喜你领取红包成功！</h2>
+			<span class="text flash" style="font-size:14px;padding-top:40px;"><b>+{{hongbao}}</b><br>NMCT通证</span>
+			<div class="description1 flipInX" style="margin-top:130px;" onclick="location.href='/user/index/my.html#page-hongbao';">查看红包记录</div>
+			<div class="description2" @click="getData(0);$('#canvas').hide();$('#container').hide();$('.page').show();">关闭</div>
+		</div>
+	</div>
+</div>
+</div>
+<style>
+  .bar-nav h3{ 
+  	font-weight:400;
+    font-size:16px;
+    font-family:"Microsoft Yahei";
+  }
+  .buttons-tab .button{
+  	line-height:2.8rem;
+    height:2.8rem;
+  }
+.a-upload {
+	margin-top:20px;
+    line-height: 35px;
+    position: relative;
+    cursor: pointer;
+    color: #888;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    padding: .5rem 1rem;
+}
+.a-upload  input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer
+}
+.tabs{
+	margin-top: 1rem;
+}
+.a-upload:hover {
+    color: #444;
+    background: #eee;
+    border-color: #ccc;
+    text-decoration: none
+}
+	#cz_2>p{
+		width:90%;margin:auto;line-height:35px;
+	}
+	.cope{
+		width:150px;height:40px;line-height:40px;background:#30a73f;border-radius:5px;color:#fff;margin:1rem auto;
+	}
+	.hongbao{
+		width:100%;height:100%;background:#484c56;opacity: 0.9;z-index:20;position: fixed;top:0;left:0
+	}
+	.popup_dk{
+		width:70%;height:280px;z-index:22;position: fixed;top:18%;left:15%;border-radius:10px;
+	}
+	.popup_xs{
+		width:80%;height:300px;font-size:14px;background:#bdbdbd;opacity: 0.3;z-index:22;position: fixed;top:20%;left:10%;border-radius:10px;
+	}
+	.popup_dk_div{
+		width:100%;height:40px;padding-top:25px;letter-spacing :3px;
+	}
+	.popup_dk_div>div{
+		width:100%;height:80px;margin-top:30px;
+	}
+	.popup_dk_div>div>div{
+		width:80px;height:80px;border-radius:80px;line-height:80px;background:#f7ef91;text-align:center;margin:auto;
+	}
+	.popup_dk_div>p{
+		color:#fff;text-align:center;line-height:40px;font-weight:600;
+	}
+	.qddk{
+	width:100%;letter-spacing:5px;height:50px;margin-top:250px;text-align:center;font-size:16px;line-height:50px;color:red;font-weight:600;background:#c3c1c1;border-radius:0 0 10px 10px
+	}
+	.buttons-tab>a.tab-link:first-child>i{
+		background: url('__STATIC__/xmt/images/ncon-2.png') center no-repeat;
+		background-size: 100%;
+	}
+	.buttons-tab>a.tab-link:last-child>i{
+		background: url('__STATIC__/xmt/images/ncon-4.png') center no-repeat;
+		background-size: 100%;
+	}
+	.buttons-tab>a.tab-link:first-child.active>i{
+		background: url('__STATIC__/xmt/images/ncon-1.png') center no-repeat;
+		background-size: 100%;
+	}
+	.buttons-tab>a.tab-link:last-child.active>i{
+		background: url('__STATIC__/xmt/images/ncon-3.png') center no-repeat;
+		background-size: 100%;
+	}
+	.buttons-tab>a.tab-link.active{
+		border-bottom: solid 2px #4573ee;
+	}
+	.buttons-tab>a.tab-link>i{
+		display: inline-block;
+		width: 2rem;
+		height: 2rem;
+		vertical-align: middle;
+	}
+	.adpic{
+		width: 96%;
+		margin:1rem auto;
+	}
+	.adpic img{
+		width: 100%;
+	}
+	body,.page,.page-group{
+		background: #fff;
+	}
+</style>
+
+<script>
+parent.$('#dhl').show();
+function copy(id)
+	{
+	var id = "qbdz"+id;
+        const range = document.createRange();
+        range.selectNode(document.getElementById(id));
+        const selection = window.getSelection();//选择
+        if(selection.rangeCount > 0) selection.removeAllRanges();
+        selection.addRange(range);
+        document.execCommand('copy');
+		wboos.toast('复制成功');
+	}
+var app = new Vue({
+  el: '.page-group',
+  data: {
+	img:'',
+	user:'',
+	list:'',
+	code:'',
+	level:'',
+	hongbao:'',
+	level_:'',
+	xmtt:'',
+	usdt:'',
+	system:'',
+	image:{
+        url:'',
+        value:'请上传付款凭证',
+        background:'background:#fff;',
+      },
+  },
+  filters: {
+   timestampToTime(timestamp) {
+		        var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+		        Y = date.getFullYear() + '-';
+		        M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+		        D = date.getDate() + ' ';
+		        h = date.getHours() + ':';
+		        m = date.getMinutes() + ':';
+		        s = date.getSeconds();
+		        return Y+M+D+h+m+s;
+	   		 },
+		  int_(i){
+			if(i>0){
+				return '+'+i;
+			}else if(i<0){
+				return i;
+			}
+		},
+	  numFilter(value) {
+	     var toFixedNum = Number(value).toFixed(3);
+		  var realVal = toFixedNum.substring(0, toFixedNum.toString().length - 1);
+		  return realVal;
+	  },
+  },
+  methods: {
+	getData(type){
+		this.$http.post('/user/mode/bb.html',{type:type}).then(function (res){
+			var i = res.body;
+			if(type==1){
+				var audio = new Audio("__HOME__/kq/mp3.mp3");//播放mp3
+				audio.play();
+				this.hongbao=i.hongbao;
+				$('.page').hide();
+				$('#canvas').show();$('#container').show();
+					var oOpen = document.getElementById("open");
+					var oClose = document.getElementById("open");
+					var oContainer = document.getElementById("container");
+					oChai.onclick = function (){
+						oChai.setAttribute("class", "rotate");
+					};
+			}
+			this.user=i.user;
+			this.level=i.level;
+			this.list=i.list;
+			this.code=i.code;
+			this.xmtt=i.xmtt;
+			this.system = i.system;
+			this.usdt=i.usdt;
+			if(type>0){
+				this.user.hongbao = 0;
+				wboos.toast('领取成功！');
+			}
+			if(i.user.pass==0){
+				wboos.toast('帐号未激活，请激活帐号！');
+				$('.jh_code').click();
+			}
+		})
+	},
+	upload(){
+			wboos.toast('打款凭证上传中');
+			var formData = new FormData();
+			formData.append("file", $(this.$el).find('#file-avatar')[0].files[0]);
+			this.$http.post(wboos.url('user/index/upload'),formData,{
+			method: 'post',
+			headers: {'Content-Type': 'multipart/form-data'},
+			withCredentials: true,
+			}).then(function (res) {
+				wboos.toast(res.body.info);
+				this.img = res.body.url;
+				//this.$set(this.pay, 'img',res.body.url);
+			}).catch(function(error){
+				console.log(error);
+			})
+	},
+	zc_(type){
+		var img = this.img;
+		var user = '';
+		if(type==0){
+			var number = $('#nmct').val();
+			if($('#nmct').val()==0 || $('#nmct').val()%100!==0 || $('#nmct').val()<99){
+				wboos.toast('复投100的倍数起');return;
+			}
+		}else if(type==1){
+			var number = $('#usdt').val();
+		}else if(type==2){
+			var number = $('#xmt').val();
+		}else if(type==3){
+			var number = $('#money_usdt').val();
+		}else if(type==4){
+			var number = $('#jh_1').val();
+		}else if(type==5){
+			var number = $('#jh_2').val();
+		}else if(type==6){
+			var number = this.level_;
+		}else if(type==7){
+			var number = $('#xmt_num').val();
+			var user = $('#xmt_p').val();
+		}
+		wboos.confirm('确定要提交?', function () {
+                        wboos.httpRequest({
+                            url: '/user/mode/zc.html',
+                            type: 'post',
+                            data: {type:type,number:number,img:img,user:user},
+                            success: function(i){
+                                if(i.status==0){
+									wboos.toast(i.msg);
+								}else{
+									wboos.toast(i.msg);
+									$('.cancel').click();
+									app.getData();
+								}
+                            }
+                        });
+                    });
+	},
+  },
+  created:function (){
+	this.getData(0);
+  },
+})
+</script>
+</body>
+</html>

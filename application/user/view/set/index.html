@@ -1,0 +1,413 @@
+{include file="common/head"/}
+<link rel="stylesheet" href="__STATIC__/xmt/css/pages/grzx.css">
+ <style type="text/css">
+.u-pic{
+	position:relative;
+	float: left;
+	width: 20%;
+	overflow: hidden;
+}
+.u-pic img{
+	max-width: 100%;
+}
+.username{
+	color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    float: left;
+    margin-top: 15px;
+    margin-left: 1rem;
+    }
+.username span{
+	display: block;
+}
+.user-info {
+  	display: block;
+    font-size: .5rem;
+    position: absolute;
+    right:-1rem;
+    top:42%;
+    background: #fff;
+    width: 5rem;
+    border-radius:1rem;
+    text-align: center;
+    line-height: 1.2rem;
+  	color:#00a6dd;
+}
+p.tz {
+    display: block;
+ 	color: #fff;
+    font-weight: bold;
+    font-size: .8rem;
+}
+p.tz>i{
+	display:block;
+ 	font-style: normal;
+    color: #fff;
+    font-weight: bold;
+    font-size: .7rem;
+}
+.tz_box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+ 	margin-top: 1rem;
+}
+.record{
+	position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1rem .5rem;
+    width: 90%;
+    margin: -1.5rem 5% 0;
+    background: url(__STATIC__/xmt/images/navbgg.png) center center no-repeat;
+    background-size: 100% 100%;
+ }
+.record>div.row1{
+	display: flex;
+	justify-content: space-around;
+	line-height: 3;
+}
+.record>div.row1>a{
+	font-size: 14px;
+	text-align: center;
+}
+.record>div.row1>a>i{
+	display: block;
+	width: 2rem;
+	position: relative;
+	height: 1.8rem;
+	margin: 0 auto;
+}
+.record>div.row1>a>i>img{
+	width: 100%;
+}
+.record-list li{
+	padding:.5rem 1rem;
+	font-size: 14px;
+	border-bottom: solid 1px #eee;
+}
+p.source{
+	display: block;
+	overflow: hidden;
+}
+p.source>span{
+	display: inline-block;
+}
+p.source>span:first-child{
+	float: left;
+}
+p.source>span:nth-child(2){
+	float: right;
+}
+.list-block ul:before{
+	display: none;
+}
+span.money-num{
+	font-weight: bold;
+}
+  a.icon{
+    position: absolute!important;
+    left: 1rem;
+    top: .6rem;
+    width: 1rem;
+    height: 1rem;
+    color: #fff;
+    background: url(__STATIC__/xmt/images/arrow_l_b.png) center center no-repeat;
+    background-size: 100%;
+        }
+.trans-info{
+	text-align: center;
+    margin-top: 3rem;
+}
+.trans-pic{
+	width: 20%;
+    margin: 0 auto;
+}
+.trans-pic img{
+	width: 100%;
+}
+.trans-info p,.trans-info span{
+	font-size: 14px;
+}
+.btns{
+	text-align: center;
+	margin-top: 1rem;
+}
+.btns a{
+	background: #0894ec;
+    line-height: 2;
+    width: 120px;
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+}
+ </style>
+
+<body>
+ <div class="page-group">
+    <div class="page page-current" id="router">
+	<header class="bar bar-nav">
+		<h3>{:lang('我的')}</h3>
+	  <i onclick="location.href='{:url('user/index/my')}'"></i>
+	</header>
+
+<div class="content" style="background: #fff;">	
+	<!-- 上面卡片 -->
+	<div class="content-block" style="padding:0;background: #fff;">
+		<div class="card">
+			<div class="card-content">
+				<div class="card-content-inner">
+					<div class="u-pic">
+                      <img v-bind:src="setDefaultImg(user.head_pic)" onerror="javascript:this.src='__STATIC__/xmt/images/avatar.png';"/>
+                    </div>
+
+                   <div class="username">
+                   	<span>{:lang('欢迎')}，{{user.nickname}}</span>
+                   	<span>{:lang('会员ID')}:{{user.user_id}}</span>
+                   </div>
+
+                   <div class="user-info">
+                   	<span>V{{user.level-1}}{:lang('会员')}</span>
+                    <span v-if="user.g>0">G{{user.g}}</span>
+                   </div>
+	                <div class="user-info" style="top: 23%;right: -1.2rem;">
+	                   	<span data-popup=".popup-level" class="open-popup">{:lang('升级')}</span>
+	               	</div>                  	
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 上面卡片end -->
+	<div class="record">
+		<div class="row1">
+			<a class="" href="#page-nmct-record"><i><img src="__STATIC__/xmt/images/record1.png" alt=""></i>{:lang('NMCT记录')}</a>
+			<a href="#page-usdt-record"><i><img src="__STATIC__/xmt/images/record2.png" alt=""></i>{:lang('USDT记录')}</a>
+			<a data-popup=".popup-jh" class="open-popup jh_code"><i><img src="__STATIC__/xmt/images/active_icon.png" alt=""></i>{:lang('激活')}</a>
+		</div>
+	</div>	
+	<!-- account -->
+	<div class="content-block account" style="background: #fff;">
+		<ul class="do-list">	
+		{volist name="yy" id="a"}
+		<li class="col-25">
+		<a href="{$a['url']}">	      
+		<i><img src="{$a['pic']}" alt=""/></i><p style="text-align:center;color: #666">{$a['name']}</p>	      
+		</a>
+		</li> 
+	    {/volist}
+	    </ul>
+	</div>
+	<!-- account -->	
+
+
+<!-- 激活 -->
+<div class="popup zc popup-jh">	
+	<div class="buttons-tab" >
+		<a href="#cz_1" class="tab-link active button">{:lang('购买激活码')}</a>
+		<a href="#cz_2" class="tab-link button">{:lang('我的激活码')}</a>
+		<a href="#cz_3" v-if="user.pass==0" class="tab-link button">{:lang('激活帐号')}</a>
+	</div>
+	<div class="content-block">
+		<div class="tabs">
+
+			<div id="cz_1" class="tab active">
+				<div class="trans-info" style="margin-top:1rem">
+					<div class="trans-pic">
+						<img src="__STATIC__/xmt/images/transfer.png" alt="">
+					</div>
+					<p>{:lang('购买激活码（10USDT一枚）')}</p>
+					<span>{:lang('请输入购买数量')}：</span>
+					<input type="number" id="jh_1" class="trans-num" />
+				</div>
+				<div class="btns">
+					<a class="close-popup cancel">{:lang('取消')}</a>
+					<a @click="zc_(4);" class="confirm">{:lang('确定购买')}</a>
+				</div>
+			</div>
+
+			<div id="cz_2" class="tab">
+				<p v-for="(a,i) in code">
+					{:lang('激活码')}：{{a.code}}
+					<span style="float:right" v-if="a.status==0">{:lang('已使用')}</span>
+					<span style="float:right" v-else>{:lang('未使用')}</span>
+				</p>
+			</div>
+
+			<div id="cz_3" class="tab">
+				<div class="trans-info">
+					<div class="trans-pic">
+						<img src="__STATIC__/xmt/images/transfer.png" alt=""/>
+					</div>
+					<p>{:lang('激活帐号')}</p>
+					<span>{:lang('请输入激活码')}：</span>
+					<input type="text" id="jh_2" class="trans-num" />
+				</div>
+				<div class="btns">
+					<a class="close-popup cancel">{:lang('取消')}</a>
+					<a @click="zc_(5);" class="confirm">{:lang('确定激活')}</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- 激活 -->
+
+
+<!-- 升级VIP -->
+<div class="popup zc popup-level">
+	<header class="bar bar-nav">
+		<a class="icon close-popup"s></a>
+		<h3>{:lang('升级VIP')}</h3>
+	</header>
+	<div class="trans-info">
+		<div class="trans-pic">
+			<img src="__STATIC__/xmt/images/transfer.png" alt=""/>
+		</div>
+		<p>{:lang('当前级别VIP')}{{user.level-1}}</p>
+		<span>{:lang('请选择升级VIP')}：</span>
+		 <select name="level" v-model='level_'>
+			<option v-for="a in level" v-bind:value="a.level_id">{{a.level_name}}（{{a.money}}USDT）</option>
+		</select>
+	</div>
+	<div class="btns">
+		<a class="close-popup cancel">{:lang('取消')}</a>
+		<a @click="zc_(6);" class="confirm">{:lang('确定转出')}</a>
+	</div>
+</div>
+<!-- 升级VIP END -->
+</div>
+<!-- content 结束 -->
+</div>
+<!-- page 结束 -->
+
+
+<div class="page" id="page-nmct-record">
+<!-- nmct记录页面 -->
+	<header class="bar bar-nav">
+	    <a class="icon pull-left back close-popup"></a>
+	    <h1 class="title">{:lang('NMCT记录')}</h1>
+	</header>
+	<div class="content-block" style="padding: 1px 0.5rem 2rem;">
+		<div class="list-block" style="">
+			<ul class="record-list">
+			 	<li v-for="a in list" v-if="a.nmct!=0 || a.nmct_dj!=0 || a.xmt!=0">
+					<p class="source" style="width:100%">
+						<span class="money-num">
+							<span v-if="a.nmct!=0">{{a.nmct|int_}}{:lang('NMCT通证')}</span>
+							<span v-if="a.xmt!=0">{{a.xmt|int_}}{:lang('XMT通证')}</span>
+							<span v-if="a.nmct_dj!=0">{{a.nmct_dj|int_}}{:lang('NMCT资产')}</span>
+						</span>
+					</p>
+					<p class="source">
+						<span>{{a.title}}</span><br>
+						<span style="width:14px;">{{a.time|timestampToTime}}</span>
+					</p>
+			 	</li> 		
+			 </ul>
+	 	</div>
+	 </div>
+<!-- nmct记录页面end-->
+</div>
+
+<div id="page-usdt-record" class="page">
+<!-- usdt记录页面 -->
+	<header class="bar bar-nav">
+		<a class="icon pull-left back"></a> 
+		<h1 class="title">{:lang('USDT记录')}</h1>
+	</header>
+	<div class="content-block" style="padding: 1px 0.5rem 2rem;">
+		<div class="list-block" style="">
+		 <ul class="record-list">
+		 	<li v-for="a in list" v-if="a.usdt!=0 || a.type==5">
+				
+				<p class="source">
+					<span>{{a.title}}</span><span>{{a.time|timestampToTime}}</span>					
+				</p>
+				<p class="source" style="width:100%">
+					<span class="money-num">
+						<span v-if="a.usdt!=0">{{a.usdt|int_}}USDT</span>
+					</span>
+				</p>
+		 	</li>
+		 	<li>
+		  		<p class="source">
+		 			<span>{:lang('购买激活码10个')}</span><span>2019-03-27 16:34:19</span>
+		 		</p>
+		 		<p class="source" style="width: 100%;">
+		 			<span class="money-num">
+		 				<span>-100.00000000USDT</span>
+		 			</span>
+		 		</p> 
+		 	</li>
+		 </ul>
+		</div>
+	</div>
+<!-- usdt记录页面end-->
+</div>
+
+</div>
+
+
+
+
+<script type="text/javascript">
+function setDefaultImg(e){
+	if(e=='' || e==null){
+	 return "/static/xmt/images/avatar.png";
+	}else{
+	 return e;
+	}
+}
+ function timestampToTime(timestamp) {
+		        var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+		        Y = date.getFullYear() + '-';
+		        M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+		        D = date.getDate() + ' ';
+		        h = date.getHours() + ':';
+		        m = date.getMinutes() + ':';
+		        s = date.getSeconds();
+		        return Y+M+D+h+m+s;
+	   		 }
+new Vue({
+  el: '.content',
+  data: {	
+	img:'',
+	user:'',
+	list:'',
+	code:'',
+	level:'',
+	hongbao:'',
+	level_:'',
+	xmtt:'',
+	usdt:'',
+	system:'',
+	image:{
+        url:'',
+        value:'{:lang(\'请上传付款凭证\')}',
+        background:'background:#fff;',
+      },	
+  },
+  methods: {
+		getData(){
+			this.$http.get('/user/mode/my.html').then(function (res){
+				var i = res.body;
+				if(i.status==0){
+					wboos.toast(i.msg);
+				}else{
+					this.user = i.user;				
+					parent.$('#dhl').show();
+				}
+			})
+		},
+	},
+	created:function () {
+		this.getData();
+	},
+  })
+</script>
+<script>$.init()</script>
+</body>
+{include file="common/footer"/}

@@ -1,0 +1,102 @@
+{include file="common/mainHead"/}
+<style>
+	p{
+		line-height:50px;
+	}
+</style>
+<div class="admin-main fadeInUp animated" ng-app="hd" ng-controller="ctrl">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>{$title}</legend>
+    </fieldset>
+	<div class="layui-input-5">
+            <label class="layui-form-label">XMT数</label>
+			<div class="layui-input-5">
+				<input id="num" type="member" value="" placeholder="XMT数" maxlength='12'class="layui-input"/>
+			</div>
+	</div>
+	<div class="layui-input-5">
+            <label class="layui-form-label">姓名</label>
+			<div class="layui-input-5">
+				<input id="nickname" type="text" value="" placeholder="出售者姓名" maxlength='12'class="layui-input"/>
+			</div>
+	</div>
+	{if $type==0}
+	<div class="layui-input-5">
+            <label class="layui-form-label">银行</label>
+			<div class="layui-input-5">
+				<input id="yhk" type="text" value=""placeholder="出售者银行" maxlength='12'class="layui-input"/>
+			</div>
+	</div>
+	<div class="layui-input-5">
+		<label class="layui-form-label">银行卡号</label>
+		<div class="layui-input-5">
+			<input id="yhk_h" type="text" value="" placeholder="银行卡号" maxlength='12'class="layui-input"/>
+		</div>
+	</div>
+	<div class="layui-input-5">
+            <label class="layui-form-label">持卡名</label>
+			<div class="layui-input-5">
+				<input id="yhk_name" type="text" value="" placeholder="持卡名" maxlength='12'class="layui-input"/>
+			</div>
+	</div>
+	<div class="layui-input-6">
+            <div class="layui-input-block">
+                <button class="layui-btn" onclick="stateyes(0)">{:lang('submit')}</button>
+                <button type="button" class="layui-btn layui-btn-small" onclick="window.history.back();">{:lang('back')}</button>
+            </div>
+        </div>
+	{else}
+	<div class="layui-input-6">
+            <div class="layui-input-block">
+                <button class="layui-btn" onclick="stateyes(10)">{:lang('submit')}</button>
+                <button type="button" class="layui-btn layui-btn-small" onclick="window.history.back();">{:lang('back')}</button>
+            </div>
+        </div>
+	{/if}
+	</div>{include file="common/mainFoot"/}
+<script src="__STATIC__/js/angular.min.js"></script>
+<script>
+   function stateyes(status) {
+   var num = $('#num').val();
+   var nickname = $('#nickname').val();
+   if(status==0){
+	   var yhk_h = $('#yhk_h').val();
+	   var yhk_name = $('#yhk_name').val();
+	   var yhk = $('#yhk').val();
+   if(nickname=='' || yhk_h=='' || yhk_name=='' || yhk=='' || num==''){
+				alert('请完善资料');
+                history.go(0);return false;
+   }else{
+        $.post('{:url("")}', {yhk_name:yhk_name,yhk:yhk,yhk_h:yhk_h,name:nickname,status:status,num:num}, function (data) {
+				 if (data.status > 0) {
+					 alert(data.msg);
+					 history.go(0);
+                 } else {
+					alert(data.msg);
+                    history.go(0);
+                 }
+          });
+        return false;
+
+	}
+	}else{
+		if(nickname=='' || num==''){
+				alert('请完善资料');
+                history.go(0);
+				return false;
+	   }else{
+			$.post('{:url("")}', {name:nickname,status:status,num:num}, function (data) {
+					 if (data.status > 0) {
+						 alert(data.msg);
+						 history.go(0);
+					 } else {
+						alert(data.msg);
+						history.go(0);
+					 }
+			  });
+			return false;
+
+		}
+	}
+	}
+</script>

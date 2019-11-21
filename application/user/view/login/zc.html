@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html style="width:100%;height:100%;">
+<head>
+    <meta charset="utf-8">
+    <title>{:lang('注册')}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<script src="__HOME__/js/jquery.min.js"></script>
+	<script src="__STATIC__/user/layui/layui.js?v=1.02"></script>
+	<link rel="stylesheet" href="__STATIC__/user/layui/css/layui.css?v=1.02">
+    <link rel="stylesheet" href="__STATIC__/xmt/css/pages/loginpage.css?v=1.02">
+</head>
+<body class="login_bg">
+<div class="smz_x" onclick="location.href ='{:url('user/login/index')}';">
+	<img style="width:25px;height:25px;" src="__HOME__/btb/fh.png?v=1.02"/>
+</div>
+	<div class="register">
+		<h2>{:lang('注册')}</h2>
+		<div>
+			<div class="notice_info"><i><img src="__STATIC__/xmt/images/inviteid.png?v=1.02" alt=""></i><span>{:lang('注册邀请ID')}</span></div>
+			<span>
+				<input id="fxid" type="text" value="{$fx['user_id']}" placeholder="注册邀请ID" maxlength='10'/>
+			</span>
+		</div>
+		<div>
+			<div class="notice_info"><i><img src="__STATIC__/xmt/images/nickname.png?v=1.02" alt=""></i><span>{:lang('设置昵称')}</span></div>
+			<span><input id="nickname" type="text" placeholder="{:lang('请输入您的昵称')}" maxlength='12'/></span>
+		</div>
+		<div>
+			<div class="notice_info"><i><img src="__STATIC__/xmt/images/pwd.png?v=1.02" alt=""></i><span>{:lang('设置密码')}</span></div>
+			<span><input id="mm" name="mm" type="password" placeholder="{:lang('请输入您的密码')}" maxlength='12'/></span>	
+		</div>
+		<div>
+			<div class="notice_info"><i><img src="__STATIC__/xmt/images/mobile.png?v=1.02" alt=""></i><span>{:lang('手机号码')}</span></div>
+			<span><input id="mobile" name="mobile" type="text" placeholder="{:lang('请输入手机号码')}" maxlength='11'/></span>
+		</div>
+		<div>
+			<div class="notice_info">
+			<i><img src="__STATIC__/xmt/images/checkcode.png?v=1.02" alt=""></i><span>{:lang('短信验证码')}</span>
+			</div>
+			<span><input id="sms" type="text" placeholder="{:lang('短信验证码')}" maxlength='6'/></span>	
+			<div class='send_phone' onclick='send_phone()'><span id='zphone'>{:lang('获取验证码')}</span></div>
+		</div>
+		<div class="sub" onclick="kq()" style="bottom: -20px;margin-left: 4%!important">
+		{:lang('立即注册')}
+	</div>	
+	</div>
+	<p class="sub_p">
+		{:lang('开启表示即同意《用户服务协议》')}
+	</p>
+	<div class="switch"  onclick="location.href ='{:url('user/login/xz')}';">
+		<span>{:lang('下载app')}</span><br>
+	</div>
+	<div class="cn"  onclick="location.href ='{:url('user/login/xz')}';">
+		<a class="lang_btn" lang="cn"><img src="__STATIC__/xmt/images/xz.png?v=1.02" alt="" style="width: 60%;"></a>
+	</div>
+	
+	<div class="smz" style="display:none;">
+		<div class="smz_x" onclick="$('.smz').hide();">X</div>
+		<p class="smz_top">
+			{:lang('实名信息')}
+		</p>
+		<p class="smz_top1">
+			{:lang('保障居民财产安全，需进行身份验证,NMCT不会透露您的个人信息')}
+		</p>
+		<div class="reg_top"style="margin-top:80px;">
+			<input id="xm" type="text" placeholder="{:lang('姓名')}" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" maxlength='4'/>
+		</div>
+		<div class="reg_top">
+			<input id="sfz" type="text" placeholder="{:lang('身份证号')}" onKeyUp="value=value.replace(/[^\w\.\/]/ig,'')" maxlength='18'/>
+		</div>
+		<div class="sub" onclick="kq()">
+			{:lang('确定')}
+		</div>
+	</div>
+<script type="text/javascript">  
+function kq(){
+	if($("#fxid").val()==""){
+		layer.msg("{:lang('请填写注册邀请ID')}");return false;
+	}
+	if($("#nickname").val()==""){
+		layer.msg("{:lang('请填写昵称')}");return false;
+	}
+	if($("#mm").val()==""|| $("#mm").val().length<6){
+		layer.msg("{:lang('密码至少6位')}");return false;
+	}
+	if($("#mobile").val()=="" || !/^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$/i.test($("#mobile").val())){
+		layer.msg("{:lang('请填写正确手机号码')}");$('#mobile').val('');return false;
+	}
+	if($("#sms").val()==""){
+		layer.msg("{:lang('请填写验证码')}");return false;
+	}else{
+			$.post("{:url('reg')}",
+			{nickname:$("#nickname").val(),password:$("#mm").val(),mobile:$("#mobile").val(),xm:$("#xm").val(),sfz:$("#sfz").val(),yzm:$("#sms").val(),fxid:$("#fxid").val(),pwid:$("#pwid").val()},function(res){
+				if(res.code > 0){
+					$('.sub').hide();
+					layer.msg(res.msg,{time:1800},function(){
+                   location.href = "{:url('../user/login/xz')}";
+                });
+					}else{
+					layer.msg(res.msg,{time:1800});
+				}
+			});
+	}
+}
+function send_phone(){
+    var obj = $("#zphone");
+	var mobile=$("#mobile").val();
+	if($("#mobile").val()=="" || !/^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$/i.test($("#mobile").val())){
+		layer.msg("{:lang('请填写正确手机号码')}");
+		$('#mobile').val('');
+		return false;
+	}
+        var email = $('#mobile').val();
+        $.post("{:url('sms')}",{email:email},function(res){
+            if(res.code > 0){
+                layer.msg(res.msg,{time:1800});
+				$('.send_phone').remove();
+				$('.reg_yzm').append("<div class='send_phone'><span id='zphone' style='color:#50b936;text-align:right;'>{:lang(\'请输入验证码\')}</span></div>");
+            }else{
+                layer.msg(res.msg,{time:1800});
+            }
+        });
+}
+</script>
+<!-- 倒计时 -->
+<script>
+    layui.use(['form', 'layer'], function () {
+        var form = layui.form(),layer = layui.layer;
+        // 登录提交监听
+        form.on('submit(sub)', function (data) {
+            // 提交到方法 默认为本身
+            $.post("{:url('reg')}",data.field,function(res){
+                if(res.code > 0){
+                    layer.msg(res.msg,{time:1800},function(){
+                       location.href = "{:url('../user/index/index')}";
+                    });
+                }else{
+                    layer.msg(res.msg,{time:1800});
+                }
+            });
+        })
+    })
+</script>
+</body>
+</html>

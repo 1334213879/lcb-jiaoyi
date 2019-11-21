@@ -1,0 +1,29 @@
+﻿{include file="common/head"/}
+<div id="app">
+		{volist name="level" id="vo"}
+        <div class="three columns mobile-two" style="background-color:#fff;width:auto;;line-height:30px;padding-left:10px;">
+			<a @click="buy({$vo['level_id']})">{$vo['level_name']}</a>
+        </div>
+     {/volist}
+</div>
+<script>
+	new Vue({
+  el: '#app',
+  data: {
+	list:'',
+  },
+  methods: {
+		buy(i){
+			this.$http.post('/user/mode/buy.html',{id:i}).then(function (res) {
+				var i = res.body;
+				if(i.status==0){
+					wboos.toast(i.msg);
+				}else{
+					wboos.toast(i.msg);
+				}
+			})
+		}
+	}
+  })
+</script>
+{include file="common/footer"/}

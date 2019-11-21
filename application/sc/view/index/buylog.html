@@ -1,0 +1,49 @@
+﻿{include file="common/loginHead"/}
+<div style="margin-bottom;border-radius:5px;margin-bottom:160px;">
+
+	{volist name="users" id="vo"}
+        <div style="background-color:#fff;width:auto;;line-height:30px;">
+			{if $vo['status']==1}
+			（{$vo['note']}）时间:{:date("Y-m-d",$vo['createtime'])}
+			{/if} 
+			{if $vo['status']>1 && $vo['status']<5 }金额：<span style="color:red;">+{$vo['money']}</span>
+			（{$vo['note']}）
+			时间:
+			 {:date("Y-m-d",$vo['createtime'])}
+		{/if} 
+	{if $vo['status']==0 || $vo['status']==-5 }金额：<span style="color:red;">{$vo['money']}</span>
+		（{$vo['note']}，{if $vo['status']==0}审核中{else}审核失败{/if}）时间:{:date("Y-m-d",$vo['createtime'])}
+		{/if}
+	{if $vo['status']==-4 || $vo['status']==-2 || $vo['status']==-3}金额：<span style="color:red;">{$vo['money']}</span>
+		（{$vo['note']}，{if $vo['status']==-2}审核中{/if}{if $vo['status']==-4}审核成功{/if}{if $vo['status']==-3}审核失败{/if}）时间:{:date("Y-m-d",$vo['createtime'])}
+		{/if}
+	 {if $vo['status']==5 }金额：<span style="color:red;">+{$vo['money']}</span>
+		（{$vo['note']}，审核成功）时间:{:date("Y-m-d",$vo['createtime'])}
+		{/if}
+	 {if $vo['status']==6 }金额：<span style="color:red;">+{$vo['money']}</span>
+		（{$vo['note']}）时间:{:date("Y-m-d",$vo['createtime'])}
+		{/if}
+	 {if $vo['status']==-1 }金额：<span style="color:red;">-{$vo['money']}</span>
+		（{$vo['note']}）时间:{:date("Y-m-d",$vo['createtime'])}
+		{/if}
+	{if $vo['status']==7 }金积分：<span style="color:red;">+{$vo['money']}</span>
+		（{$vo['note']}）时间:{:date("Y-m-d",$vo['createtime'])}
+		{/if}
+	 {if $vo['status']==10 }<span style="color:red;">{if $vo['czid']==0}审核中{/if}{if $vo['czid']==1}审核中成功{/if}{if $vo['czid']==-1}审核中失败{/if}</span>
+		（{$vo['note']}）时间:{:date("Y-m-d",$vo['createtime'])}
+		{/if}
+	{if $vo['status']==13 }银积分：<span style="color:red;">+{$vo['money']}</span>
+		（{$vo['note']}）时间:{:date("Y-m-d",$vo['createtime'])}
+		{/if}
+	 {if $vo['status']==14 }银积分：<span style="color:red;">-{$vo['money']}</span>
+		（{$vo['note']}，{if $vo['czid']==0}待发货{/if}）时间:{:date("Y-m-d",$vo['createtime'])}
+		{/if}
+	{if $vo['status']==15 }
+		（{$vo['note']}，已发货，快递公司:{$vo['kdgs']}，快递单号:{$vo['kddh']}）时间:{:date("Y-m-d",$vo['endtime'])}
+	{/if}	
+	
+     {/volist}
+        </div>
+</div>
+
+{include file="common/footer"/}

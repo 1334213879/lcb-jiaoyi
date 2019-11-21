@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">  
+    <link rel="stylesheet" href="__STATIC__/xmt/css/pages/jy-index.css">
+	<link rel="stylesheet" href="__STATIC__/xmt/css/sm.min.css">
+    <link rel="stylesheet" href="__STATIC__/xmt/css/sm-extend.css">
+    <script type='text/javascript' src='__STATIC__/xmt/js/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='__STATIC__/xmt/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='__STATIC__/xmt/js/sm-extend.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='__STATIC__/xmt/js/global.js' charset='utf-8'></script>
+	<script type='text/javascript' src='__STATIC__/xmt/js/vue.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='__STATIC__/xmt/js/vue-resource.min.js' charset='utf-8'></script>
+</head>	
+<style> 
+  .bar-nav h3{
+  	font-weight:400;
+    font-size:16px;
+    font-family:"Microsoft Yahei";
+  }
+	.popup{
+	width:100%;height:100%;background:#484c56;opacity: 0.9;z-index:20;position: fixed;top:0;left:0
+	}
+	.popup_dk{
+	width:80%;height:300px;z-index:22;position: fixed;top:20%;left:10%;border-radius:10px;
+	}
+	.popup_xs{
+	width:80%;height:300px;font-size:14px;background:#bdbdbd;opacity: 0.3;z-index:22;position: fixed;top:20%;left:10%;border-radius:10px;
+	}
+	.popup_dk_div{
+	width:80%;margin-left:5%;float:left;height:40px;font-size: 0.8rem;
+	}
+	.popup_dk_div>span{
+	line-height:25px;float:left;color:#00ffff
+	}
+	.hb>tr,#moneyList>tr,#jylb,.hb{
+		width:100%;background: #303440;
+	}
+	.hb>tr>th,#moneyList>tr>th{
+		width:20%;text-align:center;height:35px;color:#ffffff;font-size:12px;
+	}
+
+	.fui-list-group{margin:auto;color:#ffffff;margin-top: 0px;width:100px;text-align:center; height: 30px;float:left;line-height:30px;border-radius:10px;}
+	.fui-list-group>input {opacity: 0; width:100px ;height: 30px;position: absolute; top:0; left: 0; bottom: 0; right: 0; z-index: 9;}
+	.qddk,.jy_status2_aqmm{
+	width:100%;letter-spacing:5px;height:50px;margin-top:250px;text-align:center;font-size:16px;line-height:50px;color:red;font-weight:600;background:#c3c1c1;border-radius:0 0 10px 10px
+	}
+.content-block>h2{
+	float:left;text-align:center;
+}
+.qdgm{
+	width:100%;
+	font-size:16px;
+	font-weight:600;
+	border-radius:10px;width:90%;margin:auto;margin-top:50%;
+	}
+	.now{
+	color:#0894ec;
+	}
+		.mm{
+	width:80%;height:300px;z-index:30;position: fixed;top:20%;left:10%;border-radius:10px;
+	}
+	#mm{
+	width:70%;margin-top:85px;margin-left:15%;background:#fff; font-size:40px;outline:none;height:40px;border-radius:10px;
+	}
+	.aqmm{
+	width:100%;height:100%;z-index:20;position: fixed;top:0;left:0
+	}
+	.dk{
+	color:#ff5722!important;
+	}
+	.dk2{
+	color:red!important;
+	}
+	.dk5{
+	color:green!important;
+	}
+	.qdgm{
+	width:100%;
+	font-size:16px;
+	font-weight:600;
+	text-align:center
+	}
+	.xs{
+		width:100%;height:100%;background:#484c56;opacity: 0.9;z-index:20;position: fixed;top:0;left:0
+	}
+	.row .col-33 {
+    width: 20.333333%;
+    margin-left: 11%;
+	}
+	h2{
+		width:25%;
+	}
+	td{
+	text-align:center;font-size:11px;
+	}
+</style>
+<body>
+<!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+    <div class="page-group">
+        <!-- 单个page ,第一个.page默认被展示-->
+        <div class="page">
+            <!-- 标题栏 -->
+            <header class="bar bar-nav">
+				<a href="" onclick="javascript:history.go(-1);"></a>
+				<h3>交易中心</h3>
+			</header>
+            <!-- 这里是页面内容区 -->
+            <div class="content" style="background:#fff;">
+			    <div class='xs' v-if="status<0 && zl==1">
+					<div class='qdgm'>
+						<div @click="" onclick="location.href='/user/index/my.html';" style="text-align: center;color: #e6e6e6;">
+							<span>请完善个人资料待,银行卡信息及安全密码,前往设置</span>
+						</div>
+					</div>
+				</div>
+	<div class="pageban">
+		<img src="__STATIC__/xmt/images/pageban.jpg" alt="">
+	</div>
+	<div class="content-block" style="margin-top: .5rem">
+		<ul class="speedbtn row">
+			<li class="col-33" @click="getData(9)">
+			<i><img src="__STATIC__/xmt/images/sell.png" alt=""></i>
+			<span>卖出</span>
+			</li>
+			<li class="col-33" @click="want_buy(10)">
+			<i><img src="__STATIC__/xmt/images/buy.png" alt=""></i>
+			<span>求购</span>
+			</li>
+			<li class="col-33" @click="getData(1)">
+			<i><img src="__STATIC__/xmt/images/order.png" alt=""></i>
+			<span>我的订单</span>
+			</li>
+		</ul>
+	</div>
+	<div class="content-block jytitle" style="margin-top: 3rem">
+		<h2 class="header_dh10 now" @click="getData(10)">求购列表</h2>
+		<h2 class="header_dh0" @click="getData(0)">挂卖列表</h2>
+		<h2 class="header_dh1" @click="getData(1)">我的订单</h2>
+		<h2 class="header_dh3" @click="getData(3)">已完成</h2>
+		<table>
+			<tr>
+				<td>用户</td>
+				<td>数量</td>
+              	<td>单价($)</td>
+				<td>金额(8折)</td>
+				<td>状态</td>
+				<td>时间</td>
+				<td>操作</td>
+			</tr>
+			<tr v-for="(a,i) in list" v-if="a.my_id==a.buy_id || a.my_id==a.user_id">
+				<td v-if="a.status<10">{{a.yhk_name.substr(0,1)}}**</td>
+				<td v-else>{{a.buyname.substr(0,1)}}**</td>
+				<td>{{a.gs}}NMCT</td>
+                <td>{{a.jg}}</td>
+				<td>{{a.zg}}$</td>
+				<td>{{a.zt}}</td>
+				<td>{{a.time}}</td>
+				<td>
+					<a v-if="a.status==0 && a.my_id!=a.user_id" @click="buy_(0,i);">买入</a>
+					<a v-else-if="a.status==0 && a.my_id==a.user_id" @click="buy_(4,i);" style="color:red;">撤回</a>
+					<a v-else-if="a.status==1 && a.gm==1" @click="pay_(0,i);">{{a.zt}}</a>
+					<a v-else-if="a.status==1 && a.my_id==a.user_id" @click="pay_(0,i);">{{a.zt}}</a>
+					<a v-else-if="(a.status==2 || a.status==12) && a.my_id==a.user_id" @click="pay_(0,i);">待通过</a>
+					<a v-else-if="(a.status==2 || a.status==12) && a.my_id!=a.user_id" @click="wboos.toast('您已经打款，待对方确定收到打款!')">{{a.zt}}</a>
+					<a v-else-if="a.status==10 && a.my_id==a.buy_id" @click="buy_(14,i);">撤回</a>
+					<!-- <a v-else-if="a.status==10 && a.my_id!=a.buy_id" @click="buy_(0,i);">买给TA</a> -->
+					<a v-else-if="a.status==10 && a.my_id!=a.buy_id" @click="buy_(0,i);">卖给TA</a>
+					<a v-else-if="a.status==11" @click="pay_(0,i);">{{a.zt}}</a>
+					<a v-else class="dk5">{{a.zt}}</a>
+				</td>
+			</tr>
+          <tr v-for="(a,i) in list" v-if="a.my_id!=a.buy_id && a.my_id!=a.user_id">
+				<td v-if="a.status<10">{{a.yhk_name.substr(0,1)}}**</td>
+				<td v-else>{{a.buyname.substr(0,1)}}**</td>
+				<td>{{a.gs}}NMCT</td>
+                <td>{{a.jg}}</td>
+				<td>{{a.zg}}$</td>
+				<td>{{a.zt}}</td>
+				<td>{{a.time}}</td>
+				<td>
+					<a v-if="a.status==0 && a.my_id!=a.user_id" @click="buy_(0,i);">买入</a>
+					<a v-else-if="a.status==0 && a.my_id==a.user_id" @click="buy_(4,i);">撤回</a>
+					<a v-else-if="a.status==1 && a.gm==1" @click="pay_(0,i);">{{a.zt}}</a>
+					<a v-else-if="a.status==1 && a.my_id==a.user_id" @click="pay_(0,i);">{{a.zt}}</a>
+					<a v-else-if="(a.status==2 || a.status==12) && a.my_id==a.user_id" @click="pay_(0,i);">待通过</a>
+					<a v-else-if="(a.status==2 || a.status==12) && a.my_id!=a.user_id" @click="wboos.toast('您已经打款，待对方确定收到打款!')">{{a.zt}}</a>
+					<a v-else-if="a.status==10 && a.my_id==a.buy_id" @click="buy_(14,i);">撤回</a>
+					<!-- <a v-else-if="a.status==10 && a.my_id!=a.buy_id" @click="buy_(0,i);">买给TA</a> -->
+					<a v-else-if="a.status==10 && a.my_id!=a.buy_id"  @click="buy_(0,i);">卖给TA</a>
+					<a v-else-if="a.status==11" @click="pay_(0,i);">{{a.zt}}</a>
+					<a v-else class="dk5">{{a.zt}}</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="content-block">
+	<div v-if="gm.status>0">
+	<div class='xs' @click="gm_(0)" style="width:100%;height:100%;background:#484c56;opacity: 0.9;z-index:20;position: fixed;top:0;left:0">
+	</div>
+	<div class='xs' style="width:80%;height:300px;z-index:22;position: fixed;top:20%;left:10%;border-radius:10px;background:#222c52;display: flex;flex-direction: column;justify-content: space-around;padding: 10% 0 10% 10%;">
+				<div>
+					<span style="line-height:25px;float:left;color:#fff">我的NMCT通证:<span id='zc'>{{gm.credit1}}</span></span>
+				</div>
+				<div>
+					<span style="line-height:25px;float:left;color:#fff">当前价格:<span id='jg'>{{gm.price}}$</span></span>
+				</div>
+				<div>
+					<span style="line-height:25px;float:left;color:#fff">
+					<span v-if="gm.status==1">我要挂卖:</span>
+					<span v-else-if="gm.status==2">我要求购:</span>
+					<input id='wygm' type='number' v-model="gm_number" name='wygm' style='width:20%;background:none;outline:none; border:0px;border-bottom:1px solid #fff;color:#fff;'>
+					</span>
+				</div>
+
+				<!--div v-if="gm.status==1">
+					<span style="line-height:25px;float:left;color:#fff">&nbsp冻结NMCT通证:<span id='dj'>{{gm_number*gm.dj}}</span></span> 
+				</div-->
+				<div>
+					<span style="line-height:25px;float:left;color:#fff">当前价值:<span id='jz'>{{gm_number*gm.price}}$</span> </span> 
+				</div>
+            			<div style="line-height:25px;float:left;color:#fff">
+      		<span v-if="gm.status==1">
+				收款方式
+			</span>
+             <span v-if="gm.status==2">
+				付款方式
+			</span>     
+                  <br /> 
+              <label><input name="pay" type="radio" value="0" checked="checked"/>银行卡 </label> 
+              <label><input name="pay" type="radio" value="1" />钱包地址</label> 
+                    </div>
+				<div style="width:80%;text-align:center">
+					<a v-if="gm.status==1" @click='gm_(2)' class="ensure">
+						发布挂卖
+					</a>
+					<a v-else-if="gm.status==2" @click='want_buy()' class="ensure">
+						发布求购
+					</a>
+				</div>
+	</div>
+	</div>
+	<div v-if="buy.status>-1">
+		<div class='xs parent' @click="buy_(-1)" style="width:100%;height:100%;background:#484c56;opacity: 0.9;z-index:20;position: fixed;top:0;left:0">
+		</div>
+		<div class='xs' style="width:80%;height:350px;z-index:22;position: fixed;top:20%;left:10%;border-radius:10px;background:#222c52;">
+					<div style="width:80%;margin-left:20%;margin-top:50px;float:left;height:40px;">
+						<span style="line-height:25px;float:left;color:#fff">订单ID:<span id='zc'>{{buy.id}}</span></span>
+					</div>
+					<div style="width:80%;margin-left:20%;float:left;height:40px;">
+						<span style="line-height:25px;float:left;color:#fff">数量:<span id='jg'>{{buy.gs}}</span></span>
+					</div>
+					<div style="width:80%;margin-left:20%;float:left;height:40px;">
+						<span style="line-height:25px;float:left;color:#fff">当前价格:<span id='jg'>{{buy.jg}}$</span></span>
+					</div>
+          			<div style="width:80%;margin-left:20%;float:left;height:40px;">
+						<span style="line-height:25px;float:left;color:#fff">当前价格:<span id='jg'>{{buy.jg}}$</span></span>
+					</div>
+					<div style="width:80%;margin-left:20%;float:left;height:40px;">
+						<span style="line-height:25px;float:left;color:#fff">合计:<span id='jg'>{{buy.zg}}$</span></span>
+					</div>
+          			<div style="width:80%;margin-left:20%;float:left;height:40px;">
+						<span style="line-height:25px;float:left;color:#fff">联系方式:<span id='mobile_' v-if="buy.buy_mobile>0">{{buy.buy_mobile}}</span><span id='mobile_' v-else="buy.user_mobile>0">{{buy.user_mobile}}</span></span>
+					</div>
+					<div class='qdgm' v-if="(buy.status==0 && buy.my_id==buy.user_id) || (buy.status==10 && buy.my_id==buy.buy_id)">
+						<a @click='buy_(1)' class="ensure">确定撤回</a>
+					</div>
+					<div class='qdgm'v-else-if="buy.status<10">
+						<a @click='buy_(1)' class="ensure">确定买入</a>
+					</div>
+					<div class='qdgm'v-else>
+						<a @click='buy_(1)' class="ensure">确定卖出</a>
+					</div>
+		</div>
+	</div>
+	<div v-if="aqmm==1">
+	<div @click="aqmm=0" class='aqmm remove'></div>
+	<div class='mm remove'>
+		<input id='mm' name='mm' @keyup="if($('#mm').val().length==6){aqmm_($('#mm').val())}" type='password' maxlength='6'/>
+	</div>
+	</div>
+	<div v-if="pay.status>0" class="popup_end">
+		<div class='xs' @click='pay_(-1)' style="width:100%;height:100%;background:#484c56;opacity: 0.9;z-index:20;position: fixed;top:0;left:0">
+		</div>
+						<div class='popup_dk' style="background:#888787;height:410px">
+							<div class='popup_dk_div'style='margin-top:20px;'>
+								<span>&nbsp订单ID:<span id='je'>{{pay.id}}</span></span>
+							</div>
+							<div class='popup_dk_div'>
+								<span>&nbsp订单类型:<span>{{pay.lang}}</span></span>
+							</div>
+							<div class='popup_dk_div'>
+								<span>&nbsp打款金额:<span id='je'>{{pay.zg}}</span>$</span>
+							</div>
+                           <div class='popup_dk_div'>
+								<span>&nbsp联系方式:<span id='yh'>{{pay.user_mobile}}</span></span>
+							</div>
+                          <div v-if="pay.pay==0">
+							<div class='popup_dk_div'>
+								<span>&nbsp打款银行:<span id='yh'>{{pay.yhk}}</span></span>
+							</div>
+							<div class='popup_dk_div'>
+								<span>&nbsp银行卡号:<span id='yhk'>{{pay.yhk_h}}</span></span>
+							</div>
+							<div class='popup_dk_div'>
+								<span>&nbsp持卡用户:<span id='name'>{{pay.yhk_name}}</span></span>
+							</div>
+                          </div>
+                          <div v-if="pay.pay==1">
+							<div class='popup_dk_div'>
+								<span>&nbsp钱包地址:<span id='token_address'>{{pay.token_address}}</span></span>
+							</div>
+                          </div>
+                          	<div class='popup_dk_div'>
+								<span style="color:red">&nbsp购买者手机:<span id='name'>{{pay.buy_mobile}}</span></span>
+							</div>
+							<div id='dkpz' v-if="pay.gm==1" style='width:100px;margin:auto;'>
+								<div class='fui-list-group' style='position:relative;background:#adadad;'>
+								打款凭证<input type='file' id='file-avatar' @change="upload()" name='file-avatar' accept='image/*'/>
+								</div>
+							</div>
+							<div id='dkpz' v-if="pay.gm==0 && pay.img!='' && pay.img!=null"style='width:100px;margin:auto;' onclick="$('#jy_status2_img').show();" style='width:100px;margin:auto;'>
+								<div class='fui-list-group' style='position:relative;background:#42bd40;'>查看凭证</div>
+							</div>
+							<div class='jy_status2_aqmm'style="margin-top:370px" v-if="pay.status==1 && pay.my_id==pay.user_id">
+								<div @click="wboos.toast('待对方打款!')">待对方打款</div>		
+							</div>
+							<div class='qddk'style="margin-top:370px" v-else-if="pay.gm==1">
+								<div @click='pay_(1,pay.id)'>确定已打款</div>	
+							</div>
+							<div class='jy_status2_aqmm'style="margin-top:370px" v-else-if="pay.gm==0">
+								<div @click='pay_(3,pay.id)'>确定已收到打款</div>		
+							</div>
+					</div>
+	</div>
+		<img v-bind:src="wboos.url(pay.img)" id="ck_img" style='width:100%;display:none;z-index:22;position: fixed;top:0;left:0' onclick="$(this).hide()"/>
+		<img v-bind:src="wboos.url(pay.img)" id="jy_status2_img" style='width:100%;display:none;z-index:22;position: fixed;top:0;left:0' onclick="$(this).hide()"/>
+
+</div>
+            </div>
+        </div>
+
+    </div>
+
+<script>
+	parent.$('#dhl').show();
+	function timestampToTime(timestamp) {
+		        var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+		        Y = date.getFullYear() + '-';
+		        M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+		        D = date.getDate() + ' ';
+		        h = date.getHours() + ':';
+		        m = date.getMinutes() + ':';
+		        s = date.getSeconds();
+		        return Y+M+D;
+   	};
+		new Vue({
+		  el: '.content',
+		  data: {
+			status:'0',
+			gm:{
+				'status':0,
+				'credit1':0,
+				'price':0,
+				'dj':0,
+			},
+			buy:{
+				'status':-1,
+				'id':0,
+				'gs':0,
+				'jg':0,
+				'zg':0,
+			},
+			pay:{
+				'status':0,
+			},
+			gm_number:'0',
+			aqmm:'0',
+			list:'',
+			id:'0',
+			page:'1',
+			zs:'',
+			zl:'0',
+			system:'0',
+			pageSize:'30'
+		  },
+		  methods:{
+				getData(id){
+				if(id==9){
+					$('.header_dh'+id).addClass("now").siblings().removeClass("now");
+					this.gm_(1);
+				}else{
+					this.$http.post(wboos.url('user/buy/jy_lb'),{ad_id:49,id:id,page:this.page,pageSize:this.pageSize},{withCredentials: true}).then(function (response) {
+							this.id = id;
+							this.zs = response.body.zs;
+							this.system = response.body.system;
+							$('.header_dh'+id).addClass("now").siblings().removeClass("now");
+							this.list = response.body.jy;
+							this.status = response.body.status;
+					});
+				}
+				},
+				want_buy(id){
+				if(this.system==0){
+                       	wboos.toast('C2C交易暂未开放！');return;
+                     }
+                  	if(this.zs==1){
+                       	wboos.toast('无此权限！');return;
+                       }
+					if(id==10){
+						this.$http.post(wboos.url('user/buy/gm'),{id:1},{withCredentials: true}).then(function (response) {
+								this.gm = response.body;
+								this.gm.status = 2;
+							});
+					}else{
+					if($('#wygm').val()==0 || $('#wygm').val()%1!==0 || $('#wygm').val()<99){
+						wboos.toast('求购必须100的整数起');
+					}else if(this.aqmm_('want_buy')){
+                       var pay =  $('input[name="pay"]:checked').val();
+						this.$http.post(wboos.url('user/buy/wantbuy'),{gm_number:this.gm_number,pay:pay},{withCredentials: true}).then(function (response) {
+							wboos.toast(response.body.msg);
+							if(response.body.status==1){
+								 this.getData(10);
+								 this.gm.status = 0;
+							}
+						});
+					}
+					}
+				},
+				gm_(id){
+				if(this.system==0){
+                       	wboos.toast('C2C交易暂未开放！');return;
+                     }
+                  if(this.zs==1){
+                       	wboos.toast('无此权限！');return;
+                       }
+				if(this.status==1){
+					if(id==0){
+						this.gm = '';
+					}else if(id==1){
+						this.$http.post(wboos.url('user/buy/gm'),{id:id},{withCredentials: true}).then(function (response) {
+							this.gm = response.body;
+						});
+					}else if(id==2){
+						if($('#wygm').val()==0 || $('#wygm').val()%1!==0 || $('#wygm').val()<99){
+							wboos.toast('挂卖必须100的整数起');
+						}else if(this.aqmm_()){
+                          var pay =  $('input[name="pay"]:checked').val();
+						this.$http.post(wboos.url('user/buy/gm'),{id:id,gm_number:this.gm_number,pay:pay},{withCredentials: true}).then(function (response) {
+							wboos.toast(response.body.msg);
+							if(response.body.status==1){
+								 this.getData(0);
+								 this.gm_(0);
+							}
+						});
+						}
+					}
+					}else{
+						this.zl = 1;
+					}
+				},
+				buy_(status,id){
+				if(this.system==0){
+                       	wboos.toast('C2C交易暂未开放！');return;
+                     }
+                  if(this.zs==1){
+                       	wboos.toast('无此权限！');return;
+                       }
+				if(this.status==1){
+					if(id>=0){
+						this.buy = this.list[id];
+					}
+					if(status==14){
+						this.buy.status = status;
+					}
+					if(status==-1){
+						this.buy = '';
+						this.aqmm = 0;
+					}else if(status>=0 && this.aqmm_()){
+						this.$http.post(wboos.url('user/buy/buy'),{id:this.buy.id,status:status},{withCredentials: true}).then(function (response) {
+							wboos.toast(response.body.msg);
+							if(response.body.status==1){
+								 this.getData(status);
+								 this.buy_(-1);
+							}
+						});
+					}
+					}else{
+						this.zl = 1;
+					}
+				},
+				pay_(status,id){
+					if(this.system==0){
+                       	wboos.toast('C2C交易暂未开放！');return;
+                     }
+                  if(this.zs==1){
+                       	wboos.toast('无此权限！');return;
+                       }
+					if(status==-1){
+						this.pay.status = 0;
+						this.aqmm = 0;
+					}else if(status==0){
+							var list = this.list[id];
+							this.pay.id = list.id;
+							this.pay.lang = list.lang;
+							this.pay.my_id = list.my_id;
+							this.pay.user_id = list.user_id;
+                      		this.pay.pay = list.pay;
+                      		this.pay.token_address = list.token_address;
+                      		this.pay.buy_mobile = list.buy_mobile;
+                      		this.pay.user_mobile = list.user_mobile;
+							this.pay.yhk = list.yhk;
+							this.pay.img = list.img;
+							this.pay.gm = list.gm;
+							this.pay.yhk_h = list.yhk_h;
+							this.pay.yhk_name = list.yhk_name;
+							this.pay.zg = list.zg;
+							this.pay.status = list.status;
+							console.log(this.pay);
+					}else if(this.pay.gm==1 && this.pay.img==null){
+							wboos.toast('请上传打款凭证');
+					}else if(status>=1 && this.aqmm_()){
+						this.$http.post(wboos.url('user/buy/pay'),{id:this.pay.id,img:this.pay.img,status:this.pay.status},{withCredentials: true}).then(function (response) {
+							wboos.toast(response.body.msg);
+							console.log(this.pay.gm);
+							if(response.body.status>0){
+								this.getData(response.body.status);
+								 this.pay_(-1);
+							}
+						});
+					}
+				},
+				upload(){
+					wboos.toast('打款凭证上传中');
+					var formData = new FormData();
+					formData.append("file", $(this.$el).find('#file-avatar')[0].files[0]);
+					this.$http.post(wboos.url('user/index/upload'),formData,{
+					method: 'post',
+					headers: {'Content-Type': 'multipart/form-data'},
+					withCredentials: true,
+					}).then(function (res) {
+						wboos.toast(res.body.info);
+						this.pay.img = res.body.url;
+						$('#ck_img').attr('src',wboos.url(res.body.url));
+						//this.$set(this.pay, 'img',res.body.url);
+						$('.fui-list-group').css('background','#42bd40').html("<div style='width:100%;height:100%;'onclick=\"$('#ck_img').show();\";>打款凭证</div>");
+					}).catch(function(error){
+						console.log(error);
+					})
+				},
+				aqmm_(aqmm,black){
+				 if(aqmm>0){
+					this.$http.post(wboos.url('user/buy/aqmm'),{aqmm:aqmm},{withCredentials: true}).then(function (response) {
+						if(response.body.status==0){
+							wboos.toast('安全密码错误');
+							$('#mm').val('');
+						}else if(this.gm.status==1){
+							console.log('this.gm.status==1');
+							this.gm_(2);
+						}else if(this.gm.status==2){
+							console.log('this.gm.status==2');
+							this.want_buy();
+						}else if(this.buy.status>-1){
+							console.log('this.buy.status==1');
+							this.buy_(this.buy.status);
+						}else if(this.pay.status>0){
+							console.log('this.pay.status==1');
+							this.pay_(this.pay.status);
+						}
+						this.aqmm = 0;
+					});
+				 }else if($('#mm').val()=='' || this.aqmm == 0){
+					wboos.toast('请输入安全密码');
+					this.aqmm = 1;	
+					return false;
+				 }else{
+					return true;
+				 }
+			},
+		  },
+		  created:function () {
+				 this.getData(10);
+		  },
+		})
+</script>
+    <!-- 默认必须要执行$.init(),实际业务里一般不会在HTML文档里执行，通常是在业务页面代码的最后执行 -->
+    <script>$.init()</script></body>
+</html>

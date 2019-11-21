@@ -1,0 +1,148 @@
+<style>
+				input{
+				input[type=button], input[type=submit], input[type=file], button { cursor: pointer; -webkit-appearance: none; } ;
+				outline:0px; -webkit-appearance:none;
+				background:none;outline:none; border:0px;
+				color:#d0d0d0;width:80%;height:30px;
+				line-height:20px;margin-top:20px;
+				
+			}
+			/*修改提示文字的颜色*/
+			#nickname::-webkit-input-placeholder { /* WebKit browsers */ 
+			color: #ffffff; font-size:16px;text-align:center;
+			} 
+			#mobile,#sms,#xm,#sfz::-webkit-input-placeholder { /* WebKit browsers */ 
+			 font-size:16px;
+			} 
+			.zc_box_top{
+			position: fixed;top:23%;left:10%;z-index:10;width:80%;
+			}
+			.reg{
+			border: 1px solid #ccc;width:100%;height:200px;
+			background:rgba(225,225,225,0.3);border-radius:15px;
+			
+			}
+			.reg_top{
+			width:80%;margin-left:10%;border-bottom:1px solid #d0d0d0;
+			}
+			.reg_top>img{
+			width:25px;height:25px;float:right;margin-top:20px;
+			}
+			#nickname{
+			width:100%;
+			}
+		.tsk{
+		width:80%;height:40px;font-size:16px;background:#404040;z-index:30;
+		position: fixed;top:20%;left:10%;text-align:center;
+		border-radius:10px;color:#ffffff;line-height:40px
+	}.send_phone{
+	width:40%;height:30px;float:right;color:#ec8888;line-height:20px;margin-top:20px;
+	}
+	.sub{
+		width:100%;margin:auto;height:45px;margin-top:45px;
+		border-radius:10px;line-height:45px;background:#1b8ff3;
+		font-size:18px;letter-spacing:5px;color:#ffffff;text-align:center;
+	}
+	.sub_p{
+		width:80%;margin:auto;color:#ffffff;text-align:center;margin-top:5px;
+	}
+	.smz{
+		width:100%;height:100%;position: fixed;top:0;left:0;background:rgba(39, 56, 82, 1);
+	}
+	.smz_x{
+		font-size:30px;color:#ffffff;margin-left:20px;margin-top:20px;
+	}
+	.smz_top{
+		font-size:20px;color:#ffffff;text-align:center;margin-top:30px;letter-spacing:5px;margin-bottom:20px;
+	}
+	.smz_top1{
+		font-size:15px;color:#ffffff;text-align:center;margin-top:10px;letter-spacing:3px;width:90%;margin:auto;
+	}
+</style>
+<div class="sq_sjid">
+</div>
+<div class="zc_box_top">
+	<div class="reg"style="height:160px;">
+		<div class="reg_top">
+			<input id="sj_id" type="tle" onkeyup="value=value.replace(/[^\d]/g,'');" placeholder="请输入上级ID" maxlength='12'/>
+			<img onclick="$('#sj_id').val('');" src="__HOME__/btb/x.png"/>
+		</div>
+		<div class="reg_top">
+			<input id="password" type="password" onkeyup="value=value.replace(/[^\d]/g,'');" placeholder="请输入安全密码" maxlength='12'/>
+			<img onclick="$('#password').val('');" src="__HOME__/btb/x.png"/>
+		</div>
+		<div class="reg_top"style="border-bottom:0px;margin-top:10px;font-size:14px;color:#ffffff;">
+			<div>上级ID可不填，提交后及开启社区</div>
+		</div>
+	</div>
+	<div class="sub" onclick="sj_id()">
+		提交
+	</div>
+	<div class="sub" onclick="sq_top(1)"style="margin-top:20px;background: #a5acb3;">
+		返回
+	</div>
+</div>
+<script type="text/javascript">  
+function sj_id(){
+	if($("#password").val()==""){
+		layer.msg('请输入安全密码');return false;
+	}else{
+		$.post("{:url('zc_sl')}",
+			{zt:3,mm:$("#password").val(),gs:$("#sj_id").val()},function(res){
+				if(res.code==1){
+						layer.msg(res.msg,{time:1800},function(){
+						history.go(0); 
+                    });
+				}else if(res.code==0){
+						layer.msg(res.msg,{time:1800});
+				}else{
+					layer.msg(res.msg,{time:1800});
+						history.go(0); 
+				}
+		});
+	}
+}
+</script>
+<script>
+    layui.use(['form', 'layer'], function () {
+        var form = layui.form(), layer = layui.layer;
+        form.on('select(province)', function (data) {
+            var pid = data.value;
+            $.get("{:url('getRegion')}?pid=" + pid, function (data) {
+                var html = '<option value="">请选择市</option>';
+                $.each(data, function (i, value) {
+                    html += '<option value="' + value.id + '">' + value.name + '</option>';
+                });
+                $('#city').html(html);
+                $('#district').html('<option value="">请选择县/区</option>');
+                form.render()
+            });
+        });
+        form.on('select(city)', function(data) {
+            var pid = data.value;
+            $.get("{:url('getRegion')}?pid=" + pid, function (data) {
+                var html='<option value="">请选择县/区</option>';
+                $.each(data, function (i, value) {
+                    html += '<option value="'+value.id+'">'+value.name+'</option>';
+                });
+                $('#district').html(html);
+                form.render()
+            });
+        });
+    });
+
+    layui.cache.page = 'user';
+    layui.cache.user = {
+        username: '游客'
+        ,uid: -1
+        ,avatar: '../../res/images/avatar/00.jpg'
+        ,experience: 83
+        ,sex: '男'
+    };
+    layui.config({
+        version: "2.0.0"
+        ,base: '__STATIC__/user/mods/'
+    }).extend({
+        fly: 'index'
+    }).use('fly');
+</script>

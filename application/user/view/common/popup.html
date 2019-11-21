@@ -1,0 +1,394 @@
+
+<!-- 购买弹窗 -->
+
+<!-- 购买弹窗end -->
+
+
+
+<!-- 邀请好友弹窗 -->
+<!-- 邀请好友弹窗 -->
+<!-- 邀请好友弹窗 -->
+<div class="popup popup-invite">
+	<header class="bar bar-nav">
+	 	<a class="close-popup" @click="parent.$('#dhl').show();"></a>
+		<h3>邀请好友</h3>
+	</header>
+	<div class="content invite">
+		<div>
+			<h3>邀友越多赚取越多</h3>			
+		</div>
+		<div>
+			<p>1、邀请好友开启社区三生万物！双赢双益</p>			
+		</div>
+		<div>
+			<p>2、US.NMCT国际社区收益多样化，分享奖金（分享奖金/社区奖/管理奖）更是丰富无穷！领略社区收益奖金的魅力！进入NMCT社区文化的魅力！</p>
+		</div>
+		<div>
+			<p>3、US.NMCT新媒体国际社区俱乐部是由全球多个国家的区块链底层技术研究院共同研发并认证的一个涵盖全球的超级社区！美国新媒体俱乐部强强联手与亚泰东盟集团，为NMCT新媒体促进长久、稳定的社区俱乐部平台做出合作！</p>			
+		</div>
+		<div>
+			<h3>US.NMCT CLUB期待您的加入！</h3>
+			
+		</div>
+		<div class="qrcode" style="width: 130px;margin-top: .6rem">
+				<div id="qrcode" style="width:120px; height:120px; "></div>
+		</div>
+		<p style="text-align: center;">我的邀请二维码</p>
+		<div style="position: absolute;top: 0;left: 0;opacity: 0;z-index: -10;" id="content">欢迎加入NMCTCULB:{{link}}</div>
+		<p>复制链接或分享二维码，马上邀请好友加入NMCTCULB</p>
+		<a class="invite-btn" @click="copy()">点击复制分享链接</a>
+      <br>
+      <br>
+      <br>
+	</div>
+</div>
+<!-- 邀请好友弹窗end -->
+<!-- 邀请好友弹窗end -->
+<!-- 邀请好友弹窗end -->
+
+<div class="popup popup-activeaccount">
+  <header class="bar bar-nav">
+	 	<a class="close-popup" ></a>
+		<h3>激活账号</h3>
+	</header>
+<div class="content tabcontainer">
+	<div class="buttons-tab">
+			<a href="#tab4" class="tab-link active button">33账号</a>
+			<a href="#tab5" class="tab-link button">66账号</a>
+			<a href="#tab6" class="tab-link button">99账号</a>
+	</div>
+		<div class="content-block" style="padding:0">
+			<div class="tabs">
+			  <div id="tab4" class="tab active">
+			    <div class="content-block"  style="padding:1rem 0">
+						<table class="acc33">
+						<tr>
+							<th>级别</th>
+							<th>排位ID</th>
+							<th>旗下会员</th>
+                          	<th>已激活</th>
+							<th>未激活</th>
+							<th>状态</th>
+						</tr>
+						<tr v-for="a in list1">
+							<th>V{{user.level-1}}</th>
+							<th>{{user.user_id}}</th>
+							<th>{{user.level_count}}</th>
+							<th>{{user.level_count1}}</th>
+							<th>{{user.level_count0}}</th>
+							<th>已升级</th>
+						</tr>				
+					</table>
+			    </div>
+			  </div>
+			  <div id="tab5" class="tab">
+			    <div class="content-block" style="padding:1rem 0">
+					<table class="acc66" style="text-align:center">
+						<tr>
+							<th>排位ID</th>
+							<!--<th>排位位置</th>-->
+							<th>状态</th>
+							<th>操作</th>					
+						</tr>
+						<tr v-for="(a,i) in list2" v-if="a.status==0">
+							<td>S{{a.id}}</td>
+							<!--<td>第{{a.sort}}位</td>-->				
+							<td>未激活</td>
+							<td><a href="#" class="open-popup" data-popup=".popup-buyvip" @click="list2_buy_(i);">去激活</a></td>					
+						</tr>				
+						<tr v-for="a in list2" v-if="a.status==1">
+							<td>S{{a.id}}</td>
+							<!--<td>第{{a.sort}}位</td>-->					
+							<td>激活</td>
+							<td><a href="#" class="open-popup" data-popup=".popup-sy">查看收益</a></td>
+						</tr>				
+					</table>
+			    </div>
+			  </div>
+			   <div id="tab6" class="tab">
+			    <div class="content-block">
+			      	<table class="acc99" style="text-align:center">
+						<tr>
+							<th>排位ID</th>
+							<!--<th>排位位置</th>-->
+							<th>状态</th>
+							<th>操作</th>					
+						</tr>
+						<tr v-for="(a,i) in list3" v-if="a.status==0">
+							<td>N{{a.id}}</td>
+							<td>无</td>
+							<td>未激活</td>
+							<td><a href="#" class="open-popup" data-popup=".popup-buyvip"  @click="list3_buy_(i);">去激活</a></td>
+						</tr>
+						<tr v-for="a in list3" v-if="a.status==1">
+							<th>N{{a.id}}</th>
+							<!--<td>第{{a.sort}}位</td>-->		
+							<th>已激活</th>
+							<td><a href="#" class="open-popup" data-popup=".popup-sy">查看收益</a></td>
+						</tr>				
+					</table>
+			    </div>
+			  </div>
+			</div>
+		</div>
+	
+</div>
+</div>
+<!-- 购买弹窗 -->
+<!-- 购买弹窗 -->
+<!-- About Popup -->
+
+<div class="content-block popup popup-buyvip">
+	<div class="popwraper" v-if="list2_buy!=''">
+		<div class="vcard-pic"><h3 >激活六六无尽账号</h3></div>
+				<p>请选择优先扣款账户，将扣除${{list2.money}}</p>
+				<div class="single-select">
+				<input type="radio" value="xmtt" name="pay"/><label for="account-xmtt">NMCTT账户</label>
+				<input type="radio" value="usdt"  name="pay"/><label for="account-usdt">USDT账户</label>
+				</div>
+				<div class="op-btn">
+					<a @click="buy(list2_buy.id,2);">确认</a>
+					<a class="close-popup" @click="list2_buy_('x');">取消</a>
+				</div>
+	</div>
+	<div class="popwraper" v-else-if="list3_buy!=''">
+	<div class="vcard-pic"><h3>激活九九归一账号</h3></div>
+		<p>请选择您的优先扣款账户，将扣除${{list3.money}}</p>
+		<div class="single-select">
+		<input type="radio" value="xmtt" name="pay"/><label for="account-xmtt">NMCTT账户</label>
+		<input type="radio" value="usdt"  name="pay"/><label for="account-usdt">USDT账户</label>
+		</div>
+		<div class="op-btn">
+			<a @click="buy(list3_buy.id,3);">确认</a>
+			<a class="close-popup" @click="list3_buy_('x');">取消</a>
+		</div>
+	</div>
+	<div class="popwraper" v-else-if="level_buy!=''">
+		<p>请选择您的优先扣款账户</p>
+		<div class="single-select">
+		<input type="radio" value="xmtt" name="pay"/><label for="account-xmtt">NMCTT账户</label>
+		<input type="radio" value="usdt"  name="pay"/><label for="account-usdt">USDT账户</label>
+		</div>
+		<div class="op-btn">
+			<a @click="buy(level_buy.level_id,1);">确认</a>
+			<a class="close-popup" @click="level_('x');">取消</a>
+		</div>
+	</div>
+</div>
+<!-- 购买弹窗end -->
+<!-- 购买弹窗end -->
+<!-- 激活账号弹窗 -->
+	<!-- 直推团队弹出页 -->
+		<div class="popup popup-subline">
+			<header class="bar bar-nav">
+				<a class="close-popup"></a>
+				<h3>我的分享</h3>
+			</header>			
+		<!-- 选项卡 -->
+	  <div class="content-block" style="margin-top: 4rem;padding:0 1rem;">
+	    <div class="buttons-tab">
+	      <a href="#tab7" class="tab-link active button">全部（{{team0.length}}人）</a>
+	      <a href="#tab8" class="tab-link button">已激活（{{team1.length}}人）</a>
+	    </div>
+	  </div>
+
+	  <div class="tabs">
+	    <div id="tab7" class="tab active">
+	    	<!-- 下线列表 -->
+	      <div class="content-block">
+	       	<table>
+	       		<tr>
+	       			<th style="text-indent: 0.4rem;width: 22%;text-align: left;min-width:77px;">头像</th>
+	       			<th style="width: 20%;text-align: left;">昵称</th>
+	       			<th style="width: 20%;text-align: left;">状态</th>
+	       			<th style="text-align:center">时间</th>
+	       		</tr>
+	       		<tr v-for="a in team0">
+	       			<td class="img-td"><img v-bind:src="setDefaultImg(a.head_pic)"></td>
+	       			<td>{{a.nickname}}</td>
+	       			<td><span v-if="a.level>1">已激活</span><span v-if="a.level==1">未激活</span></td>
+	       			<td>{{timestampToTime(a.reg_time)}}</td>
+	       		</tr>
+	       	</table>			   
+	      </div>
+	    </div>
+	    <div id="tab8" class="tab">
+	    	<!-- 已激活列表 -->
+	      <div class="content-block">
+	        	<table>
+	       		<tr>
+	       			<th style="text-indent: 0.4rem;width: 22%;text-align: left;;min-width:77px;">头像</th>
+	       			<th style="width: 20%;text-align: left;">昵称</th>
+	       			<th style="width: 20%;text-align: left;">状态</th>
+	       			<th style="text-align:center">时间</th>
+	       		</tr>
+	       		<tr v-for="a in team1" v-if="a.level>1">
+	       			<td class="img-td"><img v-bind:src="setDefaultImg(a.head_pic)"></td>
+	       			<td>{{a.nickname}}</td>
+	       			<td><span v-if="a.level>1">已激活</span><span v-if="a.level==1">未激活</span></td>
+	       			<td>{{timestampToTime(a.reg_time)}}</td>
+	       		</tr>
+	       	</table>
+	      </div>
+	    </div>	  
+	  </div>
+	<!-- 选项卡end -->
+	</div>
+		<!-- 直推团队弹出页end -->
+		<!-- 见点团队弹出页，显示成员列表 -->
+		<div class="popup popup-node">
+			<header class="bar bar-nav">
+				<a class="close-popup"></a>
+				<h3>我的社区</h3>
+			</header>
+		  <div class="content-block" style="margin-top: 4rem;padding:1px 1rem 2rem;">
+	       <table>
+	       		<tr>
+	       			<th style="text-indent: 0.4rem;width: 22%;text-align: left;;min-width:77px;">头像</th>
+                    <th style="width: 20%;text-align: left;">昵称</th>
+                    <th style="width: 18%;text-align: left;">状态</th>
+                    <th style="text-align:center">时间</th>
+	       		</tr>
+	       		<tr v-for="a in team2">
+	       			<td class="img-td"><img v-bind:src="setDefaultImg(a.head_pic)"></td>
+	       			<td>{{a.nickname}}</td>
+	       			<td><span v-if="a.level>1">已激活</span><span v-if="a.level==1">未激活</span></td>
+	       			<td>{{timestampToTime(a.reg_time)}}</td>
+	       		</tr>
+	       	</table>		   
+		  </div>
+		</div>
+		<!-- 见点团队弹出页end -->
+
+
+		<!-- 管理团队弹出页 -->
+		<div class="popup popup-gl">
+			<header class="bar bar-nav">
+				<a class="close-popup"></a>
+				<h3>我的管理</h3>
+			</header>
+		  <div class="content-block"  style="margin-top: 4rem;padding:1px 1rem 2rem;">		  	
+	       <table>
+	       		<tr>
+	       			<th style="text-indent: 0.4rem;width: 22%;text-align: left;min-width:77px;">头像</th>
+                    <th style="width: 20%;text-align: left;">昵称</th>
+                    <th style="width: 17%;text-align: left;">状态</th>
+                    <th style="text-align:center">时间</th>
+	       		</tr>
+	       		<tr v-for="a in team3">
+	       			<td class="img-td"><img v-bind:src="setDefaultImg(a.head_pic)"></td>
+	       			<td>{{a.nickname}}</td>
+	       			<td><span v-if="a.level>1">已激活</span><span v-if="a.level==1">未激活</span></td>
+	       			<td>{{timestampToTime(a.reg_time)}}</td>
+	       		</tr>
+	       	</table>				   
+		  </div>
+		</div>
+		<!-- 管理团队弹出页 --> 
+		<!-- 管理团队弹出页 -->
+		<div class="popup popup-gx">
+			<header class="bar bar-nav">
+				<a class="close-popup"></a>
+				<h3>我的共享</h3>
+			</header>
+		  <div class="content-block"  style="margin-top: 4rem;padding:0 1rem;">
+		  	 <table>
+	       		<tr>
+	       			<th style="text-indent: 0.4rem;width: 22%;text-align: left;;min-width:77px;">头像</th>
+                    <th style="width: 20%;text-align: left;">昵称</th>
+                    <th style="width: 18%;text-align: left;">状态</th>
+                    <th style="text-align:center">时间</th>
+	       		</tr>
+	       		<tr v-for="a in team4">
+	       			<td class="img-td"><img v-bind:src="setDefaultImg(a.head_pic)"/></td>
+	       			<td>{{a.nickname}}</td>
+	       			<td><span v-if="a.level>1">已激活</span><span v-if="a.level==1">未激活</span></td>
+	       			<td>{{timestampToTime(a.reg_time)}}</td>
+	       		</tr>
+	       	</table>		   
+		  </div>
+		</div>
+		<!-- 管理团队弹出页 -->
+
+<!-- 收益页弹窗 -->
+<div class="popup popup-sy">
+	<header class="bar bar-nav">
+ 	<a class="close-popup"></a>
+	<h3>账号收益明细</h3>
+	</header>
+
+<div class="content tabcontainer">
+<!-- 卡片 -->
+<div class="card">
+    <div class="card-content">
+      <div class="card-content-inner">您现在共{{list_1.length+list_2.length+list_3.length}}笔奖励，合计{{reward}}NMCTT</div>
+    </div>
+</div>
+<!-- 卡片 -->	
+<!-- 选项卡 -->
+  <div class="buttons-tab">
+    <a href="#tab1" class="tab-link active button">33账号</a>
+    <a href="#tab2" class="tab-link button">66账号</a>
+    <a href="#tab3" class="tab-link button">99账号</a>
+  </div>
+  <div class="content-block" style="padding:0">
+    <div class="tabs">
+    	<div id="tab1" class="tab active">
+	      <div class="content-block">
+	      <ul class="income_list">
+	      	<li><span>账号ID</span><span>奖励金额及类型</span></li>
+	      	<li v-for="a in list_1">
+	      		<p class="fl">
+	      			<span class="account-id">A{{a.pid}}</span>
+	      			<span class="time-record" v-html="timestampToTime(a.time)"></span>
+	      		</p>
+	      		<p class="fr">
+	      			<span class="award-type" v-if="a.type==2">直推奖</span>
+					<span class="award-type" v-if="a.type==4">三生万物社区奖</span>
+					<span class="award-type" v-if="a.type==8">管理奖</span>
+	      			<span class="award-num">NMCTT+{{a.reward}}</span>
+	      		</p>
+	      	</li>
+	      </ul>
+	      </div>
+	    </div>
+	    <div id="tab2" class="tab">
+	      <div class="content-block">
+	        <ul class="income_list">
+	      	<li><span>账号ID</span><span>奖励金额及类型</span></li>
+	      	<li v-for="a in list_2">
+	      		<p class="fl">
+	      			<span class="account-id">B{{a.member_id}}</span>
+	      			<span class="time-record">{{timestampToTime(a.time)}}</span>
+	      		</p>
+	      		<p class="fr">
+	      			<span class="award-type">{{a.title}}</span>
+	      			<span class="award-num">NMCTT+{{a.reward}}</span>
+	      		</p>
+	      	</li>
+	      </ul>
+	      </div>
+	    </div>
+	    <div id="tab3" class="tab">
+	      <div class="content-block">
+	       <ul class="income_list">
+	      	<li><span>账号ID</span><span>奖励金额及类型</span></li>
+	      	<li v-for="a in list_3">
+	      		<p class="fl">
+	      			<span class="account-id">C{{a.member_id}}</span>
+	      			<span class="time-record">{{timestampToTime(a.time)}}</span>
+	      		</p>
+	      		<p class="fr">
+	      			<span class="award-type">九九归一共享分红</span>
+	      			<span class="award-num">NMCTT+ {{a.reward}} </span>
+	      		</p>
+	      	</li>
+	      </ul>
+	      </div>
+	    </div>
+    </div>
+  </div>
+  <!-- 选项卡end -->
+</div>
+</div>
+<!-- 收益页弹窗end -->

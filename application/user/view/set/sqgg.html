@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>个人中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">   
+    <meta name="description" content="{$title}">
+    <link rel="stylesheet" href="__STATIC__/admin/plugins/layui1/css/layui.css">
+    <link rel="stylesheet" href="__STATIC__/user/css/global.css">
+	    <script src="__HOME__/js/jquery.min.js"></script>
+		<link href="__HOME__/btb/gx.css" rel="stylesheet" type="text/css">
+		<link type="text/css" rel="stylesheet" href="__HOME__/btb/idealMoneyList.css">
+	<script type="text/javascript" src="__ADMIN__/plugins/layui1/layui.js"></script>
+	<script src="__STATIC__/js/jquery.2.1.1.min.js"></script>
+	<script src="__STATIC__/js/angular.min.js"></script>
+<style>
+	.sq_sjid{
+	width:100%;height:100%;background:rgba(72, 76, 86, 0.7);position: fixed;top:0px;left:0;Z-index:2;
+	}
+	
+	.sq_top{
+		width:95%;height:40px;margin:auto;margin-top:50px;border-radius:10px;border:1px solid #33344c;overflow:hidden;
+	}
+	.sq_div1,.sq_div2{
+		width:50%;height:40px;background:#ffffff;float:left;color:#33344c;line-height:40px;font-size:16px;font-weight:600;
+		text-align:center;
+	}
+	.sq_bj{
+	background:#33344c;color:#ffffff;
+	}
+			.hb>tr>th{
+			background:#33344c;color:#ffffff;font-weight:600;
+		}
+	.head{
+	width:100%;height:50px;line-height:50px;color:#ffffff;width:95%;margin:auto;font-size:16px;font-weight:600;
+	}
+	.head>div{
+	color:#ffffff;float:left;
+	}
+	.head_body{
+	width:98%;height:60px;margin:auto;color:#ffffff;font-size:16px;
+	}
+	.head_body>div{
+	width:48%;float:left;
+	}
+	.head_body>div>p{
+	text-align:center;line-height:30px;
+	}
+	.head_zb{
+	width:98%;height:35px;background:#ffffff;margin:auto;margin-top:10px;line-height:35px;text-indent:5px;
+	}
+	.fzdz{
+	float:right;margin-right:5px;width:70px;height:25px;border-radius:5px;background:#7caaff;
+	margin-top:5px;
+	color:#ffffff;line-height:25px;
+	}
+	.head_zb>div{
+	width:50%;height:60px;float:left;margin-top:5px;
+	}
+	.head_zb>div>div{
+	width:50px;height:50px;margin:auto;
+	}
+	.head_zb>div>div>img{
+	width:50px;height:50px;
+	}
+	.head_end{
+	width:98%;margin-top:1px;height:90px;margin:auto;
+	}
+	.head_end>div{
+	width:33%;height:110px;background:#ffffff;color:#8a8a8a;
+	}
+	.head_end_p{
+	font-size:16px;color:red;margin-top:10px;
+	}
+	.head_end>div>p{
+	text-align:center;font-size:14px;font-weight:500;line-height:25px;
+	}
+	.head_end>div>div{
+	width:70px;height:25px;border-radius:5px;line-height:25px;
+	background: -webkit-linear-gradient(120deg, red, blue);margin:auto;text-align:center;
+	color:#ffffff;
+	}
+	.grzl{
+	width:100%;Z-index:2;
+	}
+	.zc_box,.zc_sl,.zc_fx{
+	width:100%;height:100%;background:rgba(72, 76, 86, 0.7);position: fixed;top:0px;left:0;Z-index:2;
+	}
+		.sq_sjid{
+	width:100%;height:100%;background:rgba(72, 76, 86, 0.7);position: fixed;top:0px;left:0;Z-index:2;
+	}
+	
+	.sq_top{
+		width:95%;height:40px;margin:auto;margin-top:50px;border-radius:10px;border:1px solid #33344c;overflow:hidden;z-index:5;
+	}
+	.sq_div1,.sq_div2{
+		width:50%;height:40px;background:#ffffff;float:left;color:#33344c;line-height:40px;font-size:16px;font-weight:600;
+		text-align:center;
+	}
+	.sq_bj{
+	background:#33344c;color:#ffffff;
+	}
+	.hb>tr>th{
+			background:#33344c;color:#ffffff;font-weight:600;
+	}
+	.sq_gg{
+		margin-top:15px;
+	}
+	.sq_gg_p{
+		width:98%;margin:auto;height:105px;background:#ffffff;border-bottom:2px solid #d2c8c8;
+	}
+	.sq_gg_p_left{
+		width:30%;height:90px;float:right;
+	}
+	.sq_gg_p_left>img{
+		width:100%;margin-left:0%;margin-top:10px;
+	}
+	.sq_gg_p_right{
+		width:68%;float:left;margin-top:10px;margin-left:2%;
+	}
+	.sub{
+		width:80%;margin:auto;height:45px;margin-top:45px;
+		border-radius:10px;line-height:45px;background:#1b8ff3;
+		font-size:18px;letter-spacing:5px;color:#ffffff;text-align:center;
+	}
+	.sub_p{
+		width:80%;margin:auto;color:#ffffff;text-align:center;margin-top:5px;
+	}
+	.smz{
+		width:100%;height:100%;top:0;left:0;background:#ffffff;z-index:20;
+	}
+	.smz_x{
+		font-size:30px;
+		color:#000;
+		position:fixed;
+		height:40px;
+		width:100%;
+		top:0px;
+		left:0px;
+		background:#fff;
+		z-index:10;
+		line-height:40px;
+	}
+	.smz_top{
+		font-size:20px;color:#000000;text-align:center;padding-top:40px;letter-spacing:5px;
+	}
+	.smz_top1{
+		font-size:15px;color:#000000;margin-top:10px;letter-spacing:3px;width:90%;margin:auto;padding-bottom:50px;
+	}
+	.top{
+	width:100%;height:35px;background:#33344c;padding-top:10px;position: fixed;z-index:5;
+	}
+	.popup{
+	width:100%;height:100%;background:#484c56;opacity: 0.9;z-index:11;position: fixed;top:0;left:0;display:none;
+	}
+	.tsk{
+		width:40%;height:40px;font-size:16px;background:#404040;opacity: 1;z-index:30;
+		position: fixed;bottom:60px;left:30%;text-align:center;
+		border-radius:10px;color:#ffffff;line-height:40px
+	}
+	.pl_div{
+		width:30px;height:30px;float:left
+	}
+	.smz_top2>.pl_d{
+	width:90%;height:120px;margin-top:20px;margin:auto;
+	}
+	.pl_name{
+	width:50px; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#3f7ea5;float:left;
+	}
+	.likecount{
+	width:auto; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#3f7ea5;float:right;
+	}
+	.pl_xhx{
+	width:100%;height:60px;line-height:60px;border-top:1px solid #bbbbbb;margin-top:20px;text-indent:5%;font-weight:600;
+	}
+	.html_ok{
+	width:100%;text-align:center;height:60px;line-height:60px;border-top:1px solid #bbbbbb;margin-top:5px;margin:auto;font-weight:600;margin-bottom:50px;
+	}
+	.pl_lick{
+	width:100%;height:30px;
+	}
+	.pl_lick>img{
+	width:25px;height:25px;float:right;
+	}
+	.pl_d>p{
+		width:90%;margin-left:10%;
+	}
+	.pl_time{
+	color:#bbbbbb;
+	}
+	.pyx1{
+	position:fixed;height:150px;width:100%;bottom:0px;left:0px;background:#ffffff;z-index:12;display:none;
+	}
+	.layui-layer-tips{
+	position: absolute;
+    left: 0px!important;
+    top: 0px!important;
+    margin-top: 0px!important;
+    margin-left: 0px!important;
+	}
+</style>
+<script>
+	parent.$('#dhl').hide();
+</script>
+</head>
+<body style="margin-top:0px;">
+<div class="smz">
+<p class="smz_x" onclick=" window.history.back();">
+	<img style="width:25px;height:25px;margin-left:5%;" src="__HOME__/btb/fh1.png"/> 
+</p>
+<div style="width:95%;margin:auto;">
+		<!-- <p class="smz_top">
+			{$xw['name']}
+		</p> -->
+		<div style="margin-left:5%;width:90%;margin-top:10px;color:#bbbbbb">
+			<!-- <div style="width:30px;height:30px;float:left">
+				<img class="smz_img" src="{$xw['img']}"/>
+			</div> -->
+			<div style="width:auto;height:30px;line-height:30px;float:left;margin-left:5px;" class="smz_name">One city</div>
+		</div>
+		<p class="smz_top1">
+			{$xw['content']}
+		</p>
+		<p class="smz_top2"style="display:none;">
+			<div class="qbpl"></div>
+		</p>
+<div style="clear:both;"></div>
+</div>
+</div>
+{include file="common/footer"/}

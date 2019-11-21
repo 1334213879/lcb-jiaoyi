@@ -1,0 +1,67 @@
+{include file="common/mainHead"/}
+<div class="admin-main fadeInUp animated" ng-app="hd" ng-controller="ctrl">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>票房奖励</legend>
+    </fieldset>
+   <div class="layui-form-item">
+             {volist name="list" id="r"}
+                  <label class="layui-form-label" style="width: auto;">{$r['nickname']}({$r['mobile']})</label>
+             {/volist}
+        </div>
+    <form class="layui-form layui-form-pane">
+
+    <div class="layui-form-item">
+            <label class="layui-form-label">电影</label>
+            <div class="layui-input-4">
+                <select id="type" name="type" lay-filter="type" ng-model="field.type" class="required ng-pristine ng-untouched ng-valid ng-empty" lay-verify="required">
+                    <option value="" selected="selected">请选择哪部电影</option>
+                    <option value="1">寻龙计划</option>
+                </select><div class="layui-unselect layui-form-select"><div class="layui-select-title"><input placeholder="请选择哪部电影" value="" readonly="" class="layui-input layui-unselect" type="text"><i class="layui-edge"></i></div>
+                <dl class="layui-anim layui-anim-upbit" style="">
+                <dd lay-value="" class="layui-select-tips">请选择哪部电影</dd>
+                <dd lay-value="1" class="">寻龙计划</dd>
+ </dl></div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">票房</label>
+            <div class="layui-input-4">
+                <input type="text" ng-model="field.k" lay-verify="required" placeholder="{:lang('pleaseEnter')}票房" class="layui-input">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="button" class="layui-btn" lay-submit="" lay-filter="sys">{:lang('submit')}</button>
+                <button type="reset" class="layui-btn layui-btn-primary">{:lang('reset')}</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/angular.min.js"></script>
+{include file="common/mainFoot"/}
+<script>
+    var m = angular.module('hd',[]);
+    m.controller('ctrl',['$scope','$http',function($scope,$http){
+        layui.use(['form', 'layer','upload'], function () {
+            var form = layui.form,layer = layui.layer;
+            // 登录提交监听
+
+            form.on('submit(sys)', function () {
+                 $scope.field.is_p = $("#type").val();
+                // 提交到方法 默认为本身
+                $.post("{:url('goods/pf')}",$scope.field,function(res){
+                    if(res.code > 0){
+                        layer.msg(res.msg,{time:1800},function(){
+                            location.href = res.url;
+                        });
+                    }else{
+                        layer.msg(res.msg,{time:1800});
+                    }
+                });
+            })
+        })
+    }]);
+</script>

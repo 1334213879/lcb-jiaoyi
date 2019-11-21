@@ -1,0 +1,151 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="__HOME__/btb/gx.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="__STATIC__/admin/plugins/layui/css/layui.css">
+<script src="__HOME__/js/jquery.min.js"></script>
+<script src="__STATIC__/user/layui/layui.js"></script>
+<link type="text/css" rel="stylesheet" href="__HOME__/btb/idealMoneyList.css">
+<title>{:lang('商城')}</title>
+<style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        ul,li{
+            list-style: none;
+        }
+        .title-bar{
+            background: url('__STATIC__/xmt/images/headbar_bg.gif') center center no-repeat;
+            width: 100%;
+          background-size:100% 100%;
+        }
+        .title-bar h3{
+            text-align: center;
+            margin:0 0 5px;
+            line-height: 3;
+            color:#fff;
+             font-size: 16px;
+            font-weight: 400;
+          	font-family:"Microsoft Yahei";          
+        }
+         .title-bar h3 i{
+          background: url('__STATIC__/xmt/images/xmt.png') center no-repeat;
+          background-size: 100% 100%;
+          display: inline-block;
+          width: 1.5rem;
+    height: 1.5rem;
+    overflow: hidden;
+    position: relative;
+    top: .5rem;
+    left: -.5rem;
+         }
+        .swiper-container{
+            width: 96%;
+            margin:0 auto;
+          	position:relative;
+        }
+      .swiper-container,.swiper-wrapper{
+      		height:170px;
+        	overflow:hidden;
+      }
+      .swiper-wrapper{
+      		position:absolute;
+        	left:0;
+      }
+        .swiper-button-next, .swiper-button-prev{
+          width: 25px;
+          height: 22px;
+        }
+        .swiper-slide{}
+         .swiper-slide img{
+		     height: 170px;
+          width: 100%;
+        }
+        .news-block{
+            width: 96%;
+            margin:6px auto 0;
+            position: relative;
+        }
+        .news-block ul{
+           
+        }
+        .news-block ul li{
+            border-bottom: solid 1px #ccc;
+        }
+        .news-block ul li a{
+            display: block;
+            overflow: hidden;
+            padding:2%;
+        }
+        .news-brief{
+            float: left;
+            width: 63%;
+            margin-left: 2%;
+        }
+        .newspic{
+            float: left;
+            width: 35%;
+            height: 80px;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+        .newspic img{
+            width: 100%;
+        }
+        .news-brief .news-title{
+            color: #888;
+         }
+         .news-brief .news-author{
+            font-size: .7rem;
+            color: #ccc;
+            margin-top: 1rem;
+         }
+        
+         .hb>tr>th{
+			background:#33344c;color:#ffffff;
+		}
+		.market>tr>th{
+			font-size:12px;
+		}
+			.apple_title{
+			height: 15px;width:10%;line-height:15px;float:left;
+			font-size:15px;font-weight:600;color:red;text-align:center;
+		}
+		a:hover{text-decoration:underline;}
+	.shell{width:500px; }
+		#div1{overflow:hidden;height:15px;}
+      #div1>a{display:block;line-height:15px;text-decoration:none;color:#f00;font-family:Arial;font-size:12px;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 1;overflow: hidden;margin-top:1px;}
+	  .kl_jh {
+    position: absolute;
+    width: 5%;
+    top: 22%;
+    z-index: 2;
+}
+.kl_tltle{
+	    background: url(/static/xmt/images/headbar_bg.gif);
+    width: 100%;
+}
+.title {
+    position: absolute;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0 -.5rem;
+    line-height: 2.2rem;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+}
+	</style>
+</head>
+<body style="padding-bottom: 1rem">
+ <div class="page-group">
+        <div class="page page-current">
+    <div class="title-bar">
+        <h3>{:lang('商城')}</h3>
+    </div>
+{include file="common/footer"/}

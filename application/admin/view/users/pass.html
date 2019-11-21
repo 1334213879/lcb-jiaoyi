@@ -1,0 +1,58 @@
+{include file="common/mainHead"/}
+<style>
+	p{
+		line-height:50px;
+	}
+</style>
+<div class="admin-main fadeInUp animated" ng-app="hd" ng-controller="ctrl">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>审核用户身份</legend>
+    </fieldset>
+	<div style="margin:auto;width:60%">
+    <div class="layui-form-item">
+            <p>姓名:{$user['xm']}</p>
+            <p>手机:{$user['mobile']}</p>
+			<p>身份证号:{$user['sfz']}</p>
+			<p>银行卡:{$yhk['yh']}</p>
+			<p>持卡名:{$yhk['name']}</p>
+			<p>卡号:{$yhk['yhk']}</p>
+			<p>审核状态:{if $user['pass']==0}待审核{elseif $user['pass']==-1}已拒绝{elseif $user['pass']==1}已通过{/if}</p>
+    </div>
+	<div class="layui-form-item">
+            <p>身份证正反面</p>
+           <div>
+		    {if !empty($user['sfz_img'])}
+				<img style="width:200px;height:130px;float:left" src="{$user['sfz_img'][0]}"/>
+				<img style="width:200px;height:130px;float:left" src="{$user['sfz_img'][1]}"/>
+			{/if}
+		   </div>
+    </div>
+	<a class="red" href="javascript:" onclick="stateyes(1);" title="已开启">
+                <div>
+                    <button class="layui-btn layui-btn-warm layui-btn-mini">通过</button>
+                </div>
+    </a>
+	<a class="red" href="javascript:" onclick="stateyes(-1);" title="已开启">
+                <div>
+                    <button class="layui-btn layui-btn-danger layui-btn-mini">拒绝</button>
+                </div>
+            </a>		
+	
+	</div>
+</div>{include file="common/mainFoot"/}
+<script src="__STATIC__/js/angular.min.js"></script>
+<script>
+   function stateyes(pass) {
+   var id = {$user['user_id']};
+        $.post('{:url("pass")}', {user_id: id,pass:pass}, function (data) {
+				 if (data.code > 0) {
+				 alert('操作成功');
+				setTimeout("location.href= '/admin.php/users/index.html'","1000");
+                    } else {
+					alert('操作失败');
+                    
+                    }
+          });
+        return false;
+    }
+</script>

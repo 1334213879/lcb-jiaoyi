@@ -1,0 +1,119 @@
+<script>
+function mr(id,gs,jg,hj,sj){
+		var html ="<div onclick=\"$('.xs').remove();$(this).remove();\" style=\"width:100%;height:100%;background:#484c56;opacity: 0.9;z-index:20;position: fixed;top:0;left:0\">\
+	</div>\
+	<div class='xs' style=\"width:80%;height:300px;font-size:14px;background:#bdbdbd;opacity: 0.3;z-index:22;position: fixed;top:20%;left:10%;border-radius:10px;\">\
+	</div>\
+	<div class='xs' style=\"width:80%;height:300px;z-index:22;position: fixed;top:20%;left:10%;border-radius:10px;\">\
+				<div style=\"width:80%;margin-left:20%;margin-top:50px;float:left;height:40px;\">\
+					<span style=\"line-height:25px;float:left;color:#00ffff\">&nbsp订单ID:<span id='zc'>"+id+"</span></span>\
+				</div>\
+				<div style=\"width:80%;margin-left:20%;float:left;height:40px;\">\
+					<span style=\"line-height:25px;float:left;color:#00ffff\">&nbsp数量:<span id='jg'>"+gs+"</span></span>\
+				</div>\
+				<div style=\"width:80%;margin-left:20%;float:left;height:40px;\">\
+					<span style=\"line-height:25px;float:left;color:#00ffff\">&nbsp单价:<span id='jg'>"+jg+"</span></span>\
+				</div>\
+				<div style=\"width:80%;margin-left:20%;float:left;height:40px;\">\
+					<span style=\"line-height:25px;float:left;color:#00ffff\">&nbsp合计:<span id='jg'>"+hj+"</span></span>\
+				</div>\
+				<div class='qdgm' onclick='qd(0,0,"+id+")' style=\"width:100%;letter-spacing:5px;font-family:'微软亚黑';height:50px;margin-top:250px;text-align:center;font-size:16px;line-height:50px;color:red;font-weight:600;background:#c3c1c1;border-radius:0 0 10px 10px\">\
+					确定买入\
+				</div>\
+	</div>\
+	";
+	$('body').append(html);
+}
+function gm(){
+	var html ="<div onclick=\"$('.xs').hide();$(this).hide();\" style=\"width:100%;height:100%;background:#484c56;opacity: 0.9;z-index:20;position: fixed;top:0;left:0\">\
+	</div>\
+	<div class='xs' style=\"width:80%;height:300px;font-size:14px;background:#bdbdbd;opacity: 0.3;z-index:22;position: fixed;top:20%;left:10%;border-radius:10px;\">\
+	</div>\
+	<div class='xs' style=\"width:80%;height:300px;z-index:22;position: fixed;top:20%;left:10%;border-radius:10px;\">\
+				<div style=\"width:80%;margin-left:20%;margin-top:50px;float:left;height:40px;\">\
+					<span style=\"line-height:25px;float:left;color:#00ffff\">&nbsp我的资产:<span id='zc'>{$user['zc']}</span></span>\
+				</div>\
+				<div style=\"width:80%;margin-left:20%;float:left;height:40px;\">\
+					<span style=\"line-height:25px;float:left;color:#00ffff\">&nbsp当前价格:<span id='jg'>{$system['jg']}</span></span>\
+				</div>\
+				<div style=\"width:80%;margin-left:20%;float:left;height:40px;\">\
+					<span style=\"line-height:25px;float:left;color:#00ffff\">&nbsp我要挂卖:\
+					<input id='wygm' type='text' style='width:20%;background:none;outline:none; border:0px;border-bottom:1px solid #00ffff;color:#00ffff;' name='wygm' onkeyup=\"this.value=this.value.replace(/[^0-9]/g,'');$('#dj').html(this.value*{$system['dj']*100});$('#jz').html(this.value*{$system['jg']*100}-this.value*{$system['dj']*$system['jg']*100});\">00</span>\
+				</div>\
+				<div style=\"width:80%;margin-left:20%;float:left;height:40px;\">\
+					<span style=\"line-height:25px;float:left;color:#00ffff\">&nbsp冻结资产:<span id='dj'>0</span></span> \
+				</div>\
+				<div style=\"width:80%;margin-left:20%;float:left;height:40px;\">\
+					<span style=\"line-height:25px;float:left;color:#00ffff\">&nbsp当前价值:<span id='jz'>0</span> </span> \
+				</div>\
+				<div class='qdgm' onclick='qd(0,0,0)' style=\"width:100%;letter-spacing:5px;font-family:'微软亚黑';height:50px;margin-top:250px;text-align:center;font-size:16px;line-height:50px;color:red;font-weight:600;background:#c3c1c1;border-radius:0 0 10px 10px\">\
+					确定挂卖\
+				</div>\
+	</div>\
+	";
+	$('#body').html(html);
+}
+</script>
+<style>
+	.tsk{
+		width:80%;height:40px;font-size:16px;background:#404040;opacity: 1;z-index:30;
+		position: fixed;top:20%;left:10%;text-align:center;
+		border-radius:10px;color:#ffffff;line-height:40px
+	}
+</style>
+<script>
+function qd(id,status,gm_id){
+	var wygm = $('input[name="wygm"]').val()*100;
+	var hj = Number(wygm) + Number($('#dj').text());
+	var zc = Number($('#zc').text());
+	if(wygm==''|| wygm==0){
+		 $('<div>').appendTo('body').addClass('tsk').html('挂卖不能为空').show().delay(1500).fadeOut();
+		 return false;
+	}else if(hj>zc){
+		$('<div>').appendTo('body').addClass('tsk').html('您的资产不足').show().delay(1500).fadeOut();
+		return false;
+	}else if(hj<zc && hj>0 || id==0){
+		var html ="<div onclick=\"$('.mm').remove();$('.tsk').remove();$(this).remove();\" style=\"width:100%;height:100%;z-index:20;position: fixed;top:0;left:0\">\
+	</div>\
+	<div id='tsk' class='tsk'>请输入安全密码</div>\
+	<div class='mm' style=\"width:80%;height:300px;z-index:30;position: fixed;top:20%;left:10%;border-radius:10px;\">\
+		<input id='mm' name='mm' onkeyup='if(this.value.length==6){aqmm(this.value,"+status+","+gm_id+")}' type='password' style=\"width:70%;margin-top:85px;margin-left:15%;background:#fff; font-size:80px;outline:none;height:40px;border-radius:10px;\" maxlength='6'/>\
+	</div>\
+	";
+	$('body').append(html);
+	}
+}
+</script>
+<script>
+function aqmm(id,status,gm_id){
+var wygm = $('input[name="wygm"]').val()*100;
+	$.ajax({
+           url:"{:url('user/index/aqmm')}",// 跳转到 action
+                            data:{
+                                id : id,
+								status : status,
+								gm_id:gm_id,
+								jg : $('#jg').text(),
+								gm : wygm,
+								dj : $('#dj').text()
+                            },
+                            type:'post',
+                            cache:false,
+                            dataType:'json',
+                            success:function(data) {
+        if(data.ok ==1){
+		$('#tsk').text(data.msg).css('color','#92e45e');
+					$('.mm').hide();			
+					$('.qdgm').hide();
+		header_dh(data.status);								
+		}else{
+		$('<div>').appendTo('body').addClass('tsk').html('安全密码错误').css('color','#e45e5e').show().delay(2500).fadeOut();
+		$("input[name='mm']").val('');
+		}
+							},
+							 error : function() {
+                                alert("异常！");
+                            }
+		})
+}
+</script>

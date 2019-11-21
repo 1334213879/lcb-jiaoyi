@@ -1,0 +1,201 @@
+{include file="common/mainHead"/}
+<div class="admin-main fadeInUp animated">
+    <blockquote class="layui-elem-quote">
+        <!-- <form  class="layui-form">
+            <div class="layui-form-item search-input"  style="margin:0;">
+                <div class="layui-input-inline">
+                    <input type="text" name="key" id="key" class="layui-input" placeholder="{:lang('pleaseEnter')}关键字！">
+                </div>
+                <div class="layui-form-mid layui-word-aux" style="padding:0;">
+                    <button type="button" class="layui-btn" id="search">{:lang('search')}</button>
+                    <a href="{:url('check1')}" class="layui-btn">显示全部</a>
+                </div>
+            </div>
+        </form> -->
+    </blockquote>
+    <fieldset class="layui-elem-field">
+        <legend>{$title}</legend>
+        <div class="layui-field-box table-responsive">
+            <table class="layui-table table-hover">
+                <thead>
+                <tr>
+                    <th><input type="checkbox" id="selected-all" onclick="$('input[name*=\'userId\']').prop('checked', this.checked);"></th>
+                    <th>编号</th>
+                    <th>挂卖方</th>
+                    <th>操作</th>
+                    <th>挂卖价格</th>
+                    <th>合计</th>
+					<th>收款信息</th>
+                    <th>购买方</th>
+                    <th>付款信息</th>
+                    <th>时间</th>
+                </tr>
+                </thead>
+                <!--内容容器-->
+                <tbody id="con">
+                </tbody>
+                <tfoot>
+                <tr>
+                <td colspan="2">
+				 <button type="button" class="layui-btn layui-btn-small" onclick="window.history.back();">{:lang('back')}</button>
+               <!--  <a href="{:url('index')}" class="layui-btn layui-btn-primary">{:lang('back')}</a> -->
+				</td>
+                    <td colspan="10">
+                        <!--分页容器-->
+                        <div id="paged" style="text-align: right"></div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </fieldset>
+</div>
+
+<!--模板-->
+<script type="text/html" id="conTemp">
+    {{# layui.each(d.list, function(index, item){ }}
+    <tr>
+        <td><input type="checkbox" name="userId[]" value="{{ item.user_id }}"></td>
+        <td>{{ item.id }}</td>
+		<td>{{ item.nickname }}</td>
+        <td style="{{# if(item.status==3){ }}color:red;{{# } }}">{{ item.zt }}（{{ item.j }}{{ item.gs }},冻结：{{ item.dj }}）{{ item.qkl_dm }}资产</td>
+		<td>{{ item.jg }}</td>
+		<td>{{ item.zg }}</td>
+        <td>
+		银行：{{ item.yhk }}<br>
+		银行卡号：{{ item.yhk_h }}<br>
+		开户名：{{ item.yhk_name }}<br>
+		</td>
+		<td>{{ item.buy_name }}</td>
+		<td> 
+		{{# if(item.img==0){ }}
+		 {{# }else{  }}
+				支付凭证：
+		<div id="layer-photos-demo{{ item.id }}" onclick="view({{ item.id }})">
+		  <img layer-pid="图片id，可以不写" layer-src="{{ item.img }}" src="{{ item.img }}" alt="{{ item.img }}" style="max-width: 70px;">
+		</div>
+		{{# } }}
+		</td>
+		<td>{{ item.rq }}</td>
+    </tr>
+    {{# }); }}
+</script>
+{include file="common/mainFoot"/}
+<script>
+    layui.config({
+        base: '__ADMIN__/js/'
+    }).use(['paging', 'code','icheck','layer'], function() {
+
+        layui.code();
+        var paging = layui.paging(),layer = parent.layer === undefined ? layui.layer : parent.layer;
+        paging.init({
+            url: "", //地址
+            elem: '#con', //内容容器
+            params: {}, //发送到服务端的参数
+            tempElem: '#conTemp', //模块容器
+            pageConfig: { //分页参数配置
+                elem: 'paged', //分页容器
+                pageSize: 15 //分页大小
+            },
+            success: function() { //渲染成功的回调
+                //alert('渲染成功');
+            },
+            fail: function(msg) { //获取数据失败的回调
+                //alert('获取数据失败')
+            },
+            complate: function() { //完成的回调
+                //alert('处理完成');
+            }
+        });
+        //搜索
+        $('#search').on('click', function() {
+            var $this = $(this);
+            var key = $('#key').val();
+            if($.trim(key)=='') {
+                layer.msg('{:lang('pleaseEnter')}关键字！');
+                return;
+            }
+            //调用get方法获取数据
+            paging.get({
+                key: key //获取输入的关键字。
+            });
+        });
+
+    });
+    function view(id) {
+    	  layer.photos({
+            photos: '#layer-photos-demo'+id
+            ,closeBtn: 1
+            ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+          }); 
+    }
+    function stateyes(id,ok) {
+        var v=$("#zt"+id+' button').text();
+        var t='';
+         if (v=='未审核'||v=='审核不通过') {
+             t='你确定审核通过吗?';
+         }
+         if (v=='已审核'||v=='审核通过') {
+             t='你确定审核不通过吗?';
+         }
+        layer.confirm(t, {icon: 3}, function (index) {
+            $.post('{:url("editState")}', {id: id,ok:ok}, function (data) {
+                if (data.status) {
+                    if (data.info == '审核不通过') {
+                        var a = '<button class="layui-btn layui-btn-danger layui-btn-mini">审核不通过</button>'
+                        $('#zt' + id).html(a);
+                        layer.msg(data.info, {icon: 5});
+						alert('操作成功');
+						history.go(0); 
+                        return false;
+                    } else {
+                        var b = '<button class="layui-btn layui-btn-warm layui-btn-mini">审核通过</button>'
+                        $('#zt' + id).html(b);
+                        layer.msg(data.info, {icon: 6});
+						alert('操作成功');
+						history.go(0); 
+                        return false;
+                    }
+                }else{
+                    layer.msg(data.msg,{time:1000,icon:2});
+					history.go(0); 
+                    return false;
+                }
+            });
+            return false;
+      });
+    }
+
+    function del(id) {
+        layer.confirm('你确定要删除吗？', {icon: 3}, function (index) {
+            layer.close(index);
+            window.location.href = "{:url('check1del')}?id=" + id;
+        });
+    }
+    function delall() {
+        var ids = '';
+        $('input[name*=\'userId\']:checked').each(function (){
+            ids += $(this).val() + ',';
+        });
+        layer.confirm('确认要删除选中信息吗？', {icon: 3}, function(index){
+            $.post("{:url('delall')}", {ids:ids}, function (result) {
+                layer.alert(result.msg,{icon:6},function(){
+                    window.location.href = result.url;
+                });
+                return false;
+            });
+            layer.close(index);
+        })
+
+    }
+    function getdate(date){
+        var date = new Date(date*1000);//如果date为10位不需要乘1000
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+        var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+        var m = (date.getMinutes() <10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+        var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
+        return Y+M+D+h+m+s;
+    }
+</script>

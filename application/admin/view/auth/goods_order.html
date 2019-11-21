@@ -1,0 +1,22 @@
+{include file="common/mainHead"/}
+<div class="admin-main fadeInUp animated">
+
+    <fieldset class="layui-elem-field">
+        <legend>商品兑换审核</legend>
+    </fieldset>
+	<div style="margin-bottom;border-radius:5px;margin-bottom:160px;">
+
+	{volist name="xx" id="vo"}
+        <div style="background-color:#fff;width:auto;;line-height:30px;">
+		 {if $vo['status']==14 }<span style="color:red;">待发货</span>
+			（收件人：{$vo['xm']},手机：{$vo['mobile']},地址：{$vo['dz']},{$vo['note']}）时间:{:date("Y-m-d",$vo['createtime'])}
+		<a href="{:url('fh',array('id'=>$vo['id']))}" class="layui-btn layui-btn-primary">
+			发货
+		</a>
+
+		{/if}
+	{/volist}
+        </div>
+</div>
+</div>
+{include file="common/mainFoot"/}

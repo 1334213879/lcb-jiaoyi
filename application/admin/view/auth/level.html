@@ -1,0 +1,38 @@
+{include file="common/mainHead"/}
+<div class="admin-main fadeInUp animated">
+
+    <fieldset class="layui-elem-field">
+        <legend>代理申请</legend>
+    </fieldset>
+	<div style="margin-bottom;border-radius:5px;margin-bottom:160px;">
+
+	{volist name="xx" id="vo"}
+        <div style="background-color:#fff;width:auto;;line-height:30px;">
+		 {if $vo['status']==10 }<span style="color:red;">审核中</span>
+			（{$vo['name']},{$vo['note']}）时间:{:date("Y-m-d",$vo['createtime'])}
+		<a id="{$vo['id']}" onclick="list({$vo['id']}) " class="layui-btn layui-btn-primary">
+			同意
+		</a>
+		<a id="{$vo['id']}" onclick="jj({$vo['id']}) " class="layui-btn layui-btn-primary">
+			拒绝
+		</a>
+		{/if}
+	{/volist}
+        </div>
+</div>
+</div>
+{include file="common/mainFoot"/}
+<script>
+    function list(id) {
+			
+            $.post("{:url('ty')}", {id:id}, function (result) {
+            	 alert('成功');history.go(0); 
+            });
+    }
+	function jj(id) {
+			
+            $.post("{:url('jj')}", {id:id}, function (result) {
+            	 alert('拒绝成功');history.go(0); 
+            });
+    }
+</script>

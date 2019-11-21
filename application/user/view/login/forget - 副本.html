@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html style="background-color:#ffffff;">
+<head>
+    <meta charset="utf-8">
+    <title>{$title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="{$title}">
+    <meta name="description" content="{$title}">
+    <link rel="stylesheet" href="__STATIC__/user/layui/css/layui.css">
+    <link rel="stylesheet" href="__STATIC__/user/css/global.css">
+</head>
+       <style>
+			input{
+				input[type=button], input[type=submit], input[type=file], button { cursor: pointer; -webkit-appearance: none; } ;
+				outline:0px; -webkit-appearance:none;
+			}
+	   </style>
+<body style="margin-top:30px;">
+<div class="main layui-clear"style="min-height:280px;">
+    <div class="fly-panel fly-panel-user" pad20>
+        <div class="layui-tab layui-tab-brief" lay-filter="user">
+			<div style="margin-left:20%;">
+			
+				<img src="__ADMIN__/images/logo.png"style="width:70%;">
+			</div>
+            <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
+                <div class="layui-tab-item layui-show">
+                    <div class="layui-form layui-form-pane">
+                        <form method="post">
+                            <div class="layui-form-item">
+                               
+                                    <input type="text"style="border-radius:8px;width:60%;float:left;" id="L_email" name="email" lay-verify="required" placeholder="注册手机号" autocomplete="off" class="layui-input">
+
+                                
+                                <button type="button" style="width:40%;float:left;border-radius:8px;"class="layui-btn layui-btn-normal" id="sentEmail">发送</button>
+                            </div>
+                            <div class="layui-form-item">
+                               
+                                    <input type="text"style="border-radius:8px;" id="L_vercode" name="code" lay-verify="required" placeholder="请输入您收到的验证码" autocomplete="off" class="layui-input">
+                                
+                            </div>
+                            <div class="layui-form-item">
+                                
+                                    <input type="password"style="border-radius:8px;" id="L_pass" name="password" lay-verify="required" placeholder="6到16个字符的密码" autocomplete="off" class="layui-input">
+                               
+                            </div>
+                            <div class="layui-form-item">
+                               
+                                    <input type="password"style="border-radius:8px;" id="L_repass" name="password2" lay-verify="required" placeholder="请输入确认密码" autocomplete="off" class="layui-input">
+                               
+                            </div>
+							<div class="layui-form-item">
+							 <button type="button" class="layui-btn" style="border-radius:8px;width:100%;background-color:#ea2027;"lay-filter="sub" lay-submit>提交</button>
+                            </div>
+                           <!--  <div class="layui-form-item">
+                                <button type="button" class="layui-btn" lay-filter="sub" lay-submit>提交</button>
+                                <span style="padding-left:20px;"><a href="{:url('index')}">登录</a></span>
+                            </div> -->
+                        </form>
+						 <div class="layui-form-item">
+								 <span style="float:left;"><a style="color:#4fc6ec"href="{:url('index')}">立即登录</a></span>
+                                 <span style="float:right;"><a style="color:#4fc6ec"href="{:url('reg')}">立即注册</a></span>
+                               
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__HOME__/js/jquery.min.js"></script>
+<script src="__STATIC__/user/layui/layui.js"></script>
+<!-- footer end here -->
+<script>
+    $('#noscript').remove();
+    jQuery(function($){
+        //external加上target="_blank"
+        $("a[rel*=external]").attr("target","_blank");
+    });
+</script>
+<script>
+    $('#sentEmail').click(function () {
+        var email = $('#L_email').val();
+        $.post("{:url('sendEmail')}",{email:email},function(res){
+            if(res.code > 0){
+                layer.msg(res.msg,{time:1800});
+            }else{
+                layer.msg(res.msg,{time:1800});
+            }
+        });
+        
+    });
+    layui.use(['form', 'layer'], function () {
+        var form = layui.form(),layer = layui.layer;
+        // 登录提交监听
+        form.on('submit(sub)', function (data) {
+            // 提交到方法 默认为本身
+            $.post("{:url('forget')}",data.field,function(res){
+                if(res.code > 0){
+                    layer.msg(res.msg,{time:1800},function(){
+                        location.href = "{:url('index/index')}";
+                    });
+                }else{
+                    layer.msg(res.msg,{time:1800});
+                }
+            });
+        })
+    })
+</script>
+</body>
+</html>

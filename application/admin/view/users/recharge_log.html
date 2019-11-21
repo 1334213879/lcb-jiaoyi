@@ -1,0 +1,212 @@
+{include file="common/mainHead"/}
+    <script type='text/javascript' src='__STATIC__/xmt/js/global.js' charset='utf-8'></script>
+	<script type='text/javascript' src='__STATIC__/xmt/js/vue.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='__STATIC__/xmt/js/vue-resource.min.js' charset='utf-8'></script>
+<div class="admin-main fadeInUp animated" ng-app="hd" ng-controller="ctrl">
+	<legend style="width:100%;text-align:center;font-size:30px;margin-bottom:30px;">
+				<td colspan="2">
+					<a type="button" class="layui-btn layui-btn-small" v-bind:href="'./edit.html?user_id='+user.user_id">编辑及充值</a>
+				</td>
+	昵称：{{user.nickname}}，姓名：{{user.xm}}，帐号：{{user.mobile}}，VIP{{user.level-1}}，直推激活人数{{user.zt}}
+				<td colspan="2">
+				 <button type="button" class="layui-btn layui-btn-small" onclick="window.history.back();">{:lang('back')}</button>
+				</td>
+	</legend>
+    <fieldset class="layui-elem-field" STYLE="width:25%;float:left">
+        <legend>USDT账户记录（{{user.money_usdt}}）</legend>
+        <div class="layui-field-box table-responsive">
+            <table class="layui-table table-hover">
+                <thead>
+                <tr>
+                    <th>数量</th>
+					<th>状态</th>
+                    <th>创建时间</th>
+                </tr>
+                </thead>
+                <!--内容容器-->
+                <tbody id="con">
+					<tr v-for="a in list" v-if="a.usdt!=0">
+						<td>
+							<span v-if="a.usdt!=0">{{int_(a.usdt)}}USDT</span>
+							<span v-if="a.nmct!=0">{{int_(a.nmct)}}NMCT通证</span>
+							<span v-if="a.xmt!=0">{{int_(a.xmt)}}XMT通证</span>
+							<span v-if="a.nmct_dj!=0">{{int_(a.nmct_dj)}}NMCT资产</span>
+						</td>
+						<td>
+							{{a.title}}
+						</td>
+						<td>
+							{{timestampToTime(a.time)}}
+						</td>
+					</tr>
+                </tbody>
+                <tfoot>
+                <tr>
+              
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </fieldset>
+	<fieldset class="layui-elem-field" STYLE="width:25%;float:left">
+        <legend>NMCT资产记录（{{user.nmct_dj}}）</legend>
+        <div class="layui-field-box table-responsive">
+            <table class="layui-table table-hover">
+                <thead>
+                <tr>
+                    <th>数量</th>
+					<th>状态</th>
+                    <th>创建时间</th>
+                </tr>
+                </thead>
+                <!--内容容器-->
+                <tbody id="con">
+					<tr v-for="a in list" v-if="a.nmct_dj!=0">
+						<td>
+							<span v-if="a.usdt!=0">{{int_(a.usdt)}}USDT</span>
+							<span v-if="a.nmct!=0">{{int_(a.nmct)}}NMCT通证</span>
+							<span v-if="a.xmt!=0">{{int_(a.xmt)}}XMT通证</span>
+							<span v-if="a.nmct_dj!=0">{{int_(a.nmct_dj)}}NMCT资产</span>
+						</td>
+						<td>
+							{{a.title}}
+						</td>
+						<td>
+							{{timestampToTime(a.time)}}
+						</td>
+					</tr>
+                </tbody>
+                <tfoot>
+                <tr>
+               
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </fieldset>
+	<fieldset class="layui-elem-field" STYLE="width:25%;float:left">
+        <legend>NMCT通证账户记录（{{user.nmct}}）</legend>
+        <div class="layui-field-box table-responsive">
+            <table class="layui-table table-hover">
+                <thead>
+                <tr>
+                    <th>数量</th>
+					<th>状态</th>
+                    <th>创建时间</th>
+                </tr>
+                </thead>
+                <!--内容容器-->
+                <tbody id="con">
+					<tr v-for="a in list" v-if="a.nmct!=0">
+						<td>
+							<span v-if="a.usdt!=0">{{int_(a.usdt)}}USDT</span>
+							<span v-if="a.nmct!=0">{{int_(a.nmct)}}NMCT通证</span>
+							<span v-if="a.xmt!=0">{{int_(a.xmt)}}XMT通证</span>
+							<span v-if="a.nmct_dj!=0">{{int_(a.nmct_dj)}}NMCT资产</span>
+						</td>
+						<td>
+							{{a.title}}
+						</td>
+						<td>
+							{{timestampToTime(a.time)}}
+						</td>
+					</tr>
+                </tbody>
+                <tfoot>
+                <tr>
+               
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </fieldset>
+	<fieldset class="layui-elem-field" STYLE="width:20%;float:left">
+        <legend>XMT通证账户记录（{{user.xmt}}）</legend>
+        <div class="layui-field-box table-responsive">
+            <table class="layui-table table-hover">
+                <thead>
+                <tr>
+                    <th>状态</th>
+					<th>帐号</th>
+                    <th>时间</th>
+                </tr>
+                </thead>
+                <!--内容容器-->
+                <tbody id="con">
+					<tr v-for="a in list" v-if="a.xmt!=0">
+						<td>
+							<span v-if="a.usdt!=0">{{int_(a.usdt)}}USDT</span>
+							<span v-if="a.nmct!=0">{{int_(a.nmct)}}NMCT通证</span>
+							<span v-if="a.xmt!=0">{{int_(a.xmt)}}XMT通证</span>
+							<span v-if="a.nmct_dj!=0">{{int_(a.nmct_dj)}}NMCT资产</span>
+						</td>
+						<td>
+							{{a.title}}
+						</td>
+						<td>
+							{{timestampToTime(a.time)}}
+						</td>
+					</tr>
+                </tbody>
+                <tfoot>
+                <tr></tr>
+                </tfoot>
+            </table>
+        </div>
+    </fieldset>
+</div>
+{include file="common/mainFoot"/}
+<script>
+function int_(i){
+	if(i>0){
+		return '+'+i;
+	}else if(i<0){
+		return i;
+	}
+}
+ function timestampToTime(timestamp) {
+		        var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+		        Y = date.getFullYear() + '-';
+		        M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+		        D = date.getDate() + ' ';
+		        h = date.getHours() + ':';
+		        m = date.getMinutes() + ':';
+		        s = date.getSeconds();
+		        return Y+M+D+h+m+s;
+	   		 }
+new Vue({
+  el: '.animated',
+  data: {
+	user:'',
+	list:'',
+  },
+  filters: {
+	  numFilter(value) {
+	    let realVal = Number(value).toFixed(2)
+	    return Number(realVal)
+	  }
+  },
+  methods: {
+	getData(){
+		this.$http.post('/user/mode/bb.html',{user_id:{$user_id}},{withCredentials: true}).then(function (res) {
+			var i = res.body;
+			this.user=i.user;
+			this.list=i.list;
+		})
+	},
+	jh(id,type){
+		var r=confirm("你确定是否激活此帐号？");
+		if (r==true){
+			this.$http.post('./jh.html',{user_id:{$user_id},id:id,type:type},{withCredentials: true}).then(function (res) {
+				var i = res.body;
+				alert(i.msg);
+				window.location.reload();
+			})
+		}
+	},
+  },
+  created:function (){
+	this.getData();
+  },
+})
+</script>

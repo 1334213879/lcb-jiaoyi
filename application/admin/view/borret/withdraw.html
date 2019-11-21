@@ -1,0 +1,210 @@
+{include file="common/mainHead"/}
+<div class="admin-main fadeInUp animated">
+ <blockquote class="layui-elem-quote">
+        <form  class="layui-form">
+            <div class="layui-form-item search-input"  style="margin:0;">
+                    <div class="layui-form-mid layui-word-aux" style="padding:0;">
+                        <a href="{:url('borret/withdraw')}?status=1" class="layui-btn">待审核</a>
+                    </div>
+                    <div class="layui-form-mid layui-word-aux" style="padding:0;">
+                        <a href="{:url('borret/withdraw')}?status=2" class="layui-btn">已通过</a>
+                    </div>
+                </div>
+         
+        </form>
+    </blockquote>
+    <fieldset class="layui-elem-field">
+        <legend>借/还记录</legend>
+        <div class="layui-field-box table-responsive">
+            <table class="layui-table table-hover">
+                <thead>
+                <tr>
+                    <!-- <th><input type="checkbox" id="selected-all" onclick="$('input[name*=\'userId\']').prop('checked', this.checked);"></th> -->
+                    <th>编号</th>
+                    <th>用户</th>
+                    <th>数目</th>
+                    <th>打款凭证</th>
+                    <th>当前状态</th>
+					<th>借款时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <!--内容容器-->
+                <tbody id="con">
+                    {foreach list as $k => $v}
+                        <tr>
+                            <!-- <td><input type="checkbox" name="userId[]" value="{$v.id}"></td> -->
+                            <td>{$v.id}</td>
+                            <td>{$v.nickname}</td>
+                            <td>{$v.nmct}</td>
+                            <td>
+                                <div id="layer-photos-demo{$v.id}" onclick="view({$v.id})">
+                                 <img layer-pid="图片id，可以不写" layer-src="{$v.img}" src="{$v.img}" alt="{$v.img}" style="max-width: 70px;">
+                                </div>
+                            </td>
+                            <td>
+                                {switch $v.status}
+                                {case 1}待审核{/case}
+                                {case 2}已通过{/case}
+                                {default /}已通过
+                                {/switch}
+
+                            </td>
+                            <td>{$v.time|date='y-m-d h:i:s',###}</td>                            
+                            <td>
+                                {switch $v.status}
+                                {case 1}<button class="su" onclick="tg({$v.id},{$v.user_id})">通过</button>{/case}
+                                {/switch}
+                            </td>
+                        </tr>
+                    {/foreach}
+
+                </tbody>
+                <tfoot>
+                <tr>
+                <td colspan="2">
+				 <button type="button" class="layui-btn layui-btn-small" onclick="window.history.back();">{:lang('back')}</button>
+				</td>
+                    <td colspan="10">
+                        <!--分页容器-->
+                        <div id="paged" style="text-align: right"></div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </fieldset>
+</div>
+<div class="shou" style="width: 200px;height: 200px;float: left;display: none;position: absolute;left: 30%;top: 30%; ">
+   <button type="button" class="layui-btn" id="test1" style="width: 120px;height: 100px;">
+    <input type="hidden" name="up_id">
+    <input type="hidden" name="u_id">
+    <i class="layui-icon" style="text-align: center;">&#xe67c;</i>上传凭证
+    </button>
+    </div>
+
+<script type="text/javascript">
+
+    function tg(id,uid){
+        console.log(id)
+        console.log(uid)
+        if ($('.shou').css('display') == 'none') {
+            $('input[name=up_id]').val(id);
+            $('input[name=u_id]').val(uid);
+            $('.shou').css('display','block');
+        }else{
+            $('.shou').css('display','none');
+        }
+
+        
+    }
+
+    // function hk(id,uid){
+
+    //    layui.use('layer',function () { 
+    
+    //         layer.confirm('确认用户已还款吗？', {
+    //             btn : [ '确定', '取消' ]//按钮
+    //             }, function(index) {
+                    
+    //                 layer.close(index);
+    //                 //此处请求后台程序，下方是成功后的前台处理……
+    //                $.ajax({
+    //                     //请求方式
+    //                     type : "POST",
+    //                     //请求地址
+    //                     url : "{:url('borret/status')}",
+    //                     //数据，json字符串
+    //                     data : {id:id,uid:uid},
+    //                     //请求成功
+    //                     success : function(res) {
+    //                         layer.msg(res.msg,{time:3000});
+    //                     },
+    //                     //请求失败，包含具体的错误信息
+    //                     error : function(res){
+    //                        layer.msg(res.msg,{time:3000});
+    //                     }
+    //                     });
+
+    //             });
+            
+    //         });
+    // }
+
+layui.use('upload', function(){
+
+  var upload = layui.upload;
+
+  //执行实例
+      var uploadInst = upload.render({
+        elem: '#test1' //绑定元素
+        ,data:{id:function(){return $('input[name=up_id]').val();} ,uid:function(){return $('input[name=u_id]').val();}}
+        ,url: "{:url('borret/txup')}" //上传接口
+        ,accept: 'images' //允许上传的文件类型
+        ,number: 1 //允许上传的文件数量
+        ,done: function(res){
+          //上传完毕回调
+           window.location.reload();
+          layer.msg(res.msg,{time:3000});
+        }
+        ,error: function(){
+          layer.msg(res.msg,{time:3000});
+        }
+    });
+});
+</script>
+
+{include file="common/mainFoot"/}
+<script>
+   
+        //搜索
+        $('#search').on('click', function() {
+            var $this = $(this);
+            var key = $('#key').val();
+            if($.trim(key)=='') {
+                layer.msg('{:lang('pleaseEnter')}关键字！');
+                return;
+            }
+            //调用get方法获取数据
+            paging.get({
+                key: key //获取输入的关键字。
+            });
+        });
+    function view(id) {
+    	  layer.photos({
+            photos: '#layer-photos-demo'+id
+            ,closeBtn: 1
+            ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+          }); 
+    }
+    function stateyes(id,type) {
+	if(type==1){
+	 var t = '你确定审核通过吗?';
+	}else{
+	 var t = '你确定拒绝吗?';
+	}
+        layer.confirm(t, {icon: 3}, function (index) {
+            $.post('{:url("cz_type")}', {id:id,type:type}, function (data) {
+                if (data.status = 1) {
+                    layer.msg(data.msg,{time:1000,icon:6});
+					history.go(0); 
+                }else{
+                    layer.msg(data.msg,{time:1000,icon:5});
+					//history.go(0); 
+                    return false;
+                }
+            });
+            return false;
+      });
+    }
+    function getdate(date){
+        var date = new Date(date*1000);//如果date为10位不需要乘1000
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+        var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+        var m = (date.getMinutes() <10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+        var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
+        return Y+M+D+h+m+s;
+    }
+</script>

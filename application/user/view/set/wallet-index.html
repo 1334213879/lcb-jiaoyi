@@ -1,0 +1,350 @@
+{include file="common/head"/}
+<link rel="stylesheet" href="__STATIC__/xmt/css/pages/bb.css">
+<body id="mywallet">
+<div class="title-bar">
+	<h3>{:lang('我的账户')}</h3>
+<!-- 	<a href="" onclick="window.history.go(-1);">&lt;</a> -->
+</div>
+<!-- 第一个框，XMT账户 -->
+<div id="app">
+<div class="wallet_wrap block1">
+	<div class="h-bar">{:lang('XMT账户')}</div>
+	<div class="price">
+		{:lang('当前价格')}{{user.price}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:lang('折合CNY')}：{{user.price*user.xmt | numFilter}}
+	</div>
+	<div class="main-content">
+		<p class="fl" style="padding:.5rem 0 1rem;">
+			<span><strong>{{user.xmt}}</strong></span>
+			<span><strong>{:lang('可用')}</strong></span>
+		</p>
+		<p class="fr" style="width:30%;">
+			<span><strong>{{user.xmt_dj}}</strong></span>
+			<span>{:lang('冻结')}</span>
+			<span><strong>${{user.usdt_dj}}</strong></span>
+			<span>{:lang('总累计')}</span>
+		</p>
+			
+		</p>
+		
+		<span id="qbdz49" oncopy="myFunction()">{{user.token}}</span>
+	</div>
+	<div class="b-bar">
+		<a onclick="location.href ='{:url('user/index/jy',['id'=>49])}';">{:lang('挂卖')}</a>
+		<span>|</span>
+		<a class="open-popup" data-popup=".popup-transfer">{:lang('转出到USDT帐号')}</a>
+		<span>|</span>
+		<a class="open-popup" data-popup=".popup-record">{:lang('记录')}</a>
+		<span>|</span>
+		<a onclick="copy(49)">{:lang('复制地址')}</a>
+	</div>
+</div>
+<!--XMT账户end -->
+<!--XMTT账户-->
+<div class="wallet_wrap block2">
+	<div class="h-bar">{:lang('XMTT账户')}</div>
+	<div class="main-content">
+		<p class="fl" style="padding-bottom: 1rem;">
+			<strong>$</strong><strong>{{user.xmtt}}</strong>
+		</p>
+		<p class="open-popup" data-popup=".popup-tax" @click="parent.$('#dhl').hide();" style="width: 35%;float: left;margin-bottom: .7rem;
+    padding-left: 10%;padding-top: .2rem">
+			{:lang('转出矿工费')}<br>{:lang('说明')}
+		</p>
+	</div>
+	<div class="b-bar">
+		<a class="open-popup" data-popup=".popup-xmtt">{:lang('转出')}</a>
+		<span>|</span>
+		<a class="open-popup" data-popup=".popup-record2">{:lang('记录')}</a>
+		<span>|</span>
+		<a class="open-popup" data-popup=".popup-usdt" @click="type_=5">{:lang('转出到XMT冻结账户')}</a>
+		<!-- <span>|</span>//2018-12-4 XMTT不能转USDT
+		<a class="open-popup" data-popup=".popup-usdt" >转出到USDT账户</a> -->
+	</div>
+</div>
+<!--XMTT账户end -->
+<!--USDT账户-->
+<div class="wallet_wrap block3">
+	<div class="h-bar">{:lang('USDT账户')}</div>
+	<div class="main-content">
+		<p class="fl" style="border: none">
+			<strong>$</strong><strong>{{user.money_usdt}}</strong>
+		</p>
+		<span id="qbdz50" oncopy="myFunction()">{{user.token}}</span>
+	</div>
+	<div class="b-bar">
+		<a @click="wboos.toast('此功能暂未开通>_<')">{:lang('账户充值')}</a>
+		<span>|</span>
+		<a class="open-popup" data-popup=".popup-record3">{:lang('记录')}</a>
+		<span>|</span>
+		<a class="open-popup" data-popup=".popup-usdt" @click="type_=4">{:lang('转出到XMT冻结账户')}</a>
+		<span>|</span>
+		<a onclick="copy(50)">{:lang('复制地址')}</a>
+	</div>
+</div>
+<!--USDT账户end -->
+<!-- xmt账户转出到usdt弹出页 -->
+<div class="popup zc popup-transfer">
+	<div class="title-bar">
+		<h3>{:lang('XMT转至USDT')}</h3>
+	</div>
+	<div class="trans-info">
+		<div class="trans-pic">
+			<img src="__STATIC__/xmt/images/transfer.png" alt="">
+		</div>
+		<p>{:lang('将从XMT账户转出到USDT账户')}</p>
+		<span>{:lang('请输入转出数量')}：</span>
+		<input type="number" id="xmt" value="" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" class="trans-num" />
+	</div>
+	<div class="btns">
+		<a class="close-popup cancel">{:lang('取消')}</a>
+		<a @click="zc_(0);" class="confirm">{:lang('确定转出')}</a>
+	</div>
+</div>
+<div class="popup zc popup-usdt">
+	<div class="title-bar">
+		<h3 v-if="type_==0">{:lang('XMTT转至USDT')}</h3>
+		<h3 v-if="type_==4">{:lang('USDT账户转至XMT冻结账户')}</h3>
+		<h3 v-if="type_==5">{:lang('XMTT账户转至XMT冻结账户')}</h3>
+	</div>
+	<div class="trans-info">
+		<div class="trans-pic">
+			<img src="__STATIC__/xmt/images/transfer.png" alt="">
+		</div>
+		<p v-if="type_==0">{:lang('将从XMTT账户转出到USDT账户')}</p>
+		<p v-if="type_==4">{:lang('将从USDT账户转入到XMT冻结账户')}</p>
+		<p v-if="type_==5">{:lang('将从XMTT账户转至XMT冻结账户')}</p>
+		<span>{:lang('请输入转出数量')}：</span>
+		<input type="number" id="usdt" value="" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" class="trans-num" />
+	</div>
+	<div class="btns">
+		<a class="close-popup cancel">{:lang('取消')}</a>
+		<a @click="zc_(type_);" class="confirm">{:lang('确定转出')}</a>
+	</div>
+</div>
+<div class="popup zc popup-xmtt">
+	<div class="title-bar">
+		<h3>{:lang('XMTT转出')}</h3>
+	</div>
+	<div class="trans-info">
+		<div class="trans-pic">
+			<img src="__STATIC__/xmt/images/transfer.png" alt="">
+		</div>
+		<p>{:lang('将从XMTT转出')}</p>
+		<span>{:lang('请输入转出至ID')}：</span>
+		<input type="number" id="pid" value="" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" class="trans-num" />
+		<p></p>
+		<span>{:lang('请输入转出数量')}：</span>
+		<input type="number" id="xmtt" value="" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'');$('#sfx').text(this.value*0.3);}else{this.value=this.value.replace(/\D/g,'');$('#sfx').text(this.value*0.3)}" class="trans-num" />
+		<p>{:lang('转出手续费')}$<span id="sfx">0</span>，{:lang('从USDT账户扣除')}</p>
+	</div>
+	<div class="btns">
+		<a class="close-popup cancel">{:lang('取消')}</a>
+		<a @click="zc_(2);" class="confirm">{:lang('确定转出')}</a>
+	</div>
+</div>
+<!-- xmt账户转出到usdt弹出页end -->
+<!-- 账户记录弹出页 -->
+<div class="popup jl popup-record">
+	<div class="title-bar">
+		<a class="close-popup cancel" id="top-mark1">{:lang('返回')}</a>
+		<h3>{:lang('XMT账户记录')}</h3>
+	</div>
+	<div class="trans-pic">
+		<img src="__STATIC__/xmt/images/transfer.png" alt="">
+	</div>
+	<div class="record-list">
+		<h4>{:lang('历史记录')}</h4>
+		<ul>
+			<li v-for="a in xmt">
+				<span v-if="a.day">
+					<p class="num" style="font-size:20px;">{:lang('冻结')}{{a.xmt_dj}}</p>
+					<p class="fr"><span class="source">{{a.title}}</span><span class="time">{{timestampToTime(a.time)}}</span></p>
+				</span>
+				<span v-else-if="a.type>0">
+					<p class="num" style="font-size:20px;"><span v-if="a.type==9 || a.type==14">+{{a.num}}</span><span v-if="a.type==10">-{{a.num}}</span></p>
+					<p class="fr"><span class="source">{{a.title}}</span><span class="time">{{timestampToTime(a.time)}}</span></p>
+				</span>
+				<span v-else>
+					<p class="num" style="font-size:20px;">
+						<span v-if="a.add=='+'">+<br>{{a.gs}}</span><span v-else>-<br>{{Number(a.gs)+Number(a.dj)}}</span>
+					</p>
+					<p class="fr">
+						<span class="source" v-if="a.add=='+'">{:lang('购买XMT')}</span>
+						<span class="source" v-else>{:lang('挂卖XMT')}</span>
+						<span class="time">{{timestampToTime(a.time)}}</span>
+					</p>
+				</span>
+			</li>
+		</ul>
+		<div class="btns">
+				<a href="#top-mark1" class="totop">{:lang('返回顶部')}</a>
+		</div>
+	</div>
+	<p style="height:50px;width:100%;"></p>
+</div>
+<div class="popup jl popup-record2">
+	<div class="title-bar">
+		<a class="close-popup cancel" id="top-mark2">{:lang('返回')}</a>
+		<h3>{:lang('XMTT账户记录')}</h3>
+	</div>
+	<div class="trans-pic">
+		<img src="__STATIC__/xmt/images/transfer.png" alt="">
+	</div>
+	<div class="record-list">
+		<h4>{:lang('历史记录')}</h4>
+		<ul>
+			<li v-for="a in xmtt">
+				<p class="num">
+					<span v-if="a.type==5">-{{a.xmtt}}</span>
+					<span v-else-if="a.day">-{{a.xmtt}}</span>
+					<span v-else-if="a.type==4">{{a.reward}}</span>
+					<span v-else-if="a.type<11 && a.type!=8">+{{a.reward}}</span>
+					<span v-else-if="a.type==11 && a.user_id==user.user_id">-{{a.num}}</span>
+					<span v-else-if="a.type==11 && a.user_id==user.fxid">+{{a.num}}</span>
+					<span v-else-if="a.type==8">+{{a.num}}</span>
+					<span v-else-if="a.type>10 && a.type!=13">-{{a.reward}}</span>
+					<span v-else-if="a.type==13">+{{a.num}}</span>
+				</p>
+				<p class="fr">
+				<span class="source" v-if="a.type==11 && a.user_id==user.fxid">{:lang('获得转让XMTT')}</span>
+				<span class="source" v-else>
+				{{a.title}}
+				</span>
+				<span class="time">{{timestampToTime(a.time)}}</span></p>
+			</li>
+		</ul>
+		<div class="btns">
+			<a class="totop" href="#top-mark2">{:lang('返回顶部')}</a>
+		</div>
+	</div>
+	<p style="height:50px;width:100%;"></p>
+</div>
+<div class="popup jl popup-record3">
+	<div class="title-bar">
+		<a class="close-popup cancel" id="top-mark3">{:lang('返回')}</a>
+		<h3>{:lang('USDT账户记录')}</h3>
+	</div>
+	<div class="trans-pic">
+		<img src="__STATIC__/xmt/images/transfer.png" alt="">
+	</div>
+	<div class="record-list">
+		<h4>{:lang('历史记录')}</h4>
+		<ul>
+			<li v-for="a in usdt">
+				<p class="num" style="font-size:20px;">
+				<span v-if="a.day">-{{a.usdt}}</span>
+				<span v-else-if="a.type==1">+{{a.num}}</span>
+				<span v-else-if="a.type==11">-{{a.reward}}{:lang('扣除矿工费')}</span>
+				<span v-else-if="a.type==10">+{{a.reward}}</span>
+				<span v-else-if="a.type==12">+{{a.num}}</span>
+				</p>
+				<p class="fr"><span class="source">{{a.title}}</span><span class="time">{{timestampToTime(a.time)}}</span></p>
+			</li>
+		</ul>
+		<div class="btns">
+			<a class="totop" href="#top-mark3">{:lang('返回顶部')}</a>
+		</div>
+	</div>
+	<p style="height:50px;width:100%;"></p>
+</div>
+<!-- 账户记录弹出页end -->
+<!-- 矿工费规则说明弹出页 -->
+<div class="popup popup-tax" style="display: none;">
+	<h4>【{:lang('矿工费规则说明')}】</h4>
+	<div class="content-block" style="margin:0;padding:0">
+		<p style="color: #fff;font-size: .7rem;line-height:2;text-indent:2em;">{:lang('在一个XMT社区上, 任何人都可以读写数据。读取数据是免费的, 但是向公有链中的社区写数据时需要花费一定费用的, 这种开销有助于阻止垃圾内容, 并通过钱包支付保护其安全性。网络上的任何节点(每个包含账本拷贝的连接设备被称作节点) 都可以参与称作挖矿的方式来保护网络。由于挖矿需要计算能力和电费, 避免双重支付，所以矿工们的服务需要得到一定的报酬, 这也是XMT矿工费的由来。')}
+		</p>
+	<p><a href="#" class="close-popup" @click="parent.$('#dhl').show();" style="display: inline-block;background:#f78b00;padding:0 .3rem;color: #fff">{:lang('我了解了')}</a></p>
+	</div>
+</div>
+</div>
+
+<!-- 矿工费规则说明弹出页end -->
+<div style="padding-bottom: 3rem;"></div>
+<script>
+parent.$('#dhl').show();
+ function timestampToTime(timestamp) {
+		        var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+		        Y = date.getFullYear() + '-';
+		        M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+		        D = date.getDate() + ' ';
+		        h = date.getHours() + ':';
+		        m = date.getMinutes() + ':';
+		        s = date.getSeconds();
+		        return Y+M+D+h+m+s;
+	   		 }
+function copy(id) 
+	{
+	var id = "qbdz"+id;
+        const range = document.createRange();
+        range.selectNode(document.getElementById(id));
+        const selection = window.getSelection();//选择
+        if(selection.rangeCount > 0) selection.removeAllRanges();
+        selection.addRange(range);
+        document.execCommand('copy');
+		layer.msg('{:lang(\'复制成功\')}',{time:1800});
+	}
+var app = new Vue({
+  el: '#app',
+  data: {
+	user:'',
+	xmt:'',
+	xmtt:'',
+	usdt:'',
+	type_:1,
+  },
+  filters: {
+	  numFilter(value) {
+	    let realVal = Number(value).toFixed(2)
+	    return Number(realVal)
+	  }
+  },
+  methods: {
+	getData(){
+		this.$http.get('/user/mode/bb.html').then(function (res) {
+			var i = res.body;
+			this.user=i.user;
+			this.xmt=i.xmt;
+			this.xmtt=i.xmtt;
+			this.usdt=i.usdt;
+		})
+	},
+	zc_(type){
+		var pid = '';
+		if(type==0){
+			var number = $('#xmt').val();
+		}else if(type==1 || type>2){
+			var number = $('#usdt').val();
+		}else if(type==2){
+			pid = $('#pid').val();
+			var number = $('#xmtt').val();
+		}
+		wboos.confirm('{:lang(\'确定要提交?\')}', function () {
+                        wboos.httpRequest({
+                            url: '/user/mode/zc.html',
+                            type: 'post',
+                            data: {type:type,number:number,pid:pid},
+                            success: function(i) {
+                                if(i.status==0){
+									wboos.toast(i.msg);
+								}else{
+									wboos.toast(i.msg);
+									$('.cancel').click();
+									app.getData();
+								}
+                            }
+                        });
+                    });
+		
+	$.confirm('Are you sure?', function () {
+          $.alert('You clicked Ok button');
+      });
+	},
+  },
+  created:function (){
+	this.getData();
+  },
+})
+</script>
+</body>
+</html>

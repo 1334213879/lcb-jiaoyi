@@ -1,0 +1,175 @@
+{include file="common/mainHead"/}
+<style>
+.red{
+	background:#FFB800;
+}
+</style>
+<div class="admin-main fadeInUp animated">
+    <fieldset class="layui-elem-field">
+	<table class="layui-table table-hover">
+        	<thead>
+					<tr>
+						<th>
+			<div class="layui-form-mid layui-word-aux" style="padding:0;">
+                 <a href="{:url('xmtt')}?type=2" class="layui-btn {if $type==2}red{/if}">直推奖</a>
+            </div>
+						</th>
+						<th>
+			<div class="layui-form-mid layui-word-aux" style="padding:0;">
+                 <a href="{:url('xmtt')}?type=3" class="layui-btn {if $type==3}red{/if}">三生万物见点奖</a>
+            </div>
+						</th>
+						<th>
+			<div class="layui-form-mid layui-word-aux" style="padding:0;">
+                 <a href="{:url('xmtt')}?type=8" class="layui-btn {if $type==8}red{/if}">三生万物管理奖(发放)</a>
+            </div>
+						</th>
+						<th>
+			<div class="layui-form-mid layui-word-aux" style="padding:0;">
+                 <a href="{:url('xmtt')}?type=4" class="layui-btn {if $type==4}red{/if}">三生万物管理奖(待发放)</a>
+            </div>
+						</th>
+						<th>
+			<div class="layui-form-mid layui-word-aux" style="padding:0;">
+                 <a href="{:url('xmtt')}?type=6" class="layui-btn {if $type==6}red{/if}">六六无尽见点奖</a>
+            </div>
+						</th>
+						<th>
+			<div class="layui-form-mid layui-word-aux" style="padding:0;">
+                 <a href="{:url('xmtt')}?type=7" class="layui-btn {if $type==7}red{/if}">九九归一共享分红</a>
+            </div>
+						</th>
+						<th>
+			<div class="layui-form-mid layui-word-aux" style="padding:0;">
+                 <a href="{:url('xmtt')}?type=13" class="layui-btn {if $type==13}red{/if}">充值XMTT</a>
+            </div>
+						</th>
+					</tr>
+					<tr id="tj"></tr>
+                </thead>
+		</table>
+        <div class="layui-field-box table-responsive">
+            <table class="layui-table table-hover">
+                <thead>
+                <tr>
+				<th>ID</th>
+					<th>奖项</th>
+					<th>由来</th>
+                    <th>XMTT</th>
+					<th>用户ID</th>
+					<th>用户昵称</th>
+					<th>用户姓名</th>
+					<th>用户帐号</th>
+					<th>时间</th>
+					<th>操作</th>
+                </tr>
+                </thead>
+                <!--内容容器-->
+                <tbody id="con">
+                </tbody>
+                <tfoot>
+                <tr>
+				<td colspan="2">
+				 <button type="button" class="layui-btn layui-btn-small" onclick="window.history.back();">{:lang('back')}</button>
+               <!--  <a href="{:url('index')}" class="layui-btn layui-btn-primary">{:lang('back')}</a> -->
+				</td>
+                    <td colspan="10">
+                        <div id="paged" style="text-align: right"></div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </fieldset>
+</div>
+
+<!--模板-->
+<script type="text/html" id="conTemp">
+    {{# layui.each(d.list, function(index, item){ }}
+    <tr>
+		<td>{{ item.id }}</td>
+		<td>{{ item.title }}</td>
+		<td>
+		{{# if(item.type==2 || item.type==3){ }}
+		（ID{{ item.user_id }}，姓名：{{ item.xm }}）首次充值：{{item.num}}USDT
+		{{# } }}
+        {{# if(item.type==4 && item.status==0){ }}
+		（ID{{ item.user_id }}，姓名：{{ item.xm }}）首次充值：{{item.num}}USDT
+		{{# } }}
+		{{# if(item.type==6){ }}
+		（ID{{ item.user_id }}，姓名：{{ item.xm }}）激活六六无尽帐号：{{item.num}}USDT
+		{{# } }}
+		{{# if(item.type==7){ }}
+		（ID{{ item.user_id }}，姓名：{{ item.xm }}）激活九九归一帐号：{{item.num}}USDT
+		{{# } }}
+		</td>
+        <td>
+		{{# if(item.type==13 || item.type==8){ }}
+		{{ item.num }}
+		{{# }else if(item.type==4 && item.status==0){  }}
+		 {{ item.reward }}
+		{{# }else{  }}
+        {{ item.reward }}
+        {{# } }}
+		</td>
+		{{# if(item.type==3 || item.type==6 || item.type==7 ){ }}
+		<td>{{ item.pid }}</td>
+		<td>{{ item.pidnickname }}</td>
+		<td>{{ item.pidxm }}</td>
+        <td>{{ item.pidmobile }}</td>
+		{{# }else if(item.type==4 && item.status==0){  }}
+		<td>{{ item.pid }}</td>
+		<td>{{ item.pidnickname }}</td>
+		<td>{{ item.pidxm }}</td>
+        <td>{{ item.pidmobile }}</td>
+		{{# }else{  }}
+		<td>{{ item.user_id }}</td>
+		<td>{{ item.nickname }}</td>
+		<td>{{ item.xm }}</td>
+        <td>{{ item.mobile }}</td>
+        {{# } }}
+		<td>{{ getdate(item.time) }}</td>
+		<td>
+			<a href="{:url('users/recharge_log')}?user_id={{item.user_id}}" style="background:#2f2f00" class="layui-btn">查看</a>
+		</td>
+    </tr>
+    {{# }); }}
+</script>
+{include file="common/mainFoot"/}
+<script>
+    layui.config({
+        base: '__ADMIN__/js/'
+    }).use(['paging', 'code','icheck','layer'], function() {
+        layui.code();
+        var paging = layui.paging(),layer = parent.layer === undefined ? layui.layer : parent.layer;
+        paging.init({
+            url: "{:url('xmtt')}", //地址
+            elem: '#con', //内容容器
+            params: {type: "{$type}"}, //发送到服务端的参数
+            tempElem: '#conTemp', //模块容器
+            pageConfig: { //分页参数配置
+                elem: 'paged', //分页容器
+                pageSize: 15 //分页大小
+            },
+            success: function(msg) { //渲染成功的回调
+                //alert('渲染成功');
+            },
+            fail: function(msg) { //获取数据失败的回调
+                alert('获取数据失败')
+            },
+            complate: function() { //完成的回调
+                //alert('处理完成');
+            }
+        });
+    });
+    function getdate(date){
+        var date = new Date(date*1000);//如果date为10位不需要乘1000
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+        var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+        var m = (date.getMinutes() <10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+        var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
+        return Y+M+D+h+m+s;
+    }
+</script>

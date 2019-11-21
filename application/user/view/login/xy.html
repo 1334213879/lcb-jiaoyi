@@ -1,0 +1,16 @@
+{include file="common/head"/}
+<body style="margin-top:5%;background-color:#fff;">
+
+	 {volist name="xw" id="vo"}
+        <div class="three columns mobile-two">
+			<div style="line-height:30px;text-align:center">{$vo['name']}</div>
+			{$vo['content']}
+        </div>
+		<div style="line-height:30px;text-align:center">
+			<a style="text-align:center;color:#1E9FFF" href="javascript:history.go(-1);">阅读完毕,返回</a>
+		</div>		
+     {/volist}
+	 
+
+</body>
+</html>

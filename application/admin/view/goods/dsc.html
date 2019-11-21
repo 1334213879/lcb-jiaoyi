@@ -1,0 +1,37 @@
+{include file="common/mainHead"/}
+<div class="admin-main fadeInUp animated">
+	    <fieldset class="layui-elem-field" STYLE="width:25%;float:left">
+        <legend>六六无尽待激活帐号</legend>
+        <div class="layui-field-box table-responsive">
+            <table class="layui-table table-hover">
+                <thead>
+                <tr>
+                    <th>数量</th>
+					<th>状态</th>
+                    <th>创建时间</th>
+                </tr>
+                </thead>
+                <!--内容容器-->
+                <tbody id="con">
+				{volist name="$user" id="v"}
+					<tr>
+						<td>
+							<span>{$v['user_id']}</span>
+						</td>
+						<td>
+						</td>
+						<td>
+						</td>
+					</tr>
+				{/volist}
+                </tbody>
+                <tfoot>
+                <tr>
+              
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </fieldset>
+</div>
+{include file="common/mainFoot"/}

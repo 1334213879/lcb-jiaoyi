@@ -1,0 +1,129 @@
+{include file="common/mainHead"/}
+<style>
+.red{
+	background:#FFB800;
+}
+</style>
+<div class="admin-main fadeInUp animated">
+    <fieldset class="layui-elem-field">
+	<table class="layui-table table-hover">
+        	<thead>
+					<tr>
+						<th>
+			<div class="layui-form-mid layui-word-aux" style="padding:0;">
+                 <a href="{:url('number')}?type=1&status=0" class="layui-btn {if $type==1 && $status==0}red{/if}">六六无尽待激活</a>
+            </div>
+						</th>
+						<th>
+			<div class="layui-form-mid layui-word-aux" style="padding:0;">
+				<a href="{:url('number')}?type=1&status=1" class="layui-btn {if $type==1 && $status==1}red{/if}">六六无尽已激活</a>
+            </div>
+						</th>
+						<th>
+			<div class="layui-form-mid layui-word-aux" style="padding:0;">
+				<a href="{:url('number')}?type=2&status=0" class="layui-btn {if $type==2 && $status==0}red{/if}">九九归一待激活</a>
+            </div>
+						</th>
+						<th>
+			<div class="layui-form-mid layui-word-aux" style="padding:0;">
+				<a href="{:url('number')}?type=2&status=1" class="layui-btn {if $type==2 && $status==1}red{/if}">九九归一已激活</a>
+            </div>
+						</th>
+					</tr>
+					<tr id="tj"></tr>
+                </thead>
+		</table>
+        <div class="layui-field-box table-responsive">
+            <table class="layui-table table-hover">
+                <thead>
+                <tr>
+                    <th>帐号</th>
+					<th>帐号ID</th>
+					<th>排位上级ID</th>
+					<th>排位位置</th>
+                    <th>用户</th>
+					<th>用户昵称</th>
+					<th>用户帐号</th>
+					<th>时间</th>
+					<th>状态</th>
+                </tr>
+                </thead>
+                <!--内容容器-->
+                <tbody id="con">
+                </tbody>
+                <tfoot>
+                <tr>
+				<td colspan="2">
+				 <button type="button" class="layui-btn layui-btn-small" onclick="window.history.back();">{:lang('back')}</button>
+               <!--  <a href="{:url('index')}" class="layui-btn layui-btn-primary">{:lang('back')}</a> -->
+				</td>
+                    <td colspan="10">
+                        <div id="paged" style="text-align: right"></div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </fieldset>
+</div>
+
+<!--模板-->
+<script type="text/html" id="conTemp">
+    {{# layui.each(d.list, function(index, item){ }}
+    <tr>
+		<td>{{ item.zh }}</td>
+        <td>{{ item.id }}</td>
+		<td>{{ item.pw_pid }}</td>
+		<td>{{ item.sort }}</td>
+		<td>{{ item.xm }}</td>
+		<td>{{ item.nickname }}</td>
+        <td>{{ item.mobile }}</td>
+		<td>{{ getdate(item.time) }}</td>
+		<td>
+		{{# if(item.status==0){ }}
+			<a href="{:url('users/recharge_log')}?user_id={{item.user_id}}" style="background:#2f2f00" class="layui-btn">{{ item.zt }}</a>
+			{{# }else if(item.status==1){  }}
+			{{ item.zt }}
+		{{# } }}
+		</td>
+    </tr>
+    {{# }); }}
+</script>
+{include file="common/mainFoot"/}
+<script>
+    layui.config({
+        base: '__ADMIN__/js/'
+    }).use(['paging', 'code','icheck','layer'], function() {
+        layui.code();
+        var paging = layui.paging(),layer = parent.layer === undefined ? layui.layer : parent.layer;
+        paging.init({
+            url: "{:url('number')}", //地址
+            elem: '#con', //内容容器
+            params: {type: "{$type}",status: "{$status}"}, //发送到服务端的参数
+            tempElem: '#conTemp', //模块容器
+            pageConfig: { //分页参数配置
+                elem: 'paged', //分页容器
+                pageSize: 15 //分页大小
+            },
+            success: function(msg) { //渲染成功的回调
+                //alert('渲染成功');
+            },
+            fail: function(msg) { //获取数据失败的回调
+                //alert('获取数据失败')
+            },
+            complate: function() { //完成的回调
+                //alert('处理完成');
+            }
+        });
+    });
+    function getdate(date){
+        var date = new Date(date*1000);//如果date为10位不需要乘1000
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+        var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+        var m = (date.getMinutes() <10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+        var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
+        return Y+M+D+h+m+s;
+    }
+</script>
