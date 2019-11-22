@@ -15,4 +15,5 @@ return [
 	'app\home\command\Hb',
 	'app\home\command\Upgrade',
 	'app\home\command\liveaward',
+	'app\home\command\TimeMonitor',
 ];

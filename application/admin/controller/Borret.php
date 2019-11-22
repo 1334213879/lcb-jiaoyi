@@ -146,7 +146,7 @@ class Borret extends Common {
 						Db::startTrans();
 						$user = Db('users')->where('user_id', $uid)->find();
 						if ($user['yet_tx_money'] >= 3000) {
-							$user = Db('users')->where('user_id', $uid)->data(['is_lock' => 1, 'out_time' => time()])->update();
+							$user = Db('users')->where('user_id', $uid)->data(['out_time' => time()])->update();
 						}
 						$Db = db::name('log')->where('id', $id)->data(['status' => 2, 'img' => $imgpath])->update();
 						Db::commit();

@@ -15,7 +15,7 @@ use think\Db;
 class liveaward extends Command {
 
 	protected function configure() {
-		$this->setName('liveaward')->setDescription("days");
+		$this->setName('liveaward')->setDescription("days 直推奖");
 	}
 
 	//调用SendMessage 这个类时,会自动运行execute方法

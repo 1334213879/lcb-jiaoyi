@@ -71,7 +71,11 @@
                             <td>
                                 {switch $v.status}
                                 {case 1}<button class="su" onclick="tg({$v.id},{$v.uid})">借款审核通过</button>{/case}
-                                {case 2}<button class="su" onclick="hk({$v.id},{$v.uid})">还款完成</button>{/case}
+                                {case 2}
+                                    {if time() - $v.j_time < 172800 }
+                                    <button class="su" onclick="hk({$v.id},{$v.uid})">还款完成</button>
+                                    {/if}
+                                    {/case}
                                 {/switch}
 
                                 {$v.h_time}
