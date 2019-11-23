@@ -390,26 +390,26 @@ class Set extends Common {
 		$yh = input('post.yh');
 		$name = input('post.name');
 		$yhk = input('post.yhk');
-		$money_address = input('post.money_address');
+		// $money_address = input('post.money_address');
 		$user_id = session('user.user_id');
 		$yz = db('yhk')->where("user_id", session('user.user_id'))->find();
-		if (!empty($yhk)) {
-			$yhk_ = db('yhk')->where("`yhk`={$yhk} and user_id!={$user_id}")->find();
-			if (!empty($yhk_)) {
-				return array('status' => 0, 'msg' => '每张银行卡只能绑定一个用户！');
-			}
-		}
-		if (empty($yh) || empty($name) || empty($yh) || empty($yhk)) {
+		// if (!empty($yhk)) {
+		// 	$yhk_ = db('yhk')->where("`yhk`={$yhk} and user_id!={$user_id}")->find();
+		// 	if (!empty($yhk_)) {
+		// 		return array('status' => 0, 'msg' => '每个钱包地址只能绑定一个用户！');
+		// 	}
+		// }
+		if (empty($name) || empty($yhk)) {
 			return array('status' => 0, 'msg' => '不能为空');
 		} /* elseif($yh==$yz['yh'] && $name==$yz['name'] && $yhk==$yz['yhk']){
 			return array('status'=>0,'msg'=>'没有修改');
-		} */else if (intval($yhk) && preg_match('/^[\x7f-\xff]+$/', $name) && strlen($yhk) < 20 && strlen($name) < 13 && strlen($yh) < 60) {
-			if (!session('yzm.yzm') || session('yzm.time') < time()) {
-				return array('status' => 0, 'msg' => '验证码不存在或已失效!');
-			}
-			if (session('yzm.yzm') != $data['sms']) {
-				return array('status' => 0, 'msg' => '验证码错误!');
-			}
+		} */else if (preg_match('/^[\x7f-\xff]+$/', $name) && strlen($yhk) < 20 && strlen($name) < 13 && strlen($yh) < 60) {
+			// if (!session('yzm.yzm') || session('yzm.time') < time()) {
+			// 	return array('status' => 0, 'msg' => '验证码不存在或已失效!');
+			// }
+			// if (session('yzm.yzm') != $data['sms']) {
+			// 	return array('status' => 0, 'msg' => '验证码错误!');
+			// }
 			if ($yz) {
 				if (db('yhk')->where(['user_id' => session('user.user_id')])->update($data) !== false) {
 					session('yzm', null);
@@ -423,7 +423,7 @@ class Set extends Common {
 				$map['yh'] = $yh;
 				$map['name'] = $name;
 				$map['yhk'] = $yhk;
-				$map['money_address'] = $money_address;
+				// $map['money_address'] = $money_address;
 				$map['user_id'] = session('user.user_id');
 				if (db('yhk')->insertGetId($map) !== false) {
 					session('yzm', null);

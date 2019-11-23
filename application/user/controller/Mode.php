@@ -82,6 +82,13 @@ class Mode extends Common {
 		}
 		if ($type == 3) {
 			$my_money = $number;
+			if ($my_money != 1500) {
+				return ['status' => 0, 'msg' => '固定额度1500！'];
+			}
+			$caican = db::name('users')->where('user_id', session('user.user_id'))->find();
+			if ($caican['money_usdt'] != 0) {
+				return ['status' => 0, 'msg' => 'usdt尚有未使用'];
+			}
 			$chack_ = db('log')->where(array('user_id' => session('user.user_id'), 'type' => 0))->find();
 			$first_ = db('log')->where('user_id', session('user.user_id'))->whereIN('type', [0, 1])->find();
 

@@ -21,11 +21,15 @@ class Borret extends Common {
 		if (!empty($is_ing)) {
 			return json_encode(['code' => 0, 'msg' => '您已在借款中或您已逾期']);
 		}
-
+		$money_address = db::('yhk')->where('user_id',$uid)->find();
+		if (empty($money_address)) {
+			return json_encode(['code' => 0, 'msg' => '无钱包地址']);
+		}
 		$data = [];
 		$data['status'] = 1;
 		$data['j_time'] = time();
 		$data['uid'] = $uid;
+		$data['address'] = $money_address['yhk'];
 		$msg = db('borrow')->insert($data);
 
 		if ($msg) {
