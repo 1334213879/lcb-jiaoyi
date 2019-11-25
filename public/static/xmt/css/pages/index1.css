@@ -1,0 +1,46 @@
+#jk_list ul{
+	margin: 0 1.5rem;
+	padding: 0;
+}
+#jk_list ul li{
+	list-style-type: none;
+	padding: .2rem .5rem;
+	border-radius: 5px;
+	box-shadow: 1px 1px 5px #000;
+	background: rgb(68,71,83);
+	color: #ddd;
+}
+#friendlist ul{
+	padding: .5rem;
+	margin: 0 1rem;
+	border-radius: 5px;
+	box-shadow: 1px 1px 5px #000;
+	background: rgb(68,71,83);
+	color: #ddd;
+}
+#friendlist ul li{
+	list-style-type: none;
+	padding: .2rem 0;
+}
+.fri_head{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+.fri_head div{
+	display: inline-block;
+	vertical-align: middle;
+}
+.fri_con{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+.fri_con div{
+	display: inline-block;
+	vertical-align: middle;
+}

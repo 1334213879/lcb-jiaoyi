@@ -18,12 +18,13 @@ top: 0;
 left: 0;
 z-index: 99; 
 width: 100%;
-border-bottom: solid 1px #ccc;
+border-bottom: none;
 height: 2.5rem;
-background: #fff;
+background: none;
+padding: 0;
 }
 h1.title{
-color: #1d3891;
+color: #fff;
 line-height: 3;
 margin:0;            
 }
@@ -48,7 +49,7 @@ top: .6rem;
 width: 1rem;
 height: 1rem;
 color: #fff;
-background:url(../../images/arrow_l_b.png) center center no-repeat;
+background:url(../../images/arrow_l.png) center center no-repeat;
 background-size:100%;
 }
 .selfinfo_box{           
@@ -95,8 +96,25 @@ font-size: .7rem;
 }
 
 .list-group{
-    width: 96%;
-    margin:0 2%;
+    width: 94%;
+    margin:0 3%;
+	border-radius: 15px;
+	background: linear-gradient(140deg,rgb(72,75,91), rgb(52,54,64));
+	padding: 0.5rem 0;
+}
+.list-group ul{
+	background: linear-gradient(140deg,rgb(72,75,91), rgb(52,54,64));
+	border: none;
+	border-radius: 15px;
+}
+.list-group ul:before{
+	content: none;
+}
+.list-group ul:after{
+	content: none;
+}
+.list-group ul li{
+	border: none;
 }
 .item-title>i{
 display: inline-block;
@@ -114,20 +132,22 @@ position: relative;
 height: 100%;
 overflow: visible;
 }
-
-.page, .page-group{background: #fff;}
+.page{
+	background: linear-gradient(rgb(45,45,55),rgb(70,70,85));
+}
 .page-group.page-current, .page.page-current{
 overflow: visible;
 }
-.content{
-position: relative;
-}
 .list-block{
     padding-bottom: 3rem;
-    background: #fff;
-    width: 100%;
-    margin:2.5rem 0 0;
-    font-size: 14px;
+	width: 100%;
+	margin: 0;
+}
+.list-block ul{
+	
+}
+.list-block ul:before,.list-block ul:after{
+	content: none;
 }
 .list-block .item-content{
     color: #000;
@@ -137,10 +157,13 @@ position: relative;
 background-color: #ccc;
 }
 .list-block .item-inner:after{
-width: 96%;
+	content: none;
 }
 .list-block .item-title.label{
     width: 25%!important;
+}
+.list-block .item-link .item-inner{
+	background-image: none;
 }
 .item-input>select,.item-input>input,.item-input>textarea{
     font-size: 14px!important;
@@ -198,7 +221,7 @@ width:60%;margin:15px auto 0;
 
 .button-wboos {height: 45px !important; line-height: 45px !important;}     
 .button.button-fill{
-background: #3f85e9;
+background: rgb(238,198,127);
 color: #fff;
 }
 .bar:after{
@@ -330,7 +353,7 @@ span.money-num>span{
 .card{
     margin:.5rem 0;
     box-shadow: 0 1px 1px #8d825a;
-    background:url(../../images/usdtcard.png) top center;
+    background: rgb(50,50,50);
     background-size: 100%;
 }
 .card-content-inner{
@@ -339,7 +362,8 @@ span.money-num>span{
 }
 .u-pic{
     position: relative;
-    float: left;
+    display: inline-block;
+	vertical-align: middle;
     width: 2rem;
   	height:2rem;
     overflow: hidden;
@@ -355,7 +379,8 @@ span.money-num>span{
     color: #fff;
     font-size: 14px;
     font-weight: 600;
-    float: left;
+    display: inline-block;
+    vertical-align: middle;
     margin-top: 1.4rem;
     margin-left: .5rem;
     }
@@ -368,14 +393,14 @@ span.money-num>span{
     position: absolute;
     right:0;
     top:56%;
-    background: #fff;
+    background: ;
     width: 5rem;
     border-top-left-radius:1rem;
   	border-bottom-left-radius:1rem;
     text-align: center;
     line-height: 1rem;
-    color:#00a6dd;
-  	font-weight:bold;
+    color: rgb(238,198,127);
+	font-weight: 500;
 }
 .record{
     position: relative;
@@ -384,12 +409,16 @@ span.money-num>span{
     padding: .5rem 1rem .5rem;
     width: 90%;
     margin: -2.5rem 5% 0;
-    background:#fff;
+    background: linear-gradient(140deg,rgb(72,75,91), rgb(52,54,64));
     background-size: 100% 100%;
     border-radius: 15px;
-  	box-shadow: 2px 3px 2px #ddd;
-    margin-bottom: 12px;
+  	box-shadow: 0px 0px 2px rgb(50,50,50);
+    margin-bottom: 1rem;
  }
+.rec_list{
+	margin: 0.5rem 0;
+	font-size: .7rem;
+}
 .record>div.row1{
     display: flex;
     justify-content: space-around;
@@ -511,4 +540,138 @@ ul.square li p {
 }
 .source>span:first-child {
     float: left;
+}
+/* 绑定钱包 */
+.qb{
+	width: 90%;
+	margin: 0 auto;
+	background: rgb(50,50,50);
+	box-shadow: 0 0 5px rgb(30,30,30);
+	border-radius: 15px;
+}
+.qb ul{
+	margin-top: 5rem;
+	margin-bottom: 2.5rem;
+	margin-left: 1rem;
+	margin-right: 1rem;
+}
+.qb ul li{
+	padding: .4rem 0;
+}
+/* 修改密码 */
+.c_pwd{
+	width: 90%;
+	margin: 0 auto;
+	background: rgb(50,50,50);
+	box-shadow: 0 0 5px rgb(30,30,30);
+	border-radius: 15px;
+	padding-bottom: .5rem;
+	position: relative;	
+}
+.c_pwd ul{
+	margin-top: 5rem;
+	margin-bottom: 1.5rem;
+	margin-left: 1rem;
+	margin-right: 1rem;
+}
+.c_pwd ul li{
+	padding: .4rem 0;
+}
+/* 修改安全密码 */
+.c_spwd{
+	width: 90%;
+	margin: 0 auto;
+	background: rgb(50,50,50);
+	box-shadow: 0 0 5px rgb(30,30,30);
+	border-radius: 15px;
+	padding-bottom: .5rem;
+	position: relative;	
+}
+.c_spwd ul{
+	margin-top: 5rem;
+	margin-bottom: 1.5rem;
+	margin-left: 1rem;
+	margin-right: 1rem;
+}
+.c_spwd ul li{
+	padding: .4rem 0;
+}
+/* 联系客服 */
+.lxkf{
+	width: 100%;
+	margin: 0 auto;
+	/* background: rgb(50,50,50);
+	box-shadow: 0 0 5px rgb(30,30,30);
+	border-radius: 15px; */
+	padding-bottom: .5rem;
+	position: relative;	
+}
+.lxkf ul{
+	margin-top: 5rem;
+	margin-bottom: 1.5rem;/* 
+	margin-left: 1rem;
+	margin-right: 1rem; */
+}
+.lxkf ul li{
+	padding: .4rem 0;
+}
+/* 实名认证 */
+.cc{
+	width: 90%;
+	margin: 0 auto;
+	background: rgb(50,50,50);
+	box-shadow: 0 0 5px rgb(30,30,30);
+	border-radius: 15px;
+	padding: 1.5rem;
+	padding-bottom: 2.5rem;
+	position: relative;
+}
+.cc p{
+	margin: 0;
+	padding: 1rem 0;
+}
+.cc p span{
+	display: inline-block;
+	vertical-align: middle;
+}
+.cc_con{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	width: 100%;
+}
+.cc_picbox{
+	width: 30%;
+	height: 82px;
+}
+.front_click{
+	display: block;
+	border: none;
+	border-radius: 10px;
+	background: rgb(72,75,91);
+	width: 100%;
+	font-size: .4rem;
+	padding: .7rem;
+	color: gray;
+}
+.back_click{
+	display: block;
+	border: none;
+	border-radius: 10px;
+	background: rgb(72,75,91);
+	width: 100%;
+	font-size: .4rem;
+	padding: .7rem;
+	color: gray;
+}
+.hand_click{
+	display: block;
+	border: none;
+	border-radius: 10px;
+	background: rgb(72,75,91);
+	width: 100%;
+	font-size: .4rem;
+	padding: .7rem;
+	color: gray;
 }

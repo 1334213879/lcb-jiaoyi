@@ -6,7 +6,7 @@ body{
 }
 header.bar-nav{
 	height: auto;
-	background: #fff;
+	background: rgb(55,55,65);
 	}
 .pageban{
 	width: 92%;
@@ -29,7 +29,7 @@ header.bar-nav{
 	padding:0 0.5rem;
 }
 .bar-nav h3{
-	color: #1d3891;
+	color: #FAFAFA;
 	text-align: center;
 	line-height: 2.8;
 	font-size: .8rem;
@@ -92,8 +92,13 @@ ul.speedbtn li span{
 }
 .jytitle{
 	position: relative;
+	display: flex;
+	justify-content: space-around;
+	margin: 1rem 0;
+	background: rgb(53,54,65);
+	box-shadow: 0 0 5px #111111;
 }
-.jytitle::after{
+/* .jytitle::after{
 	position: absolute;
 	height: 6px;
 	width: 100%;
@@ -101,11 +106,14 @@ ul.speedbtn li span{
 	top: 2.6rem;
 	content:'';
 	left:0;
-}
+} */
 h2.c_t{
 	padding: 0 0 0 2.5rem;
 	width: 100%;
 	position: relative;
+}
+.bar:after{
+	content: none !important;
 }
  .bar-nav h3{
   	font-weight:400;
@@ -140,17 +148,28 @@ h2.c_t{
 	width:100%;letter-spacing:5px;height:50px;margin-top:250px;text-align:center;font-size:16px;line-height:50px;color:red;font-weight:600;background:#c3c1c1;border-radius:0 0 10px 10px
 	}
 .content-block>h2{
-	font-size: 12px;
+	font-size: .4rem;
     line-height: 1.5;
     height: 2.6rem;
     display: flex;
     align-items: center;
     text-align: center;
+	color: #FAFAFA;
+	font-family: "microsoft yahei";
 }
 	.now{
-	color:#0894ec;
-	border-bottom: solid 4px #0894ec;
+	color:rgb(79,184,158) !important;
+	position: relative;
 	}	
+	.now::before{
+		position: absolute;
+		content: '';
+		width: 100%;
+		height: 4px;
+		background: rgb(79,184,158);
+		bottom: 0;
+		left: 0;
+	}
 	.dk{
 	color:#ff5722!important;
 	}
@@ -167,17 +186,17 @@ h2.c_t{
 	td{
 	text-align:center;font-size:11px;
 	}
-	.jytitle{
-		display: flex;
-		justify-content: space-around;
-	}
 li>p>span:first-child{
 		display: inline-block;
 		float: left;
+		color: #FAFAFA;
+		font-family: "microsoft yahei";
 	}
 	li>p>span:nth-child(2){
 		display: inline-block;
 		float: right;
+		color: #FAFAFA;
+		font-family: "microsoft yahei";
 	}
 	li>p>span>a{
 		font-weight: bold;
@@ -192,10 +211,14 @@ li>p>span:first-child{
 		height: 1rem;
 	}
 	.content-block ul li{
-		border-bottom: solid 1px #eee;
 		margin:.6rem 0;
 		padding-bottom: .4rem;
       	position:relative;
+		width: 100%;
+		border-radius: 15px;
+		background: rgb(53,54,65);
+		padding: .5rem;
+		box-shadow: 1px 1px 5px rgb(30,30,30);
 	}
 	li>p{
 		margin:0;
@@ -210,15 +233,17 @@ li>p>span:first-child{
 	position:fixed;
 	top:0;
 	left:0;
-	background:#fff;
+	background: rgb(49,49,49);
 	font-size: 14px;
 }
 .xs.buyin>h2{
-	color: #1d3891;
-    font-size: 14px;
-    border-bottom: solid 1px #e7e7e7;
+	color: #FAFAFA;
+    font-size: .8rem;
+    /* border-bottom: solid 1px #e7e7e7; */
     text-align: center;
     line-height: 3;
+	background: rgb(53,54,65);
+	box-shadow: 1px 1px 5px rgb(40,40,40);
 }
 .xs.buyin>img{
 	width: 24%;
@@ -230,6 +255,16 @@ li>p>span:first-child{
 	margin:0 auto;
 	position: relative;
 	overflow: hidden;
+}
+.buyin_con{
+	margin: 1.5rem 0;
+	padding: .5rem 0rem;
+	box-shadow: 0px 0px 5px rgb(40,40,40);
+	background: rgb(53,54,65);
+	border-radius: 5px;
+}
+.buyin_con p span{
+	color: #FAFAFA;
 }
 .xs.buyin>div>p{
 	margin:0;
@@ -265,29 +300,29 @@ li>p>span:first-child{
 	float: right;
 }
 .qdgm>a.cancel{
-	color: #000;
-    background: #cfd3d6;
+	color: #ddd;
+    background: none;
     padding: 0 3rem;
     line-height: 1.5rem;
-    display: inline-block;
+    display: block;
     border-radius: 5px;	
+	margin: .5rem 0;
 }
 .qdgm>a.ensure{
-	color: #fff;
-    background: #0894ec;
+	color: rgb(89,67,33);
+    background: rgb(238,198,127);
     padding: 0 1rem;
     line-height: 1.5rem;
-    display: inline-block;
-    border-radius: 5px;	
+    display: block;
+    border-radius: 15px;	
+	font-size: .8rem;
 }
 input#mm{
-	background: #fff;
-    font-size: 16px;
-    outline: none;javascript:;
-    color: #000;
+	background: none;
+    outline: none;
+    color: #FAFAFA;
     width: 100%;
     border:0;
-    line-height: 2;
     padding-left: .5rem;
     -webkit-appearance: none;
 }
@@ -295,11 +330,13 @@ input#mm{
 	font-size:14px;
 	text-align:center;
 	margin-top: 1rem!important;
+	width: 50% !important;
 	}
 input#wygm{
 	border: 0;
 	text-align: right;
-  	color:#0894ec;
+  	color:#FAFAFA;
+	background: none;
 }
 p.pay_path {
     position: absolute;
@@ -311,3 +348,34 @@ p.pay_path {
 .pay_path>img {
     width: 80%;
 }
+
+/* 求购挂卖 */
+.jy_list{
+	width: 100%;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	border-radius: 15px;
+	background: rgb(53,54,65);
+	padding: 0 .5rem;
+	box-shadow: 1px 1px 5px rgb(30,30,30);
+}
+/* .jy_list_left{
+	overflow: hidden;
+	padding: 0 .5rem;
+}
+.jy_list_left p{
+	margin: 0;
+	font-size: .5rem;
+	font-family: "microsoft yahei";
+	color: #FAFAFA;
+	padding: .2rem 0;
+}
+.jy_list_right p{
+	font-size: .7rem;
+	font-family: "microsoft yahei";
+	color: #999;
+	text-align: center;
+} */
