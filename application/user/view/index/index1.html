@@ -5,6 +5,7 @@
 <script src="__STATIC__/xmt/js/radiation.js?v=1.02"></script>
 <link rel="stylesheet" href="__STATIC__/xmt/css/style.css?v=1.02"> -->
 <link rel="stylesheet" href="__STATIC__/xmt/css/pages/index1.css" />
+<script src="__STATIC__/xmt/js/flag.js"></script>
 <style>
 .page, .page-group{
 	background: rgba(50,50,50,1);
@@ -87,29 +88,6 @@ margin-top: 1rem;
 color:#fff;
 text-align: left;
 background: transparent;
-}
-.market>tr{}
-table td,table th{
-font-size:12px;
-color:#000;
-font-weight: normal;
-text-align: left;
-background: #fff;
-white-space: nowrap;
-line-height: 20px;
-padding:5px 0;
-}
-tr>th:first-child{
-width: 2rem;
-}
-tr>td:first-child{
-width: 2rem;
-}
-tr>td:nth-child(2){
-max-width: 80px;
-text-overflow: ellipsis;
-white-space: nowrap;
-overflow: hidden;
 }
 .apple_title{
 height: 30px;
@@ -388,7 +366,7 @@ border-radius: 4px;
 }
 </style>
 
-<body style="padding-bottom: 1rem; color: initial;">
+<body style="padding-bottom: 1rem; color: initial; min-height: 800px;">
 <div class="page-group" id="#app">
     <div class="page page-current">
 		<div class="title-bar">
@@ -498,7 +476,7 @@ border-radius: 4px;
 					<ul>
 						<li>
 							<p style="font-size: .7rem; color: #999;">转入USDT钱包地址</p>
-							<p><input type="text" id="cz_address" placeholder="请输入钱包地址" maxlength="10" /></p>
+							<p><input type="text" id="cz_address" v-bind:value="system.usdt_addres" placeholder="请输入钱包地址" maxlength="10" /></p>
 							<p style="text-align: center; margin: .3rem 0;"><a href="#" id="copy">点击复制地址</a></p>
 						</li>
 						<script>
@@ -591,26 +569,53 @@ border-radius: 4px;
 			</div>
 		</div>
 		<div class="page" id="jk_notes">
-			<header class="bar bar-nav" style="position: initial; background: rgb(50,50,50); margin: .5rem 0;">
+			<header class="bar bar-nav" style="background: rgb(50,50,50); margin: .5rem 0;">
 				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
 				<h1 class="title">{:lang('借款记录')}</h1>
 			</header>
-			<ul>
-				<li v-for="jk in jklist">
-					<span style="display: block;">记录({{jk.id}})</span>
-					<span style="display: block;">借款日期：{{jk.j_time}}</span>
-					<span v-if="jk.status == 1">后台审核中</span>
-					<span v-else-if="jk.status == 2">已通过待还款</span>
-					<span v-else-if="jk.status == 3">已还款</span>
-					<span v-else-if="jk.status == 4">逾期</span>
-					<span v-else-if="jk.status == 5">还款待审核</span>
-				</li>
-			</ul>
+				<ul class="content" style="position: absolute; top: 0; margin-bottom: 5rem;">
+					<li v-for="jk in jklist">
+						<div class="jklist">
+							<div class="jklist_l">
+								<p><span style="font-size: .4rem;">借款数量</span></p>
+								<p><span style="font-size: .8rem; color: rgb(238,198,127);">+500</span></p>
+							</div>
+							<div class="jklist_r">
+								<p><span style="display: block; font-size: .6rem; color: gray;">借款日期：{{jk.j_time | timestampToTime}}</span></p>
+								<p>
+									<span style="font-size: .6rem; color: gray;">借款状态：</span>
+									<span style="font-size: .8rem;" v-if="jk.status == 1">后台审核中</span>
+									<span style="font-size: .8rem;" v-else-if="jk.status == 2">已通过待还款</span>
+									<span style="font-size: .8rem;" v-else-if="jk.status == 3">已还款</span>
+									<span style="font-size: .8rem;" v-else-if="jk.status == 4">逾期</span>
+									<span style="font-size: .8rem;" v-else-if="jk.status == 5">还款待审核</span>
+								</p>
+							</div>
+						</div>
+					</li>
+				</ul>
 		</div>
 		<div class="page" id="tx_notes">
-			<ul>
+			<header class="bar bar-nav" style="background: rgb(50,50,50); margin: .5rem 0;">
+				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
+				<h1 class="title">{:lang('提出记录')}</h1>
+			</header>
+			<ul class="content" style="position: absolute; top: 0; margin-bottom: 5rem;">
 				<li v-for="tx in txlist">
-					{{tx.id}}
+					<div class="jklist">
+						<div class="jklist_l">
+							<p><span style="font-size: .4rem;">提出数量</span></p>
+							<p><span style="font-size: .8rem; color: rgb(238,198,127);">+{{tx.nmct}}</span></p>
+						</div>
+						<div class="jklist_r">
+							<p><span style="display: block; font-size: .6rem; color: gray;">提出日期：{{tx.time | timestampToTime}}</span></p>
+							<p>
+								<span style="font-size: .6rem; color: gray;">提出状态：</span>
+								<span style="font-size: .8rem;" v-if="tx.status == 1">后台审核中</span>
+								<span style="font-size: .8rem;" v-else="tx.status == 2">已通过</span>
+							</p>
+						</div>
+					</div>
 				</li>
 			</ul>
 		</div>
@@ -619,23 +624,7 @@ border-radius: 4px;
 				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
 				<h1 class="title">{:lang('好友列表')}</h1>
 			</header>
-			<ul>
-				<!-- <table width="100%" id="fri_table">
-					<tbody style="background: #000;">
-						<tr>
-							<th>昵称</th>
-							<th>ID</th>
-							<th>合伙人</th>
-							<th>时间</th>
-						</tr>
-						<tr v-for="t in team">
-							<td>{{t.nickname}}</td>
-							<td>{{t.user_id}}</td>
-							<td>{{t.g}}</td>
-							<td>{{t.rq}}</td>
-						</tr>
-					</tbody>
-				</table> -->
+			<!-- <ul>
 				<li class="fri_head">
 					<div>昵称</div>
 					<div>ID</div>
@@ -648,15 +637,53 @@ border-radius: 4px;
 					<div>{{t.g}}</div>
 					<div>{{t.rq}}</div>
 				</li>
-			</ul>
+			</ul> -->
+			<table width="85%" style="margin: 0 auto;">
+				<tr height="50px" style="margin: 1rem 0; color: #fff;" bgcolor="#0016B0">
+					<th width="50px">昵称</th>
+					<th width="50px">id</th>
+					<th width="50px">合伙人</th>
+					<th width="50px">时间</th>
+				</tr>
+				<tr v-for="t in team" style="text-align: center; color: #fff;">
+					<td>{{t.nickname}}</td>
+					<td>{{t.user_id}}</td>
+					<td>{{t.g}}</td>
+					<td>{{t.rq}}</td>
+				</tr>
+			</table>
 		</div>
 		<div class="page" id="inv_notes">
-			<header class="bar bar-nav" style="position: initial; background: rgb(50,50,50); margin: .5rem 0;">
+			<header class="bar bar-nav" style="background: rgb(50,50,50); margin: .5rem 0;">
 				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
 				<h1 class="title">充值记录</h1>
 			</header>
-			<ul>
-				<li v-for=""></li>
+			<ul class="content" style="position: absolute; top: 0; margin-bottom: 5rem;">
+				<li v-for="a in list" v-if="a.type==1">
+				    <!-- <p class="source">
+				        <span class="charge-style">{{a.title}}</span>
+				        <span class="timestamp">{{timestampToTime(a.time)}}</span> <br>
+				            <span class="money-num" v-if="a.usdt!=0">{{int_(a.usdt)}}</span>
+				            <span class="money-num" v-if="a.nmct!=0">{{int_(a.nmct)}}</span>
+				            <span class="money-num" v-if="a.xmt!=0">{{int_(a.xmt)}}</span>
+				            <span class="money-num" v-if="a.nmct_dj!=0">{{int_(a.nmct_dj)}}</span>
+				
+				    </P> -->
+					<div class="jklist">
+						<div class="jklist_l">
+							<p><span style="font-size: .4rem;">充值数量</span></p>
+							<p><span style="font-size: .8rem; color: rgb(238,198,127);">+{{a.nmct}}</span></p>
+						</div>
+						<div class="jklist_r">
+							<p><span style="display: block; font-size: .6rem; color: gray;">充值日期：{{a.time | timestampToTime}}</span></p>
+							<!-- <p>
+								<span style="font-size: .6rem; color: gray;">提出状态：</span>
+								<span style="font-size: .8rem;" v-if="tx.status == 1">后台审核中</span>
+								<span style="font-size: .8rem;" v-else="tx.status == 2">已通过</span>
+							</p> -->
+						</div>
+					</div>
+				</li>
 			</ul>
 		</div>
 	</div>

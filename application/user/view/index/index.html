@@ -104,7 +104,7 @@
     $('.nav-item').css('background','');
     $("." +a).addClass('active').siblings().removeClass('active');
 }
-    $(function innerHeight(){
+    $(function innerHeight(iframe){
         var height = window.parent.innerHeight;
 		if(height > 800){
 			var h = height+'px';
@@ -112,6 +112,11 @@
 			var h = '800px';
 		}
         $('#iframe',window.parent.document).css("height",h);
+		// if (iframe) {
+		// 	var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+		// 	if (iframeWin.document.body) {
+		// 	iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+		// }
     })
 </script>
 </body>

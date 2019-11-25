@@ -1,14 +1,40 @@
-#jk_list ul{
-	margin: 0 1.5rem;
+#jk_notes ul{
 	padding: 0;
 }
-#jk_list ul li{
+#jk_notes ul li{
 	list-style-type: none;
+}
+#tx_notes ul{
+	/* margin: 0 1.5rem; */
+	padding: 0;
+}
+#tx_notes ul li{
+	list-style-type: none;
+}
+#inv_notes ul{
+	/* margin: 0 1.5rem; */
+	padding: 0;
+}
+#inv_notes ul li{
+	list-style-type: none;
+}
+.jklist{
 	padding: .2rem .5rem;
 	border-radius: 5px;
-	box-shadow: 1px 1px 5px #000;
+	box-shadow: 1px 1px 2px rgb(40,40,40);
 	background: rgb(68,71,83);
 	color: #ddd;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	margin: 1rem 0;
+}
+.jklist_l p{
+	margin: 0.5rem 0;
+}
+.jklist_r p{
+	margin: 0.5rem 0;
 }
 #friendlist ul{
 	padding: .5rem;
