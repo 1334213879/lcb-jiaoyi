@@ -13,7 +13,7 @@
     <script type='text/javascript' src='__STATIC__/xmt/js/vue.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='__STATIC__/xmt/js/vue-resource.min.js' charset='utf-8'></script>
     <script type="text/javascript" src="__STATIC__/xmt/js/qrcode.js"></script>
-    <link rel="stylesheet" href="__STATIC__/xmt/css/pages/my.css?v=1.02">
+    <link rel="stylesheet" href="__STATIC__/xmt/css/pages/my.css">
 </head>
   <script>
     $(document).on("pageInit", "#wboos-page-my-members", function(e, id, page) {
@@ -41,16 +41,15 @@
 
 <div id="topvue">
 
-    <div class="page page-current wboos-page-my-members" id="wboos-page-my-members">
-    
-        <div class="content">
+    <div class="page page-current wboos-page-my-members" id="wboos-page-my-members" style="background: rgb(50,50,50);">
+        <div class="content" style="background: rgb(50,50,50);">
             <header class="bar-nav">               
                 <h1 class="title">{:lang('我的资料')}</h1>
-                <a href="#page-setting" class="modify_selfinfo"><i><img src="__STATIC__/xmt/images/personal.png" alt=""></i></a>
+                <!-- <a href="#page-setting" class="modify_selfinfo"><i><img src="__STATIC__/xmt/images/personal.png" alt=""></i></a> -->
             </header>
 
-            <div class="content-block" style="padding:0;background: #fff;">
-                <div class="card">
+            <div class="content-block">
+                <div>
                     <div class="card-content">
                         <div class="card-content-inner">
                            <div class="u-pic">
@@ -59,53 +58,60 @@
 
                            <div class="username">
                             <span>{:lang('欢迎')}，{$userInfo['nickname']}</span>
-                            <span>{:lang('会员ID')}:{$userInfo['user_id']}</span>
+                            <span style="font-size: .3rem; font-weight: normal; color: #ddd;">{:lang('会员ID')}:{$userInfo['user_id']}</span>
+							<span><a href="#page-pic" style="font-weight: normal; color: #ddd;">{:lang('点击此处设置头像')}</a></span>
+                           </div>
+                           <div class="user-info" style="top: 35%;">
+                            <span style="font-size: .8rem;;">VIP{$userInfo['level']-1}<i>&nbsp;<img src="__STATIC__/btb/icon_user.png" width="15px" /></i></span>
+                            
+                            <!-- <span v-if="user.g>0">G{{user.g}}</span> -->
+                            <!-- 这里有一条VUE数据 -->
                            </div>
                            <div class="user-info">
-                            <span>V{$userInfo['level']-1}{:lang('会员')}</span>
-                            
-                            <span v-if="user.g>0">G{{user.g}}</span>
-                            
-                            <!-- 这里有一条VUE数据 -->
-                            
-                            
+                                <span><a class="page-upgrade" href="#page-upgrade" 
+								style="color: rgb(238,198,127); border: 1px solid rgb(238,198,127); padding: 0.2rem 0.5rem; border-radius: 0.4rem;"
+								>{:lang('升级')}</a></span>
                            </div>
-                           <div class="user-info" style="top: 38%;right: -1rem;">
-                                <span><a class="page-upgrade" href="#page-upgrade">{:lang('升级')}</a></span>
-                           </div>                      
                         </div>
                     </div>
                 </div>
             </div>
 
-
             <div class="record">
-                <div class="row1">
+                <!-- <div class="row1">
                     <a class="page-nmct-record" href="#page-nmct-record"><i><img src="__STATIC__/xmt/images/record1.png" alt=""></i>{:lang('NMCT记录')}</a>
                     <a class="page-usdt-record" href="#page-usdt-record"><i><img src="__STATIC__/xmt/images/record2.png" alt=""></i>{:lang('USDT记录')}</a>
                     <a class="page-active" href="#page-active"><i><img src="__STATIC__/xmt/images/active_icon.png" alt=""></i>{:lang('激活')}</a>
-                </div>
+                </div> -->
+				<ul style="padding: 0; margin: 0;">
+					<!-- xmt通证字段 -->
+					<li class="rec_list"><span style="color: #fff;">{:lang('LCB资产')}</span><span style="color: #fff; float: right;">{{user.xmt}}</span></li>
+					<!-- nmct当前价格字段 -->
+					<li class="rec_list"><span style="color: #fff;">{:lang('LCB当前价格')}</span><span style="color: #fff; float: right;">{{system.money_nmct}}</span></li>
+					<!-- nmct通证字段 -->
+					<li class="rec_list"><span style="color: #fff;">{:lang('LCB通行证')}</span><span style="color: #fff; float: right;">{{user.nmct}}</span></li>
+				</ul>
             </div>
 
-            <div class="list-block" style="width: 100%;margin:0">
+            <div class="list-block">
                 <div class="list-group">
                     <ul>
                         <li>
-                            <a class="page-pic" href="#page-pic">
+                            <a href="#page-certification">
                                 <div class="item-content item-link">
                                     <div class="item-inner">
-                                        <div class="item-title"><i><img src="__STATIC__/xmt/images/pcon1.png" alt=""></i><span>{:lang('头像设置')}</span></div>
+                                        <div class="item-title"><i><img src="__STATIC__/xmt/images/pcon1.png" alt=""></i><span style="color: #999;">{:lang('实名认证')}</span></div>
                                     </div>
                                 </div>
                             </a>
                         </li>
-                        <li>                         
+                        <li>
                             <a href="#page-bind-card">
                                 <div class="item-content item-link">
                                     <div class="item-inner">
                                         <div class="item-title">
                                             <i><img src="__STATIC__/xmt/images/bankcard.png" alt=""></i>
-                                            <span>{:lang('绑定银行卡')}</span>
+                                            <span style="color: #999;">{:lang('绑定钱包')}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -115,7 +121,7 @@
                             <a class="page-password" href="#page-change-password">
                                 <div class="item-content item-link">
                                     <div class="item-inner">
-                                        <div class="item-title"><i><img src="__STATIC__/xmt/images/pcon2.png" alt=""></i> <span>{:lang('修改密码')}</span></div>
+                                        <div class="item-title"><i><img src="__STATIC__/xmt/images/pcon2.png" alt=""></i> <span style="color: #999;">{:lang('修改密码')}</span></div>
                                     </div>
                                 </div>
                             </a>
@@ -124,116 +130,18 @@
                             <a class="page-change-security-password" href="#page-change-security-password">
                                 <div class="item-content item-link">
                                     <div class="item-inner">
-                                        <div class="item-title"><i><img src="__STATIC__/xmt/images/pcon3.png" alt=""></i> <span>{:lang('安全密码')}</span></div>
+                                        <div class="item-title"><i><img src="__STATIC__/xmt/images/pcon3.png" alt=""></i> <span style="color: #999;">{:lang('安全密码')}</span></div>
                                     </div>
                                 </div>
                             </a>
                         </li>
+                                             
                         
-                        <li>
-                            <a class="page-activeaccount" href="#page-activeaccount">
-                            <div class="item-content item-link">
-                                <div class="item-inner">
-                                    <div class="item-title"><i><img src="__STATIC__/xmt/images/pcon4.png" alt=""></i> <span>{:lang('直推好友')}</span></div>
-                                </div>
-                            </div>
-                            </a>
-                        </li>
-                        <li>
-                        <a class="page-gl" href="#page-gl">
-                            <div class="item-content item-link">
-                                <div class="item-inner">
-                                    <div class="item-title"><i><img src="__STATIC__/xmt/images/pcon5.png" alt=""></i> <span>{:lang('管理好友')}</span></div>
-                                </div>
-                            </div>
-                        </a>
-                        </li>
-                        <li>
-                        <a class="page-invite" href="#page-invite">
-                            <div class="item-content item-link">
-                                <div class="item-inner">
-                                    <div class="item-title"><i><img src="__STATIC__/xmt/images/pcon6.png" alt=""></i> <span>{:lang('邀请好友')}</span></div>
-                                </div>
-                            </div>
-                        </a>
-                        </li>
-                        <li>
-                        <a class="page-invite" href="#page-tdyj">
-                            <div class="item-content item-link">
-                                <div class="item-inner">
-                                    <div class="item-title"><i><img src="__STATIC__/xmt/images/tdyj.png" alt=""></i> <span>{:lang('团队业绩')}</span></div>
-                                </div>
-                            </div>
-                        </a>
-                        </li>                        
-                        <li>
-                            <a class="page-cz" href="#page-cz">
-                            <div class="item-content item-link">
-                                <div class="item-inner">
-                                    <div class="item-title"><i><img src="__STATIC__/xmt/images/pcon7.png" alt=""></i> <span>{:lang('充值记录')}</span></div>
-                                </div>
-                            </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="page-hongbao" href="#page-hongbao">
-                            <div class="item-content item-link">
-                                <div class="item-inner">
-                                    <div class="item-title"><i><img src="__STATIC__/xmt/images/pcon8.png" alt=""></i> <span>{:lang('红包记录')}</span></div>
-                                </div>
-                            </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="page-ft" href="#page-ft">
-                            <div class="item-content item-link">
-                                <div class="item-inner">
-                                    <div class="item-title"><i><img src="__STATIC__/xmt/images/pcon9.png" alt=""></i> <span>{:lang('复投记录')}</span></div>
-                                </div>
-                            </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="page-c2c" href="#page-c2c">
-                            <div class="item-content item-link">
-                                <div class="item-inner">
-                                    <div class="item-title"><i><img src="__STATIC__/xmt/images/pcon10.png" alt=""></i> <span>{:lang('C2C记录')}</span></div>
-                                </div>
-                            </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="page-xmt" href="#page-xmt">
-                            <div class="item-content item-link">
-                                <div class="item-inner">
-                                    <div class="item-title"><i><img src="__STATIC__/xmt/images/pcon11.png" alt=""></i> <span>{:lang('XMT记录')}</span></div>
-                                </div>
-                            </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="page-vip" href="#page-vip">
-                            <div class="item-content item-link">
-                                <div class="item-inner">
-                                    <div class="item-title"><i><img src="__STATIC__/xmt/images/pcon12.png" alt=""></i> <span>{:lang('VIP记录')}</span></div>
-                                </div>
-                            </div>
-                            </a>
-                        </li>
-                         <li>
-                        <a class="page-version" href="#page-gy">
-                            <div class="item-content item-link">
-                                <div class="item-inner">
-                                    <div class="item-title"><i><img src="__STATIC__/xmt/images/pcon13.png" alt=""></i><span>{:lang('关于系统')}</span></div>
-                                </div>
-                            </div>
-                        </a>
-                        </li>
                         <li>
                         <a class="page-invite" href="#page-lxkf">
                             <div class="item-content item-link">
                                 <div class="item-inner">
-                                    <div class="item-title"><i><img src="__STATIC__/xmt/images/lxkf.png" alt=""></i> <span>{:lang('联系客服')}</span></div>
+                                    <div class="item-title"><i><img src="__STATIC__/xmt/images/lxkf.png" alt=""></i> <span style="color: #999;">{:lang('联系客服')}</span></div>
                                 </div>
                             </div>
                         </a>
@@ -242,7 +150,7 @@
                         <a class="page-version" href="#page-version">
                             <div class="item-content item-link">
                                 <div class="item-inner">
-                                    <div class="item-title"><i><img src="__STATIC__/xmt/images/pcon14.png" alt=""></i><span>{:lang('版本更新')}</span></div>
+                                    <div class="item-title"><i><img src="__STATIC__/xmt/images/pcon14.png" alt=""></i><span style="color: #999;">{:lang('版本更新')}</span></div>
                                 </div>
                             </div>
                         </a>
@@ -261,79 +169,6 @@
 
 <div class="app">
 
-        <div class="page" id="page-invite">
-                <div class="content">
-                    <header class="bar bar-nav">
-                        <a class="icon pull-left back"></a>
-                        <h1 class="title">{:lang('邀请好友')}</h1>
-                    </header>
-                    <div style="padding-top: 3rem;text-align: center;font-size: 14px;line-height: 2;">        
-                    <div style="width: 96%;margin:0 auto;font-size: 14px;line-height: 2;text-align: center;">
-                <h3 style="text-align:center;">{:lang('邀请好友拿奖金，注册就送88')}</h3>  
-                <div class="qrcode" style="width: 200px;margin:0 auto">
-                    <div id="qrcode" style="width:180px; height:180px;margin:0 auto"></div>
-                </div>
-                <div style="position: absolute;top: 0;left: 0;opacity: 0;z-index: -10;" id="content">
-                    {{link}}
-                </div>
-                <div class="invite-btn" style="margin:auto;text-align:center;color: #f6383a;padding: 5px 10px;margin-top: 0.6rem;" @click="copy()">
-                   {:lang('点击复制分享链接')}
-                </div>
-                </div>
-                    <br>
-                    <br>
-                    <br>
-                </div>
-                </div>
-                </div>
-
-        <div class="page" id="page-tdyj">
-            <div class="content">
-                <header class="bar bar-nav">
-                    <a class="icon pull-left back"></a>
-                    <h1 class="title">{:lang('团队业绩')}</h1>
-                </header>
-                <div style="padding-top: 3rem;text-align: center;font-size: 14px;line-height: 2;">
-                    <ul class="square">
-                        <li>
-                            <span>{:lang('团队总业绩（USDT）')}</span>
-                            <p>{{t.t2}}</p>
-                        </li>
-                        <li>
-                            <span>{:lang('累计邀请')}</span>
-                            <p>{{t.t1}}人</p>
-                        </li>
-                        <li>
-                            <span>{:lang('大市场业绩（USDT）')}</span>
-                            <p>{{t.t4}}</p>
-                        </li>
-                        <li>
-                            <span>{:lang('小市场业绩（USDT）')}</span>
-                            <p>{{t.t3}}</p>
-                        </li>
-                    </ul> 
-                </div>
-                <h2 style="text-align: center;font-size: 14px;">{:lang('团队业绩明细')}</h2>
-                <div class="content-block" style="padding:1px .5rem 2rem; margin: 0">
-                   <table style="background:aliceblue;" class="usdt_yj">
-                        <tr>
-                            <th  width="10%">{:lang('头像')}</th>
-                            <th  width="25%">{:lang('昵称')}</th>
-                            <th  width="15%">ID</th>
-                            <th  width="15%">{:lang('VIP等级')}</th>
-                            <th  width="35%">{:lang('充值USDT')}</th>
-                        </tr>
-                        <tr v-for="a in team">
-                            <td class="img-td"><img v-bind:src="setDefaultImg(a.head_pic)"></td>
-                            <td>{{a.nickname}}</td>
-                            <td>{{a.user_id}}</td>
-                            <td>VIP{{a.level-1}}</td>
-                            <td>{{parseInt(a.money_cz)}}</td>
-                        </tr>
-                    </table>           
-          </div>
-            </div>  
-        </div>
 
         <div class="page" id="page-lxkf">
             <div class="content">
@@ -341,25 +176,25 @@
                     <a class="icon pull-left back"></a>
                     <h1 class="title">{:lang('联系客服')}</h1>
                 </header>
-                <div class="list-block">
-                    <ul>
+                <div class="list-block lxkf">
+                    <ul style="background: none;">
                         <li>
-                            <div class="item-content">
+                            <div class="item-content" style="margin-right: .75rem;">
                                 <div class="item-media"><i class="icon icon-form-name"></i></div>
                                 <div class="item-inner">
-                                    <div class="item-title label" style="width: 50%!important;">{:lang('QQ客服')}</div>
-                                    <div class="item-input">
+                                    <div class="item-title label" style="width: 50%!important; color: #FAFAFA;">{:lang('QQ客服')}</div>
+                                    <div class="item-input" style="text-align: right; color: #FAFAFA;">
                                         {:lang('点击联系')}&gt;
                                     </div>
                                 </div>
                             </div>
                         </li>
                         <li>
-                            <div class="item-content">
+                            <div class="item-content" style="margin-right: .75rem;">
                                 <div class="item-media"><i class="icon icon-form-name"></i></div>
                                 <div class="item-inner">
-                                    <div class="item-title label" style="width: 50%!important;">{:lang('微信客服')}</div>
-                                    <div class="item-input">
+                                    <div class="item-title label" style="width: 50%!important; color: #FAFAFA;">{:lang('微信客服')}</div>
+                                    <div class="item-input" style="text-align: right; color: #FAFAFA;">
                                         {:lang('点击联系')}&gt;
                                     </div>
                                 </div>
@@ -370,226 +205,25 @@
             </div>  
         </div>
 
-        <div class="page" id="page-gy">
-        <div class="content">
-            <header class="bar bar-nav">
-                <a class="icon pull-left back"></a>
-                <h1 class="title">{:lang('系统介绍')}</h1>
-            </header>
-        <div style="width: 96%;margin:3rem auto 0;line-height: 2.5;font-size:14px;">
-            <h3>{:lang('邀友越多赚取越多')}</h3>   
-            <p>{:lang('1、邀请好友开启社区三生万物！双赢双益')}</p>      
-            <p>{:lang('2、US.NMCT国际社区收益多样化，分享奖金（分享奖金/社区管理奖）更是丰富无穷！领略社区收益奖金的魅力！进入NMCT社区文化的魅力！')}</p> 
-            <p>{:lang('3、US.NMCT新媒体国际社区俱乐部是由全球多个国家的区块链底层技术研究院共同研发并认证的一个涵盖全球的超级社区！美国新媒体俱乐部强强联手与亚泰东盟集团，为NMCT新媒体促进长久、稳定的社区俱乐部平台做出合作！')}</p>
-            <h3>{:lang('US.NMCT CLUB期待您的加入！')}</h3>
-        </div>      
-      <br>
-    </div>
-</div>
-
-        <div class="page" id="page-activeaccount">
-            <header class="bar bar-nav">
-                <a class="icon pull-left back"></a>
-                <h1 class="title">{:lang('我的社区')}</h1>
-            </header>
-          <div class="content-block" style="margin-top: 3rem;padding:1px .5rem 2rem;">
-           <table>
-                <tr>
-                    <th  width="10%">{:lang('头像')}</th>
-                    <th  width="25%">{:lang('昵称')}</th>
-                    <th  width="15%">ID</th>
-                    <th  width="15%">{:lang('VIP等级')}</th>
-                    <th  width="35%">{:lang('时间')}</th>
-                </tr>
-                <tr v-for="a in team">
-                    <td class="img-td"><img v-bind:src="setDefaultImg(a.head_pic)"></td>
-                    <td>{{a.nickname}}</td>
-                    <td>{{a.user_id}}</td>
-                    <td>VIP{{a.level-1}}</td>
-                    <td>{{timestampToTime1(a.reg_time)}}</td>
-                </tr>
-            </table>           
-          </div>
-        </div>
-
-        <div class="page" id="page-cz">
-            <header class="bar bar-nav">
-                <a class="icon pull-left back"></a>
-                <h1 class="title">{:lang('充值记录')}</h1>
-            </header>
-          <div class="content-block" style="margin-top: 3rem;padding:0 1rem 2rem;">
-            <li v-for="a in list" v-if="a.type==1">
-                <p class="source">
-                    <span class="charge-style">{{a.title}}</span>
-                    <span class="timestamp">{{timestampToTime(a.time)}}</span> <br>
-                        <span class="money-num" v-if="a.usdt!=0">{{int_(a.usdt)}}</span>
-                        <span class="money-num" v-if="a.nmct!=0">{{int_(a.nmct)}}</span>
-                        <span class="money-num" v-if="a.xmt!=0">{{int_(a.xmt)}}</span>
-                        <span class="money-num" v-if="a.nmct_dj!=0">{{int_(a.nmct_dj)}}</span>
-
-                </P>
-            </li>
-          </div>
-        </div>
-
-        <div class="page" id="page-c2c">
-            <header class="bar bar-nav">
-                <a class="icon pull-left back"></a>
-                <h1 class="title">{:lang('C2C记录')}</h1>
-            </header>
-          <div class="content-block" style="margin-top: 3rem;padding:1px 1rem 2rem;">
-                <li v-for="a in list" v-if="a.type==20">
-                     <p class="source">
-                        <span>{{a.title}}</span>
-                        <span>{{timestampToTime(a.time)}}</span>
-                    </p>
-                    <p style="width:100%;margin:0;font-size: 14px;">
-                        <span class="money-num">
-                            <span v-if="a.usdt!=0">USDT&nbsp;{{int_(a.usdt)}}</span>
-                            <span v-if="a.nmct!=0">{:lang('NMCT通证')}&nbsp;{{int_(a.nmct)}}</span>
-                            <span v-if="a.xmt!=0">{:lang('XMT通证')}&nbsp;{{int_(a.xmt)}}</span>
-                            <span v-if="a.nmct_dj!=0">{:lang('NMCT资产')}&nbsp;{{int_(a.nmct_dj)}}</span>
-                        </span>
-                    </P>
-                   
-                </li>   
-          </div>
-        </div>
-
-        <div class="page" id="page-xmt">
-            <header class="bar bar-nav">
-                <a class="icon pull-left back"></a>
-                <h1 class="title">{:lang('XMT记录')}</h1>
-            </header>
-          <div class="content-block" style="margin-top: 3rem;padding:1px 1rem 2rem;">
-                <li v-for="a in list" v-if="a.xmt!=0">
-                     <p class="source">
-                        <span>{{a.title}}</span>
-                        <span>{{timestampToTime(a.time)}}</span>
-                    </p>
-                    <p style="width:100%;margin:0;font-size: 14px;">
-                        <span class="money-num">
-                            <span v-if="a.usdt!=0">USDT&nbsp;{{int_(a.usdt)}}</span>
-                            <span v-if="a.nmct!=0">{:lang('NMCT通证')}&nbsp;{{int_(a.nmct)}}</span>
-                            <span v-if="a.xmt!=0">{:lang('XMT通证')}&nbsp;{{int_(a.xmt)}}</span>
-                            <span v-if="a.nmct_dj!=0">{:lang('NMCT资产')}&nbsp;{{int_(a.nmct_dj)}}</span>
-                        </span>
-                    </P>                   
-                </li>   
-          </div>
-        </div>
-
-        <div class="page" id="page-hongbao">
-            <header class="bar bar-nav">
-                <a class="icon pull-left back"></a>
-                <h1 class="title">{:lang('领取红包记录')}</h1>
-            </header>
-          <div class="content-block" style="margin-top: 3rem;padding:1px 1rem 2rem;">
-                <li v-for="a in list" v-if="a.type==6" class="list_hb">
-                    <p class="source">
-                        <span>{{a.title}}</span>
-                        <span>{{timestampToTime(a.time)}}</span>                       
-                    </p>
-                    <p style="width:100%;margin:0;font-size: 14px;">                        
-                        <span class="money-num">
-                            <span v-if="a.usdt!=0">USDT&nbsp;{{int_(a.usdt)}}</span>
-                            <span v-if="a.nmct!=0">{:lang('NMCT通证')}&nbsp;{{int_(a.nmct)}}</span>
-                            <span v-if="a.xmt!=0">{:lang('XMT通证')}&nbsp;{{int_(a.xmt)}}</span>
-                            <span v-if="a.nmct_dj!=0">{:lang('NMCT资产')}&nbsp;{{int_(a.nmct_dj)}}</span>
-                        </span>
-                    </p>                    
-                </li>   
-          </div>
-        </div>
-
-        <div class="page" id="page-ft">
-            <header class="bar bar-nav">
-                <a class="icon pull-left back"></a>
-                <h1 class="title">{:lang('复投记录')}</h1>
-            </header>
-          <div class="content-block" style="margin-top: 3rem;padding:1px 1rem 2rem;">
-                <li v-for="a in list" v-if="a.type==7" class="list_hb">
-                    <p class="source">
-                        <span>{{a.title}}</span><span>{{timestampToTime(a.time)}}</span>
-                    </p>
-                    <p style="width:100%;margin:0;font-size: 14px;">
-                        <span class="money-num">
-                            <span v-if="a.usdt!=0">USDT&nbsp;{{int_(a.usdt)}}</span>
-                            <span v-if="a.nmct!=0">{:lang('NMCT通证')}&nbsp;{{int_(a.nmct)}}</span>
-                            <span v-if="a.xmt!=0">{:lang('XMT通证')}&nbsp;{{int_(a.xmt)}}</span>
-                            <span v-if="a.nmct_dj!=0">{:lang('NMCT资产')}&nbsp;{{int_(a.nmct_dj)}}</span>
-                        </span>
-                    </P>
-                   
-                </li>   
-          </div>
-        </div>
-
-        <div class="page" id="page-vip">
-            <header class="bar bar-nav">
-                <a class="icon pull-left back"></a>
-                <h1 class="title">{:lang('VIP记录')}</h1>
-            </header>
-          <div class="content-block" style="margin-top: 3rem;padding:1px 1rem 2rem;">
-                <li v-for="a in list" v-if="a.type==5">
-                    <p class="source">
-                        <span>{{a.title}}</span><span>{{timestampToTime(a.time)}}</span>
-                    </p>
-                    <p style="width:100%;margin:0;font-size: 14px;">
-                        <span class="money-num">
-                            <span v-if="a.usdt!=0">USDT&nbsp;{{int_(a.usdt)}}</span>
-                            <span v-if="a.nmct!=0">{:lang('NMCT通证')}&nbsp;{{int_(a.nmct)}}</span>
-                            <span v-if="a.xmt!=0">{:lang('XMT通证')}&nbsp;{{int_(a.xmt)}}</span>
-                            <span v-if="a.nmct_dj!=0">{:lang('NMCT资产')}&nbsp;{{int_(a.nmct_dj)}}</span>
-                        </span>
-                    </P>
-                   
-                </li>   
-          </div>
-        </div>
-
-        <div class="page" id="page-gl">
-            <header class="bar bar-nav">
-                <a class="icon pull-left back"></a>
-                <h1 class="title">{:lang('管理好友')}</h1>
-            </header>
-          <div class="content-block" style="margin-top: 3rem;padding:1px .5rem 2rem;">
-           <table>
-                <tr>
-                    <th width="10%">{:lang('头像')}</th>
-                    <th width="25%">{:lang('昵称')}</th>
-                    <th width="15%">ID</th>
-                    <th width="15%">{:lang('合伙人')}</th>
-                    <th width="35%">{:lang('时间')}</th>
-                </tr>
-                <tr v-for="a in team" v-if="a.g>0">
-                    <td class="img-td"><img v-bind:src="setDefaultImg(a.head_pic)"></td>
-                    <td>{{a.nickname}}</td>
-                    <td>{{a.user_id}}</td>
-                    <td>G{{a.g}}</td>
-                    <td>{{timestampToTime1(a.reg_time)}}</td>
-                </tr>
-            </table>           
-          </div>
-        </div>
-
         <div class="page" id="page-version">
-     <div class="content">
+     <div class="content" style="display: flex; align-items: center;">
             <header class="bar bar-nav">
                 <a class="icon pull-left back "></a>
                 <h1 class="title">{:lang('系统版本')}</h1>
             </header>
             <div class="list-block">
-                <ul>
+                <ul style="background: none;">
                     <li>
-                        <div class="item-content">
-                            <div class="item-media"><i class="icon icon-form-name"></i></div>
-                            <div class="item-inner">
-                                <div class="item-title label" style="width: 50%!important;">{:lang('系统版本')}</div>
-                                <div class="item-input">
+                        <div class="item-content" style="display: block;">
+                            <div class="item-inner" style="justify-content: center; margin: 0;">
+                                <div class="item-title label" style="color: #FAFAFA;">{:lang('系统版本')}</div>
+                                <div class="item-input" style="width: auto; color: #FAFAFA;">
                                     2.0.1
                                 </div>
                             </div>
+							<div class="item-inner" style="justify-content: center;">
+								<a href="#" style="font-size: .7rem; color: #D8D8D8;">点击更新</a>
+							</div>
                         </div>
                     </li>
                 </ul>
@@ -604,57 +238,56 @@
                 <h1 class="title">{:lang('修改登录密码')}</h1>
             </header>
             <form method="post" action="{:url('user/set/repass')}">
-                <div class="list-block">
-                    <ul>
+                <div class="list-block c_pwd">
+                    <ul style="background: none;">
                         <li>
-                            <div class="item-content">
+                            <div class="item-content" style="border-bottom: 1px solid #999;">
                                 <div class="item-media"><i class="icon icon-form-name"></i></div>
                                 <div class="item-inner">
-                                    <div class="item-title label">{:lang('原登录密码')}</div>
+                                    <div class="item-title" style="margin-right: .2rem;"><img src="__STATIC__/xmt/images/icon_pwd.png" height="18px"/></div>
                                     <div class="item-input">
-                                        <input type="password" name="nowpass" placeholder="{:lang('请输入原登录密码')}" maxlength=20>
+                                        <input type="password" name="nowpass" style="color: #FAFAFA;" placeholder="{:lang('请输入原登录密码')}" maxlength=20>
                                     </div>
                                 </div>
                             </div>
                         </li>
                         <li>
-                            <div class="item-content">
+                            <div class="item-content" style="border-bottom: 1px solid #999;">
                                 <div class="item-media"><i class="icon icon-form-name"></i></div>
                                 <div class="item-inner">
-                                    <div class="item-title label">{:lang('新密码')}</div>
+                                    <div class="item-title" style="margin-right: .2rem;"><img src="__STATIC__/xmt/images/icon_pwd.png" height="18px"/></div>
                                     <div class="item-input">
-                                        <input type="password" name="pass" placeholder="{:lang('请输入5-20位的新密码')}" maxlength=20>
+                                        <input type="password" name="pass" style="color: #FAFAFA;" placeholder="{:lang('请输入5-20位的新密码')}" maxlength=20>
                                     </div>
                                 </div>
                             </div>
                         </li>
                         <li>
-                            <div class="item-content">
+                            <div class="item-content" style="border-bottom: 1px solid #999;">
                                 <div class="item-media"><i class="icon icon-form-name"></i></div>
                                 <div class="item-inner">
-                                    <div class="item-title label">{:lang('确认密码')}</div>
+                                    <div class="item-title" style="margin-right: .2rem;"><img src="__STATIC__/xmt/images/icon_pwd.png" height="18px"/></div>
                                     <div class="item-input">
-                                        <input type="password" name="repass" placeholder="{:lang('请输入确认密码')}" maxlength=20>
+                                        <input type="password" name="repass" style="color: #FAFAFA;" placeholder="{:lang('请输入确认密码')}" maxlength=20>
                                     </div>
                                 </div>
                             </div>
                         </li>
                       
                         <li>
-                            <div class="item-content">
+                            <div class="item-content" style="border-bottom: 1px solid #999;">
                                 <div class="item-media"><i class="icon icon-form-name"></i></div>
                                 <div class="item-inner">
-                                    <div class="item-title label">{:lang('短信验证码')}</div>
+                                    <div class="item-title" style="margin-right: .5rem;"><img src="__STATIC__/xmt/images/icon_mes.png" height="18px"/></div>
                                     <div class="item-input send_yzm_pw1">
-                                        <input type="text" style="width:50%;float:left;" name="sms" maxlength="6">
+                                        <input type="text" style="width:50%;float:left; color: #FAFAFA;" name="sms" maxlength="6" placeholder="短信验证码">
                                         <div class='send_yzm_pw' onclick="send_phone_pw()"><span id='modify_pw' style='text-align:right;'>{:lang('获取验证码')}</span></div>
                                     </div>
                                 </div>
                             </div>
                         </li>
                     </ul>
-                    <p class="wboos-p-btn"><input type="submit" class="button button-fill button-wboos"  value="{:lang('保 存')}" /></p>
-                
+                    <p class="wboos-p-btn" style="position: absolute; bottom: -1rem; left: 20%;"><input type="submit" class="button button-fill button-wboos"  value="{:lang('保 存')}" /></p>
                 </div>
             </form>
         </div>
@@ -762,45 +395,45 @@
             </header>
         </div>
         <form method="post" action="{:url('user/set/aqmm')}">
-            <div class="list-block">
-                <ul>
+            <div class="list-block c_spwd">
+                <ul style="background: none;">
                     {if $userInfo['aqmm'] !=''}
                     <li>
-                        <div class="item-content">
+                        <div class="item-content" style="border-bottom: 1px solid #999;">
                             <div class="item-media"><i class="icon icon-form-name"></i></div>
                             <div class="item-inner">
-                                <div class="item-title label">{:lang('登录密码')}</div>
+                                <div class="item-title" style="margin-right: .2rem;"><img src="__STATIC__/xmt/images/icon_pwd.png" height="18px" /></div>
                                 <div class="item-input">
-                                    <input type="password" name="nowpass" placeholder="{:lang('登录密码')}" >
+                                    <input type="password" name="nowpass" style="color: #FAFAFA;" placeholder="{:lang('登录密码')}" >
                                 </div>
                             </div>
                         </div>
                     </li>
                     {/if}
                     <li>
-                        <div class="item-content">
+                        <div class="item-content" style="border-bottom: 1px solid #999;">
                             <div class="item-media"><i class="icon icon-form-name"></i></div>
                             <div class="item-inner">
-                                    <div class="item-title label">{:lang('安全密码')}</div>
+                                    <div class="item-title" style="margin-right: .2rem;"><img src="__STATIC__/xmt/images/icon_pwd.png" height="18px" /></div>
                                     <div class="item-input">
-                                        <input type="password" name="pass" placeholder="{:lang('请输入安全密码（6位数字）')}" onkeyup="value=value.replace(/[^\d]/g,'');" maxlength=6>
+                                        <input type="password" name="pass" style="color: #FAFAFA;" placeholder="{:lang('请输入安全密码（6位数字）')}" onkeyup="value=value.replace(/[^\d]/g,'');" maxlength=6>
                                     </div>
                             </div>
                         </div>
                     </li>
                     <li>
-                        <div class="item-content">
+                        <div class="item-content" style="border-bottom: 1px solid #999;">
                             <div class="item-media"><i class="icon icon-form-name"></i></div>
                             <div class="item-inner">
-                                <div class="item-title label">{:lang('确认密码')}</div>
+                                <div class="item-title" style="margin-right: .2rem;"><img src="__STATIC__/xmt/images/icon_pwd.png" height="18px" /></div>
                                 <div class="item-input">
-                                    <input type="password" name="repass" placeholder="{:lang('请输入确认密码')}" onkeyup="value=value.replace(/[^\d]/g,'');" maxlength=6>
+                                    <input type="password" name="repass" style="color: #FAFAFA;" placeholder="{:lang('请输入确认密码')}" onkeyup="value=value.replace(/[^\d]/g,'');" maxlength=6>
                                 </div>
                             </div>
                         </div>
                     </li>
                 </ul>
-                <p class="wboos-p-btn"><input type="submit" class="button button-fill button-wboos" value="{:lang('保 存')}"/></p>
+                <p class="wboos-p-btn"><input type="submit" class="button button-fill button-wboos button-round" style="color: rgb(89,67,33);" value="{:lang('保 存')}"/></p>
             </div>
         </form>
     </div>
@@ -809,52 +442,12 @@
         <div class="content">
             <header class="bar bar-nav">
                 <a class="icon pull-left back"></a>
-                <h1 class="title">{:lang('绑定银行卡')}</h1>
+                <h1 class="title">{:lang('绑定个人钱包')}</h1>
             </header>
             <form method="post" action="{:url('user/set/yhk')}">
-                <div class="list-block">
-                    <ul>
-                        <li>
-                            <div class="item-content">
-                                <div class="item-media"><i class="icon icon-form-name"></i></div>
-                                <div class="item-inner">
-                                    <div class="item-title label">{:lang('所在银行')}</div>
-                                    <div class="item-input">
-                                        <?php if(empty($yz['yh'])) { $yz['yh'] = ''; }?>
-                                        <select lay-filter="aihao" name="yh" id="yh" class="layui-input">
-                                            <option value="">{:lang('请选择所在银行')}</option>
-                                            <?php
-                                            $banks = [
-                                                lang("工商银行"),
-                                                lang("农业银行"),
-                                                lang("建设银行"),
-                                                lang("中国银行"),
-                                                lang("光大银行"),
-                                                lang("中信实业银行"),
-                                                lang("恒丰银行"),
-                                                lang("兴业银行"),
-                                                lang("交通银行"),
-                                                lang("民生银行"),
-                                                lang("华夏银行"),
-                                                lang("农村商业"),
-                                                lang("邮政银行")
-                                            ];
-                                            foreach($banks as $key => $name) {
-                                                if($name == $yz['yh']) {
-                                                    $selected = ' selected = "selected"';
-                                                } else {
-                                                    $selected = '';
-                                                }
-
-                                                echo ('<option value="' . $name . '" ' . $selected . '>' . $name . '</option>');
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
+                <div class="list-block qb">
+                    <ul style="background: rgb(50,50,50); padding-top: 1rem;">
+                        <!-- <li>
                             <div class="item-content">
                                 <div class="item-media"><i class="icon icon-form-name"></i></div>
                                 <div class="item-inner">
@@ -865,33 +458,39 @@
                                     </div>
                                 </div>
                             </div>
-                        </li>
+                        </li> -->
                         <li>
-                            <div class="item-content">
+                            <div class="item-content" style="border-bottom: 2px solid #999;">
                                 <div class="item-media"><i class="icon icon-form-name"></i></div>
                                 <div class="item-inner">
-                                    <div class="item-title label">{:lang('银行卡账号')}</div>
+                                    <!-- <div class="item-title label">{:lang('银行卡账号')}</div> -->
                                     <div class="item-input">
                                         <?php if(empty($yz['yhk'])) { $yz['yhk'] = ''; }?>
-                                        <input type="text" name="yhk" placeholder="{:lang('请输入银行卡账号')}" value="{$yz['yhk']}" maxlength=60/>
+                                        <span style="display: flex; align-items: center;">
+											<img src="__STATIC__/xmt/images/wallet.png" height="20px" />
+											<input type="text" name="yhk" placeholder="{:lang('请输入钱包地址')}" style="font-size: .7rem; color: #FAFAFA;" value="{$yz['yhk']}" maxlength=60/>
+										</span>
                                     </div>
                                 </div>
                             </div>
                         </li>
                         <li>
-                            <div class="item-content">
+                            <div class="item-content" style="border-bottom: 2px solid #999;">
                                 <div class="item-media"><i class="icon icon-form-name"></i></div>
                                 <div class="item-inner">
-                                    <div class="item-title label">{:lang('短信验证码')}</div>
+                                    <!-- <div class="item-title label">{:lang('短信验证码')}</div> -->
                                     <div class="item-input send_yzm2">
-                                        <input type="text" name="sms" maxlength="6" placeholder="{:lang('请输入短信验证码')}">
-                                        <div class='send_phone2' onclick="send_phone(2)" style="position: absolute;right: 0;top: 0"><span id='zphone2' style='text-align:right;'>{:lang('获取验证码')}</span></div>
+										<span style="display: flex; align-items: center;">
+											<img src="__STATIC__/xmt/images/icon_mes.png" height="20px" />
+											<input type="text" name="sms" maxlength="6" placeholder="{:lang('请输入短信验证码')}" style="font-size: .7rem; color: #FAFAFA;">
+											<div class='send_phone2' onclick="send_phone(2)" style="position: absolute;right: 0;top: 0"><span id='zphone2' style='text-align:right; font-size: .6rem;'>{:lang('获取验证码')}</span></div>
+										</span>
                                     </div>
                                 </div>
                             </div>
                         </li>
                     </ul>
-                    <p class="wboos-p-btn"><input type="submit" class="button button-fill button-wboos" value="{:lang('保 存')}"/></p>
+                    <p class="wboos-p-btn"><input type="submit" class="button button-fill button-wboos button-round" style="color: rgb(89,67,33);" value="{:lang('保 存')}"/></p>
                 </div>
             </form>
         </div>
@@ -905,17 +504,17 @@
             </header>
             <form method="post" action="{:url('user/set/avatar')}">
             <div class="list-block">
-                    <div class="item-content">
-                        <div class="avatar-add" style="width:96%;">
+                    <div class="" style="margin: 5rem 0;">
+                        <div class="avatar-add" style="width:90%; margin: 0 auto;">
                             <p></p>
-                            <p>{:lang('建议尺寸168*168，支持jpg、png、gif，最大不能超过30KB')}</p>
+                            <p style="color: #999;">{:lang('建议尺寸168*168，支持jpg、png、gif，最大不能超过30KB')}</p>
                             <div class="upload-img" style="margin-bottom: 15px;">
                                 <input type="file" id="LAY-file" accept="image*/" lay-title="{:lang('上传头像')}" style="display: none;">
                             </div>
                             {if condition="$userInfo['head_pic']"}
                             <div class="picboxbg">
                                <img style="width:120px;height:120px" id='pic' src="{:imgUrl($userInfo['head_pic'])}"> 
-                            </div>                            
+                            </div>
                             <input id="head_pic" type="text" name="head_pic" value="{:imgUrl($userInfo['head_pic'])}" style="display:none;">
                             {else/}
                             <div class="picboxbg">
@@ -924,172 +523,69 @@
                             <input id="head_pic" type="text" name="head_pic" value="" style="display:none;">
                             {/if}
                         </div>
-
+<p class="wboos-p-btn"><input type="button" class="button button-fill button-wboos" style="color: rgb(89,67,33);" id="choose" value="{:lang('选择头像')}" @click="triggerclick();"/></p>
+                    <p class="wboos-p-btn"><input type="submit" style="color: rgb(89,67,33);" class="button button-fill button-wboos" value="{:lang('保 存')}"/></p>
                     </div>
-                    <p class="wboos-p-btn"><input type="button" class="button button-fill button-wboos" id="choose" value="{:lang('选择头像')}" @click="triggerclick();"/></p>
-                    <p class="wboos-p-btn"><input type="submit" class="button button-fill button-wboos" value="{:lang('保 存')}"/>
-                    </p>
-                      
+                    
                </div>
               </form>
         </div>
     </div>
 
+		<div class="page" id="page-certification">
+			<div class="content">
+				<header class="bar bar-nav" style="position: initial; margin-bottom: 1rem;">
+				    <a class="icon pull-left back"></a>
+				    <h1 class="title">{:lang('实名认证')}</h1>
+				</header>
+				<form action="{:url('user/set')}" method="post">
+					<div class="list-block cc">
+						<p>
+							<span><img src="__STATIC__/xmt/images/cc_1.png" width="50%" height="50%" /></span>
+							<span><input type="text" placeholder="姓名" id="cc_name" style="height: auto; padding: 0; font-size: .7rem; color: #ddd;" /></span>
+						</p>
+						<p>
+							<span><img src="__STATIC__/xmt/images/cc_2.png" width="50%" height="50%" /></span>
+							<span><input type="text" placeholder="身份证" id="cc_uid" style="height: auto; padding: 0; font-size: .7rem; color: #ddd;" /></span>
+						</p>
+						<p>
+							<span><img src="__STATIC__/xmt/images/cc_3.png" width="50%" height="50%" /></span>
+							<span style="font-size: .7rem; color: rgb(129,129,129);">上传身份证信息</span>
+						</p>
+						<div class="cc_con">
+							<div class="cc_picbox">
+								<input type="file" placeholder="点击上传身份证正面" id="uid_front" style="display: none;" />
+								<button class="front_click" type="button" onclick="ccclick($('#uid_front'))">点击上传身份证正面</button>
+								<img id="froimg" />
+							</div>
+							<div class="cc_picbox">
+								<input type="file" placeholder="点击上传身份证反面" id="uid_back" style="display: none;" />
+								<button class="back_click" type="button" onclick="ccclick($('#uid_back'))">点击上传身份证反面</button>
+								<img id="backimg" />
+							</div>
+							<div class="cc_picbox">
+								<input type="file" placeholder="点击上传本人手持身份证" id="uid_hand" style="display: none;" />
+								<button class="hand_click" type="button" onclick="ccclick($('#uid_hand'))">点击上传本人手持身份证</button>
+								<img id="handimg" />
+							</div>
+						</div>
+						<p style="position: absolute; bottom: -50px; left: 5%; width: 90%;">
+							<input type="submit" value="保存" class="button button-round button-big" 
+							style="background: rgb(238,198,127); color: rgb(89,67,33); border: none;"
+							 />
+						</p>
+					</div>
+				</form>
+			</div>
+		</div>
 </div>
-</div>
-<div id="addpage">
-
-<div class="page" id="page-usdt-record">
-        <div class="content">
-        <!-- usdt记录页面 -->
-            <header class="bar bar-nav">
-                <a class="icon pull-left back"></a> 
-                <h1 class="title">{:lang('USDT记录')}</h1>
-            </header>
-            <div class="content-block">
-                <div class="list-block" style="">
-                 <ul class="record-list">
-                    <li v-for="a in list" v-if="a.usdt!=0 || a.type==5">                        
-                        <p class="source">
-                            <span>{{a.title}}</span><span>{{a.time|timestampToTime}}</span>                 
-                        </p>
-                        <p style="width:100%;margin:0;font-size: 14px;">
-                            <span class="money-num">
-                                <span v-if="a.usdt!=0">{{a.usdt|int_}}&nbsp;USDT</span>
-                            </span>
-                        </p>
-                    </li>                   
-                 </ul>
-                </div>
-            </div>    
-        <!-- usdt记录页面end-->
-        </div>
-    </div>
-
-
-<div class="page" id="page-nmct-record">
-    <div class="content">
-<!-- nmct记录页面 -->
-    <header class="bar bar-nav">
-        <a class="icon pull-left back"></a>
-        <h1 class="title">{:lang('NMCT记录')}</h1>
-    </header>
-    <div class="content-block">
-        <div class="list-block" style="padding:0">
-            <ul class="record-list">
-                <li v-for="a in list" v-if="a.nmct!=0 || a.nmct_dj!=0 || a.xmt!=0">
-                    <p class="source">
-                        <span>{{a.title}}</span>
-                        <span>{{a.time|timestampToTime}}</span>
-                    </p>
-                    <p style="width:100%;font-size: 14px;margin:0">
-                        <span class="money-num">
-                            <span v-if="a.nmct!=0">{:lang('NMCT通证')}&nbsp;{{a.nmct|int_}}</span>
-                            <span v-if="a.xmt!=0">{:lang('XMT通证')}&nbsp;{{a.xmt|int_}}</span>
-                            <span v-if="a.nmct_dj!=0">{:lang('NMCT资产')}&nbsp;{{a.nmct_dj|int_}}</span>
-                        </span>
-                    </p>
-                    
-                </li>       
-             </ul>
-        </div>
-     </div>
-<!-- nmct记录页面end-->
-    </div>
-</div>
-
-
-<!-- 激活 -->
-<div class="page" id="page-active">
-    <div class="content">
-    <header class="bar bar-nav">
-        <a class="icon pull-left back"></a>
-        <h1 class="title">{:lang('激活会员')}</h1>
-    </header>
-    <div class="buttons-tab" style="margin-top: 3rem;">
-        <a href="#cz_1" class="tab-link active button">{:lang('购买激活码')}</a>
-        <a href="#cz_2" class="tab-link button">{:lang('我的激活码')}</a>
-        <a href="#cz_3" v-if="user.pass==0" class="tab-link button">{:lang('激活帐号')}</a>
-    </div>
-    <div class="content-block">
-        <div class="tabs">
-            <div id="cz_1" class="tab active">
-                <div class="trans-info" style="margin-top:1rem">
-                    <div class="trans-pic">
-                        <img src="__STATIC__/xmt/images/transfer.png" alt="">
-                    </div>
-                    <p>{:lang('购买激活码（10USDT一枚）')}</p>
-                    <span>{:lang('请输入购买数量')}：</span>
-                    <input type="number" id="jh_1" class="trans-num" />
-                </div>
-                <div class="btns">
-                    <a @click="zc_(4);" class="confirm">{:lang('确定购买')}</a>
-                </div>
-            </div>
-
-            <div id="cz_2" class="tab">
-                <p v-for="(a,i) in code">
-                    {:lang('激活码')}：{{a.code}}
-                    <span style="float:right" v-if="a.status==0">{:lang('已使用')}</span>
-                    <span style="float:right" v-else>{:lang('未使用')}</span>
-                </p>
-            </div>
-
-            <div id="cz_3" class="tab">
-                <div class="trans-info">
-                    <div class="trans-pic">
-                        <img src="__STATIC__/xmt/images/transfer.png" alt=""/>
-                    </div>
-                    <p>{:lang('激活帐号')}</p>
-                    <span>{:lang('请输入激活码')}：</span>
-                    <input type="text" id="jh_2" class="trans-num" />
-                </div>
-                <div class="btns">                  
-                    <a @click="zc_(5);" class="confirm">{:lang('确定激活')}</a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-</div>
-<!-- 激活 -->
-
-
-<!-- 升级VIP -->
-<div class="page" id="page-upgrade">
-    <header class="bar bar-nav">
-        <a class="icon pull-left back"></a>
-        <h1 class="title">{:lang('升级VIP')}</h1>
-    </header>
-    <div class="trans-info">
-        <div class="trans-pic">
-            <img src="__STATIC__/xmt/images/transfer.png" alt=""/>
-        </div>
-        <p>{:lang('当前级别VIP')}{{user.level-1}}</p>
-        <span>{:lang('请选择升级VIP')}：</span>
-         <select name="level" @change="$('#level_usdt').val(level_.money)" v-model='level_'>
-            <option v-for="a in level" v-bind:value="a">{{a.level_name}}（{{a.money}}USDT）</option>
-        </select>
-		<p>{:lang('至少需要一半USDT')}</p>
-        <span>{:lang('支付USDT')}：</span>
-        <input type="number" id="level_usdt" @keyup="level_2=(level_.money-$('#level_usdt').val())/system.money_xmt" class="trans-num" />
-		<br>
-		<span>{:lang('所需XMT')}：{{level_2}}</span>
-    </div>
-    <div class="btns">
-        <a @click="zc_(6);" class="confirm">{:lang('确定转出')}</a>
-    </div>
-</div>
-<!-- 升级VIP END -->
-
 </div>
 
 </div>
 
 <script type="text/javascript">
      function triggerclick(){
-          $('#LAY-file').trigger('click'); 
+        $('#LAY-file').trigger('click'); 
      }
 </script>
 <script type="text/javascript">
@@ -1099,6 +595,60 @@ function int_(i){
     }else if(i<0){
         return i;
     }
+}
+function ccclick(name){
+	name.click();
+	$("#uid_front").change(function (){
+		var formdata = new FormData();
+		formdata.append("file",this.files[0]);
+		$.ajax({
+		    url:"{:url('user/index/upload')}",
+		    type:'POST',
+		    data:formdata,
+		    cache: false,
+		    contentType: false,    //不可缺
+		    processData: false,    //不可缺
+		    dataType:'json',
+		    success:function(data){
+		        $('#froimg').attr('src',""+data.url+"");
+		        $('#uid_front').val(""+data.url+"");
+		    }
+		});
+	});
+	$("#uid_back").change(function (){
+		var formdata = new FormData();
+		formdata.append("file",this.files[0]);
+		$.ajax({
+		    url:"{:url('user/index/upload')}",
+		    type:'POST',
+		    data:formdata,
+		    cache: false,
+		    contentType: false,    //不可缺
+		    processData: false,    //不可缺
+		    dataType:'json',
+		    success:function(data){
+		        $('#backimg').attr('src',""+data.url+"");
+		        $('#uid_back').val(""+data.url+"");
+		    }
+		});
+	});
+	$("#uid_hand").change(function (){
+		var formdata = new FormData();
+		formdata.append("file",this.files[0]);
+		$.ajax({
+		    url:"{:url('user/index/upload')}",
+		    type:'POST',
+		    data:formdata,
+		    cache: false,
+		    contentType: false,    //不可缺
+		    processData: false,    //不可缺
+		    dataType:'json',
+		    success:function(data){
+		        $('#handimg').attr('src',""+data.url+"");
+		        $('#uid_hand').val(""+data.url+"");
+		    }
+		});
+	});
 }
 var submitDatas = function(id,_target, callback) {
     wboos.httpRequest({
@@ -1131,7 +681,7 @@ var submitDatas = function(id,_target, callback) {
 }
 $(document).on("pageInit", "#page-pic", function(e, id, page) {
     $("#LAY-file").change(function(){
-        var formData = new FormData();    
+        var formData = new FormData();
         formData.append("file", $(this).get(0).files[0]);
         $.ajax({
             url:"{:url('user/index/upload')}",
@@ -1386,7 +936,7 @@ function setDefaultImg(e){
         s = date.getSeconds();
         return Y+M+D;
          }
-new Vue({
+var vm = new Vue({
   el: '#topvue',
   data: {
     link:'',
@@ -1395,10 +945,12 @@ new Vue({
     level:'',
     t:'',
     team:'',
+	system:'',
   },
   methods: {
         getData(){
             this.$http.get('/user/mode/my.html').then(function (res){
+				console.log(res);
                 var i = res.body;
                 if(i.status==0){
                     wboos.toast(i.msg);
@@ -1408,6 +960,7 @@ new Vue({
                     this.user = i.user;
                     this.t = i.t;
                     this.team = i.team;
+					this.system = i.system;
                     this.link =  wboos.url('user/login/zc.html?fxid='+i.user.user_id+'');
                     var qrcode = new QRCode(document.getElementById("qrcode"), {
                         width : 180,

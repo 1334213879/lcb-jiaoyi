@@ -1,48 +1,27 @@
-<!DOCTYPE html>
-<html style="background-color:#fff;">
-<head>
-<meta charset="utf-8">
-<title>{$title}</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
-<meta name="description" content="{$title}">
-<script type='text/javascript' src='__STATIC__/xmt/js/vue.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='__STATIC__/xmt/js/vue-resource.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='__STATIC__/xmt/js/global.js' charset='utf-8'></script>
-<script src="__HOME__/js/swiper-3.4.2.min.js"></script>
-<link type="text/css" rel="stylesheet" href="__HOME__/btb/idealMoneyList.css">
-<link rel="stylesheet" href="__HOME__/css/swiper-3.4.2.min.css">
-<link rel="stylesheet" href="__STATIC__/xmt/css/sm.min.css">
-<link rel="stylesheet" href="__STATIC__/xmt/css/sm-extend.css">
-<script type='text/javascript' src='__STATIC__/xmt/js/zepto.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='__STATIC__/xmt/js/sm.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='__STATIC__/xmt/js/sm-extend.min.js' charset='utf-8'></script>
+{include file="common/head"/}
+<!-- <link rel="stylesheet" href="__STATIC__/xmt/css/pages/wallet-index.css?v=1.02">
+<script src="__STATIC__/xmt/js/mathlib-min.js?v=1.02"></script>
+<script src="__STATIC__/xmt/js/k3d-min.js?v=1.02"></script>
+<script src="__STATIC__/xmt/js/radiation.js?v=1.02"></script>
+<link rel="stylesheet" href="__STATIC__/xmt/css/style.css?v=1.02"> -->
+<link rel="stylesheet" href="__STATIC__/xmt/css/pages/index1.css" />
 <style>
 .page, .page-group{
-	background: #fff;
+	background: rgba(50,50,50,1);
 }
 .title-bar{
-/*background: url('__STATIC__/xmt/images/headbar_bg.gif') center center no-repeat;*/
+background: url('__STATIC__/btb/top.jpg') center center no-repeat;
 width: 100%;
 background-size:100% 100%;
+padding: 0.7rem 0;
 }
 .title-bar h3{
 text-align: center;
-color:#1d3891;
-font-size: 14px;
+color:#fff;
+font-size: 16px;
 font-weight: 600;
 margin:0;
 padding:0;
-}
-.title-bar h3 i{
-background: url('__STATIC__/xmt/images/xmt.png') center no-repeat;
-background-size: 100% 100%;
-display: inline-block;
-width: 1.5rem;
-height: 1.5rem;
-overflow: hidden;
-position: relative;
-top: .5rem;
-left: -.5rem;
 }
 .swiper-container{
 width: 100%;
@@ -218,154 +197,712 @@ border-radius: 4px;
     display: block;
     margin: 3px auto;
 }
-
+/* content list */
+.content{
+	margin-top:45px; 
+	background: url(__STATIC__/btb/main.jpg) center no-repeat; 
+	background-size: 100% 100%; 
+	display: flex; 
+	flex-direction: column;
+	align-items: center;
+}
+.con_fir{
+	width: 90%;
+	height: 6rem;
+	margin: 1rem 0 0.5rem 0;
+	background: linear-gradient(140deg,rgba(105,108,118,1),rgba(43,45,55,1));
+	border-radius: 0.5rem;
+	box-shadow: 0 0 10px 1px rgb(43,45,55);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.con_f_l{
+	padding: 0 1rem; 
+	color: #FAFAFA; 
+	display: inline-block;
+	vertical-align: middle;
+}
+.con_f_r{
+	padding: 0 1rem; 
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+}
+.con_sec{
+	width: 90%;
+	height: 9rem;
+	margin: 0.5rem 0;
+	background: linear-gradient(140deg,rgba(105,108,118,1),rgba(43,45,55,1));
+	border-radius: 0.5rem;
+	box-shadow: 0 0 10px 1px rgb(43,45,55);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.con_s_l{
+	padding: 0 1rem; 
+	color: rgb(185,186,200); 
+	display: inline-block;
+	vertical-align: middle;
+}
+.con_s_r{
+	padding: 0 1rem; 
+	height: 5.5rem;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+}
+.con_thr{
+	width: 90%;
+	margin: 0.5rem 0;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.con_t_box{
+	width: 45%;
+	height: 5rem;
+	border-radius: 0.5rem;
+	background: rgba(63,65,75,1);
+	box-shadow: 0 0 10px 1px rgb(43,45,55);
+	text-align: center;
+}
+.con_four{
+	width: 90%;
+	height: 5.5rem;
+	margin: 0.5rem 0;
+	background: rgba(63,65,75,1);
+	border-radius: 0.5rem;
+	box-shadow: 0 0 10px 1px rgb(43,45,55);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+.con_four_l{
+	width: 50%;
+	text-align: center;
+}
+.con_four_r{
+	width: 35%;
+	height: 100%;
+	margin: 0 0.5rem;
+	text-align: center;
+	padding-top: 0.5rem;
+}
+/* 借款页 */
+.jk{
+	width: 60%;
+	margin: 0 auto;
+	padding: 5rem 0;
+}
+.jk p{
+	color: #fff;
+}
+.zzhy_con{
+	width: 90%;
+	margin: 0 auto;
+	background: rgb(54,55,63);
+	border-radius: 20px;
+	height: 400px;
+}
+/* 充入页和提出页 */
+#invest ul,#invest ul li{
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+}
+#withdraw ul,#withdraw ul li{
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+}
+.invest_con{
+	width: 90%;
+	margin: 0 auto;
+}
+.invest_con input{
+	outline: none;
+	-webkit-appearance: none;
+	border-radius: 0;
+	background: none;
+	border: none;
+}
+#cz_address{
+	border-radius: 5px;
+	background: rgb(68,71,83);
+	font-size: .7rem;
+	width: 100%;
+	padding: .6rem .3rem;
+	color: #fff;
+}
+#withdraw_address{
+	border-radius: 5px;
+	background: rgb(68,71,83);
+	font-size: .7rem;
+	width: 100%;
+	padding: .6rem .3rem;
+	color: #fff;
+}
+#copy{
+	color: #999;
+	font-size: .5rem;
+}
+#czje,#up_cz{
+	font-size: .7rem;
+	padding: .6rem .3rem;
+	background: rgb(68,71,83);
+	border-radius: 5px;
+	color: #fff;
+}
+#up_cz{
+	position: relative;
+}
+#up_cz::before{
+	position: absolute;
+	content: '+';
+	color: #999;
+	font-size: 1rem;
+	top: .4rem;
+	left: 45%;
+}
+.inv_sec{
+	width: 45%;
+}
+/* 分享好友 */
+.invite{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin: 1rem 0;
+}
+.invite_con{
+	width: 10rem;
+	height: 10rem;
+	background: rgb(54,55,63);
+}
+.invite_a{
+	margin: .5rem 0;
+}
 </style>
-</head>
-<body style="padding-bottom: 1rem">
- <div class="page-group" style="background: #fff;">
-        <div class="page page-current">
-    <div class="title-bar">
-        <h3><i></i>{:lang('USA NMCT/XMT资产双通证平台')}</h3>
-    </div>
-<div class="content" style="margin-top:45px;">
-   <!-- Swiper -->
-    <div class="swiper-container">
-        <div class="swiper-wrapper">
-            <!--<div class="swiper-slide"><img src="__HOME__/images/slide1.jpg" alt=""/></div>-->
-            <div class="swiper-slide"><img src="__HOME__/images/slide2.png" alt=""/></div>
-          	<div class="swiper-slide"><img src="__HOME__/images/slide3.jpg" alt=""/></div>
-          	<div class="swiper-slide"><img src="__HOME__/images/slide4.png" alt=""/></div>
-          	<div class="swiper-slide"><img src="__HOME__/images/slide5.png" alt=""/></div>
-        </div>
-        <!-- Add Pagination -->
-        <div class="swiper-pagination swiper-pagination-white"></div>
-    </div>
-    <!-- Initialize Swiper -->
-    <script type="text/javascript">
-    var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        paginationClickable: '.swiper-pagination',
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        spaceBetween: 30,
-        effect: 'fade',
-        loop:'loop',
-        autoplay:2000,
-    });
-    </script>                                                 
-     <!-- Swiper end-->
-<div class="notice_box">
-		<div class="apple_title"><i><img src="__STATIC__/xmt/images/speaker1.png" alt=""></i></div>
-		<div style="float: right;margin: .3rem .6rem;" data-popup=".popup-about" onclick="$('.block').hide();" class="open-popup hamburger" id="hamburger-9">
-		          <span class="line"></span>
-		          <span class="line"></span>
-		          <span class="line"></span>
+
+<body style="padding-bottom: 1rem; color: initial;">
+<div class="page-group" id="#app">
+    <div class="page page-current">
+		<div class="title-bar">
+			<h3>{:lang('首页')}</h3>
 		</div>
-		
-		<div id="div1">
-		{volist name="xw" id="a"}
-			<a href="{:url('user/set/sqgg')}?id={$a['ad_id']}">{$a['name']}</a>
-		{/volist}
+		<div class="content">
+			<div class="con_fir">
+				<div class="con_f_l">
+					<p style="font-size: 0.7rem;">{:lang('总资产(USDT)')}</p>
+					<p style="color: rgb(238,198,127); font-family: microsoft yahei; font-weight: bold;">${{user.money_usdt}}</p>
+					<!-- <p style="color: rgb(238,198,127); font-family: microsoft yahei; font-weight: bold;" v-else>$0.00</p> -->
+				</div>
+				<div class="con_f_r">
+					<a href="#invest" class="button" style="background: rgb(238,198,127); color: rgb(89,67,33); border: none; height: auto; padding: .1rem .8rem;">充入</a>
+					<p style="margin: 0; font-size: 5px; padding: 0.3rem 0;"><a href="充入记录查询url?id=??" style="color: gray;">记录查询</a></p>
+				</div>
+			</div>
+			<div class="con_sec">
+				<div class="con_s_l">
+					<div class="">
+						<p style="font-size: 0.7rem; margin: 0.5rem 0;">提出账户</p>
+						<p style="color: #fff; font-family: microsoft yahei; margin: 0.5rem 0;">${{user.is_red_envelope}}</p>
+					</div>
+					<div class="">
+						<p style="font-size: 0.7rem; margin: 0.5rem 0;">奖金账户</p>
+						<p style="color: #fff; font-family: microsoft yahei; margin: 0.5rem 0;">${{user.bonus}}</p>
+						<p style="margin: 0; font-size: 5px; margin: 0; padding: 0rem 0;"><a href="#" style="color: gray;">记录查询</a></p>
+					</div>
+				</div>
+				<div class="con_s_r">
+					<a href="#withdraw" class="button" style="background: rgb(238,198,127); color: rgb(89,67,33); border: none; height: auto; padding: .1rem .8rem;">提出</a>
+					<p style="margin: 0; font-size: 5px; padding: 0.3rem 0;"><a href="#tx_list" style="color: gray;">记录查询</a></p>
+				</div>
+			</div>
+			<div class="con_thr">
+				<div class="con_t_box">
+					<a href="#jk" 
+					style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;"
+					>借款</a>
+					<p style="margin: 0; font-size: 5px;"><a href="#jk_list" style="color: gray;">记录查询</a></p>
+				</div>
+				<div class="con_t_box">
+					<a href="#" v-if="endstatus == 2" @click="getsureend()" style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;">
+						确认终止
+					</a>
+					<a href="#zzhy" v-else style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;">
+						终止合约
+					</a>
+					<!-- <p style="margin: 0; font-size: 5px;"><a href="#" style="color: gray;">记录查询</a></p> -->
+				</div>
+			</div>
+			<div class="con_four">
+				<div class="con_four_l">
+					<a href="#invite" style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;">
+						邀请好友
+					</a>
+					<p style="margin: 0; font-size: 5px;"><a href="#friendlist" @click="getfriendlist()" style="color: gray;">好友列表</a></p>
+				</div>
+				<div class="con_four_r">
+					<img src="__STATIC__/btb/chahua.png" width="100%" height="90%" />
+				</div>
+			</div>
+		</div>
 	</div>
-</div>    
-	<!-- <script src="__HOME__/btb/idealMoneyDetal.js"></script> -->
-     <!-- news section -->
-     <div class="bitcoin_list clearfix" id="app">
-		<table>
-			<thead class="hb" style="border: 0;background: #0a8ddf">
-					<tr>
-						<th style="text-indent:.5rem">{:lang('图标')}</th>
-						<th width="80">{:lang('名称')}</th>
-						<th class="column7 sort" data-column="7" data-sort="turnover">{:lang('交易量')}</th>
-						<th class="column4 sort desc" data-column="4" data-sort="last_numeric">{:lang('最新价')}</th>
-						<th class="column5 sort" data-column="5" data-sort="pcp">{:lang('涨跌幅/24H')}</th>
-                   </tr>
-            </thead>
-			<tbody class="market">
-				<tr v-for="a in list" v-if="a.iconUrl!='https://resource.jinse.com/'">
-					<td>
-						<img v-bind:src="a.iconUrl" style="width:25px;height:25px;margin-left:5px;vertical-align: middle;"/>
-					</td>
-                  <td>{{a.currency}}<br><span>{{a.name}}</span></td>
-					<td>{{a.vol/100000000|number}}{:lang('亿')}</td>
-					<td>{{a.price|number}}</td>
-					<td>
-						<div v-if="a.change>0" class="column5a red">+{{a.change}}%</div>
-						<div v-else class="column5a gre">{{a.change}}%</div>
-					</td>
-				</tr>
-		   </tbody>
-		</table>
-     </div>
-	</div>
-	 <div class="popup popup-about">
-				<header class="bar bar-nav kl_tltle">
-						<a href="#" class="close-popup" onclick="$('.block').show();" style="color:#fff;">
-							<img src="http://kc.inonecity.com/style/area/images/history.png" class="kl_jh"/>
-						</a>
-						<h1 class="title klt_txt"/>{:lang('公告')}</h1>
-				</header>
-			<div class="list-block cards-list" style="margin-top:3rem;margin-bottom:50px;">
-			  <ul>
-			  {volist name="xw" id="a"}
-				<li class="card" v-for="(a,i) in list">
-					<div class="card-header">{$a['name']}</div>
-				  <div class="card-content">
-					<div class="card-content-inner">{$a['jj']}</div>
-				  </div>
-				  <div class="card-footer">  {$a['addtime']|date='y-m-d h:i:s',###}
-					<a href="{:url('user/set/sqgg')}?id={$a['ad_id']}" style="float:right;">{:lang('立即查看')}</a>
-				  </div>
+	<div class="app">
+		<div id="jk" class="page">
+			<!-- <div style="position: absolute; top: 0; left: 0; padding: 0.5rem;"></div> -->
+			<header class="bar bar-nav" style="position: initial; background: rgb(50,50,50); margin: .5rem 0;">
+				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
+				<h1 class="title">借款</h1>
+			</header>
+			<div class="jk">
+				<p>每次借款金额为500USDT，您确定借款吗？</p>
+				<p><a href="#" @click="getborrow(user.user_id)" class="button button-big button-round" style="background: rgb(238,198,127); color: rgb(89,67,33); border: none;">确定</a></p>
+				<p><a href="#" class="button button-big button-round back" style="background: rgb(238,198,127); color: rgb(89,67,33); border: none;">返回</a></p>
+			</div>
+		</div>
+		<div class="page" id="zzhy">
+			<header class="bar bar-nav" style="position: initial; background: rgb(50,50,50); margin: .5rem 0;">
+				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
+				<h1 class="title">终止合约</h1>
+			</header>
+			<div class="zzhy">
+				<div class="zzhy_con">
+					<p style="text-align: center;">说明</p>
+					<p>
+						当前，区块链技术已经逐步进入各个领域，其中包括：食品安全、古董、泛娱乐、人工智能、游戏、金融等，而在新零售商业场景中出现了极大的商业应用场景，
+						这也是区块链和新零售商业世界的新的转折点，我们将这两点有机的结合在一起，并通过技术使其行业进行变革，提供更为可靠的加密数字资产。为了实现这一目标，
+						我们将在新零售行业中搭建一个公共区块系统：新零售Madrid-Yiwu-Chain(简称MY-Chain)，该系统必须解决以下主要问题：
+						1、满足新零售领域的高并发交易环境并且在最大程度上实现去中心化。
+						2、使新零售企业能够低成本的使用区块链来与自己的业余结合，甚至在没有缩写代码基础的情况下，就能够对传统业务进行中心化改造。
+					</p>
+				</div>
+				<p style="text-align: center; font-size: .5rem; color: #999;">可返还{{endmoney}}USDT</p>
+				<p style="margin: 0 25%;"><a href="#" @click="getendcontract()" class="button button-big" style="background: rgb(238,198,127); color: rgb(89,67,33); border: none;">终止合约</a></p>
+				<p style="text-align: center;"><a href="#" class="back" style="color: #999; border: none;">返回</a></p>
+			</div>
+		</div>
+		<div class="page" id="invest">
+			<header class="bar bar-nav" style="position: initial; background: rgb(50,50,50); margin: .5rem 0;">
+				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
+				<h1 class="title">我的钱包</h1>
+			</header>
+			<div class="invest">
+				<p style="text-align: center;"><i><img src="__STATIC__/xmt/images/regsiter_pic.png" height="100px" /></i></p>
+				<div class="invest_con">
+					<ul>
+						<li>
+							<p style="font-size: .7rem; color: #999;">转入USDT钱包地址</p>
+							<p><input type="text" id="cz_address" placeholder="请输入钱包地址" maxlength="10" /></p>
+							<p style="text-align: center; margin: .3rem 0;"><a href="#" id="copy">点击复制地址</a></p>
+						</li>
+						<script>
+							document.getElementById('copy').onclick = function(){
+								var val = document.getElementById('cz_address');
+								val.select();
+								document.execCommand("Copy");
+								alert("已复制到剪贴板");
+							}
+						</script>
+						<li style="display: flex; justify-content: space-between; align-items: flex-start;">
+							<div class="inv_sec">
+								<p style="font-size: .7rem; color: #999;">充入数量</p>
+								<p><span id="czje"><input type="text" placeholder="充入金额" style="width: 90%;" /></span></p>
+							</div>
+							<div class="inv_sec">
+								<p style="font-size: .7rem; color: #999;">上传转账凭证</p>
+								<p><span id="up_cz"><input type="file"  style="opacity: 0; width: 90%;" /></span></p>
+							</div>
+						</li>
+						<li>
+							<p style="padding: 0 5rem;">
+								<a href="#" class="button" style="background: rgb(238,198,127); color: rgb(89,67,33); border: none; height: auto; padding: .5rem 0;">确定充入</a>
+							</p>
+							<p style="padding: 0 5rem; text-align: center;">
+								<a href="#" class="back" style="font-size: .8rem; color: #999;">取消</a>
+							</p>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="page" id="withdraw">
+			<header class="bar bar-nav" style="position: initial; background: rgb(50,50,50); margin: .5rem 0;">
+				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
+				<h1 class="title">提出</h1>
+			</header>
+			<div class="invest">
+				<p style="text-align: center;"><i><img src="__STATIC__/xmt/images/regsiter_pic.png" height="100px" /></i></p>
+				<div class="invest_con">
+					<ul>
+						<li>
+							<p style="font-size: .7rem; color: #999;">提出USDT钱包地址</p>
+							<p><input type="text" id="withdraw_address" v-bind:value="yhk.yhk" placeholder="请输入钱包地址" maxlength="10" /></p>
+							<p style="text-align: center; margin: .3rem 0;"><a href="#" id="copy">点击复制地址</a></p>
+						</li>
+						<script>
+							document.getElementById('copy').onclick = function(){
+								var val = document.getElementById('cz_address');
+								val.select();
+								document.execCommand("Copy");
+								alert("已复制到剪贴板");
+							}
+						</script>
+						<li style="display: flex; align-items: flex-start;">
+							<div class="inv_sec">
+								<p style="font-size: .7rem; color: #999;">提出数量</p>
+								<p><span id="czje"><input type="text" placeholder="提出金额" id="withdraw_con" style="width: 90%;" /></span></p>
+							</div>
+						</li>
+						<li>
+							<p style="padding: 0 5rem;">
+								<a href="#" 
+								class="button" 
+								@click="getwithdraw(document.getElementById('withdraw_con').value,document.getElementById('withdraw_address').value)" 
+								style="background: rgb(238,198,127); color: rgb(89,67,33); border: none; height: auto; padding: .5rem 0;">
+								确定提出</a>
+							</p>
+							<p style="padding: 0 5rem; text-align: center;">
+								<a href="#" class="back" style="font-size: .8rem; color: #999;">取消</a>
+							</p>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="page" id="invite" style="background: url(__STATIC__/xmt/images/invite.png) center no-repeat; background-size: 100% 100%;">
+			<header class="bar bar-nav" style="position: initial; background: none; margin: .5rem 0;">
+				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
+				<h1 class="title">分享好友</h1>
+			</header>
+			<div class="invite">
+				<div class="invite_con">
+					
+				</div>
+				<div class="invite_a">
+					<a href="#" style="color: #FAFAFA; font-size: .6rem;">点击复制分享好友</a>
+					<a href="#" style="color: #FAFAFA; font-size: .6rem;">注册拿奖励</a>
+				</div>
+			</div>
+		</div>
+		<div class="page" id="jk_list">
+			<header class="bar bar-nav" style="position: initial; background: rgb(50,50,50); margin: .5rem 0;">
+				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
+				<h1 class="title">{:lang('借款记录')}</h1>
+			</header>
+			<ul>
+				<li v-for="jk in jklist">
+					<span style="display: block;">记录({{jk.id}})</span>
+					<span style="display: block;">借款日期：{{jk.j_time}}</span>
+					<span v-if="jk.status == 1">后台审核中</span>
+					<span v-else-if="jk.status == 2">已通过待还款</span>
+					<span v-else-if="jk.status == 3">已还款</span>
+					<span v-else-if="jk.status == 4">逾期</span>
+					<span v-else-if="jk.status == 5">还款待审核</span>
 				</li>
-			  {/volist}
-			  </ul>
-		  </div>
+			</ul>
 		</div>
-</div>
+		<div class="page" id="tx_list">
+			<ul>
+				<li v-for="tx in txlist">
+					{{tx.id}}
+				</li>
+			</ul>
+		</div>
+		<div class="page" id="friendlist">
+			<header class="bar bar-nav" style="position: initial; background: rgb(50,50,50); margin: .5rem 0;">
+				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
+				<h1 class="title">{:lang('好友列表')}</h1>
+			</header>
+			<ul>
+				<!-- <table width="100%" id="fri_table">
+					<tbody style="background: #000;">
+						<tr>
+							<th>昵称</th>
+							<th>ID</th>
+							<th>合伙人</th>
+							<th>时间</th>
+						</tr>
+						<tr v-for="t in team">
+							<td>{{t.nickname}}</td>
+							<td>{{t.user_id}}</td>
+							<td>{{t.g}}</td>
+							<td>{{t.rq}}</td>
+						</tr>
+					</tbody>
+				</table> -->
+				<li class="fri_head">
+					<div>昵称</div>
+					<div>ID</div>
+					<div>合伙人</div>
+					<div>时间</div>
+				</li>
+				<li v-for="t in team" class="fri_con">
+					<div>{{t.nickname}}</div>
+					<div>{{t.user_id}}</div>
+					<div>{{t.g}}</div>
+					<div>{{t.rq}}</div>
+				</li>
+			</ul>
+		</div>
+	</div>
 </div>
 <script>
-var c,_=Function;
-with(o=document.getElementById("div1")){ innerHTML+=innerHTML; onmouseover=_("c=1"); onmouseout=_("c=0");}
-(F=_("if(#%18||!c)#++,#%=o.scrollHeight>>1;setTimeout(F,#%32?10:1500);".replace(/#/g,"o.scrollTop")))();
-new Vue({
-  el: '#app',
+parent.$('#dhl').show();
+function copy(id){
+	var id = "qbdz"+id;
+    const range = document.createRange();
+    range.selectNode(document.getElementById(id));
+    const selection = window.getSelection();//选择
+    if(selection.rangeCount > 0) selection.removeAllRanges();
+    selection.addRange(range);
+    document.execCommand('copy');
+	wboos.toast('{:lang(\'复制成功\')}');
+	}
+
+    	//xmt转出验证码
+	 function send_phone(id){
+         if(id==1){
+           			var number = $('#xmt_num').val();
+					var mobile = $('#xmt_p').val();
+          if(number==""){
+            wboos.toast('{:lang(\'请输入转出XMT通证数\')}',{time:1800});
+
+            return false;
+    }
+           var mobile={$userInfo['mobile']};
+			 $.post("{:url('user/login/sendSms')}",{mobile:mobile},function(res){
+				 if(res.code > 0){
+					 wboos.toast(res.msg,{time:1800});
+					 $('.send_phone'+id).remove();
+	
+				 }else{
+					 wboos.toast(res.msg,{time:1800});
+				 }
+			 });
+
+
+		 
+         }
+
+
+	 }
+
+var app = new Vue({
+  el: '.page-group',
   data: {
-	isLoading: true,
-    list: '',
-  },
-  methods: {
-	getData(){
-		this.$http.get('/user/index/market.html').then(function (res) {
-			this.list = res.body;
-		})		
-	},
-	getCookieObj(){
-    var cookieObj={},
-    cookieSplit=[], // 以分号（;）分组
-    cookieArr=document.cookie.split(";");
-    for(var i=0,len=cookieArr.length;i<len;i++)
-        if(cookieArr[i]) {
-            // 以等号（=）分组
-            cookieSplit=cookieArr[i].split("=");
-            // Trim() 是自定义的函数，用来删除字符串两边的空格
-            cookieObj[cookieSplit[0].replace(/^(\s|\xA0)+|(\s|\xA0)+$/g, '')]=cookieSplit[1].replace(/^(\s|\xA0)+|(\s|\xA0)+$/g, '');
-        }
-        return cookieObj;
+	img:'',
+	user:'',
+	list:'',
+	code:'',
+	level:'',
+	hongbao:'',
+	level_:'',
+	xmtt:'',
+	usdt:'',
+	yhk:'',
+	system:'',
+	money_usdt:'',
+	jklist:'',
+	txlist:'',
+	endmoney:'',
+	endstatus:'',
+	team:'',
+	image:{
+        url:'',
+        value:'{:lang(\'请上传付款凭证\')}',
+        background:'background:#fff;',
       },
   },
-  created:function (){
-	this.getData();this.getCookieObj();
+  filters: {
+   timestampToTime(timestamp) {
+        var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        Y = date.getFullYear() + '-';
+        M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        D = date.getDate() + ' ';
+        h = date.getHours() + ':';
+        m = date.getMinutes() + ':';
+        s = date.getSeconds();
+        return Y+M+D+h+m+s;
+   		 },
+	  int_(i){
+		if(i>0){
+			return '+'+i;
+		}else if(i<0){
+			return i;
+		}
+	},
+	  numFilter(value) {
+	     var toFixedNum = Number(value).toFixed(3);
+		  var realVal = toFixedNum.substring(0, toFixedNum.toString().length - 1);
+		  return realVal;
+	  },
   },
- filters: {
-    //保留2位小数点过滤器 不四舍五入
-    number(value) {
-      var toFixedNum = Number(value).toFixed(3);
-      var realVal = toFixedNum.substring(0, toFixedNum.toString().length - 1);
-      return realVal;
-    }
+  methods: {
+	getData(type){
+		this.$http.post('/user/mode/bb.html',{type:type}).then(function (res){
+			console.log(res)
+			var i = res.body;
+			if(type==1){
+				var audio = new Audio("__HOME__/kq/mp3.mp3");//播放mp3
+				audio.play();
+				this.hongbao=i.hongbao;
+				$('.page').hide();
+				$('#canvas').show();$('#container').show();
+					var oOpen = document.getElementById("open");
+					var oClose = document.getElementById("open");
+					var oContainer = document.getElementById("container");
+					oChai.onclick = function (){
+						oChai.setAttribute("class", "rotate");
+					};
+			}
+			this.user=i.user;
+			this.level=i.level;
+			this.list=i.list;
+			this.code=i.code;
+			this.xmtt=i.xmtt;
+			this.system = i.system;
+			this.usdt=i.usdt;
+			this.yhk=i.yhk;
+			this.jklist=i.jk;
+			this.txlist=i.tx;
+			this.endmoney=i.end_money;
+			this.endstatus=i.end.status;
+			if(type>0){
+				this.user.hongbao = 0;
+				wboos.toast('{:lang(\'领取成功\')}！');
+			}
+			if(i.user.pass==0){
+				wboos.toast('{:lang(\'帐号未激活，请激活帐号！\')}');
+				$('.jh_code').click();
+			}
+		})
+	},
+	getborrow(){
+		this.$http.get('/user/borret/borrow').then(function(res){
+			console.log(res);
+			var msg = JSON.parse(res.body);
+			if(msg.code == 1){
+				// 提示框
+				location.href = "/user/index";
+			}else{
+				console.log(msg.msg);
+			}
+		})
+	},
+	getwithdraw(money,address){
+		if(money == ""){
+			alert("请先输入提出金额");
+		}else{
+			this.$http.post('/user/borret/withdraw',{money:money,address:address}).then(function(res){
+				var json = JSON.parse(res.body);
+				alert(json.msg);
+			})
+		}
+	},
+	getendcontract(){
+		this.$http.post('/user/borret/endcontract').then(function(res){
+			var json = JSON.parse(res.body);
+			if(json.status == 1){
+				alert(json.msg)
+				location.href = "/user/index";
+			}else{
+				alert(json.msg);
+				// location.href = "/user/index";
+			}
+		})
+	},
+	getsureend(){
+		this.$http.post('/user/borret/sureend').then(function(res){
+			var json = JSON.parse(res.body);
+			if(json.status == 1){
+				alert(json.msg);
+			}else{
+				alert(json.msg);
+			}
+		})
+	},
+	getfriendlist(){
+		this.$http.post('/user/mode/my.html').then(function(res){
+			this.team = res.body.team;
+			console.log(res.body.team);
+		})
+	},
+	upload(){
+			wboos.toast('{:lang(\'转账凭证上传中\')}');
+			var formData = new FormData();
+			formData.append("file", $(this.$el).find('#file-avatar')[0].files[0]);
+			this.$http.post(wboos.url('user/index/upload'),formData,{
+			method: 'post',
+			headers: {'Content-Type': 'multipart/form-data'},
+			withCredentials: true,
+			}).then(function (res) {
+				wboos.toast(res.body.info);
+				this.img = res.body.url;
+				//this.$set(this.pay, 'img',res.body.url);
+			}).catch(function(error){
+				console.log(error);
+			})
+	},
+	zc_(type){
+		var img = this.img;
+		var user = '';
+		if(type==0){
+			var number = $('#nmct').val();
+			if($('#nmct').val()==0 || $('#nmct').val()%100!==0 || $('#nmct').val()<99){
+				wboos.toast('{:lang(\'复投100的倍数起\')}');return;
+			}
+		}else if(type==1){
+			var number = $('#usdt').val();
+		}else if(type==2){
+			var number = $('#xmt').val();
+		}else if(type==3){
+			var number = $('#money_usdt').val();
+		}else if(type==4){
+			var number = $('#jh_1').val();
+		}else if(type==5){
+			var number = $('#jh_2').val();
+		}else if(type==6){
+			var number = this.level_;
+		}else if(type==7){
+			var number = $('#xmt_num').val();
+			var user = $('#xmt_p').val();
+	        var sms  =$('#sms').val();
+		}
+      if(sms==""){
+            wboos.toast('{:lang(\'请输入验证码\')}',{time:1800});
+           }
+		wboos.confirm('{:lang("确定要提交?")}', function () {
+			wboos.httpRequest({
+			url: '/user/mode/zc.html',
+			type: 'post',
+			data: {type:type,number:number,img:img,user:user},
+			success: function(i){
+			    if(i.status==0){
+					wboos.toast(i.msg);
+				}else{
+					wboos.toast(i.msg);
+					$('.cancel').click();
+					app.getData();
+				}
+			}
+			});
+			});
+	},
+  },
+  created:function (){
+	this.getData(0);
   },
 })
-parent.$('#dhl').show();
 </script>
 
 {include file="common/footer"/}
+
+
+
+</html>

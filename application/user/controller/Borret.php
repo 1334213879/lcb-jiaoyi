@@ -48,6 +48,7 @@ class Borret extends Common {
 //提现
 	public function withdraw() {
 		$t_money = input('money');
+		$address = input('address');
 		$money = $t_money - 5;
 		if ($money < 30) {
 			$result['status'] = 0;
@@ -55,7 +56,7 @@ class Borret extends Common {
 			return json_encode($result);
 		}
 
-		$is_tx = DB::name('log')->where('type', 50)->where('status', 1)->whereTime('time', 'today')->find('nmct');
+		$is_tx = DB::name('log')->where('type', 50)->where('status', 1)->find();
 		if ($is_tx) {
 			$result['status'] = 0;
 			$result['msg'] = '已有申请，请勿重新提交';
@@ -88,9 +89,8 @@ class Borret extends Common {
 			DB::name('users')->where('user_id', session('user.user_id'))->setDec('bonus', $money);
 			DB::name('users')->where('user_id', session('user.user_id'))->setInc('yet_tx_money', $money);
 			db('log')->insert([
-				'time' => time(), 'type' => 50, 'text' => '提现',
-				'title' => '提现UMCT', 'user_id' => session('user.user_id'),
-				'nmct' => $money, 'reward' => 5, 'status' => 1, //提现审核中
+				'time' => time(), 'type' => 50,'title' => '提现UMCT', 'user_id' => session('user.user_id'),
+				'nmct' => $money, 'text' => $address, 'status' => 1, //提现审核中
 			]);
 
 			Db::commit();

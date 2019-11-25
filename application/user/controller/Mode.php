@@ -21,7 +21,11 @@ class Mode extends Common {
 			$hongbao = Users::hongbao($user_id, input('type'));
 		}
 		$system = $this->_system;
-		$reg['user'] = db('users')->field('user_id,nickname,mobile,level,nmct,token,pass,nmct_dj,xmt,money_usdt,token_address,is_red_envelope')->where(array('user_id' => $user_id))->find();
+
+		$reg['end'] = db('endcontract') ->where('user_id',$user_id)->order('id','desc')->find();
+		$reg['jk'] = db('borrow')->where('uid', $user_id)->select();
+		$reg['tx'] = db('log')->where('user_id', $user_id)->where('type', 50)->select();
+		$reg['user'] = db('users')->field('user_id,nickname,is_autonym,mobile,level,nmct,token,pass,nmct_dj,xmt,money_usdt,token_address,is_red_envelope,bonus,yet_tx_money')->where(array('user_id' => $user_id))->find();
 		$reg['code'] = db('code')->where("`user_id`={$user_id}")->order('time desc')->select();
 		$reg['level'] = db('user_level')->where("level_id>{$reg['user']['level']}")->order('level_id desc')->select();
 		$reg['system'] = $system;
@@ -29,6 +33,7 @@ class Mode extends Common {
 		$reg['hongbao'] = db('log')->where("`user_id`={$user_id} and type=6")->order('time desc')->value('nmct');
 		$reg['hongbao'] = intval($reg['hongbao']);
 		$reg['list'] = db('log')->where("`user_id`={$user_id}")->order('time desc')->limit(300)->select();
+		$reg['yhk'] = db('yhk')->where('user_id',$user_id)->find();
 		foreach ($reg['list'] as $i => $a) {
 			if (!empty($a['text']) && $a['text'] > 0) {
 				$member = db('users')->field('xm,nickname,mobile')->where("`user_id`={$reg['list'][$i]['text']}")->find(); //直推
@@ -36,6 +41,13 @@ class Mode extends Common {
 				$reg['list'][$i]['mobile'] = $member['mobile'];
 			}
 		}
+		if (empty($reg['tx'])) {
+		 $money = $user['money_usdt'] - 300;
+		} else {
+		 $money = 3000 - $reg['user']['yet_tx_money'];
+				
+		}
+		$reg['end_money'] = $money;
 		return $reg;
 	}
 	public function zc() {

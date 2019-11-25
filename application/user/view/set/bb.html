@@ -4,226 +4,568 @@
 <script src="__STATIC__/xmt/js/k3d-min.js?v=1.02"></script>
 <script src="__STATIC__/xmt/js/radiation.js?v=1.02"></script>
 <link rel="stylesheet" href="__STATIC__/xmt/css/style.css?v=1.02">
+<style>
+.page, .page-group{
+	background: rgba(50,50,50,1);
+}
+.title-bar{
+background: url('__STATIC__/btb/top.jpg') center center no-repeat;
+width: 100%;
+background-size:100% 100%;
+padding: 0.7rem 0;
+}
+.title-bar h3{
+text-align: center;
+color:#fff;
+font-size: 16px;
+font-weight: 600;
+margin:0;
+padding:0;
+}
+.swiper-container{
+width: 100%;
+position:relative;
+}
+.swiper-container,.swiper-wrapper{
+height:170px;
+overflow:hidden;
+}
+.swiper-wrapper{
+position:absolute;
+left:0;
+}
+.swiper-button-next, .swiper-button-prev{
+width: 25px;
+height: 22px;
+}
+.swiper-slide img{
+height: 170px;
+width: 100%;
+}
+.news-block{
+width: 96%;
+margin:6px auto 0;
+position: relative;
+}
+.news-block ul li{
+border-bottom: solid 1px #ccc;
+}
+.news-block ul li a{
+display: block;
+overflow: hidden;
+padding:2%;
+}
+.news-brief{
+float: left;
+width: 63%;
+margin-left: 2%;
+}
+.newspic{
+float: left;
+width: 35%;
+height: 80px;
+border-radius: 4px;
+position: relative;
+overflow: hidden;
+}
+.newspic img{
+width: 100%;
+}
+.news-brief .news-title{
+color: #888;
+}
+.news-brief .news-author{
+font-size: .7rem;
+color: #ccc;
+margin-top: 1rem;
+}
+.hb>tr{
+	background: #0894ec;
+}
+.hb>tr>th{
+color:#fff;
+text-align: left;
+background: transparent;
+}
+.market>tr{}
+table td,table th{
+font-size:12px;
+color:#000;
+font-weight: normal;
+text-align: left;
+background: #fff;
+white-space: nowrap;
+line-height: 20px;
+padding:5px 0;
+}
+tr>th:first-child{
+width: 2rem;
+}
+tr>td:first-child{
+width: 2rem;
+}
+tr>td:nth-child(2){
+max-width: 80px;
+text-overflow: ellipsis;
+white-space: nowrap;
+overflow: hidden;
+}
+.apple_title{
+height: 30px;
+width: 10%;
+line-height: 30px;
+float: left;
+font-size: 15px;
+font-weight: 600;
+color: #0a8ddf;
+text-align: center;
+}
+.apple_title>i{
+	display: block;
+    position: relative;
+    width: 100%;
+    height: 21px;
+    padding-top: 3px;
+}
+.apple_title>i>img{
+	width: 40%;
+}
+.shell{
+width:500px; 
+}
+#div1{
+overflow:hidden;
+height:30px;
+}
+#div1>a{
+display:block;
+line-height:30px;
+text-decoration:none;
+color:#333;
+font-family:Arial;
+font-size:12px;
+display: -webkit-box;
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 1;
+margin-top:1px;
+max-width: 14rem;
+padding-left: .2rem;
+text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap;
+}
+.kl_jh {
+position: absolute;
+width: 5%;
+top: 22%;
+z-index: 2;
+}
+.kl_tltle{
+background: url(/static/xmt/images/headbar_bg.gif);
+width: 100%;
+}
+.title {
+position: absolute;
+display: block;
+width: 100%;
+padding: 0;
+margin: 0 -.5rem;
+font-size: .85rem;
+font-weight: 500;
+line-height: 2.2rem;
+color: #fff;
+text-align: center;
+white-space: nowrap;
+}
+.notice_box{
+width: 98%;
+margin: 0 auto;
+height: 30px;
+overflow: hidden;
+margin-top: 5px;
+margin-bottom: 4px;
+line-height: 30px;
+background: #eee;
+border-radius: 4px;
+}
+/* NINE */
+.hamburger .line {
+    width: 16px;
+    height: 2px;
+    background-color: #0a8ddf;
+    display: block;
+    margin: 3px auto;
+}
+/* content list */
+.content{
+	margin-top:45px; 
+	background: url(__STATIC__/btb/main.jpg) center no-repeat; 
+	background-size: 100% 100%; 
+	display: flex; 
+	flex-direction: column;
+	align-items: center;
+}
+.con_fir{
+	width: 90%;
+	height: 6rem;
+	margin: 1rem 0 0.5rem 0;
+	background: linear-gradient(140deg,rgba(105,108,118,1),rgba(43,45,55,1));
+	border-radius: 0.5rem;
+	box-shadow: 0 0 10px 1px rgb(43,45,55);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.con_f_l{
+	padding: 0 1rem; 
+	color: #FAFAFA; 
+	display: inline-block;
+	vertical-align: middle;
+}
+.con_f_r{
+	padding: 0 1rem; 
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+}
+.con_sec{
+	width: 90%;
+	height: 9rem;
+	margin: 0.5rem 0;
+	background: linear-gradient(140deg,rgba(105,108,118,1),rgba(43,45,55,1));
+	border-radius: 0.5rem;
+	box-shadow: 0 0 10px 1px rgb(43,45,55);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.con_s_l{
+	padding: 0 1rem; 
+	color: rgb(185,186,200); 
+	display: inline-block;
+	vertical-align: middle;
+}
+.con_s_r{
+	padding: 0 1rem; 
+	height: 5.5rem;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+}
+.con_thr{
+	width: 90%;
+	margin: 0.5rem 0;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.con_t_box{
+	width: 45%;
+	height: 5rem;
+	border-radius: 0.5rem;
+	background: rgba(63,65,75,1);
+	box-shadow: 0 0 10px 1px rgb(43,45,55);
+	text-align: center;
+}
+.con_four{
+	width: 90%;
+	height: 5.5rem;
+	margin: 0.5rem 0;
+	background: rgba(63,65,75,1);
+	border-radius: 0.5rem;
+	box-shadow: 0 0 10px 1px rgb(43,45,55);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+.con_four_l{
+	width: 50%;
+	text-align: center;
+}
+.con_four_r{
+	width: 35%;
+	height: 100%;
+	margin: 0 0.5rem;
+	text-align: center;
+	padding-top: 0.5rem;
+}
+/* 借款页 */
+.jk{
+	width: 60%;
+	margin: 0 auto;
+	padding: 5rem 0;
+}
+.jk p{
+	color: #fff;
+}
+.zzhy_con{
+	width: 90%;
+	margin: 0 auto;
+	background: rgb(54,55,63);
+	border-radius: 20px;
+	height: 400px;
+}
+/* 充值页和提现页 */
+#invest ul,#invest ul li{
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+}
+#withdraw ul,#withdraw ul li{
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+}
+.invest_con{
+	width: 90%;
+	margin: 0 auto;
+}
+.invest_con input{
+	outline: none;
+	-webkit-appearance: none;
+	border-radius: 0;
+	background: none;
+	border: none;
+}
+#cz_address{
+	border-radius: 5px;
+	background: rgb(68,71,83);
+	font-size: .7rem;
+	width: 100%;
+	padding: .6rem .3rem;
+	color: #fff;
+}
+#copy{
+	color: #999;
+	font-size: .5rem;
+}
+#czje,#up_cz{
+	font-size: .7rem;
+	padding: .6rem .3rem;
+	background: rgb(68,71,83);
+	border-radius: 5px;
+	color: #fff;
+}
+#up_cz{
+	position: relative;
+}
+#up_cz::before{
+	position: absolute;
+	content: '+';
+	color: #999;
+	font-size: 1rem;
+	top: .4rem;
+	left: 45%;
+}
+.inv_sec{
+	width: 45%;
+}
+/* 分享好友 */
+.invite{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin: 1rem 0;
+}
+.invite_con{
+	width: 10rem;
+	height: 10rem;
+	background: rgb(54,55,63);
+}
+.invite_a{
+	margin: .5rem 0;
+}
+</style>
 
-<body>
- <div class="page-group">
+<body style="padding-bottom: 1rem">
+<div class="page-group" id="#app">
     <div class="page page-current">
-	<header class="bar bar-nav">
-		<h3>{:lang('我的钱包')}</h3>
-	</header>
-	<div class="content">
-		<div class="content-block">
-			<!-- usdt账户信息 -->
-			<div class="card">
-			    <div class="card-content">
-			      <div class="card-content-inner">
-					<p>{:lang('USDT账户')}</p>
-					<div class="xmtt-acc">			
-						<h3>${{user.money_usdt}}</h3>
-						<p data-popup=".popup-cz" class="open-popup">{:lang('充值USDT')}</p>
-					</div>				
-			      </div>		      
-			    </div>		  	   
-			</div>
-			<!-- usdt账户信息end -->
+		<div class="title-bar">
+			<h3>{:lang('首页')}</h3>
 		</div>
-  		<!-- content-block END -->
-
-
-
-
-
-  		<!-- 红包 -->
-  		 <div class="content-block hb" style="padding: 0;" v-if="user.hongbao>0">        	
-			<div class="qd" style="width: 90%;margin: 10px auto;overflow: hidden;" @click='getData(1)'>
-				<div class="upper">
-					<img src="__STATIC__/xmt/images/xhb.png" alt="" style="float: left;">
-					<p>{:lang('今天还有红包未领取哦！')}</p>
-					<a>{:lang('点击领取')}</a>
+		<div class="content">
+			<div class="con_fir">
+				<div class="con_f_l">
+					<p style="font-size: 0.7rem;">{:lang('总资产(USDT)')}</p>
+					<p style="color: rgb(238,198,127); font-family: microsoft yahei; font-weight: bold;">${{user.money_usdt}}</p>
 				</div>
-				<div class="downer">
-					<span>{:lang('NMCT红包')}</span>
-				</div>
-			</div>			
-		</div>
-		<!-- 红包end -->
-
-
-
-  		<div class="content-block nmct">
-			<div class="z_num">
-				<div class="nmct_z">
-					<p>{:lang('NMCT资产')}</p>
-					<h2>{{user.nmct_dj}}</h2>
-				</div>
-				<div class="nmct_t">
-					<p>{:lang('NMCT通证')}</p>
-					<h2>{{user.nmct}}</h2>
+				<div class="con_f_r">
+					<a href="#invest" class="button" style="background: rgb(238,198,127); color: rgb(89,67,33); border: none; height: auto; padding: .1rem .8rem;">充值</a>
+					<p style="margin: 0; font-size: 5px; padding: 0.3rem 0;"><a href="充值记录查询url?id=??" style="color: gray;">记录查询</a></p>
 				</div>
 			</div>
-			<p class="nmct_p">{:lang('NMCT当前价格')}：${{system.money_nmct}}</p>
-			<div class="nmct_op">
-				<span data-popup=".popup-transfer" class="open-popup">{:lang('复投')}</span>
-				<span>|</span>
-				<span data-popup=".popup-xmt" class="open-popup">{:lang('转XMT')}</span>
+			<div class="con_sec">
+				<div class="con_s_l">
+					<div class="">
+						<p style="font-size: 0.7rem; margin: 0.5rem 0;">提现账户</p>
+						<p style="color: #fff; font-family: microsoft yahei; margin: 0.5rem 0;">$9.00</p>
+					</div>
+					<div class="">
+						<p style="font-size: 0.7rem; margin: 0.5rem 0;">奖金账户</p>
+						<p style="color: #fff; font-family: microsoft yahei; margin: 0.5rem 0;">$121.14</p>
+						<p style="margin: 0; font-size: 5px; margin: 0; padding: 0rem 0;"><a href="#" style="color: gray;">记录查询</a></p>
+					</div>
+				</div>
+				<div class="con_s_r">
+					<a href="#withdraw" class="button" style="background: rgb(238,198,127); color: rgb(89,67,33); border: none; height: auto; padding: .1rem .8rem;">提现</a>
+					<p style="margin: 0; font-size: 5px; padding: 0.3rem 0;"><a href="提现记录查询url?id=??" style="color: gray;">记录查询</a></p>
+				</div>
 			</div>
-  		</div>
-
-  		<div class="content-block nmct" style="margin-bottom:4rem;">
-			<div class="z_num">
-				<div class="nmct_z">
-					<p>{:lang('XMT通证')}</p>
-					<h2>{{user.xmt}}</h2>
-				</div>				
+			<div class="con_thr">
+				<div class="con_t_box">
+					<a href="#jk" 
+					style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;"
+					>借款</a>
+					<p style="margin: 0; font-size: 5px;"><a href="#" style="color: gray;">记录查询</a></p>
+				</div>
+				<div class="con_t_box">
+					<a href="#zzhy" style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;">
+						终止合约
+					</a>
+					<p style="margin: 0; font-size: 5px;"><a href="#" style="color: gray;">记录查询</a></p>
+				</div>
 			</div>
-			<p class="nmct_p">{:lang('XMT当前价格')}：${{system.money_xmt}}</p>
-			<div class="nmct_op">
-				<span data-popup=".popup-xmt_zc" class="open-popup">{:lang('XMT转出')}</span>
-			</div>
-  		</div>
-
-
-<!-- 复投 -->
-<div class="popup zc popup-transfer">
-	<header class="bar bar-nav">
-		<h3>{:lang('NMCT通证复投')}</h3>
-	</header>
-	<div class="trans-info">
-		<div class="trans-pic">
-			<img src="__STATIC__/xmt/images/transfer.png" alt="">
-		</div>
-		<p>{:lang('NMCT通证复投NMCT资产')}</p>
-		<span>{:lang('请输入复投数量')}：</span>
-		<input type="number" id="nmct" class="trans-num" />
-	</div>
-	<div class="btns">
-		<a class="close-popup cancel">{:lang('取消')}</a>
-		<a @click="zc_(0);" class="confirm">{:lang('确定复投')}</a>
-	</div>
-</div>
-<!-- 复投 -->
-<!-- USDT转nmct，功能暂时不用 -->
-<div class="popup zc popup-usdt">
-	<header class="bar bar-nav">
-		<h3>{:lang('USDT转至NMCT资产')}</h3>
-	</header>
-	<div class="trans-info">
-		<div class="trans-pic">
-			<img src="__STATIC__/xmt/images/transfer.png" alt="">
-		</div>
-		<p>{:lang('将从USDT账户转至NMCT资产账户')}</p>
-		<span>{:lang('请输入转出数量')}：</span>
-		<input type="number" id="usdt" class="trans-num"/>
-	</div>
-	<div class="btns">
-		<a class="close-popup cancel">{:lang('取消')}</a>
-		<a @click="zc_(1);" class="confirm">{:lang('确定转出')}</a>
-	</div>
-</div>
-<!-- USDT转nmct，功能暂时不用 -->
-
-
-<!-- XMT转出 -->
-<div class="popup zc popup-xmt_zc">
-	<header class="bar bar-nav">
-		<h3>{:lang('转出XMT通证')}</h3>
-	</header>
-	<div class="trans-info">
-		<div class="trans-pic">
-			<img src="__STATIC__/xmt/images/transfer.png" alt="">
-		</div>
-		<p>{:lang('转出XMT通证')}</p>
-		<span>{:lang('转入ID或手机号')}：</span>
-		<input type="number" id="xmt_p" class="trans-num" />
-		<p>
-		<span>{:lang('转入XMT通证数')}：</span>
-		<input type="number" id="xmt_num" class="trans-num" />
-		</p>
-        <p>
-          <span>{:lang('给他留言')}：</span>
-          <input type="text"  class="trans-num" />
-          </p>
-           <p>
-		<span>{:lang('短信验证码')}：</span>
-			<input type="text" name="sms" id="sms" maxlength="6" ><span onclick="send_phone(1)" id="zphone1" style="text-align: right;font-size:0.875em;color:#ccc;">获取验证码</span>
-		</p>
-      
-	</div>
-	<div class="btns">
-		<a class="close-popup cancel">{:lang('取消')}</a>
-		<a @click="zc_(7);" class="confirm">{:lang('确定转出')}</a>
-	</div>
-</div>
-<!-- XMT转出 -->
-
-<!-- 转XMT -->
-<div class="popup zc popup-xmt">
-	<header class="bar bar-nav">
-		<h3>{:lang('NMCT通证转XMT通证')}</h3>
-	</header>
-	<div class="trans-info">
-		<div class="trans-pic">
-			<img src="__STATIC__/xmt/images/transfer.png" alt="">
-		</div>
-		<p>{:lang('NMCT通证转XMT通证')}</p>
-		<span>{:lang('请输入转投数量')}：</span>
-		<input type="number" id="xmt" class="trans-num" />
-	</div>
-	<div class="btns">
-		<a class="close-popup cancel">{:lang('取消')}</a>
-		<a @click="zc_(2);" class="confirm">{:lang('确定转投')}</a>
-	</div>
-</div>
-<!-- 转XMT -->
-      
-     
-<!-- 充值USDT -->
-<div class="popup zc popup-cz">
-	<header class="bar bar-nav">
-		<h3>{:lang('充值USDT')}</h3>
-	</header>
-	<div class="trans-info">
-		<div class="trans-pic">
-			<img src="__STATIC__/xmt/images/transfer.png" alt="">
-		</div>
-		<p>{:lang('汇入USDT钱包地址')}：</p>
-		<p id="qbdz50" oncopy="myFunction()">{{system.usdt_addres}}</p>
-		<div onclick="copy(50)" class='cope'>{:lang('复制地址')}</div>
-		<p><span>{:lang('充值数量')}：</span>
-		<input type="number" id="money_usdt" class="trans-num"/>
-		</p>
-		<a href="javascript:;" class="a-upload">
-			<input type="file" name='file-avatar' id='file-avatar' @change="upload()" accept='image/*'/>{:lang('点击这里上传打款凭证')}
-		</a>
-		<div v-if="img" onclick="$('#ck_img').show();" class='cope'>{:lang('查看凭证')}</div>
-		<img v-bind:src="img" id="ck_img" style='width:100%;display:none;z-index:22;position: fixed;top:0;left:0' onclick="$(this).hide()"/>
-	</div>
-	<div class="btns">
-		<a class="close-popup cancel">{:lang('取消')}</a>
-		<a @click="zc_(3);" class="confirm">{:lang('确定充值')}</a>
-	</div>
-</div>
-<!--充值USDT end -->
-</div>
-<!-- content end -->
-</div>
-<!-- page-current end-->
-<canvas id="canvas" style="position: relative; background-color: #fed261;display:none;"></canvas>
-<div class="container" id="container" style="display:none;">
-	<div class="RedBox">
-		<div class="topcontent">
-			<h2 class="bounceInDown" style="padding-top:40px;">{:lang('恭喜你领取红包成功！')}</h2>
-			<span class="text flash" style="font-size:14px;padding-top:40px;"><b>+{{hongbao}}</b><br>{:lang('NMCT通证')}</span>
-			<div class="description1 flipInX" style="margin-top:130px;" onclick="location.href='/user/index/my.html#page-hongbao';">{:lang('查看红包记录')}
-			</div>
-			<div class="description2" @click="getData(0);$('#canvas').hide();$('#container').hide();$('.page').show();">{:lang('关闭')}
+			<div class="con_four">
+				<div class="con_four_l">
+					<a href="#invite" style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;">
+						邀请好友
+					</a>
+					<p style="margin: 0; font-size: 5px;"><a href="#" style="color: gray;">好友列表</a></p>
+				</div>
+				<div class="con_four_r">
+					<img src="__STATIC__/btb/chahua.png" width="100%" height="90%" />
+				</div>
 			</div>
 		</div>
 	</div>
+	<div class="app">
+		<div id="jk" class="page">
+			<!-- <div style="position: absolute; top: 0; left: 0; padding: 0.5rem;"></div> -->
+			<header class="bar bar-nav" style="position: initial; background: rgb(50,50,50); margin: .5rem 0;">
+				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
+				<h1 class="title">借款</h1>
+			</header>
+			<div class="jk">
+				<p>每次借款金额为500USDT，您确定借款吗？</p>
+				<p><a href="#" class="button button-big button-round" style="background: rgb(238,198,127); color: rgb(89,67,33); border: none;">确定</a></p>
+				<p><a href="#" class="button button-big button-round back" style="background: rgb(238,198,127); color: rgb(89,67,33); border: none;">返回</a></p>
+			</div>
+		</div>
+		<div class="page" id="zzhy">
+			<header class="bar bar-nav" style="position: initial; background: rgb(50,50,50); margin: .5rem 0;">
+				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
+				<h1 class="title">终止合约</h1>
+			</header>
+			<div class="zzhy">
+				<div class="zzhy_con"></div>
+				<p style="text-align: center; font-size: .5rem; color: #999;">可返还1000USDT</p>
+				<p style="margin: 0 25%;"><a href="#" class="button button-big" style="background: rgb(238,198,127); color: rgb(89,67,33); border: none;">终止合约</a></p>
+				<p style="text-align: center;"><a href="#" class="back" style="color: #999; border: none;">返回</a></p>
+			</div>
+		</div>
+		<div class="page" id="invest">
+			<header class="bar bar-nav" style="position: initial; background: rgb(50,50,50); margin: .5rem 0;">
+				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
+				<h1 class="title">我的钱包</h1>
+			</header>
+			<div class="invest">
+				<p style="text-align: center;"><i><img src="__STATIC__/xmt/images/regsiter_pic.png" height="100px" /></i></p>
+				<div class="invest_con">
+					<ul>
+						<li>
+							<p style="font-size: .7rem; color: #999;">汇入USDT钱包地址</p>
+							<p><input type="text" id="cz_address" placeholder="请输入钱包地址" maxlength="10" /></p>
+							<p style="text-align: center; margin: .3rem 0;"><a href="#" id="copy">点击复制地址</a></p>
+						</li>
+						<script>
+							document.getElementById('copy').onclick = function(){
+								var val = document.getElementById('cz_address');
+								val.select();
+								document.execCommand("Copy");
+								alert("已复制到剪贴板");
+							}
+						</script>
+						<li style="display: flex; justify-content: space-between; align-items: flex-start;">
+							<div class="inv_sec">
+								<p style="font-size: .7rem; color: #999;">充值数量</p>
+								<p><span id="czje"><input type="text" placeholder="充值金额" style="width: 90%;" /></span></p>
+							</div>
+							<div class="inv_sec">
+								<p style="font-size: .7rem; color: #999;">上传打款凭证</p>
+								<p><span id="up_cz"><input type="file"  style="opacity: 0; width: 90%;" /></span></p>
+							</div>
+						</li>
+						<li>
+							<p style="padding: 0 5rem;">
+								<a href="#" class="button" style="background: rgb(238,198,127); color: rgb(89,67,33); border: none; height: auto; padding: .5rem 0;">确定充值</a>
+							</p>
+							<p style="padding: 0 5rem; text-align: center;">
+								<a href="#" class="back" style="font-size: .8rem; color: #999;">取消</a>
+							</p>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="page" id="withdraw">
+			<header class="bar bar-nav" style="position: initial; background: rgb(50,50,50); margin: .5rem 0;">
+				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
+				<h1 class="title">提现</h1>
+			</header>
+			<div class="invest">
+				<p style="text-align: center;"><i><img src="__STATIC__/xmt/images/regsiter_pic.png" height="100px" /></i></p>
+				<div class="invest_con">
+					<ul>
+						<li>
+							<p style="font-size: .7rem; color: #999;">提现USDT钱包地址</p>
+							<p><input type="text" id="cz_address" placeholder="请输入钱包地址" maxlength="10" /></p>
+							<p style="text-align: center; margin: .3rem 0;"><a href="#" id="copy">点击复制地址</a></p>
+						</li>
+						<script>
+							document.getElementById('copy').onclick = function(){
+								var val = document.getElementById('cz_address');
+								val.select();
+								document.execCommand("Copy");
+								alert("已复制到剪贴板");
+							}
+						</script>
+						<li style="display: flex; align-items: flex-start;">
+							<div class="inv_sec">
+								<p style="font-size: .7rem; color: #999;">提现数量</p>
+								<p><span id="czje"><input type="text" placeholder="提现金额" style="width: 90%;" /></span></p>
+							</div>
+						</li>
+						<li>
+							<p style="padding: 0 5rem;">
+								<a href="#" class="button" style="background: rgb(238,198,127); color: rgb(89,67,33); border: none; height: auto; padding: .5rem 0;">确定提现</a>
+							</p>
+							<p style="padding: 0 5rem; text-align: center;">
+								<a href="#" class="back" style="font-size: .8rem; color: #999;">取消</a>
+							</p>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="page" id="invite" style="background: url(__STATIC__/xmt/images/invite.png) center no-repeat; background-size: 100% 100%;">
+			<header class="bar bar-nav" style="position: initial; background: none; margin: .5rem 0;">
+				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
+				<h1 class="title">分享好友</h1>
+			</header>
+			<div class="invite">
+				<div class="invite_con">
+					
+				</div>
+				<div class="invite_a">
+					<a href="#" style="color: #FAFAFA; font-size: .6rem;">点击复制分享好友</a>
+					<a href="#" style="color: #FAFAFA; font-size: .6rem;">注册拿奖励</a>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-
-</div>
-
 <script>
 parent.$('#dhl').show();
 function copy(id){
@@ -415,5 +757,9 @@ var app = new Vue({
   },
 })
 </script>
-</body>
+
+{include file="common/footer"/}
+
+
+
 </html>

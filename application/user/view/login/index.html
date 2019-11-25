@@ -11,7 +11,10 @@
     <link rel="stylesheet" href="__STATIC__/xmt/css/pages/loginpage.css?v=1.02">
 </head>
 <body class="login_bg">
-<div class="smz_x"> 
+<div class="logbg_top">
+	<img src="__STATIC__/xmt/images/logbg1.png" width="100%" />
+</div>
+<div class="smz_x">
 	<img style="width:25px;height:25px;" src="__HOME__/btb/fh.png?v=1.02"/ onclick="parent.location.href='{:url('user/index/index')}'">
 </div>
 	<div class="reg">
@@ -24,7 +27,6 @@
 				<i><img src="__STATIC__/xmt/images/lock.png?v=1.02" alt=""></i>
 				<input id="mm" name="mm" type="password" placeholder="{:lang('请输入您的密码')}" maxlength='12' value="{$pw}" />
 			</div>
-
 		<div class="help">
 			<input type="checkbox" name="remember_pw" {if(!empty($pw))}checked="checked"{/if}><span>{:lang('记住密码')}</span>
 		</div>
@@ -75,6 +77,12 @@ function kq(){
 function callParent(){
             parent.window.document.getElementById("dhl").hide();
         }
+var winh = window.innerHeight;
+if(winh < 610){
+	$(".login_bg").css("height","610");
+}else{
+	$(".login_bg").css("height",winh);
+}
 </script> 
 <!-- 倒计时 -->
 <script>

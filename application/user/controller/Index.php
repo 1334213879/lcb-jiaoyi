@@ -51,6 +51,9 @@ class Index extends Common{
         }
     }
     public function index(){
+		if(!session('user.user_id')){
+			$this->redirect('login/index');
+		}
         return $this->fetch();
     }
   public function index_(){
