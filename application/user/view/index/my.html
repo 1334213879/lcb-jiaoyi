@@ -474,12 +474,12 @@
                                 </div>
                             </div>
                         </li>
-                        <li>
+                     <!--    <li>
                             <div class="item-content" style="border-bottom: 2px solid #999;">
                                 <div class="item-media"><i class="icon icon-form-name"></i></div>
-                                <div class="item-inner">
+                                <div class="item-inner"> -->
                                     <!-- <div class="item-title label">{:lang('短信验证码')}</div> -->
-                                    <div class="item-input send_yzm2">
+                              <!--       <div class="item-input send_yzm2">
 										<span style="display: flex; align-items: center;">
 											<img src="__STATIC__/xmt/images/icon_mes.png" height="20px" />
 											<input type="text" name="sms" maxlength="6" placeholder="{:lang('请输入短信验证码')}" style="font-size: .7rem; color: #FAFAFA;">
@@ -488,7 +488,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </li>
+                        </li> -->
                     </ul>
                     <p class="wboos-p-btn"><input type="submit" class="button button-fill button-wboos button-round" style="color: rgb(89,67,33);" value="{:lang('保 存')}"/></p>
                 </div>
@@ -918,14 +918,14 @@ $(document).on("pageInit", "#page-bind-card", function(e, id, page) {
         var yh = $(this).find('select[name="yh"]');
         var name = $(this).find('input[name="name"]');
         var yhk = $(this).find('input[name="yhk"]');
-        if( !yh.val() ) {
-            wboos.toast("{:lang(\'请选择所在银行\')}");
-            return false;
-        }
-        if(!name.val()) {
-            wboos.toast(name.attr('placeholder'));
-            return false;
-        }
+        // if( !yh.val() ) {
+        //     wboos.toast("{:lang(\'请选择所在银行\')}");
+        //     return false;
+        // }
+        // if(!name.val()) {
+        //     wboos.toast(name.attr('placeholder'));
+        //     return false;
+        // }
 
         if(!yhk.val()) {
             wboos.toast(yhk.attr('placeholder'));
