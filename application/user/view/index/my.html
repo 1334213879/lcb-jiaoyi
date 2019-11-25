@@ -538,15 +538,15 @@
 				    <a class="icon pull-left back"></a>
 				    <h1 class="title">{:lang('实名认证')}</h1>
 				</header>
-				<form action="{:url('user/set')}" method="post">
+				<form action="{:url('user/set/up_autonym')}" method="post">
 					<div class="list-block cc">
 						<p>
 							<span><img src="__STATIC__/xmt/images/cc_1.png" width="50%" height="50%" /></span>
-							<span><input type="text" placeholder="姓名" id="cc_name" style="height: auto; padding: 0; font-size: .7rem; color: #ddd;" /></span>
+							<span><input type="text" placeholder="姓名" id="cc_name" name="cc_name" style="height: auto; padding: 0; font-size: .7rem; color: #ddd;" /></span>
 						</p>
 						<p>
 							<span><img src="__STATIC__/xmt/images/cc_2.png" width="50%" height="50%" /></span>
-							<span><input type="text" placeholder="身份证" id="cc_uid" style="height: auto; padding: 0; font-size: .7rem; color: #ddd;" /></span>
+							<span><input type="text" placeholder="身份证" id="cc_uid" name="cc_uid" style="height: auto; padding: 0; font-size: .7rem; color: #ddd;" /></span>
 						</p>
 						<p>
 							<span><img src="__STATIC__/xmt/images/cc_3.png" width="50%" height="50%" /></span>
@@ -554,24 +554,25 @@
 						</p>
 						<div class="cc_con">
 							<div class="cc_picbox">
-								<input type="file" placeholder="点击上传身份证正面" id="uid_front" style="display: none;" />
+								<input type="file" placeholder="点击上传身份证正面" id="uid_front" name="uid_front" style="display: none;" />
 								<!-- <button class="front_click" type="button" onclick="ccclick($('#uid_front'))">点击上传身份证正面</button> -->
-								<img id="froimg" class="front_click" onclick="ccclick($('#uid_front'))" alt="点击上传身份证正面" width="100%" height="100%" />
+								<img id="froimg" class="front_click" onclick="ccclick($('#uid_front'))" src="__STATIC__/xmt/images/im1.png" alt="点击上传身份证正面" width="100%" height="100%" />
 							</div>
 							<div class="cc_picbox">
-								<input type="file" placeholder="点击上传身份证反面" id="uid_back" style="display: none;" />
+								<input type="file" placeholder="点击上传身份证反面" id="uid_back" name="uid_back" style="display: none;" />
 								<!-- <button class="back_click" type="button" onclick="ccclick($('#uid_back'))">点击上传身份证反面</button> -->
-								<img id="backimg" class="back_click" onclick="ccclick($('#uid_back'))" alt="点击上传身份证反面" width="100%" height="100%" />
+								<img id="backimg" class="back_click" onclick="ccclick($('#uid_back'))" src="__STATIC__/xmt/images/im2.png" alt="点击上传身份证反面" width="100%" height="100%" />
 							</div>
 							<div class="cc_picbox">
-								<input type="file" placeholder="点击上传本人手持身份证" id="uid_hand" style="display: none;" />
+								<input type="file" placeholder="点击上传本人手持身份证" id="uid_hand" name="uid_hand" style="display: none;" />
 								<!-- <button class="hand_click" type="button" onclick="ccclick($('#uid_hand'))">点击上传本人手持身份证</button> -->
-								<img id="handimg" class="hand_click" onclick="ccclick($('#uid_hand'))" alt="点击上传本人手持身份证" width="100%" height="100%" />
+								<img id="handimg" class="hand_click" onclick="ccclick($('#uid_hand'))" src="__STATIC__/xmt/images/im3.png" alt="点击上传本人手持身份证" width="100%" height="100%" />
 							</div>
 						</div>
 						<p style="position: absolute; bottom: -50px; left: 5%; width: 90%;">
 							<input type="submit" value="保存" class="button button-round button-big" 
 							style="background: rgb(238,198,127); color: rgb(89,67,33); border: none;"
+							onclick="return check()"
 							 />
 						</p>
 					</div>
@@ -650,6 +651,34 @@ function ccclick(name){
 		});
 	});
 }
+
+function check(){
+	if($("#cc_name").val() == "" || $("#cc_name").val() == null){
+		alert("请输入姓名");
+		return false;
+	}else if($("#cc_uid").val() == "" || $("#cc_uid").val() == null){
+		alert("请输入身份证");
+		return false;
+	}else if($("#cc_uid").val().length != 18 && !(/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/.test($("#cc_uid").val()))) {
+		alert("您输入的身份证号码不是有效格式");
+		return false;
+	}else if(document.getElementById('froimg').getAttribute("src") == "/static/xmt/images/im1.png"){
+		alert("请上传身份证正面照");
+		return false;
+	}
+	else if(document.getElementById('backimg').getAttribute("src") == "/static/xmt/images/im2.png"){
+		alert("请上传身份证反面照");
+		return false;
+	}
+	else if(document.getElementById('handimg').getAttribute("src") == "/static/xmt/images/im3.png"){
+		alert("请上传手持身份证照");
+		return false;
+	}else{
+		alert("提交成功")
+		return true;
+	}
+}
+
 var submitDatas = function(id,_target, callback) {
     wboos.httpRequest({
         url: _target.attr('action'),

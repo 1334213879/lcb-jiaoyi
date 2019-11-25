@@ -652,7 +652,6 @@ ul.square li p {
 	background: rgb(72,75,91);
 	width: 100%;
 	font-size: .4rem;
-	padding: .7rem;
 	color: gray;
 }
 .back_click{
@@ -662,7 +661,6 @@ ul.square li p {
 	background: rgb(72,75,91);
 	width: 100%;
 	font-size: .4rem;
-	padding: .7rem;
 	color: gray;
 }
 .hand_click{
@@ -672,6 +670,5 @@ ul.square li p {
 	background: rgb(72,75,91);
 	width: 100%;
 	font-size: .4rem;
-	padding: .7rem;
 	color: gray;
 }
