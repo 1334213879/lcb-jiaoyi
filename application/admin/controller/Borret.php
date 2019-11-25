@@ -19,7 +19,8 @@ class Borret extends Common {
 
 		$list = Db::table(config('database.prefix') . 'borrow')->alias('k')
 			->join(config('database.prefix') . 'users i', 'k.uid = i.user_id', 'left')
-			->field('i.nickname,k.*')
+			->join(config('database.prefix') . 'yhk y', 'y.user_id = i.user_id', 'left')
+			->field('i.nickname,y.yhk,k.*')
 			->where($where)
 			->select();
 		$this->assign('list', $list);
