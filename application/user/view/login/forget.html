@@ -26,6 +26,14 @@
 		</div>
 		<div>
 			<div class="notice_info">
+			<i><img src="__STATIC__/xmt/images/mobile.png" alt=""></i><span>{:lang('请输入昵称')}</span>
+			</div>
+			<span>
+				<input id="nickname" name="nickname" type="text" placeholder="{:lang('请输入昵称')}" maxlength='12'/>
+			</span>
+		</div>
+		<div>
+			<div class="notice_info">
 			<i><img src="__STATIC__/xmt/images/checkcode.png" alt=""></i><span>{:lang('短信验证码')}</span>
 			</div>
 			<span><input id="sms" type="text" placeholder="{:lang('短信验证码')}" maxlength='6'/></span>
@@ -74,6 +82,9 @@ function kq(yzm){
 	if($("#mobile").val()=="" || !/^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$/i.test($("#mobile").val())){
 		layer.msg('{:lang(\'请填写注册手机号码\')}');$('#mobile').val('');return false;
 	}
+	if($("#nickname").val()==""){
+		layer.msg('{:lang(\'请填写昵称\')}');return false;
+	}
 	if($("#sms").val()==""){
 		layer.msg('{:lang(\'请填写验证码\')}');return false;
 	}
@@ -85,7 +96,7 @@ function kq(yzm){
 	}
 	else if($("#mm").val()==$("#mm1").val()){
 			$.post("{:url('forget')}",
-			{password:$("#mm").val(),mobile:$("#mobile").val(),code:$("#sms").val()},function(res){
+			{password:$("#mm").val(),nickname:$("#nickname").val(),mobile:$("#mobile").val(),code:$("#sms").val()},function(res){
 				if(res.code > 0){
 					layer.msg(res.msg,{time:1800},function(){
                     location.href = "{:url('index')}";
