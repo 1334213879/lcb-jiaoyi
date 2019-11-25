@@ -399,11 +399,11 @@ class Set extends Common {
 		// 		return array('status' => 0, 'msg' => '每个钱包地址只能绑定一个用户！');
 		// 	}
 		// }
-		if (empty($name) || empty($yhk)) {
-			return array('status' => 0, 'msg' => '不能为空');
+		if (empty($yhk)) {
+			return array('status' => 0, 'msg' => '银行卡不能为空');
 		} /* elseif($yh==$yz['yh'] && $name==$yz['name'] && $yhk==$yz['yhk']){
 			return array('status'=>0,'msg'=>'没有修改');
-		} */else if (preg_match('/^[\x7f-\xff]+$/', $name) && strlen($yhk) < 20 && strlen($name) < 13 && strlen($yh) < 60) {
+		} */else if (strlen($yhk) < 20) {
 			// if (!session('yzm.yzm') || session('yzm.time') < time()) {
 			// 	return array('status' => 0, 'msg' => '验证码不存在或已失效!');
 			// }
@@ -413,15 +413,15 @@ class Set extends Common {
 			if ($yz) {
 				if (db('yhk')->where(['user_id' => session('user.user_id')])->update($data) !== false) {
 					session('yzm', null);
-					return array('status' => 1, 'msg' => '修改成功');
+					return array('status' => 1, 'msg' => '成功');
 				} else {
-					return array('status' => 0, 'msg' => '修改失败');
+					return array('status' => 0, 'msg' => '失败');
 				}
 				/* db('users')->where(['user_id'=>session('user.user_id')])->update($data);
 				return array('status'=>1,'msg'=>'修改成功'); */
 			} else {
-				$map['yh'] = $yh;
-				$map['name'] = $name;
+				// $map['yh'] = $yh;
+				// $map['name'] = $name;
 				$map['yhk'] = $yhk;
 				// $map['money_address'] = $money_address;
 				$map['user_id'] = session('user.user_id');
@@ -429,7 +429,7 @@ class Set extends Common {
 					session('yzm', null);
 					return array('status' => 1, 'msg' => '绑定成功');
 				} else {
-					return array('status' => 0, 'msg' => '修改失败');
+					return array('status' => 0, 'msg' => '绑定失败');
 				}
 			}
 		} else {
