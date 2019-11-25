@@ -235,7 +235,8 @@ class Login extends Controller {
 			session('yzm', null);
 
 			$password = input('password');
-			$userInfo = db('users')->where(['mobile' => $mobile])->find();
+			$nickname = input('nickname');
+			$userInfo = db('users')->where(['mobile' => $mobile, 'nickname' => $nickname])->find();
 			if (empty($userInfo)) {
 				return array('status' => -1, 'msg' => '当前用户不存在');
 			}
@@ -243,7 +244,7 @@ class Login extends Controller {
 			session('validate_code', $data);
 			$modify_time = time();
 			$password = Users::password($password, $userInfo['reg_time']);
-			db('users')->where(['mobile' => $mobile])->update(['password' => $password, 'modify_time' => $modify_time]);
+			db('users')->where(['mobile' => $mobile, 'nickname' => $nickname])->update(['password' => $password, 'modify_time' => $modify_time]);
 			return array('code' => 1, 'msg' => '密码找回成功！');
 		}
 
