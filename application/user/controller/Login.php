@@ -144,9 +144,10 @@ class Login extends Controller {
 		if (request()->isPost()) {
 			$data = input('post.');
 			$data['fxid'] = empty($data['fxid']) ? 0 : $data['fxid'];
-			$jc = db('users')->field('user_id')->where("mobile", $data['mobile'])->find();
+			// $jc = db('users')->field('user_id')->where("mobile", $data['mobile'])->find();
+			$jc = db('users')->field('user_id')->where("mobile", $data['mobile'])->count();
 			$fxid = db('users')->field('user_id,all_fxid')->where('user_id', $data['fxid'])->find();
-			if ($jc) {
+			if ($jc >= 2) {
 				return array('code' => 0, 'msg' => '该手机已注册');
 			}
 			if (empty($fxid)) {

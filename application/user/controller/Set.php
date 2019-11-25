@@ -436,4 +436,24 @@ class Set extends Common {
 			return array('status' => 0, 'msg' => '格式错误，请认真填写！');
 		}
 	}
+
+	public function up_autonym() {
+		if (!session('user.user_id')) {
+			$this->redirect('login/index');
+		}
+		$img1 = input('post.img1');
+		$img2 = input('post.img2');
+		$img3 = input('post.img3');
+		if (empty($img1) || empty($img2) || empty($img3)) {
+			return array('status' => 0, 'msg' => '请正确上传图片！');
+		}
+		$user_id = session('user.user_id');
+		$json = json_encode($img1 . ',' . $img2 . ',' . $img3);
+		$msg = db::name('users')->where('user_id', $user_id)->setField('autonym_img', $json);
+		if ($msg) {
+			return array('status' => 1, 'msg' => '提交成功，请等待审核！');
+		} else {
+			return array('status' => 0, 'msg' => '提交失败！');
+		}
+	}
 }
