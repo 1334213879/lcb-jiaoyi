@@ -92,7 +92,7 @@ class Login extends Controller {
 			$nickname = input('nickname');
 
 			if (!$mobile || !$password || !$nickname) {
-				return array('code' => 0, 'msg' => '请填写账号或密码');
+				return array('code' => 0, 'msg' => '请填写账号,密码和昵称');
 			}
 			// $user = $table->where("mobile", $mobile)->find();
 			$user = $table->where("mobile", $mobile)->where('nickname', $nickname)->find();
