@@ -72,14 +72,17 @@ class Login extends Controller {
 		//前端界面检测是否登录过 记住密码
 		$login_arr = session('user_login');
 		$mobile = '';
+		$nickname = '';
 		$pw = '';
 
 		if (!empty($login_arr)) {
 			$mobile = $login_arr['mobile'];
 			$pw = $login_arr['pw'];
+			$pw = $login_arr['nickname'];
 		}
 
 		$this->assign('mobile', $mobile);
+		$this->assign('nickname', $nickname);
 		$this->assign('pw', $pw);
 
 		if (session('user.user_id')) {
