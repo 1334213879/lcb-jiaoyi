@@ -23,6 +23,7 @@
                     <th>编号</th>
                     <th>用户</th>
                     <th>数目</th>
+                    <th>钱包地址</th>
                     <th>打款凭证</th>
                     <th>当前状态</th>
 					<th>借款时间</th>
@@ -37,6 +38,7 @@
                             <td>{$v.id}</td>
                             <td>{$v.nickname}</td>
                             <td>{$v.nmct}</td>
+                            <td>{$v.text}</td>
                             <td>
                                 <div id="layer-photos-demo{$v.id}" onclick="view({$v.id})">
                                  <img layer-pid="图片id，可以不写" layer-src="{$v.img}" src="{$v.img}" alt="{$v.img}" style="max-width: 70px;">

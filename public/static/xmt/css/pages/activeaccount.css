@@ -1,0 +1,41 @@
+*{margin: 0;padding: 0;}
+ul,li{list-style: none;}
+html{height: 100%}
+.popup-activeaccount{
+	width: 100%;
+	background: url(../../images/page-bg.png) bottom center no-repeat #181818;
+	background-size: contain;
+}
+.bar-nav ~ .content{
+	top: 3.8rem;
+}
+.content-block{
+	margin:0;
+	padding:0 0.5rem;
+}
+table,tbody{
+	display: block;
+	width: 100%;
+	font-size: .7rem;
+	font-weight: normal;
+}
+tr{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	line-height: 2.5;
+	border-bottom: solid 1px #f7ef91;
+	align-items: center;
+}
+.content.tabcontainer>.buttons-tab{
+	width: 90%;
+	margin:0 auto;
+}
+.buttons-tab .button.active{
+	background: #f7ef91;
+	border: solid 1px #f7ef91;
+	color: #000;
+}
+.buttons-tab .button{
+	border: solid 1px #f7ef91;
+}

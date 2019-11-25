@@ -1,0 +1,35 @@
+body, .page {
+    background-color: #fff !important;
+    font-size: 14px;
+}
+*{margin: 0; padding: 0;}
+img {vertical-align:middle;}
+.wboos-icon {
+    display: inline-block;
+    vertical-align:middle;
+    background-size: 100% !important;
+    background-position: center center !important;;
+    background-repeat: no-repeat !important;
+}
+input[type=button], input[type=submit], input[type=file], button {
+    cursor: pointer; 
+    -webkit-appearance: none; 
+    outline:0px; -webkit-appearance:none;
+} ;
+.fr {float: right}
+.fl {float: left}
+.mt10 {margin-top: 10px;}
+.mb10 {margin-bottom: 10px;}
+.bar-nav {
+    background-color: #01013b !important;
+    color: #fff !important;
+}
+.bar-nav a {color: #fff!important;}
+.bar-nav .title {
+    color: #fff !important;
+}
+.button-wboos {
+    background-color: #01013b !important;
+    color: #fff !important;
+}
+

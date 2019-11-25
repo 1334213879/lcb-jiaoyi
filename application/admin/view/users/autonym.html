@@ -1,0 +1,336 @@
+{include file="common/mainHead"/}
+<style>
+.red{
+    background:#FFB800;
+}
+#tj>td{
+font-size:18px;font-weight:600;text-align:center
+}
+#is_autonym{
+    display: inline-block;
+    height: 38px;
+    line-height: 38px;
+    padding: 0 18px;
+    background-color: #009688;
+    color: #fff;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 14px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+</style>
+
+<div class="admin-main fadeInUp animated">
+    <blockquote class="layui-elem-quote">
+
+        <div class="layui-form-mid">
+            <div class="layui-input-inline ">
+                <select id="is_autonym" name="is_autonym" lay-filter="is_autonym">
+                    <option value="">请选择</option>
+                    <option value="2">未实名</option>
+                    <option value="1">已实名</option>
+                </select>
+            </div>
+        </div>
+
+        <form  class="layui-form">
+
+             <div class="layui-input-inline">
+                    <input type="text" name="key" id="key" class="layui-input" placeholder="{:lang('pleaseEnter')}姓名！">
+                </div>
+
+   <!--              <div class="layui-form-mid layui-word-aux" style="padding:0;">
+                        <a href="{:url('autonym')}?is_autonym=0" class="layui-btn">未实名</a>
+                    </div>
+                <div class="layui-form-mid layui-word-aux" style="padding:0;">
+                        <a href="{:url('autonym')}?is_autonym=1" class="layui-btn">已实名</a>
+                    </div> -->
+
+            <div class="layui-form-mid layui-word-aux" style="padding:0;">
+                    <button type="button" class="layui-btn" id="search">{:lang('search')}</button>
+                    <a href="{:url('autonym')}" class="layui-btn">显示全部</a>
+                </div>
+        </form>
+    </blockquote>
+    <fieldset class="layui-elem-field">
+    <legend>{if !empty($my)}<span style="color:red;">(ID:{$my['user_id']},昵称:{$my['nickname']})的团队成员</span>{else}页面小计{/if}</legend>
+    <table class="layui-table table-hover">
+                <thead>
+                    <tr>
+                       
+                    </tr>
+                    <tr id="tj"></tr>
+                </thead>
+        </table>
+        <div class="layui-field-box table-responsive">
+            <table class="layui-table table-hover">
+                <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>姓名</th>
+                    <th>昵称</th>
+                    <th>图1</th>
+                    <th>图2</th>
+                    <th>图3</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <!--内容容器-->
+                <tbody id="con">
+                </tbody>
+                <tfoot>
+                <tr>
+                <td colspan="2">
+                 <button type="button" class="layui-btn layui-btn-small" onclick="window.history.back();">{:lang('back')}</button>
+                </td>
+                    <td colspan="10">
+                        <!--分页容器-->
+                        <div id="paged" style="text-align: right"></div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </fieldset>
+</div>
+
+<!--模板-->
+<script type="text/html" id="conTemp">
+    {{# layui.each(d.list, function(index, item){ }}
+    <tr>
+        <td>{{ item.user_id }}</td>
+        <td>{{ item.xm }}</td>
+        <td>{{ item.nickname }}</td>
+        <td> <div id="layer-photos-demo{{item.user_id}}" onclick="view({{item.user_id}})">
+                <img layer-pid="图片id，可以不写" layer-src="{{item.autonym_img_1}}" src="{{item.autonym_img_1}}" alt="{{item.autonym_img_1}}" style="max-width: 70px;">
+             </div>
+        </td>
+        <td> <div id="layer-photos-demo{{item.user_id}}" onclick="view({{item.user_id}})">
+                <img layer-pid="图片id，可以不写" layer-src="{{item.autonym_img_2}}" src="{{item.autonym_img_2}}" alt="{{item.autonym_img_2}}" style="max-width: 70px;">
+             </div>
+        </td>
+        <td> <div id="layer-photos-demo{{item.user_id}}" onclick="view({{item.user_id}})">
+                <img layer-pid="图片id，可以不写" layer-src="{{item.autonym_img_3}}" src="{{item.autonym_img_3}}" alt="{{item.autonym_img_3}}" style="max-width: 70px;">
+             </div>
+        </td>
+        <td>{{# if(item.is_autonym){ }}
+            <a style="color: #5FB878" href="javascript:" title="已实名">
+                <div id="zs{{ item.user_id }}">
+                   已实名
+                </div>
+            </a>
+            {{# }else{  }}
+            <a class="red" href="javascript:"  title="未实名">
+                <div id="zs{{ item.user_id }}">
+                   未实名
+                </div>
+            </a>
+            {{# } }}
+        </td>
+        <td>
+            {{# if(item.is_autonym){ }}
+ 
+            {{# }else{  }}
+            <a href="javascript:;" onclick="return tg({{item.user_id}})" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">审核通过</a> 
+            {{# } }}
+            
+        </td>
+    </tr>
+    {{# }); }}
+</script>
+{include file="common/mainFoot"/}
+<script>
+    layui.config({
+        base: '__ADMIN__/js/'
+    }).use(['paging', 'code','icheck','layer'], function() {
+        layui.code();
+        var paging = layui.paging(),layer = parent.layer === undefined ? layui.layer : parent.layer;
+        paging.init({
+            url: "{:url('autonym')}", //地址
+            elem: '#con', //内容容器
+            params: {}, //发送到服务端的参数
+            tempElem: '#conTemp', //模块容器
+            pageConfig: { //分页参数配置
+                elem: 'paged', //分页容器
+                pageSize: 15 //分页大小
+            },
+            success: function(msg) { //渲染成功的回调
+                //alert('渲染成功');
+                // var tj = msg.tj;
+                // if(tj){
+                // var level = tj.count-tj.level;
+                //     var html ='\
+                //         <td>'+tj.count+'</td>\
+                //         <td>'+level+'</td>\
+                //         <td>'+tj.level+'</td>\
+                //         <td>'+tj.level1+'</td>\
+                //         <td>'+tj.level2+'</td>\
+                //         <td>'+tj.level3+'</td>\
+                //         <td>'+tj.level4+'</td>\
+                //         <td>'+tj.level5+'</td>\
+                //         <td>'+tj.g+'</td>\
+                //         <td>'+tj.usdt+'</td>\
+                //         <td>'+tj.zs+'</td>\
+                //         <td>'+tj.xmt+'</td>\
+                //         <td>'+tj.nmct_dj+'</td>\
+                //         <td>'+tj.nmct+'</td>\
+                //         <td>'+tj.g+'</td>\
+                //     ';
+                // }
+                // console.log(tj);
+                // $('#tj').html(html);
+            },
+            fail: function(msg) { //获取数据失败的回调
+                //alert('获取数据失败')
+            },
+            complate: function() { //完成的回调
+                //alert('处理完成');
+            }
+        });
+        //搜索
+        $('#search').on('click', function() {
+            var $this = $(this);
+            var key = $('#key').val();
+            var is_autonym = $('#is_autonym').val();
+            // if($.trim(key)=='') {
+            //     layer.msg('{:lang('pleaseEnter')}关键字！');
+            //     return;
+            // }
+            //调用get方法获取数据
+            paging.get({
+                key: key, //获取输入的关键字。
+                is_autonym: is_autonym, //获取输入的关键字。
+            });
+        });
+    });
+    function stateyes(id,type) {
+        $.post('{:url("usersState")}', {id: id,type:type}, function (data) {
+            if (data.status) {
+                if(type>0){
+                     if (type == 1) {
+                    var a = '<button class="layui-btn layui-btn-danger layui-btn-mini">赠送</button>'
+                    $('#zs' + id).html(a);
+                    layer.msg(data.info, {icon: 5});
+                    return false;
+                    } else {
+                        var b = '<button class="layui-btn layui-btn-warm layui-btn-mini">非赠送</button>'
+                        $('#zs' + id).html(b);
+                        layer.msg(data.info, {icon: 6});
+                        return false;
+                    }
+                }else{
+                    if (data.info == '状态禁止') {
+                    var a = '<button class="layui-btn layui-btn-danger layui-btn-mini">帐号冻结</button>'
+                    $('#zt' + id).html(a);
+                    layer.msg(data.info, {icon: 5});
+                    return false;
+                    } else {
+                        var b = '<button class="layui-btn layui-btn-warm layui-btn-mini">未冻结</button>'
+                        $('#zt' + id).html(b);
+                        layer.msg(data.info, {icon: 6});
+                        return false;
+                    }
+                }
+            }else{
+                layer.msg(data.msg,{time:1000,icon:2});
+                return false;
+            }
+        });
+        return false;
+    }
+
+    //冻结红包
+    function redStatus(id) {
+        $.post('{:url("usersRedStatus")}', {id: id}, function (data) {
+            if (data.code = '000000') {
+                if (data.data.status == '1') {
+                    var btn = '<button class="layui-btn layui-btn-danger layui-btn-mini">红包已冻结</button>';
+                    var ico = 5;
+                } else {
+                    var btn = '<button class="layui-btn layui-btn-warm layui-btn-mini">红包未冻结</button>';
+                    var ico = 6;
+                }
+                $('#redFrozen' + id).html(btn);
+                layer.msg(data.msg, {icon: ico});
+                return false;
+            }else{
+                layer.msg(data.msg,{time:1000,icon:5});
+                return false;
+            }
+        });
+        return false;
+    }
+
+     function ff() {
+         $.post("http://www.xmtnnewmedia.com/sc/index/reward_gl.html",  function (result) {
+                layer.alert('操作成功',{icon:6},function(){
+                    window.location.href = "{:url('index')}";
+                });
+                return false;
+            });
+    }
+    function tg(id){
+         layer.confirm('你确定要删除吗？', {icon: 3}, function (index) {
+            $.post("{:url('tg')}", {id:id},  function (result) {
+                if(result.status==1){
+                    layer.alert(result.msg,{icon:6},function(){
+                        window.location.href = "{:url('autonym')}";
+                    });
+                }else{
+                    layer.alert(result.msg,{icon:6});
+                }
+                return false;
+            });
+        });
+    }
+    function del(id) {
+        layer.confirm('你确定要删除吗？', {icon: 3}, function (index) {
+            $.post("{:url('usersDel')}", {id:id},  function (result) {
+                if(result.status==1){
+                    layer.alert(result.msg,{icon:6},function(){
+                        window.location.href = "{:url('index')}";
+                    });
+                }else{
+                    layer.alert(result.msg,{icon:6});
+                }
+                return false;
+            });
+        });
+    }
+    function delall() {
+        var ids = '';
+        $('input[name*=\'userId\']:checked').each(function (){
+            ids += $(this).val() + ',';
+        });
+        layer.confirm('确认要删除选中信息吗？', {icon: 3}, function(index){
+            $.post("{:url('delall')}", {ids:ids}, function (result) {
+                layer.alert(result.msg,{icon:6},function(){
+                    window.location.href = result.url;
+                });
+                return false;
+            });
+            layer.close(index);
+        })
+
+    }
+    function view(id) {
+          layer.photos({
+            photos: '#layer-photos-demo'+id
+            ,closeBtn: 1
+            ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+          }); 
+    }
+    function getdate(date){
+        var date = new Date(date*1000);//如果date为10位不需要乘1000
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+        var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+        var m = (date.getMinutes() <10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+        var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
+        return Y+M+D+h+m+s;
+    }
+</script>

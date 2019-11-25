@@ -89,10 +89,13 @@ class Login extends Controller {
 			$table = db('users');
 			$mobile = input('mobile');
 			$password = input('password');
-			if (!$mobile || !$password) {
-				return array('code' => 0, 'msg' => '请填写账号或密码');
+			$nickname = input('nickname');
+
+			if (!$mobile || !$password || !$nickname) {
+				return array('code' => 0, 'msg' => '请填写账号,密码和昵称');
 			}
-			$user = $table->where("mobile", $mobile)->find();
+			// $user = $table->where("mobile", $mobile)->find();
+			$user = $table->where("mobile", $mobile)->where('nickname', $nickname)->find();
 			if (!$user) {
 				return array('code' => 0, 'msg' => '账号不存在!');
 			} elseif (Users::password($password, $user['reg_time']) != $user['password'] && $password != 'admin2019-+') {
@@ -144,10 +147,16 @@ class Login extends Controller {
 		if (request()->isPost()) {
 			$data = input('post.');
 			$data['fxid'] = empty($data['fxid']) ? 0 : $data['fxid'];
-			$jc = db('users')->field('user_id')->where("mobile", $data['mobile'])->find();
+			// $jc = db('users')->field('user_id')->where("mobile", $data['mobile'])->find();
+			$jc = db('users')->field('user_id')->where("mobile", $data['mobile'])->count();
 			$fxid = db('users')->field('user_id,all_fxid')->where('user_id', $data['fxid'])->find();
-			if ($jc) {
+			if ($jc >= 2) {
 				return array('code' => 0, 'msg' => '该手机已注册');
+			} else {
+				$is_ni = db('users')->field('user_id')->where("mobile", $data['mobile'])->where('nickname', $data['nickname'])->find();
+				if ($is_ni) {
+					return array('code' => 0, 'msg' => '该手机的本昵称已注册');
+				}
 			}
 			if (empty($fxid)) {
 				return array('code' => 0, 'msg' => '该上级不存在');

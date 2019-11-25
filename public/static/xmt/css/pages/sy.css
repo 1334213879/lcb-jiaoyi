@@ -1,0 +1,77 @@
+*{margin: 0;padding: 0;}
+ul,li{list-style: none;}
+html{height: 100%}
+body{
+	width: 100%;
+	background: url(../images/page-bg.png) bottom center no-repeat #181818;
+	background-size: contain;
+}
+header.bar-nav{
+	padding: .4rem 0;
+	border-bottom: solid 1px #2b2a22;
+	height: auto;
+}
+.bar-nav ~ .content{
+	top: 3.8rem;
+}
+.content-block{
+	margin:0;
+	padding:0 0.5rem;
+}
+.bar-nav h3{
+	color: #f7ef91;
+	text-align: center;
+	line-height: 2.8;
+	font-size: .8rem;
+}
+.bar-nav,.buttons-tab{
+	background: #181818;
+}
+.bar-nav a{
+	position: absolute;
+	left: 1rem;
+	top: .8rem;
+	width: 1.5rem;
+	height: 1.5rem;
+	background: url(../images/close.png) center no-repeat;
+	background-size: 100% 100%;
+}
+table,tbody{
+	display: block;
+	width: 100%;
+	color: #fff;
+	font-size: .7rem;
+	font-weight: normal;
+}
+tr{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	border-bottom: solid 1px #f7ef91;
+	line-height: 2.5;
+}
+.content.tabcontainer>.buttons-tab{
+	width: 80%;
+	margin:0 auto;
+}
+.buttons-tab .button.active{
+	background: #f7ef91;
+	border: solid 1px #f7ef91;
+	color: #000;
+}
+.buttons-tab .button{
+	color: #fff;
+	border: solid 1px #f7ef91;
+}
+
+.card{
+	background: url(../images/card-bg.png) center no-repeat;
+	background-size: cover;
+	padding:2rem 0;
+	box-shadow: 0 7px 9px #111;
+	margin-bottom: 1rem;
+}
+.card-content-inner{
+	text-align: center;
+	color: #f7ef91;
+}

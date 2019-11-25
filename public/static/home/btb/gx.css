@@ -1,0 +1,42 @@
+	html{
+		font-family:"微软雅黑";
+	}
+	.head_top{
+		width:99%;margin:auto;height:80px;
+	}
+	.head_top>div{
+		width:48.5%;float:left;height:80px;border-radius:5px;background-color:rgba(0,143,245,0.5);
+	}
+	.head_top>div>p{
+		width:85%;margin:auto;height:40px;background:#ffffff;border-radius:5px;margin-top:10px;
+		text-align:center;line-height:40px;
+	}
+	.head_top>div>div{
+		text-align:center;color:#ffffff;line-height:30px;font-size:16px;
+	}
+	.body_top{
+	width:96%;height:170px;margin:auto;border:1px solid #dedede;background:#ffffff;color:#000000;margin-top:30px;border-radius:5px;
+	}
+	.body_img{
+	width:80px;height:80px;margin-top:10px;margin:auto;margin-top:10px;
+	}
+	.body_img>img{
+	width:80px;height:80px;
+	}
+	.body_top>p{
+	text-align:center;line-height:30px;margin:0px;margin-top:10px;
+	}
+	.body_zb{
+	width:70px;height:25px;border-radius:5px;background: -webkit-linear-gradient(135deg, #cbcaff, #00459a);margin:auto;
+	text-align:center;padding-top:-10px;color:#ffffff;
+	}
+	.star-five{
+	color:#8a8a8a;
+	font-family: "icon" !important;
+    font-size: 15px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased
+	}
+	.xj_1>.body_top>div>.star-five{
+		font-size: 12px;float:left;margin-left:2px;
+	}
