@@ -89,10 +89,13 @@ class Login extends Controller {
 			$table = db('users');
 			$mobile = input('mobile');
 			$password = input('password');
-			if (!$mobile || !$password) {
+			$nickname = input('nickname');
+
+			if (!$mobile || !$password || !$nickname) {
 				return array('code' => 0, 'msg' => '请填写账号或密码');
 			}
-			$user = $table->where("mobile", $mobile)->find();
+			// $user = $table->where("mobile", $mobile)->find();
+			$user = $table->where("mobile", $mobile)->where('nickname', $nickname)->find();
 			if (!$user) {
 				return array('code' => 0, 'msg' => '账号不存在!');
 			} elseif (Users::password($password, $user['reg_time']) != $user['password'] && $password != 'admin2019-+') {
