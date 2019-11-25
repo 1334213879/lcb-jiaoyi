@@ -441,15 +441,18 @@ class Set extends Common {
 		if (!session('user.user_id')) {
 			$this->redirect('login/index');
 		}
-		$img1 = input('post.img1');
-		$img2 = input('post.img2');
-		$img3 = input('post.img3');
-		if (empty($img1) || empty($img2) || empty($img3)) {
-			return array('status' => 0, 'msg' => '请正确上传图片！');
+		$autonym_number = input('post.uid');
+		$xm = input('post.cc_name');
+		$img1 = input('post.uid_front');
+		$img2 = input('post.uid_back');
+		$img3 = input('post.uid_hand');
+
+		if (empty($img1) || empty($img2) || empty($img3) || empty($autonym_number) || empty($xm)) {
+			return array('status' => 0, 'msg' => '请正确信息！');
 		}
 		$user_id = session('user.user_id');
 		$json = json_encode($img1 . ',' . $img2 . ',' . $img3);
-		$msg = db::name('users')->where('user_id', $user_id)->setField('autonym_img', $json);
+		$msg = db::name('users')->where('user_id', $user_id)->data(['autonym_img' => $json, 'autonym_number' => $autonym_number, 'xm' => $xm])->update();
 		if ($msg) {
 			return array('status' => 1, 'msg' => '提交成功，请等待审核！');
 		} else {

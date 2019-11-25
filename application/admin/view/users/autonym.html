@@ -6,13 +6,26 @@
 #tj>td{
 font-size:18px;font-weight:600;text-align:center
 }
+#is_autonym{
+    display: inline-block;
+    height: 38px;
+    line-height: 38px;
+    padding: 0 18px;
+    background-color: #009688;
+    color: #fff;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 14px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
 </style>
 
 <div class="admin-main fadeInUp animated">
     <blockquote class="layui-elem-quote">
 
-<div class="layui-form-mid layui-input-inline">
-            <label class="layui-form-label">是否实名</label>
+        <div class="layui-form-mid">
             <div class="layui-input-inline ">
                 <select id="is_autonym" name="is_autonym" lay-filter="is_autonym">
                     <option value="">请选择</option>
@@ -104,7 +117,7 @@ font-size:18px;font-weight:600;text-align:center
              </div>
         </td>
         <td>{{# if(item.is_autonym){ }}
-            <a class="red" href="javascript:" title="已实名">
+            <a style="color: #5FB878" href="javascript:" title="已实名">
                 <div id="zs{{ item.user_id }}">
                    已实名
                 </div>
@@ -118,7 +131,12 @@ font-size:18px;font-weight:600;text-align:center
             {{# } }}
         </td>
         <td>
+            {{# if(item.is_autonym){ }}
+ 
+            {{# }else{  }}
             <a href="javascript:;" onclick="return tg({{item.user_id}})" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">审核通过</a> 
+            {{# } }}
+            
         </td>
     </tr>
     {{# }); }}

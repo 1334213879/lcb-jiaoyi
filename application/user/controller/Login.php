@@ -152,6 +152,11 @@ class Login extends Controller {
 			$fxid = db('users')->field('user_id,all_fxid')->where('user_id', $data['fxid'])->find();
 			if ($jc >= 2) {
 				return array('code' => 0, 'msg' => '该手机已注册');
+			} else {
+				$is_ni = db('users')->field('user_id')->where("mobile", $data['mobile'])->where('nickname', $data['nickname'])->find();
+				if ($is_ni) {
+					return array('code' => 0, 'msg' => '该手机的本昵称已注册');
+				}
 			}
 			if (empty($fxid)) {
 				return array('code' => 0, 'msg' => '该上级不存在');
