@@ -1,0 +1,21 @@
+.popup-invite{
+	width: 100%;
+	background: url(../../images/page-bg.png) bottom center no-repeat #181818;
+	background-size: contain;
+}
+.bar-nav ~ .content{
+	top: 2rem;
+}
+.content-block{
+	margin:0;
+	padding:0 0.5rem;
+}
+div.qrcode{
+	width: 40%;
+	margin:0 auto;
+	overflow: hidden;
+	position: relative;
+	padding:.2rem;
+	background: #fff;
+	border-radius: .5rem;
+}

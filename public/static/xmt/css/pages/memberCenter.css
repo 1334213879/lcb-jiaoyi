@@ -1,0 +1,472 @@
+ body#memberCenter{
+	background: /*#ebebeb*/#181918;/*可能要改回来的哦*/
+	overflow-y: visible;
+	position: relative;
+}
+/*可用公共*/
+*{padding:0;margin:0;}
+p{padding:0;margin:0;}
+ul,li{
+	list-style: none;
+}
+.section{
+	margin:1rem 0;
+	position: relative;
+	width: 100%;
+}
+div.section h3{
+	color: #f7ef91;
+	font-size: .8rem;
+	text-indent: 2rem;
+	position: relative;
+	width: 100%;
+	margin-bottom: .5rem;
+}
+div.section h3::before{
+	position: absolute;
+    content: '';
+    width: .8rem;
+    height: 1.2rem;
+    left: .8rem;
+    background: url(../../images/flag.png) center no-repeat;
+    background-size: 100% 100%;
+    top: 0rem;
+}
+.title-bar{
+	overflow: hidden;
+	background: #151514;
+	margin-bottom: .5rem;
+	position: relative;
+	border-bottom: solid 1px #2c2b22;
+}
+.title-bar h3{
+	text-align: center;
+    color: #f7ef91;
+    font-weight: 600;
+    position: relative;
+    font-size: .8rem;
+    margin: .8rem 0 0.5rem;
+}
+.title-bar>a{
+	position: absolute;
+    left: 1rem;
+    top: 1rem;
+    width: .6em;
+    height: .8em;
+    display: block;
+    background: url(../../images/back.png) center no-repeat;
+    background-size: 100% 100%;
+}
+/*可用公共end*/
+.title-bar>div.u-btn{
+	position: absolute;
+	top: .8rem;
+	right: 1rem;
+}
+.title-bar>div.u-btn>a{
+	display: inline-block;
+	width: 1.5em;
+	height: 1.5em;
+	background: url(../../images/u-btn.png) center bottom no-repeat;
+	background-size: 90% 85%;
+	border-radius: 50%;
+	border:solid 2px #f7ef91;
+}
+.cardtag{
+	color:#f7ef91!important;
+	position: relative;
+	background: url(../../images/ubg.jpg) center no-repeat;
+	background-size: 100% 100%;
+	padding:10px 0;
+	overflow: hidden;
+	margin-top: .8rem;
+	text-align: center;
+	width: 95%;
+	margin:0 auto;
+}
+.cardtag .u-pic{
+	width: 15%;
+	margin:0 auto;
+	border:solid 2px #f7ef91;
+	border-radius: 50%;
+	overflow: hidden;
+	font-size: 0;
+}
+.cardtag .u-pic img{
+	width:100%;
+}
+.cardtag .username{
+	color: #f7ef91;
+	font-size: .8rem;
+	font-weight: 600;
+}
+.cardtag .user-info{
+	text-align: center;
+	font-size: .6rem;
+}
+.cardtag .user-info>p>span{
+	display: block;
+}
+.cardtag img.v-lever{
+	position: absolute;
+    width:1rem;
+    height:1rem;
+    right:1rem;
+    top: 1rem;
+}
+.cardtag span.asets{
+	display: inline-block;
+	font-size: .8em;
+}
+/*购买vip*/
+.buy-vip ul.row{
+	width: 95%;
+	margin:0 auto;	
+}
+.buy-vip.section{
+	padding-bottom: 1rem;
+}
+.buy-vip.section::after{
+	position: absolute;
+	content: '';
+	width: 85%;
+	background:#f7ef91;
+	height: 1px;
+	bottom:0;
+	left: 7.5%;
+}
+.buy-vip ul.row li{
+	margin-left: 3%;
+	text-align: center;
+	background-color: #141311;
+	display: block;
+	border: solid 1px #f7ef91;
+	border-radius: 50%;
+	font-size: 0;	
+	float: left;
+	position: relative;
+	overflow: visible;
+}
+/*自适应保持1:1比例*/
+.buy-vip ul.row li::before{
+	content: "";
+	padding-top: 100%;
+	display: block;
+}
+.buy-vip ul.row li h2{
+	line-height: 1;
+	margin:0;
+	color:#f7ef91;
+	font-size: .8rem;
+	text-align: center;
+	position: absolute;
+	left: 0;
+	width: 100%;
+	top:50%;
+	margin-top: -.8rem;
+}
+.buy-vip ul.row li p{
+	position: absolute;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	top: 50%;
+	margin-top:.6rem;
+	line-height: 1;
+	color:#f7ef91;
+	font-size: .6rem;
+}
+
+
+/*我的账户*/
+.myAccount ul{
+	width: 96%;
+	margin:0 auto;
+}
+.myAccount ul li{
+	float: left;
+	width: 31%;
+	margin-left: 2%;
+	background: url(../../images/hexagon.png) center no-repeat;
+	background-size: 100% 100%;
+}
+.myAccount ul li::before{
+	content: "";
+	padding-top: 90%;
+	display: block;
+}
+.popup-acc table{
+	display: block;
+    margin-top: .6rem;
+    color: #fff;
+    text-align: center;
+    font-size: .75rem
+}
+.popup-acc table tbody,.popup-acc table tr{
+	display: block;
+}
+.popup-acc table tr th,.popup-acc table tr td{
+	width: 23%;
+	display: inline-block;
+}
+.popup-acc table tr{
+	border-bottom: solid 1px #ffa335;
+	padding:.3rem 0;
+}
+.myTeam{
+	padding-bottom: 2rem;
+	overflow: hidden;
+}
+.myTeam>ul{
+	width: 90%;
+	margin:0 auto;
+}
+.myTeam>ul>li{
+	color: #fff;
+    background: #3d4975;
+    border-radius: .25rem;
+    margin-bottom: .3rem;
+    padding: .5rem .2rem;
+    overflow: hidden;
+    width: 24%;
+    float: left;
+    font-size: .7rem;
+    margin-right: 1%;
+}
+.myTeam>ul>li span{
+	display: block;
+	text-align: center;
+	position: relative;
+}
+.myTeam>ul>li span:last-child::after{
+	position: absolute;
+    content: '>';
+    right: .8rem;
+    top: 0;
+}
+.popup-invite .qrcode{
+	width: 100%;
+	text-align: center;
+	color: #fff;
+	position: relative;
+}
+.popup-invite .qrcode .picbox{
+	width: 39%;
+	margin:1rem auto 0;
+	padding:2%;
+	position: relative;
+	background: #fff;
+	border-radius: 6px;
+}
+.popup-invite .qrcode img{
+	width: 100%;
+}
+.popup-invite .qrcode p{
+	margin:0;
+	line-height: 1.2rem;
+	font-size: .7rem;
+}
+/*弹出页调整*/
+.popup{
+/*	height: 100%;
+	position: absolute;
+	top: 0;
+	margin-bottom: 2rem;*/
+}
+.modal-in>h2{
+	margin:1rem 1rem 0;
+	font-size: 1rem;
+}
+.modal-in .content-block{
+	margin:.75rem 0!important;
+}
+.modal-in .content-block .row{
+	border-bottom: solid 1px #ccc;
+	margin-left: 0!important;
+	margin-top: .3rem;
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /*flex-wrap:nowrap;*/
+}
+
+.modal-in .content-block .row div:first-child{
+	width:16%;
+	position: relative;
+	border-radius: 50%;
+	overflow: hidden;
+
+}
+.modal-in .content-block .row div:first-child img{
+	width: 100%;
+}
+.modal-in .content-block .row div:nth-child(2){
+	
+}
+.modal-in .content-block .row div:nth-child(3){	
+    font-size: .7rem;
+    display: flex;
+	align-items:center;
+}
+.modal-in>p{
+	text-align: center;	
+}
+
+/*购买vip弹出窗*/
+div.buyvip-pop{
+	position: fixed;
+	z-index: 99;
+	width: 100%;
+	height: 100%;
+	background:rgba(0,0,0,.6);
+	overflow: hidden;
+	top: 0;
+}
+div.buyvip-pop .center-wrap{
+	width: 80%;
+	background: #fff;
+	position: relative;
+	margin:0 auto;
+	padding: 2rem 1rem 3rem;
+	text-align: center;
+	top:25%;
+}
+div.buyvip-pop .center-wrap .vcard-pic{
+	width: 80%;
+	margin:0 auto;
+	background: url(../../images/v1-card.png);
+	background-size: 100% 100%;
+}
+div.buyvip-pop .center-wrap .vcard-pic h2{
+	text-align: center;
+    color: #fff;
+    font-size: 1.5rem;
+    line-height: 5rem;
+    margin: 0;
+}
+div.buyvip-pop .center-wrap .op-btn{
+	width: 80%;
+	margin:0 auto;
+	position: relative;
+}
+div.buyvip-pop .center-wrap a{
+	display: inline-block;
+	float: left;
+	margin-right: 5%;
+	width: 45%;
+	color: #000;
+}
+div.buyvip-pop .center-wrap a.cancel{
+	background: #ffa405;
+}
+div.buyvip-pop .center-wrap a.confirm{
+	background: #4c83f6
+}
+.popup-invite .title-bar h4{
+	line-height: 3.5;
+    margin: 0;
+}
+
+a.totop{
+	display: block;
+	margin:0 auto;
+    width: 8rem;
+    background: #0894ec;
+    color: #fff;
+    line-height: 2.5;
+    border-radius: .2rem;
+    margin-top: .5rem;
+    text-align: center;
+}
+
+
+/*弹出页共用的样式*/
+/*弹出页上面没标题栏，下面没导航图标，共用背景，h4，p等共用*/
+/*共用背景*/
+.popup-invite,.popup-reward-rule,.popup-acc{
+	background:url(../../images/invite-bg2.jpg);
+	background-size: 100% 100%;
+	padding:0 1.5rem;/*页面左右加padding*/
+}
+.popup-subline{
+	background: #222c52;
+	padding:0 1rem;
+}
+/*没标题栏的时候往下来点*/
+.title-bar.nobar{
+	padding-top: 2rem;
+}
+/*文字容器*/
+ .content-block{
+	margin:0;
+	padding:0;
+	color: #fff;
+	font-size: .8rem;
+}
+/*页面标题*/
+.title-bar.nobar>h4{
+    text-align: center;
+    margin: 0;
+    line-height: 3;
+    color: #fff;
+    font-size: .8rem;
+}
+/*返回按钮*/
+.title-bar.nobar a{
+	position:absolute;
+    font-size:.8rem;
+    left:1rem;
+    top:1rem;
+    width:1rem;
+    height:1rem;
+    border-radius: .5rem;
+    background: url(../../images/list-cross.png) center no-repeat;
+}
+
+.popup-reward-rule{
+	color: #fff!important;
+	
+}
+.popup-invite p{
+	text-align: left;
+	font-size:.6rem;
+	margin:.2rem 0;
+}
+.popup-invite h5{
+	text-align: left;
+	margin:.6rem 0 0;
+}
+
+
+.buttons-row .button{
+	border:0!important;
+	border-radius:.25rem!important;
+	background: #465487!important;
+	margin:0 6px;
+	color: #fff;
+	height: 1.8rem;
+    line-height: 1.8rem;
+}
+.buttons-row .button.active{
+	background: #f6c34c!important;
+}
+
+.popup-node,.popup-gl,.popup-gx{
+	background: #222c52;
+	height: 100%;
+	padding:0 1rem;
+}
+
+/*
+会员等级设定背景
+ .buy-vip ul.row li.col-33:first-child{
+	background: url(../../images/v1-card.png) center no-repeat;
+	margin-left:0;
+}
+.buy-vip ul.row li.col-33:nth-of-type(2){
+	background: url(../../images/v2-card.png) center no-repeat;
+}
+.buy-vip ul.row li.col-33:nth-of-type(3){
+	background: url(../../images/v3-card.png) center no-repeat;
+}
+*/

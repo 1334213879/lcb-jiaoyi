@@ -1,0 +1,260 @@
+{include file="common/head"/}
+<body id="memberCenter">
+	<div class="title_bar">
+		<span><i></i>个人中心</span>
+	</div>
+	<div class="cardtag">		
+		<span>我的会员等级：V0</span>
+		<div class="user-info">
+			<img src="images/avatar.png" alt="">
+			<p><span class="username">西门吹雪</span><span class="userid">ID:015862</span></p>
+		</div>
+		<a href="#" class="open-popup"  data-popup=".popup-reward-rule">了解会员奖励制度></a>
+	</div>
+	<div class="buy-vip">		
+		<h3>购买会员</h3>
+		<ul class="row">
+			<li class="col-33">
+				<h2>V1会员</h2>
+				<p>购买会员></p>
+			</li>
+			<li class="col-33" >
+				<h2>V2会员</h2>
+				<p>购买会员></p>
+			</li>
+			<li class="col-33">
+				<h2>V3会员</h2>
+				<p>购买会员></p>
+			</li>
+		</ul>
+		<div class="buyvip-pop">
+			<div class="center-wrap">
+				<div class="vcard-pic"><h2>v1会员</h2></div>
+				<p>将从您USDT账户锁定$100.00</p>
+				<div class="op-btn">
+					<a href="#" class="cancel">取消</a>
+					<a href="" class="confirm">确认</a>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			$('.buy-vip ul li.col-33').click(function(){
+				$('body').css({
+					'overflow':'hidden',
+					'height':'100%',
+				});
+				$('.buyvip-pop').show();
+			});
+			$('a.cancel').click(function(){
+				$('.buyvip-pop').hide();
+				$('body').css({
+					'overflow':'visible',
+					'height':'auto',
+				});			
+			});
+			$('a.confirm').click(function(){
+				alert('购买成功！');
+			});
+		</script>
+	</div>
+	<div class="myAccount">
+		<h3>我的账号<a href="account-income-list.html">查看账号收益</a></h3>
+		<!-- 选项卡 -->
+	  <div class="content-block">
+	    <div class="buttons-row">
+	      <a href="#tab1" class="tab-link active button">三生万物账号</a>
+	      <a href="#tab2" class="tab-link button">六六无尽账号</a>
+	      <a href="#tab3" class="tab-link button">九九归一账号</a>
+	    </div>
+	  </div>
+	  <div class="tabs">
+	    <div id="tab1" class="tab active">
+	      <div class="content-block">
+	       <table>
+	        	<tr>
+	        		<th>状态</th>
+	        		<th>排位位置</th>
+	        		<th>所属层级</th>
+	        		<th>操作</th>
+	        	</tr>
+	        	<tr>
+	        		<td>未激活</td>
+	        		<td>无</td>
+	        		<td>无</td>
+	        		<td><a href="">去激活</a></td>
+	        	</tr>	        
+	        </table>
+	      </div>
+	    </div>
+	    <div id="tab2" class="tab">
+	      <div class="content-block">
+	        <!-- 66无尽账号明细 -->
+	        <table>
+	        	<tr>
+	        		<th>状态</th>
+	        		<th>排位位置</th>
+	        		<th>所属层级</th>
+	        		<th>操作</th>
+	        	</tr>
+	        	<tr>
+	        		<td>未激活</td>
+	        		<td>无</td>
+	        		<td>无</td>
+	        		<td><a href="">去激活</a></td>
+	        	</tr>
+	        	<tr>
+	        		<td>已激活</td>
+	        		<td>第34位</td>
+	        		<td>第6层</td>
+	        		<td><a href="">查看收益</a></td>
+	        	</tr>
+	        </table>
+	        <!-- 66无尽账号明细 -->
+	      </div>
+	    </div>
+	    <div id="tab3" class="tab">
+	      <div class="content-block">
+	       <table>
+	        	<tr>
+	        		<th>状态</th>
+	        		<th>排位位置</th>
+	        		<th>所属层级</th>
+	        		<th>操作</th>
+	        	</tr>
+	        	<tr>
+	        		<td>未激活</td>
+	        		<td>无</td>
+	        		<td>无</td>
+	        		<td><a href="">去激活</a></td>
+	        	</tr>	        
+	        </table>
+	      </div>
+	    </div>
+	  </div>
+	<!-- 选项卡end -->
+	</div>
+
+	<div class="myTeam">
+		<h3>我的团队</h3>
+		<ul>
+			<li class="subline open-popup" data-popup=".popup-subline">				
+				<span><i></i>直推团队</span>
+				<span><strong>9</strong>人</span>				
+			</li>
+			<li class="node-team open-popup" data-popup=".popup-node">				
+				<span><i></i>见点团队</span>
+				<span><strong>10</strong>人</span>				
+			</li>
+			<li class="manage-team">				
+				<span><i></i>管理团队</span>
+				<span><strong>11</strong>人</span>
+			</li>
+			<li class="share-team">				
+				<span><i></i>共享团队</span>
+				<span><strong>12</strong>人</span>
+			</li>			
+		</ul>
+		<!-- 弹出页集合 -->
+		<!-- 直推团队弹出页 -->
+		<div class="popup popup-subline">
+			<h2>我的直推团队</h2>
+		<!-- 选项卡 -->
+	  <div class="content-block">
+	    <div class="buttons-row">
+	      <a href="#tab4" class="tab-link active button">全部（9人）</a>
+	      <a href="#tab5" class="tab-link button">已激活（5人）</a>
+	    </div>
+	  </div>
+	  <div class="tabs">
+	    <div id="tab4" class="tab active">
+	    	<!-- 下线列表 -->
+	      <div class="content-block">
+	       <ul>
+	       	<li class="row">	       		
+			    <div class="col-20"><img src="images/avatar.png" alt="" style="width: 100%"></div>
+			    <div class="col-33">会员昵称</div>
+				<div class="col-50"><!-- 注册时间 -->2018-11-29 16:58</div>
+	       	</li>
+	       	<li class="row">	       		
+			    <div class="col-20"><img src="images/avatar.png" alt="" style="width: 100%"></div>
+			    <div class="col-33">会员昵称</div>
+				<div class="col-50"><!-- 注册时间 -->2018-11-29 16:58</div>
+	       	</li>
+	       </ul>
+	      </div>
+	    </div>
+	    <div id="tab5" class="tab">
+	    	<!-- 已激活列表 -->
+	      <div class="content-block">
+	        <ul>
+		       	<li class="row">	       		
+				    <div class="col-20"><img src="images/avatar.png" alt="" style="width: 100%"></div>
+				    <div class="col-33">会员昵称</div>
+					<div class="col-50"><!-- 注册时间 -->2018-11-29 16:58</div>
+		       	</li>
+		       	<li class="row">	       		
+				    <div class="col-20"><img src="images/avatar.png" alt="" style="width: 100%"></div>
+				    <div class="col-33">会员昵称</div>
+					<div class="col-50"><!-- 注册时间 -->2018-11-29 16:58</div>
+		       	</li>
+		       	<li class="row">	       		
+				    <div class="col-20"><img src="images/avatar.png" alt="" style="width: 100%"></div>
+				    <div class="col-33">会员昵称</div>
+					<div class="col-50"><!-- 注册时间 -->2018-11-29 16:58</div>
+		       	</li>
+	        </ul>
+	      </div>
+	    </div>	  
+	  </div>
+	<!-- 选项卡end -->
+	<p><a href="#" class="close-popup">关闭</a></p>
+	</div>
+		<!-- 直推团队弹出页end -->
+		<!-- 见点团队弹出页，显示成员列表 -->
+		<div class="popup popup-node">
+			<h2>我的见点团队</h2>
+		  <div class="content-block">
+		  	<ul>
+	       	<li class="row">	       		
+			    <div class="col-20"><img src="images/avatar.png" alt="" style="width: 100%"></div>
+			    <div class="col-33">会员昵称</div>
+				<div class="col-50"><!-- 注册时间 -->2018-11-29 16:58</div>
+	       	</li>
+	       	<li class="row">	       		
+			    <div class="col-20"><img src="images/avatar.png" alt="" style="width: 100%"></div>
+			    <div class="col-33">会员昵称</div>
+				<div class="col-50"><!-- 注册时间 -->2018-11-29 16:58</div>
+	       	</li>
+	       </ul>		   
+		  </div>
+		   <p><a href="#" class="close-popup">关闭</a></p>
+		</div>
+		<!-- 见点团队弹出页end -->
+		<!-- 奖励制度弹出页 -->
+		<div class="popup popup-reward-rule">
+			<h2>NMCT会员奖励制度详细说明</h2>
+		  <div class="content-block">
+		  	<h4>奖励制度1</h4>
+		  	<p>奖励制度说明文字奖励制度说明文字奖励制度说明文字奖励制度说明文字</p>
+		  	<h4>奖励制度2</h4>
+		  	<p>奖励制度说明文字奖励制度说明文字奖励制度说明文字奖励制度说明文字</p>
+		  	<h4>奖励制度3</h4>
+		  	<p>奖励制度说明文字奖励制度说明文字奖励制度说明文字奖励制度说明文字奖励制度说明文字奖励制度说明文字奖励制度说明文字奖励制度说明文字</p>
+		    <p><a href="#" class="close-popup">我看完了</a></p>
+		  </div>
+		</div>
+		<!-- 奖励制度弹出页end -->
+		<!-- 购买会员弹出页 -->
+		<div class="popup popup-buyvip">
+			<div class="content-block">
+				
+				<p><a href="#" class="close-popup">取消</a></p>
+			</div>
+		</div>
+		<!-- 购买会员弹出页end -->
+	<!-- 弹出页集合 -->
+	</div>
+</body>
+</html>
+
+

@@ -1,0 +1,121 @@
+.bitcoin_list .title {
+    font-size: 18px;  
+    border-bottom: 2px solid #838383;
+}
+.bitcoin_list .title span {
+    float: left;
+    width: 10px;
+    height: 20px;
+    margin: 3px 0px;
+    background: url(http://i0.jrjimg.cn/summary/lhb_v2015/mhonenew.png) no-repeat 0 center;
+}
+.bitcoin_list .title .F_right {
+    float: right;
+    height: 38px;
+    font-size: 15px;
+    color: #333333;
+    text-decoration: none;
+    font-weight: 400;
+}
+.bitcoin_list .title a.F_right {
+    color: #e30404;
+    font-size: 13px;
+}
+.bitcoin_list {
+    width: 100%;
+    float: right;
+    font-family: \5FAE\8F6F\96C5\9ED1;
+}
+.column7 ,.column6,.column5,.column4,.column1{
+	text-align:center;
+}
+.column5{
+	font-size:14px;font-weight:500;
+}
+.column5a{
+	height:28px;
+    line-height:28px;
+    background:red;
+    margin:5px;
+    border-radius:5px;
+    text-align: center;
+    color:#fff;    
+}
+
+.hb >tr>th {
+	font-size:12px;
+}
+.gre{
+	background:#2faf2d;
+}
+.bitcoin_list table {
+    width: 100%;
+    font-size: 12px;
+}
+.red{
+	background:red;
+}
+.bitcoin_list table th.desc {
+/* url(http://i0.jrjimg.cn/summary/v3/sort_desc.gif) no-repeat 98% center */
+    padding-right: 10px;
+}
+
+.bitcoin_list table th.asc {
+    background:#33344c;/*  url(http://i0.jrjimg.cn/summary/v3/sort_asc.gif) no-repeat 98% center */
+    padding-right: 10px;
+}
+
+.bitcoin_list table th.sort {
+    cursor: pointer;
+}
+
+.bitcoin_list table tr {
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.disc {
+    background: #f2f2f2;
+    padding: 10px 22px;
+    color: #353535;
+}
+
+.disc h4 {
+    background: url(http://i0.jrjimg.cn/summary/v3/qqgz/ic_sm.gif) no-repeat left 5px;
+    padding: 0 0 5px 22px;
+    font-weight: bold;
+    line-height: 22px;
+}
+
+.disc p {
+    line-height: 22px;
+}
+.in_logo a {
+    color: #31890d;
+}
+
+.in_logo img {
+    vertical-align: middle;   
+    width: 55px;
+}
+.in_logo a:first-child{
+   text-decoration: none;
+}
+
+.jjsjCen .dizhi span{
+    padding-left: 0;
+}
+.bitcoin_list .title{
+    height:38px;
+}
+.in_logo {
+    font-size: 12px;
+    line-height: 45px;
+    float: right;
+    height: 45px;
+}
+.in_logo img {
+    vertical-align: middle;
+    float: left;
+    margin-top: 10px;
+    width: 66px;
+}

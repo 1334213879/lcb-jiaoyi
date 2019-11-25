@@ -1,0 +1,108 @@
+html{
+	background: #222c52;	
+}
+ul{padding:0;}
+ul,li{
+	list-style: none;
+}
+body#account-income-list{
+	overflow-y: visible;
+	position: relative;
+	padding-bottom: 2rem;
+	background: transparent;
+}
+.title_bar{
+	overflow: hidden;
+}
+.title_bar span{
+	text-align: center;
+	color: #fff;
+	display: block;
+	margin-top: .5rem;
+}
+.title_bar span i{
+	display: inline-block;
+	width: 1rem;
+	height: 1rem;
+	background: url(../../images/logo.png) center no-repeat;
+	background-size: 100% 100%;
+	position: relative;
+	top: .2rem
+}
+.title_bar a{
+	position: absolute;
+	color: #fff;
+	font-size: 1.2rem;
+	left: 1rem;
+	top: .4rem;
+}
+div.sum{
+	color: #fff;
+	width: 95%;
+	margin:1rem auto 0;
+	background: #3d4975;
+	border-radius: .25rem;
+	line-height: 3.5;
+	text-indent: 1rem;
+}
+div.income-list .content-block{
+	margin:.75rem 0!important;
+}
+.buttons-row .button{
+	border:0!important;
+	border-radius:.25rem!important;
+	background: #465487!important;
+	margin:0 3px;
+	color: #fff;
+	height: 1.5rem;
+    line-height: 1.5rem;
+}
+.buttons-row .button.active{
+	background: #4c83f6!important;
+}
+.myAccount .content-block{
+	margin:0;
+}
+ul.income_list li{
+	color: #fff;
+	overflow: hidden;
+	border-bottom: solid 1px #888;
+}
+ul.income_list li>span{
+	display: block;
+}
+ul.income_list li>span:first-child{
+	float: left;
+}
+ul.income_list li>span:last-child{
+	float:right;
+}
+ul.income_list li p{
+	margin:.2rem 0;
+}
+ul.income_list li p.fl{
+	float: left;
+}
+ul.income_list li p.fl span.account-id{
+	font-size: 1rem;
+	font-weight: bold;
+}
+ul.income_list li p.fl span.time-record{
+	font-size: .7rem;
+}
+ul.income_list li p.fr{
+	float: right;
+	text-align: right;
+}
+ul.income_list li p>span{
+	display: block;
+}
+ul.income_list li p.fr .award-num{
+	color: #ffa405;
+    font-weight: bold;
+    line-height: 1;
+}
+
+
+
+
