@@ -631,7 +631,7 @@ function ccclick(name){
 		    dataType:'json',
 		    success:function(data){
 		        $('#backimg').attr('src',""+data.url+"");
-		        $('#uid_back').val(""+data.url+"");
+		        $('#uid_back').value = data.url;
 		    }
 		});
 	});
@@ -648,7 +648,7 @@ function ccclick(name){
 		    dataType:'json',
 		    success:function(data){
 		        $('#handimg').attr('src',""+data.url+"");
-		        $('#uid_hand').val(""+data.url+"");
+		        $('#uid_hand').value = data.url;
 		    }
 		});
 	});
@@ -656,10 +656,10 @@ function ccclick(name){
 
 function check(){
 	if($("#cc_name").val() == "" || $("#cc_name").val() == null){
-		alert("请输入姓名");
+		wboos.toast("请输入姓名");
 		return false;
 	}else if($("#cc_uid").val() == "" || $("#cc_uid").val() == null){
-		alert("请输入身份证");
+		wboos.toast("请输入身份证");
 		return false;
 	}else if($("#cc_uid").val().length != 18 && !(/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/.test($("#cc_uid").val()))) {
 		alert("您输入的身份证号码不是有效格式");
