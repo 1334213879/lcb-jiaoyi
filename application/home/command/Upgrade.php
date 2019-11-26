@@ -38,13 +38,13 @@ class Upgrade extends Command {
 				}
 				break;
 			case 3:
-				$th = $this->jisuan($v, 3);
+				$th = $this->jisuan($v, 3, 3);
 				break;
 			case 4:
-				$th = $this->jisuan($v, 4);
+				$th = $this->jisuan($v, 4, 3);
 				break;
 			case 5:
-				$th = $this->jisuan($v, 5);
+				$th = $this->jisuan($v, 5, 10);
 				break;
 			default:
 				// $num = db::name('users')->where('fxid', $v['user_id'])->count();
@@ -58,11 +58,11 @@ class Upgrade extends Command {
 
 	}
 
-	public function jisuan($v, $l) {
+	public function jisuan($v, $l, $n) {
 		$all = db::name('users')->where('all_fxid', 'like', '%' . $v['user_id'] . '%')->where('level', '>', $l)->select();
 		$f_num = $this->quchong($all, 'fxid');
 		$num = count($f_num);
-		if ($num >= 3) {
+		if ($num >= $n) {
 			db::name('users')->where('user_id', $v['user_id'])->setField('level', $v['level'] + 1);
 		}
 		return 1;
