@@ -68,11 +68,15 @@ class Borret extends Common {
 	}
 //提现
 	public function withdraw() {
-		$t_money = input('money');
+		// $t_money = input('money');
 		$address = input('address');
 		// $money = $t_money - 5;
 		$ytx = DB::name('users')->where('user_id', session('user.user_id'))->find();
-
+		if ($ytx['is_autonym'] == 0) {
+			$result['status'] = 0;
+			$result['msg'] = '请实名';
+			return json_encode($result);
+		}
 		$is_tx = DB::name('log')->where('type', 50)->where('status', 1)->find();
 		if ($is_tx) {
 			$result['status'] = 0;
@@ -89,23 +93,23 @@ class Borret extends Common {
 		//可提
 		$tmonry = $ytx['bonus'] + $ytx['j_bonus'];
 
-		if ($money < 0) {
+		if ($tmonry < 0) {
 			$result['status'] = 0;
 			$result['msg'] = '金额不足';
 			return json_encode($result);
 		}
 
-		$t = 0;
-		$y = 0;
-		if (($tmonry + $todaymoney) > 500) {
-			// $money = 3000 - $ytx['yet_tx_money'];
-			$t = 500 - $todaymoney;
-		}
+		// $t = 0;
+		// $y = 0;
+		// if (($tmonry + $todaymoney) > 500) {
+		// $money = 3000 - $ytx['yet_tx_money'];
+		$t = 500 - $todaymoney;
+		// }
 
-		if (($tmonry + $ytx['yet_tx_money']) > 3000) {
-			$y = 3000 - $ytx['yet_tx_money'];
-		}
-
+		// if (($tmonry + $ytx['yet_tx_money']) > 3000) {
+		$y = 3000 - $ytx['yet_tx_money'];
+		// }
+		//对比月余额和日月取小值
 		if ($t < $y) {
 			$money = $t;
 		} elseif ($t > $y) {
