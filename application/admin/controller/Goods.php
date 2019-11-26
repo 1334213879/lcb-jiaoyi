@@ -492,8 +492,8 @@ class Goods extends Common {
 			// ->setField([
 			// 	'money_usdt' => ["exp", "`money_usdt`+{$log['usdt']}"], 'money_cz' => ["exp", "`money_cz`+{$log['usdt']}"],
 			// ]);
-			db('users')->where("`user_id`={$log['user_id']}")->->setInc('money_usdt', $log['usdt']);
-			db('users')->where("`user_id`={$log['user_id']}")->->setInc('money_cz', $log['usdt']);
+			db('users')->where("`user_id`={$log['user_id']}")->setInc('money_usdt', $log['usdt']);
+			db('users')->where("`user_id`={$log['user_id']}")->setInc('money_cz', $log['usdt']);
 		}
 		return ['status' => 1, 'msg' => '操作成功！'];
 	}
