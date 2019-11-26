@@ -99,17 +99,17 @@ class Borret extends Common {
 			return json_encode($result);
 		}
 
-		$t = 0;
-		$y = 0;
-		if (($tmonry + $todaymoney) > 500) {
-			// $money = 3000 - $ytx['yet_tx_money'];
-			$t = 500 - $todaymoney;
-		}
+		// $t = 0;
+		// $y = 0;
+		// if (($tmonry + $todaymoney) > 500) {
+		// $money = 3000 - $ytx['yet_tx_money'];
+		$t = 500 - $todaymoney;
+		// }
 
-		if (($tmonry + $ytx['yet_tx_money']) > 3000) {
-			$y = 3000 - $ytx['yet_tx_money'];
-		}
-
+		// if (($tmonry + $ytx['yet_tx_money']) > 3000) {
+		$y = 3000 - $ytx['yet_tx_money'];
+		// }
+		//对比月余额和日月取小值
 		if ($t < $y) {
 			$money = $t;
 		} elseif ($t > $y) {
