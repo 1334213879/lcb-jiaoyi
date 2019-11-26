@@ -28,24 +28,24 @@ class UpFiles extends Common {
 	//上传实名认证
 	public function autonym_upload() {
 		// 获取上传文件表单字段名
-		$file = $request->file('file');
-		if ($file) {
-			$info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');
-			if ($info) {
-				$img = $info->getSaveName(); //获取名称
-				$imgpath = DS . 'uploads' . DS . '/users/' . $img;
-			} else {
-				// 上传失败获取错误信息
-				$result['code'] = 0;
-				$result['info'] = '图片上传失败!';
-				$result['url'] = '';
-				return json_encode($result, true);
-			}
+		$fileKey = array_keys(request()->file());
+		// 获取表单上传文件
+		$file = request()->file($fileKey['0']);
+		// 移动到框架应用根目录/public/uploads/ 目录下
+		$info = $file->move(ROOT_PATH . 'public' . DS . 'uploads/users_autonym_img');
+		if ($info) {
+			$result['code'] = 1;
+			$result['info'] = '图片上传成功!';
+			$path = str_replace('\\', '/', $info->getSaveName());
+			$result['url'] = '/uploads/' . $path;
+			return json_encode($result, true);
+		} else {
+			// 上传失败获取错误信息
+			$result['code'] = 0;
+			$result['info'] = '图片上传失败!';
+			$result['url'] = '';
+			return json_encode($result, true);
 		}
-		$result['code'] = 0;
-		$result['info'] = '图片上传失败!';
-		$result['url'] = '';
-		return json_encode($result, true);
 	}
 	public function file() {
 		$fileKey = array_keys(request()->file());

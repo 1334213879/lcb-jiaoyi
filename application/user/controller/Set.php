@@ -448,7 +448,7 @@ class Set extends Common {
 		$img3 = input('post.uid_hand');
 
 		if (empty($img1) || empty($img2) || empty($img3) || empty($autonym_number) || empty($xm)) {
-			return false;
+			return json_encode(array('status' => 0, 'msg' => '数据不全！'));
 		}
 		$user_id = session('user.user_id');
 		$img = [$img1, $img2, $img3];
@@ -457,9 +457,9 @@ class Set extends Common {
 		// $json = json_encode($img1 . ',' . $img2 . ',' . $img3);
 		$msg = db::name('users')->where('user_id', $user_id)->update(['autonym_img' => $json, 'autonym_number' => $autonym_number, 'xm' => $xm]);
 		if ($msg) {
-			return $this->redirect('user/index/my');
+			return json_encode(array('status' => 1, 'msg' => '成功！'));
 		} else {
-			return false;
+			return json_encode(array('status' => 0, 'msg' => '失败！'));
 		}
 	}
 }
