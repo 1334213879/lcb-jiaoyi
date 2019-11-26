@@ -490,16 +490,26 @@ border-radius: 4px;
 						<li style="display: flex; justify-content: space-between; align-items: flex-start;">
 							<div class="inv_sec">
 								<p style="font-size: .7rem; color: #999;">充入数量</p>
-								<p><span id="czje"><input type="text" placeholder="充入金额" style="width: 90%;" /></span></p>
+								<p><span id="czje"><input type="button" id="money_usdt" placeholder="充入金额" value="1500" style="width: 90%;" /></span></p>
 							</div>
 							<div class="inv_sec">
 								<p style="font-size: .7rem; color: #999;">上传转账凭证</p>
-								<p><span id="up_cz"><input type="file"  style="opacity: 0; width: 90%;" /></span></p>
+								<p><span id="up_cz">
+								<input type="file" id="czimg" onchange="czpz(this)" style="opacity: 0; width: 90%;" />
+								<input type="hidden" value="" class="czimg" />
+								</span></p>
 							</div>
 						</li>
 						<li>
 							<p style="padding: 0 5rem;">
-								<a href="#" class="button" style="background: rgb(238,198,127); color: rgb(89,67,33); border: none; height: auto; padding: .5rem 0;">确定充入</a>
+								<a href="#"  @click="zc_(3);"
+								class="button" 
+								v-if="user.money_usdt != 1500" 
+								style="background: rgb(238,198,127); color: rgb(89,67,33); border: none; height: auto; padding: .5rem 0;">确定充入</a>
+								<a href="#"
+								class="button" 
+								v-else 
+								style="background: rgb(40,40,40); color: gray; border: none; height: auto; padding: .5rem 0;">确定充入</a>
 							</p>
 							<p style="padding: 0 5rem; text-align: center;">
 								<a href="#" class="back" style="font-size: .8rem; color: #999;">取消</a>
@@ -520,7 +530,7 @@ border-radius: 4px;
 					<ul>
 						<li>
 							<p style="font-size: .7rem; color: #999;">提出USDT钱包地址</p>
-							<p><input type="text" id="withdraw_address" v-bind:value="yhk.yhk" placeholder="请输入钱包地址" maxlength="10" /></p>
+							<p><input type="button" id="withdraw_address" v-bind:value="yhk.yhk" placeholder="请输入钱包地址" maxlength="10" /></p>
 							<p style="text-align: center; margin: .3rem 0;"><a href="#" id="copy">点击复制地址</a></p>
 						</li>
 						<script>
@@ -531,12 +541,12 @@ border-radius: 4px;
 								alert("已复制到剪贴板");
 							}
 						</script>
-						<li style="display: flex; align-items: flex-start;">
+						<!-- <li style="display: flex; align-items: flex-start;">
 							<div class="inv_sec">
 								<p style="font-size: .7rem; color: #999;">提出数量</p>
 								<p><span id="czje"><input type="text" placeholder="提出金额" id="withdraw_con" style="width: 90%;" /></span></p>
 							</div>
-						</li>
+						</li> -->
 						<li>
 							<p style="padding: 0 5rem;">
 								<a href="#" 
@@ -729,6 +739,24 @@ function copy(id){
 
 	 }
 
+function czpz(d){
+	var formdata = new FormData();
+	formdata.append("file",d.files[0]);
+	$.ajax({
+	    url:"{:url('user/UpFiles/autonym_upload')}",
+	    type:'POST',
+	    data:formdata,
+		cache: false,
+		contentType: false,    //不可缺
+		processData: false,    //不可缺
+		dataType:'json',
+	    success:function(data){
+			$(".czimg").val(""+data.url+"");
+			wboos.toast(data.msg);
+	    }
+	});
+}
+
 var app = new Vue({
   el: '.page-group',
   data: {
@@ -818,6 +846,56 @@ var app = new Vue({
 				$('.jh_code').click();
 			}
 		})
+	},
+	zc_(type){
+		var img = $(".czimg").val();
+		var user = '';
+		if(type==0){
+			var number = $('#nmct').val();
+			if($('#nmct').val()==0 || $('#nmct').val()%100!==0 || $('#nmct').val()<99){
+				wboos.toast('复投100的倍数起');return;
+			}
+		}else if(type==1){
+			var number = $('#usdt').val();
+		}else if(type==2){
+			var number = $('#xmt').val();
+		}else if(type==3){
+			var number = $('#money_usdt').val();
+		}else if(type==4){
+			var number = $('#jh_1').val();
+		}else if(type==5){
+			var number = $('#jh_2').val();
+		}else if(type==6){
+			var number = this.level_;
+		}else if(type==7){
+			var number = $('#xmt_num').val();
+			var user = $('#xmt_p').val();
+		}
+		// wboos.confirm('确定要提交?', function () {
+	 //                    wboos.httpRequest({
+	 //                        url: '/user/mode/zc.html',
+	 //                        type: 'post',
+	 //                        data: {type:type,number:number,img:img,user:user},
+	 //                        success: function(i){
+	 //                            if(i.status==0){
+		// 							wboos.toast(i.msg);
+		// 						}else{
+		// 							wboos.toast(i.msg);
+		// 							$('.cancel').click();
+		// 							app.getData();
+		// 						}
+	 //                        }
+	 //                    });
+	 //                });
+	 $.ajax({
+		 url: "/user/mode/zc.html",
+		 type: 'POST',
+		 data: {type:type,number:number,img:img,user:user},
+		 dataType:'json',
+		 success:function(data){
+		 	console.log(data.msg);
+		 }
+	 })
 	},
 	getborrow(){
 		this.$http.get('/user/borret/borrow').then(function(res){
