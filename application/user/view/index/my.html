@@ -67,11 +67,11 @@
                             <!-- <span v-if="user.g>0">G{{user.g}}</span> -->
                             <!-- 这里有一条VUE数据 -->
                            </div>
-                           <div class="user-info">
+                           <!-- <div class="user-info">
                                 <span><a class="page-upgrade" href="#page-upgrade" 
 								style="color: rgb(238,198,127); border: 1px solid rgb(238,198,127); padding: 0.2rem 0.5rem; border-radius: 0.4rem;"
 								>{:lang('升级')}</a></span>
-                           </div>
+                           </div> -->
                         </div>
                     </div>
                 </div>
@@ -538,7 +538,6 @@
 				    <a class="icon pull-left back"></a>
 				    <h1 class="title">{:lang('实名认证')}</h1>
 				</header>
-				<form action="{:url('user/set/up_autonym')}" method="post">
 					<div class="list-block cc">
 						<p>
 							<span><img src="__STATIC__/xmt/images/cc_1.png" width="50%" height="50%" /></span>
@@ -554,29 +553,31 @@
 						</p>
 						<div class="cc_con">
 							<div class="cc_picbox">
-								<input type="file" placeholder="点击上传身份证正面" id="uid_front" name="uid_front" style="display: none;" />
+								<input type="file" placeholder="点击上传身份证正面" id="uid_front" style="display: none;" />
+								<input type="hidden" name="uid_front" value="" class="uid_front" />
 								<!-- <button class="front_click" type="button" onclick="ccclick($('#uid_front'))">点击上传身份证正面</button> -->
-								<img id="froimg" class="front_click" onclick="ccclick($('#uid_front'))" src="__STATIC__/xmt/images/im1.png" alt="点击上传身份证正面" width="100%" height="100%" />
+								<img id="froimg" class="front_click" @click="zclick()" src="__STATIC__/xmt/images/im1.png" alt="点击上传身份证正面" width="100%" height="100%" />
 							</div>
 							<div class="cc_picbox">
-								<input type="file" placeholder="点击上传身份证反面" id="uid_back" name="uid_back" style="display: none;" />
+								<input type="file" placeholder="点击上传身份证反面" id="uid_back" style="display: none;" />
+								<input type="hidden" name="uid_back" value="" class="uid_back" />
 								<!-- <button class="back_click" type="button" onclick="ccclick($('#uid_back'))">点击上传身份证反面</button> -->
-								<img id="backimg" class="back_click" onclick="ccclick($('#uid_back'))" src="__STATIC__/xmt/images/im2.png" alt="点击上传身份证反面" width="100%" height="100%" />
+								<img id="backimg" class="back_click" @click="fclick()" src="__STATIC__/xmt/images/im2.png" alt="点击上传身份证反面" width="100%" height="100%" />
 							</div>
 							<div class="cc_picbox">
-								<input type="file" placeholder="点击上传本人手持身份证" id="uid_hand" name="uid_hand" style="display: none;" />
+								<input type="file" placeholder="点击上传本人手持身份证" id="uid_hand" style="display: none;" />
+								<input type="hidden" name="uid_hand" value="" class="uid_hand" />
 								<!-- <button class="hand_click" type="button" onclick="ccclick($('#uid_hand'))">点击上传本人手持身份证</button> -->
-								<img id="handimg" class="hand_click" onclick="ccclick($('#uid_hand'))" src="__STATIC__/xmt/images/im3.png" alt="点击上传本人手持身份证" width="100%" height="100%" />
+								<img id="handimg" class="hand_click" @click="sclick()" src="__STATIC__/xmt/images/im3.png" alt="点击上传本人手持身份证" width="100%" height="100%" />
 							</div>
 						</div>
 						<p style="position: absolute; bottom: -50px; left: 5%; width: 90%;">
 							<input type="submit" value="保存" class="button button-round button-big" 
 							style="background: rgb(238,198,127); color: rgb(89,67,33); border: none;"
-							onclick="return check()"
+							@click="ccsave($('#cc_name').val(),$('#cc_uid').val(),$('.uid_front').val(),$('.uid_back').val(),$('.uid_hand').val())"
 							 />
 						</p>
 					</div>
-				</form>
 			</div>
 		</div>
 </div>
@@ -588,6 +589,89 @@
      function triggerclick(){
         $('#LAY-file').trigger('click'); 
      }
+	 function zclick(){
+		 $("#uid_front").trigger('click');
+		 $("#uid_front").change(function (){
+			var formdata = new FormData();
+			formdata.append("file",this.files[0]);
+			$.ajax({
+			    url:"{:url('user/UpFiles/autonym_upload')}",
+			    type:'POST',
+			    data:formdata,
+			    cache: false,
+			    contentType: false,    //不可缺
+			    processData: false,    //不可缺
+				dataType:'json',
+			    success:function(data){
+					console.log(data);
+			        $('#froimg').attr('src',""+data.url+"");
+			        $('.uid_front').attr('value',""+data.url+"");
+			    }
+			});
+		});
+	 }
+	 function fclick(){
+		 $("#uid_back").trigger('click');
+		 $("#uid_back").change(function (){
+		 	var formdata = new FormData();
+		 	formdata.append("file",this.files[0]);
+		 	$.ajax({
+		 	    url:"{:url('user/UpFiles/autonym_upload')}",
+		 	    type:'POST',
+		 	    data:formdata,
+		 	    cache: false,
+		 	    contentType: false,    //不可缺
+		 	    processData: false,    //不可缺
+		 		dataType:'json',
+		 	    success:function(data){
+		 			console.log(data);
+		 	        $('#backimg').attr('src',""+data.url+"");
+		 	        $('.uid_back').attr('value',""+data.url+"");
+		 	    }
+		 	});
+		 });
+	 }
+	 function sclick(){
+		 $("#uid_hand").trigger('click');
+		 $("#uid_hand").change(function (){
+		 	var formdata = new FormData();
+		 	formdata.append("file",this.files[0]);
+		 	$.ajax({
+		 	    url:"{:url('user/UpFiles/autonym_upload')}",
+		 	    type:'POST',
+		 	    data:formdata,
+		 	    cache: false,
+		 	    contentType: false,    //不可缺
+		 	    processData: false,    //不可缺
+		 		dataType:'json',
+		 	    success:function(data){
+		 			console.log(data);
+		 	        $('#handimg').attr('src',""+data.url+"");
+		 	        $('.uid_hand').attr('value',""+data.url+"");
+		 	    }
+		 	});
+		 });
+	 }
+	 function ccsave(name,uid,img1,img2,img3){
+		$.ajax({
+		    url:"{:url('user/set/up_autonym')}",
+		    type:'POST',
+		    data:{
+				cc_name:name,
+				uid:uid,
+				uid_front:img1,
+				uid_back:img2,
+				uid_hand:img3
+			},
+		    // cache: false,
+		    // contentType: false,    //不可缺
+		    // processData: false,    //不可缺
+			dataType:'json',
+		    success:function(data){
+				location.href = "/user/index/my";
+		    }
+		});
+	 }
 </script>
 
 <script type="text/javascript">
@@ -598,61 +682,61 @@ function int_(i){
         return i;
     }
 }
-function ccclick(name){
-	name.click();
-	$("#uid_front").change(function (){
-		var formdata = new FormData();
-		formdata.append("file",this.files[0]);
-		$.ajax({
-		    url:"{:url('user/index/upload')}",
-		    type:'POST',
-		    data:formdata,
-		    cache: false,
-		    contentType: false,    //不可缺
-		    processData: false,    //不可缺
-		    dataType:'json',
-		    success:function(data){
-				// console.log($('#uid_front').value = data.url);
-		        $('#froimg').attr('src',""+data.url+"");
-		        $('#uid_front').value = data.url;
-		    }
-		});
-	});
-	$("#uid_back").change(function (){
-		var formdata = new FormData();
-		formdata.append("file",this.files[0]);
-		$.ajax({
-		    url:"{:url('user/index/upload')}",
-		    type:'POST',
-		    data:formdata,
-		    cache: false,
-		    contentType: false,    //不可缺
-		    processData: false,    //不可缺
-		    dataType:'json',
-		    success:function(data){
-		        $('#backimg').attr('src',""+data.url+"");
-		        $('#uid_back').value = data.url;
-		    }
-		});
-	});
-	$("#uid_hand").change(function (){
-		var formdata = new FormData();
-		formdata.append("file",this.files[0]);
-		$.ajax({
-		    url:"{:url('user/index/upload')}",
-		    type:'POST',
-		    data:formdata,
-		    cache: false,
-		    contentType: false,    //不可缺
-		    processData: false,    //不可缺
-		    dataType:'json',
-		    success:function(data){
-		        $('#handimg').attr('src',""+data.url+"");
-		        $('#uid_hand').value = data.url;
-		    }
-		});
-	});
-}
+// function ccclick(name){
+// 	name.click();
+// 	$("#uid_front").change(function (){
+// 		var formdata = new FormData();
+// 		formdata.append("file",this.files[0]);
+// 		$.ajax({
+// 		    url:"{:url('user/index/upload')}",
+// 		    type:'POST',
+// 		    data:formdata,
+// 		    cache: false,
+// 		    contentType: false,    //不可缺
+// 		    processData: false,    //不可缺
+// 		    dataType:'json',
+// 		    success:function(data){
+// 				console.log(data);
+// 		        $('#froimg').attr('src',""+data.url+"");
+// 		        $('#uid_front').value = data.url;
+// 		    }
+// 		});
+// 	});
+// 	$("#uid_back").change(function (){
+// 		var formdata = new FormData();
+// 		formdata.append("file",this.files[0]);
+// 		$.ajax({
+// 		    url:"{:url('user/index/upload')}",
+// 		    type:'POST',
+// 		    data:formdata,
+// 		    cache: false,
+// 		    contentType: false,    //不可缺
+// 		    processData: false,    //不可缺
+// 		    dataType:'json',
+// 		    success:function(data){
+// 		        $('#backimg').attr('src',""+data.url+"");
+// 		        $('#uid_back').value = data.url;
+// 		    }
+// 		});
+// 	});
+// 	$("#uid_hand").change(function (){
+// 		var formdata = new FormData();
+// 		formdata.append("file",this.files[0]);
+// 		$.ajax({
+// 		    url:"{:url('user/index/upload')}",
+// 		    type:'POST',
+// 		    data:formdata,
+// 		    cache: false,
+// 		    contentType: false,    //不可缺
+// 		    processData: false,    //不可缺
+// 		    dataType:'json',
+// 		    success:function(data){
+// 		        $('#handimg').attr('src',""+data.url+"");
+// 		        $('#uid_hand').value = data.url;
+// 		    }
+// 		});
+// 	});
+// }
 
 function check(){
 	if($("#cc_name").val() == "" || $("#cc_name").val() == null){
