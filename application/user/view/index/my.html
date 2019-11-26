@@ -612,8 +612,9 @@ function ccclick(name){
 		    processData: false,    //不可缺
 		    dataType:'json',
 		    success:function(data){
+				// console.log($('#uid_front').value = data.url);
 		        $('#froimg').attr('src',""+data.url+"");
-		        $('#uid_front').val(""+data.url+"");
+		        $('#uid_front').value = data.url;
 		    }
 		});
 	});
