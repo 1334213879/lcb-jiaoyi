@@ -446,13 +446,12 @@ class Set extends Common {
 		$img1 = input('post.uid_front');
 		$img2 = input('post.uid_back');
 		$img3 = input('post.uid_hand');
-
+		
 		if (empty($img1) || empty($img2) || empty($img3) || empty($autonym_number) || empty($xm)) {
 			return false;
 		}
 		$user_id = session('user.user_id');
 		$img = [$img1, $img2, $img3];
-
 		$json = implode(',', $img);
 		// $json = json_encode($img1 . ',' . $img2 . ',' . $img3);
 		$msg = db::name('users')->where('user_id', $user_id)->update(['autonym_img' => $json, 'autonym_number' => $autonym_number, 'xm' => $xm]);

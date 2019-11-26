@@ -26,26 +26,30 @@ class UpFiles extends Common {
 		}
 	}
 	//上传实名认证
-	public function autonym_upload() {
-		// 获取上传文件表单字段名
+	public function autonym_upload(Request $request) {
 		$file = $request->file('file');
+		$id = input('id');
+		$uid = input('uid');
 		if ($file) {
 			$info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');
 			if ($info) {
 				$img = $info->getSaveName(); //获取名称
-				$imgpath = DS . 'uploads' . DS . '/users/' . $img;
+				$imgpath = DS . 'uploads' . DS . $img;
+				$status = 1;
+				$message = '图片上传成功';
+				return ['code' => $status, 'msg' => $message,'url' =>$imgpath];
 			} else {
-				// 上传失败获取错误信息
-				$result['code'] = 0;
-				$result['info'] = '图片上传失败!';
-				$result['url'] = '';
-				return json_encode($result, true);
+				$url = '';
+				$status = 0;
+				$message = '图片上传失败';
+				return ['code' => $status, 'msg' => $message,'url' =>$url];
 			}
+		} else {
+			$url = '';
+			$status = 0;
+			$message = '图片上传失败';
+			return ['code' => $status, 'msg' => $message,'url' =>$url];
 		}
-		$result['code'] = 0;
-		$result['info'] = '图片上传失败!';
-		$result['url'] = '';
-		return json_encode($result, true);
 	}
 	public function file() {
 		$fileKey = array_keys(request()->file());
