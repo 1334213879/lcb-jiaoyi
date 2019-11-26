@@ -450,8 +450,9 @@ class Set extends Common {
 		if (empty($img1) || empty($img2) || empty($img3) || empty($autonym_number) || empty($xm)) {
 			return array('status' => 0, 'msg' => '请正确信息！');
 		}
+		$img = [$img1, $img2, $img3];
 		$user_id = session('user.user_id');
-		$json = json_encode($img1 . ',' . $img2 . ',' . $img3);
+		$json = json_encode($img);
 		$msg = db::name('users')->where('user_id', $user_id)->data(['autonym_img' => $json, 'autonym_number' => $autonym_number, 'xm' => $xm])->update();
 		if ($msg) {
 			return array('status' => 1, 'msg' => '提交成功，请等待审核！');
