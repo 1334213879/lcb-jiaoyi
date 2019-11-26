@@ -364,6 +364,18 @@ border-radius: 4px;
 .invite_a{
 	margin: .5rem 0;
 }
+/* 还款 */
+.hk_con{
+	width: 90%;
+	margin: 0 auto;
+}
+.hk_con ul{
+	padding: 0;
+	margin: 0;
+}
+.hk_con ul li{
+	list-style-type: none;
+}
 </style>
 
 <body style="padding-bottom: 1rem; color: initial; min-height: 800px;">
@@ -403,7 +415,16 @@ border-radius: 4px;
 			</div>
 			<div class="con_thr">
 				<div class="con_t_box">
-					<a href="#jk" 
+					<a href="#hk" v-for="h in jklist"
+					v-if="h.status = 1"
+					style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;"
+					>还款</a>
+					<a href="#hk" v-for="h in jklist"
+					v-else-if="h.status = 2"
+					style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;"
+					>还款</a>
+					<a href="#jk" v-for="h in jklist"
+					v-else
 					style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;"
 					>借款</a>
 					<p style="margin: 0; font-size: 5px;"><a href="#jk_notes" style="color: gray;">记录查询</a></p>
@@ -432,7 +453,7 @@ border-radius: 4px;
 		</div>
 	</div>
 	<div class="app">
-		<div id="jk" class="page">
+		<div class="page" id="jk">
 			<!-- <div style="position: absolute; top: 0; left: 0; padding: 0.5rem;"></div> -->
 			<header class="bar bar-nav" style="position: initial; background: rgb(50,50,50); margin: .5rem 0;">
 				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
@@ -440,7 +461,11 @@ border-radius: 4px;
 			</header>
 			<div class="jk">
 				<p>每次借款金额为500USDT，您确定借款吗？</p>
-				<p><a href="#" @click="getborrow(user.user_id)" class="button button-big button-round" style="background: rgb(238,198,127); color: rgb(89,67,33); border: none;">确定</a></p>
+				<p>
+					<a href="#" 
+					@click="getborrow(user.user_id)" 
+					class="button button-big button-round" 
+					style="background: rgb(238,198,127); color: rgb(89,67,33); border: none;">确定</a></p>
 				<p><a href="#" class="button button-big button-round back" style="background: rgb(238,198,127); color: rgb(89,67,33); border: none;">返回</a></p>
 			</div>
 		</div>
@@ -695,6 +720,52 @@ border-radius: 4px;
 					</div>
 				</li>
 			</ul>
+		</div>
+		<div class="page" id="hk">
+			<header class="bar bar-nav" style="position: initial; background: rgb(50,50,50); margin: .5rem 0;">
+				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
+				<h1 class="title">还款</h1>
+			</header>
+			<div class="hk">
+				<p style="text-align: center;"><i><img src="__STATIC__/xmt/images/regsiter_pic.png" height="100px" /></i></p>
+				<div class="hk_con">
+					<ul>
+						<li>
+							<p style="font-size: .7rem; color: #999;">转入USDT钱包地址</p>
+							<p><input type="text" id="cz_address" v-bind:value="system.usdt_addres" placeholder="请输入钱包地址" maxlength="10" /></p>
+							<p style="text-align: center; margin: .3rem 0;"><a href="#" id="copy">点击复制地址</a></p>
+						</li>
+						<li style="display: flex; justify-content: space-between; align-items: flex-start;">
+							<div class="inv_sec">
+								<p style="font-size: .7rem; color: #999;">充入数量</p>
+								<p><span id="czje"><input type="button" id="money_usdt" placeholder="充入金额" value="1500" style="width: 90%;" /></span></p>
+							</div>
+							<div class="inv_sec">
+								<p style="font-size: .7rem; color: #999;">上传转账凭证</p>
+								<p><span id="up_cz">
+								<input type="file" id="czimg" onchange="czpz(this)" style="opacity: 0; width: 90%;" />
+								<input type="hidden" value="" class="czimg" />
+								</span></p>
+							</div>
+						</li>
+						<li>
+							<p style="padding: 0 5rem;">
+								<a href="#"  @click="zc_(3);"
+								class="button" 
+								v-if="user.money_usdt != 1500" 
+								style="background: rgb(238,198,127); color: rgb(89,67,33); border: none; height: auto; padding: .5rem 0;">确定充入</a>
+								<a href="#"
+								class="button" 
+								v-else 
+								style="background: rgb(40,40,40); color: gray; border: none; height: auto; padding: .5rem 0;">确定充入</a>
+							</p>
+							<p style="padding: 0 5rem; text-align: center;">
+								<a href="#" class="back" style="font-size: .8rem; color: #999;">取消</a>
+							</p>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -963,51 +1034,7 @@ var app = new Vue({
 				console.log(error);
 			})
 	},
-	zc_(type){
-		var img = this.img;
-		var user = '';
-		if(type==0){
-			var number = $('#nmct').val();
-			if($('#nmct').val()==0 || $('#nmct').val()%100!==0 || $('#nmct').val()<99){
-				wboos.toast('{:lang(\'复投100的倍数起\')}');return;
-			}
-		}else if(type==1){
-			var number = $('#usdt').val();
-		}else if(type==2){
-			var number = $('#xmt').val();
-		}else if(type==3){
-			var number = $('#money_usdt').val();
-		}else if(type==4){
-			var number = $('#jh_1').val();
-		}else if(type==5){
-			var number = $('#jh_2').val();
-		}else if(type==6){
-			var number = this.level_;
-		}else if(type==7){
-			var number = $('#xmt_num').val();
-			var user = $('#xmt_p').val();
-	        var sms  =$('#sms').val();
-		}
-      if(sms==""){
-            wboos.toast('{:lang(\'请输入验证码\')}',{time:1800});
-           }
-		wboos.confirm('{:lang("确定要提交?")}', function () {
-			wboos.httpRequest({
-			url: '/user/mode/zc.html',
-			type: 'post',
-			data: {type:type,number:number,img:img,user:user},
-			success: function(i){
-			    if(i.status==0){
-					wboos.toast(i.msg);
-				}else{
-					wboos.toast(i.msg);
-					$('.cancel').click();
-					app.getData();
-				}
-			}
-			});
-			});
-	},
+	
   },
   created:function (){
 	this.getData(0);
