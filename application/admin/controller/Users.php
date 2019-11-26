@@ -571,14 +571,15 @@ class Users extends Common {
 			}
 			$list = db('users')
 				->where($where)
+				// ->where('user_id', 2076)
 				->order('user_id desc')
 				->paginate(array('list_rows' => $pageSize, 'page' => $page))
 				->toArray();
 			foreach ($list['data'] as $key => $value) {
-				$arr = explode(',', $value['autonym_img']);
-				$list[$key]['autonym_img_1'] = isset($arr[0]) ? $arr[0] : '';
-				$list[$key]['autonym_img_2'] = isset($arr[1]) ? $arr[1] : '';
-				$list[$key]['autonym_img_3'] = isset($arr[2]) ? $arr[2] : '';
+				$arr = explode(',', json_decode($value['autonym_img']));
+				$list['data'][$key]['autonym_img_1'] = isset($arr[0]) ? $arr[0] : '';
+				$list['data'][$key]['autonym_img_2'] = isset($arr[1]) ? $arr[1] : '';
+				$list['data'][$key]['autonym_img_3'] = isset($arr[2]) ? $arr[2] : '';
 			}
 			$this->assign('list', $list);
 			return $result = ['code' => 0, 'msg' => '获取成功!', 'list' => $list['data'], 'count' => $list['total'], 'rel' => 1];

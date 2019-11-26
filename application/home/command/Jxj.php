@@ -124,10 +124,10 @@ class Jxj extends Command {
 					}
 					//静态奖
 					if ($v['is_overdue'] == 0) {
-						db::name('users')->where('user_id', $v['user_id'])->setInc('bonus', (1500 * 6 / 100));
+						db::name('users')->where('user_id', $v['user_id'])->setInc('j_bonus', (1500 * 6 / 100));
 					} else {
 						//减少1/3
-						db::name('users')->where('user_id', $v['user_id'])->setInc('bonus', (1500 * 6 / 100) * 2 / 3);
+						db::name('users')->where('user_id', $v['user_id'])->setInc('j_bonus', (1500 * 6 / 100) * 2 / 3);
 					}
 
 					Db::name('users')->where('user_id', $v['user_id'])->setField('last_award_time', time());
