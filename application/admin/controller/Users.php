@@ -576,7 +576,7 @@ class Users extends Common {
 				->paginate(array('list_rows' => $pageSize, 'page' => $page))
 				->toArray();
 			foreach ($list['data'] as $key => $value) {
-				$arr = explode(',', json_decode($value['autonym_img']));
+				$arr = explode(',', $value['autonym_img']);
 				$list['data'][$key]['autonym_img_1'] = isset($arr[0]) ? $arr[0] : '';
 				$list['data'][$key]['autonym_img_2'] = isset($arr[1]) ? $arr[1] : '';
 				$list['data'][$key]['autonym_img_3'] = isset($arr[2]) ? $arr[2] : '';
