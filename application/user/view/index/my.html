@@ -653,6 +653,11 @@
 		 });
 	 }
 	 function ccsave(name,uid,img1,img2,img3){
+		if(uid.length < 18){
+			wboos.toast("身份证位数少于18位，请重新填写");
+			//location.href = "/user/index/my";
+			return false;
+		}
 		$.ajax({
 		    url:"{:url('user/set/up_autonym')}",
 		    type:'POST',
@@ -668,6 +673,8 @@
 		    // processData: false,    //不可缺
 			dataType:'json',
 		    success:function(data){
+				var j = JSON.parse(data);
+				wboos.toast(j.msg);
 				location.href = "/user/index/my";
 		    }
 		});

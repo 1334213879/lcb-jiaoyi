@@ -278,18 +278,18 @@ li>p>span:first-child{
 .xs.buyin>div>p:last-child>span:first-child{
 	width:35%;
   	color:#fff;
-  	background:#0894ec;
- 	border:solid 1px #0894ec;
+  	background:rgb(53,54,65);
+ 	border:solid 1px rgb(53,54,65);
   
 }
 .xs.buyin>div>p:last-child>span:nth-child(2){
 	width:65%;
   	float:left;
- 	border:solid 1px #0894ec;
+ 	border:solid 1px rgb(53,54,65);
 }
 .xs.buyin>div>p>span{
 	display: inline-block;
-	color: #000;
+	color: #ddd;
 	line-height: 2.5;
 }
 .xs.buyin>div>p>span:first-child{
