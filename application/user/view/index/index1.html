@@ -1005,13 +1005,6 @@ var app = new Vue({
 		})
 	},
 	hktime(time){
-		// var n = new Date();//当前时间
-		// nY = n.getFullYear() + '-';
-		// nM = (n.getMonth()+1 < 10 ? '0'+(n.getMonth()+1) : n.getMonth()+1) + '-';
-		// nD = n.getDate() + ' ';
-		// nh = n.getHours() + ':';
-		// nm = n.getMinutes() + ':';
-		// ns = n.getSeconds();
 		setInterval(function () {
 		    var l =  new Date(time * 1000);//借款时间
 		    l.setDate(l.getDate()+2);//设置还款天数为2天
@@ -1076,7 +1069,7 @@ var app = new Vue({
 		 data: {type:type,number:number,img:img,user:user},
 		 dataType:'json',
 		 success:function(data){
-		 	console.log(data.msg);
+		 	wboos.toast(data.msg);
 		 }
 	 })
 	},
@@ -1088,7 +1081,7 @@ var app = new Vue({
 				// 提示框
 				location.href = "/user/index";
 			}else{
-				console.log(msg.msg);
+				wboos.toast(msg.msg);
 			}
 		})
 	},
@@ -1098,7 +1091,7 @@ var app = new Vue({
 		}else{
 			this.$http.post('/user/borret/withdraw',{money:money,address:address}).then(function(res){
 				var json = JSON.parse(res.body);
-				alert(json.msg);
+				wboos.toast(json.msg);
 			})
 		}
 	},
@@ -1106,10 +1099,10 @@ var app = new Vue({
 		this.$http.post('/user/borret/endcontract').then(function(res){
 			var json = JSON.parse(res.body);
 			if(json.status == 1){
-				alert(json.msg)
+				wboos.toast(json.msg);
 				location.href = "/user/index";
 			}else{
-				alert(json.msg);
+				wboos.toast(json.msg);
 				// location.href = "/user/index";
 			}
 		})
@@ -1118,9 +1111,9 @@ var app = new Vue({
 		this.$http.post('/user/borret/sureend').then(function(res){
 			var json = JSON.parse(res.body);
 			if(json.status == 1){
-				alert(json.msg);
+				wboos.toast(json.msg);
 			}else{
-				alert(json.msg);
+				wboos.toast(json.msg);
 			}
 		})
 	},
@@ -1154,7 +1147,7 @@ var app = new Vue({
 				// 提示框
 				location.href = "/user/index";
 			}else{
-				console.log(msg.msg);
+				wboos.toast(msg.msg);
 			}
 		})
 	},
