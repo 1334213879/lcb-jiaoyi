@@ -445,9 +445,9 @@ border-radius: 4px;
 				<div class="not_text">
 					<!-- 此处循环p标签 -->
 					<div class="active">
-						<p>奥格好个屁就把照片是减肥拍摄11111111111111</p>
-						<p>奥格好个屁就把照片是减肥拍摄</p>
-						<p>奥格好个屁就把照片是减肥拍摄</p>
+						<p>ajkhgalgknagn;agn1</p>
+						<p>ajkhgalgknagn;agn2</p>
+						<p>ajkhgalgknagn;agn3</p>
 					</div>
 				</div>
 				<div class="not_btnbox">
@@ -866,12 +866,17 @@ border-radius: 4px;
 </div>
 <script>
 function ggrun(){
+	var plength = $(".active p").length;
 	var timer;
+	var num = 0;
 	timer = setInterval(function(){
-		var plength = $(".active p").length;
-		//console.log($(".active p").length);
-		$(".active").css("transform","translateY("+1.75*1+"rem)")
+		num++;
+		if(num == plength){
+			num = 0;
+		}
+		$(".active").css("transform","translateY(-"+1.75*num+"rem)");
 	},2000);
+	//console.log($(".active p").length);
 }
 window.onload = function(){
 	ggrun();
