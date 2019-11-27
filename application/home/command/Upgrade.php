@@ -21,21 +21,24 @@ class Upgrade extends Command {
 		foreach ($users as $k => $v) {
 
 			switch ($v['level']) {
+			// case 1:
+			// 	$num = db::name('users')->where('fxid', $v['user_id'])->count();
+			// 	if ($num >= 3) {
+			// 		db::name('users')->where('user_id', $v['user_id'])->setField('level', 2);
+			// 	}
+			// 	break;
 			case 1:
-				$num = db::name('users')->where('fxid', $v['user_id'])->count();
-				if ($num >= 3) {
-					db::name('users')->where('user_id', $v['user_id'])->setField('level', 2);
-				}
-				break;
-			case 2:
 				$num = db::name('users')->where('fxid', $v['user_id'])->count();
 				$u = db::name('users')->where('fxid', $v['user_id'])->select();
 				$zs_id = array_column($u, 'user_id');
 				$sum = db::name('log')->whereIN('user_id', $zs_id)->where('type', 1)->sum('usdt');
 
 				if ($num >= 3 && $sum > 30000) {
-					db::name('users')->where('user_id', $v['user_id'])->setField('level', 3);
+					db::name('users')->where('user_id', $v['user_id'])->setField('level', 2);
 				}
+				break;
+			case 2:
+				$th = $this->jisuan($v, 2, 3);
 				break;
 			case 3:
 				$th = $this->jisuan($v, 3, 3);

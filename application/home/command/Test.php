@@ -11,6 +11,9 @@ class Test extends Command {
 	}
 
 	protected function execute(Input $input, Output $output) {
-		$output->writeln("TestCommand:1121");
+		$a = '1000';
+		$fxid = explode(',', $a);
+		var_dump($fxid);
+		// $output->writeln($fxid);
 	}
 }

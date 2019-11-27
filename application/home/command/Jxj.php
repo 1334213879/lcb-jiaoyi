@@ -27,101 +27,20 @@ class Jxj extends Command {
 				$time = time() - $v['last_award_time'];
 				//时间相差大概在2小时内
 				if ($time > (2592000 - 500) || $v['last_award_time'] == 0) {
-					if ($v['is_overdue'] == 0) {
-						// $push[] = $v['user_id'];
-						if (empty($v['all_fxid'])) {
-							continue;
-							var_dump(11);
-						} else {
-							$fxid = explode(',', $v['all_fxid']);
-							$i = 0;
-							// 管理奖
-							$i = 0;
-							//处理平级和越级人
-							while ($i <= 13) {
-								if (isset($fxid[$i]) && !empty($fxid[$i])) {
-									$lev = db::name('users')->where('user_id', $fxid[$i])->find();
-									if (isset($fxid[$i + 1])) {
+					//提现超过3000不在享受绩效奖
+					if ($v['is_excess'] == 0) {
+						//绩效奖
+						$jixiao = db::name('users')->where('fxid', $v['user_id'])->field('fxid')->select();
 
-										$xlev = db::name('users')->where('user_id', $fxid[$i + 1])->find();
-
-										if ($lev['level'] > $xlev['level']) {
-											//越级
-											db::name('users')->where('user_id', $fxid[$i + 1])->setInc('bonus', (1500 * 0.5 / 100));
-											unset($fxid[$i + 1]);
-										} elseif ($lev['level'] = $xlev['level']) {
-											//平级
-											db::name('users')->where('user_id', $fxid[$i + 1])->setInc('bonus', (1500 * 1 / 100));
-											unset($fxid[$i + 1]);
-										} else {
-											//正常
-											// db::name('users')->where('user_id', $fxid[$i + 1])->setInc('bonus', (1500*6%));
-											$i++;
-										}
-									} else {
-										$i++;
-									}
-									$fxid = array_values($fxid);
-								} else {
-									$i++;
-								}
-							}
-							//处理剩余人
-							$fxid = array_values($fxid);
-							$num = count($fxid);
-							if ($num) {
-								$maxu = $fxid[$num - 1];
-								$zg = db::name('users')->where('user_id', $maxu)->find();
-								$zgl = $zg['level'];
-								$zgfzje = $this->beilv($zgl);
-								//判断剩余人数,剩余最多为5人
-								switch ($num) {
-								case 1:
-									$zs = db::name('users')->where('user_id', $fxid[0])->find();
-									$pl = $this->beilv($zs['level']);
-									db::name('users')->where('user_id', $fxid[0])->setInc('bonus', (1500 * 6 / 100) * $pl);
-									break;
-								case 2:
-									foreach ($fxid as $key => $value) {
-										$zs = db::name('users')->where('user_id', $value)->find();
-										$pl = $this->beilv($zs['level']);
-										if ($key != 0) {
-											$pl = $zgfzje - $pl;
-										}
-										//
-										db::name('users')->where('user_id', $value)->setInc('bonus', (1500 * 6 / 100) * $pl);
-									}
-									break;
-								default:
-									foreach ($fxid as $key => $value) {
-										$zs = db::name('users')->where('user_id', $value)->find();
-
-										if ($key == 0) {
-											$pl = $this->beilv($zs['level']);
-										} else {
-											$ap = $this->beilv($zs['level']);
-											$pl += $ap - $pl;
-										}
-										//
-										db::name('users')->where('user_id', $value)->setInc('bonus', (1500 * 6 / 100) * $pl);
-
-									}
-									break;
-								}
-							}
-
+						if (count($jixiao) >= 3) {
+							$cn = count($jixiao);
+							$mn = (1500 * 6 / 100) * 0.5 * $cn;
+							// $data = ['user_id' => $v['user_id'], 'text' => $mn];
+							// Db::name('log')->insert($data);
+							db::name('users')->where('user_id', $v['user_id'])->setInc('bonus', $mn);
 						}
-						//提现超过3000不在享受绩效奖
-						if ($v['is_excess'] == 0) {
-							//绩效奖
-							$jixiao = db::name('users')->where('fxid', $v['user_id'])->field('fxid')->select();
-
-							if (count($jixiao) > 3) {
-								db::name('users')->where('user_id', $v['user_id'])->setInc('bonus', (1500 * 6 / 100) * 0.5);
-							}
-						}
-
 					}
+
 					//静态奖
 					if ($v['is_overdue'] == 0) {
 						db::name('users')->where('user_id', $v['user_id'])->setInc('j_bonus', (1500 * 6 / 100));
@@ -132,8 +51,251 @@ class Jxj extends Command {
 
 					Db::name('users')->where('user_id', $v['user_id'])->setField('last_award_time', time());
 
-				}
+					if ($v['is_overdue'] == 0) {
+						// $push[] = $v['user_id'];
 
+						$fxid = explode(',', $v['all_fxid']);
+						$i = 0;
+						// 管理奖
+						$i = 0;
+						//所有上级只有一人
+
+						if (count($fxid) == 1) {
+							// print_r($v['user_id']);
+							if ($v['level'] != 1 && !empty($v['fxid'])) {
+
+								$fd = db::name('users')->where('user_id', $v['fxid'])->find();
+
+								if ($fd['level'] == $v['level']) {
+									//平级
+									// var_dump(1);
+									// $data = ['user_id' => $fd['user_id'], 'text' => 1500 * 1 / 100, 'type' => 123];
+									// Db::name('log')->insert($data);
+									db::name('users')->where('user_id', $fd['user_id'])->setInc('bonus', (1500 * 0.06 * 1 / 100));
+									continue;
+								} elseif ($v['level'] > $fd['level']) {
+									//越级
+									// var_dump(2);
+									// $data = ['user_id' => $fd['user_id'], 'text' => 1500 * 0.5 / 100, 'type' => 125];
+									// Db::name('log')->insert($data);
+									db::name('users')->where('user_id', $fd['user_id'])->setInc('bonus', (1500 * 0.06 * 0.5 / 100));
+									continue;
+
+								} else {
+									// var_dump(3);
+									$zs = db::name('users')->where('user_id', $v['fxid'])->find();
+									$pl = $this->beilv($zs['level']);
+									// $data = ['user_id' => $fd['user_id'], 'text' => 1500 * 6 / 100 * $pl, 'type' => 124];
+									// Db::name('log')->insert($data);
+									db::name('users')->where('user_id', $fxid[0])->setInc('bonus', (1500 * 6 / 100) * $pl);
+									continue;
+								}
+							}
+						}
+
+// 1020,1013,1000
+
+						//处理平级和越级人
+						while ($i <= 13) {
+							if (isset($fxid[$i]) && !empty($fxid[$i])) {
+								$lev = db::name('users')->where('user_id', $fxid[$i])->find();
+								if (isset($fxid[$i + 1])) {
+
+									$xlev = db::name('users')->where('user_id', $fxid[$i + 1])->find();
+									if ($lev['level'] != 1) {
+
+										if ($lev['level'] > $xlev['level']) {
+											//越级
+											$data = ['user_id' => $fxid[$i + 1], 'text' => 1500 * 0.06 * 0.5 / 100, 'type' => 888];
+											// Db::name('log')->insert($data);
+											// db::name('users')->where('user_id', $fxid[$i + 1])->setInc('bonus', (1500 * 0.06 * 0.5 / 100));
+											unset($fxid[$i + 1]);
+										} elseif ($lev['level'] == $xlev['level']) {
+											//平级
+											// $data = ['user_id' => $fxid[$i + 1], 'text' => 1500 * 0.06 * 1 / 100, 'type' => 999];
+											// Db::name('log')->insert($data);
+											db::name('users')->where('user_id', $fxid[$i + 1])->setInc('bonus', (1500 * 0.06 * 1 / 100));
+											unset($fxid[$i + 1]);
+										} else {
+											//正常
+											// db::name('users')->where('user_id', $fxid[$i + 1])->setInc('bonus', (1500*6%));
+											$i++;
+										}
+									} else {
+										$i++;
+									}
+								} else {
+									$i++;
+								}
+								$fxid = array_values($fxid);
+							} else {
+								$i++;
+							}
+						}
+						//处理剩余人
+						$fxid = array_values($fxid);
+						// if ($v['user_id'] == 1021) {
+						// var_dump($fxid);
+						// }
+						$num = count($fxid);
+						// print_r($num);	print_r('xxxxxxxxxxx');	print_r($fxid);
+						// if ($v['user_id'] == 1023) {
+						// 	var_dump($num);
+						// }
+						if ($num) {
+							$maxu = $fxid[$num - 1];
+							$zg = db::name('users')->where('user_id', $maxu)->find();
+							$zgl = $zg['level'];
+							$zgfzje = $this->beilv($zgl);
+							//判断剩余人数,剩余最多为5人
+							switch ($num) {
+							case 1:
+								$zs = db::name('users')->where('user_id', $fxid[0])->find();
+								$pl = $this->beilv($zs['level']);
+								// $data = ['user_id' => $fxid[0], 'text' => (1500 * 6 / 100) * $pl, 'type' => 333];
+								// Db::name('log')->insert($data);
+								db::name('users')->where('user_id', $fxid[0])->setInc('bonus', (1500 * 6 / 100) * $pl);
+								break;
+							// case 2:
+							// 	$xc = 0;
+							// 	foreach ($fxid as $key => $value) {
+
+							// 		$zs = db::name('users')->where('user_id', $value)->find();
+							// 		$azn = db::name('users')->where('fxid', $value)->count();
+							// 		if ($azn < 3) {
+							// 			$pl = 0;
+							// 			$xc = $pl;
+							// 		} else {
+							// 			if (!isset($xc) || $xc == 0) {
+
+							// 				$pl = $this->beilv($zs['level']);
+
+							// 				if ($key == 0) {
+							// 					$xc = $pl;
+							// 				} else {
+							// 					$pl = $zgfzje - $xc;
+							// 					$pl = $xc;
+							// 				}
+							// 				// var_dump($pl);
+							// 			}
+
+							// 		}
+
+							// 		// if ($key != 0) {
+							// 		// 	$pl = $zgfzje - $pl;
+							// 		// }
+							// 		//
+
+							// 		// print_r('|');
+							// 		$data = ['user_id' => $value, 'text' => (1500 * 6 / 100) * $pl, 'type' => 444];
+							// 		Db::name('log')->insert($data);
+							// 		db::name('users')->where('user_id', $value)->setInc('bonus', (1500 * 6 / 100) * $pl);
+							// 	}
+							// 	break;
+							default:
+								// var_dump($fxid);
+								$xc = 0;
+								$pl = 0;
+
+								$fxid = array_reverse($fxid);
+								// print_r($fxid);
+								foreach ($fxid as $key => $value) {
+									$zs = db::name('users')->where('user_id', $value)->find();
+									$zs['level'] == 4 ? $nv = 10 : $nv = 3;
+									$azn = db::name('users')->where('fxid', $value)->count();
+
+									if ($azn < $nv) {
+										$pl = 0;
+									} else {
+										$pl1 = $this->beilv($zs['level']);
+
+										// isset($fxid[$key + 1]) ? $nl = $fxid[$key + 1] : $nl = 0;
+										if (isset($fxid[$key + 1])) {
+											$p2 = db::name('users')->where('user_id', $fxid[$key + 1])->find();
+											$pl2 = $this->beilv($p2['level']);
+										} else {
+											$pl2 = 0;
+										}
+
+										// $xc += $pl;
+										// print_r($xc);
+										// $pl = $zgfzje - $xc;
+										// // print_r($pl);
+										// print_r('||');
+									}
+									$pl = $pl1 - $pl2;
+									$pl <= 0 ? $pl = 0 : $pl;
+									// if ($pl > $zgfzje) {
+									// 	continue;
+									// }
+									// print_r($zgfzje);
+									// print_r('--');
+									// print_r($pl);
+									// print_r('--');
+									// print_r($value);
+									// print_r('||');
+
+									// $pl < 0 ? $pl = abs($pl) : $pl;
+									// if ($key == 0) {
+
+									// 	if($azn < $nv){
+									// 		$pl = 0;
+									// 	}else{
+									// 		$pl = $this->beilv($zs['level']);
+									// 	}
+
+									// } else {
+									// 	$ap = $this->beilv($zs['level']);
+									// 	$pl += $ap - $pl;
+									// }
+
+									// $ap = $this->beilv($zs['level']);
+
+									// if ($azn < $nv) {
+									// 	$pl = 0;
+									// } else {
+									// 	isset($pl) ? $pl : 0;
+									// 	$pl = abs($ap - $pl);
+									// }
+
+									//
+									// print_r($pl);	print_r('---');
+									// $data = ['user_id' => $value, 'text' => (1500 * 6 / 100) * $pl, 'type' => 555];
+									// Db::name('log')->insert($data);
+									db::name('users')->where('user_id', $value)->setInc('bonus', (1500 * 6 / 100) * $pl);
+
+								}
+								break;
+							}
+						}
+
+						// 	//提现超过3000不在享受绩效奖
+						// 	if ($v['is_excess'] == 0) {
+						// 		//绩效奖
+						// 		$jixiao = db::name('users')->where('fxid', $v['user_id'])->field('fxid')->select();
+
+						// 		if (count($jixiao) >= 3) {
+						// 			$cn = count($jixiao);
+						// 			$mn = (1500 * 6 / 100) * 0.5 * $cn;
+						// 			$data = ['user_id' => $v['user_id'], 'text' => $mn];
+						// 			Db::name('log')->insert($data);
+						// 			db::name('users')->where('user_id', $v['user_id'])->setInc('bonus', $mn);
+						// 		}
+						// 	}
+
+						// }
+						// //静态奖
+						// if ($v['is_overdue'] == 0) {
+						// 	db::name('users')->where('user_id', $v['user_id'])->setInc('j_bonus', (1500 * 6 / 100));
+						// } else {
+						// 	//减少1/3
+						// 	db::name('users')->where('user_id', $v['user_id'])->setInc('j_bonus', (1500 * 6 / 100) * 2 / 3);
+						// }
+
+						// Db::name('users')->where('user_id', $v['user_id'])->setField('last_award_time', time());
+
+					}
+				}
 			}
 
 		} catch (Exception $e) {
