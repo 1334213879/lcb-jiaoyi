@@ -5,6 +5,7 @@
 <script src="__STATIC__/xmt/js/radiation.js?v=1.02"></script>
 <link rel="stylesheet" href="__STATIC__/xmt/css/style.css?v=1.02"> -->
 <link rel="stylesheet" href="__STATIC__/xmt/css/pages/index1.css" />
+<script src="__STATIC__/xmt/js/qrcode.js"></script>
 <script src="__STATIC__/xmt/js/flag.js"></script>
 <style>
 .page, .page-group{
@@ -323,11 +324,11 @@ border-radius: 4px;
 	padding: .6rem .3rem;
 	color: #fff;
 }
-#copy{
+#copy,.copy{
 	color: #999;
 	font-size: .5rem;
 }
-#czje,#up_cz{
+#czje,#up_cz,#hkje{
 	font-size: .7rem;
 	padding: .6rem .3rem;
 	background: rgb(68,71,83);
@@ -376,6 +377,15 @@ border-radius: 4px;
 .hk_con ul li{
 	list-style-type: none;
 }
+/* 倒计时 */
+#lasttime{
+	text-align: center;
+	color: #ddd;
+	background: rgb(68,71,83);
+	border-radius: 5px;
+	font-size: .7rem;
+	padding: .5rem 0;
+}
 </style>
 
 <body style="padding-bottom: 1rem; color: initial; min-height: 800px;">
@@ -405,7 +415,7 @@ border-radius: 4px;
 					<div class="">
 						<p style="font-size: 0.7rem; margin: 0.5rem 0;">奖金账户</p>
 						<p style="color: #fff; font-family: microsoft yahei; margin: 0.5rem 0;">${{user.bonus}}</p>
-						<p style="margin: 0; font-size: 5px; margin: 0; padding: 0rem 0;"><a href="#" style="color: gray;">记录查询</a></p>
+						<!-- <p style="margin: 0; font-size: 5px; margin: 0; padding: 0rem 0;"><a href="#" style="color: gray;">记录查询</a></p> -->
 					</div>
 				</div>
 				<div class="con_s_r">
@@ -414,16 +424,22 @@ border-radius: 4px;
 				</div>
 			</div>
 			<div class="con_thr">
-				<div class="con_t_box">
-					<a href="#hk" v-for="h in jklist"
-					v-if="h.status = 1"
+				<div class="con_t_box" v-if="jklist.length == 0">
+					<a href="#jk"
+					style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;"
+					>借款</a>
+					<p style="margin: 0; font-size: 5px;"><a href="#jk_notes" style="color: gray;">记录查询</a></p>
+				</div>
+				<div class="con_t_box" v-else v-for="h in jklist">
+					<a href="#hk"
+					v-if="h.status = 1" @click="hktime(h.j_time)"
 					style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;"
 					>还款</a>
-					<a href="#hk" v-for="h in jklist"
-					v-else-if="h.status = 2"
+					<a href="#hk"
+					v-else-if="h.status = 2" @click="hktime(h.j_time)"
 					style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;"
 					>还款</a>
-					<a href="#jk" v-for="h in jklist"
+					<a href="#jk"
 					v-else
 					style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;"
 					>借款</a>
@@ -502,10 +518,10 @@ border-radius: 4px;
 						<li>
 							<p style="font-size: .7rem; color: #999;">转入USDT钱包地址</p>
 							<p><input type="text" id="cz_address" v-bind:value="system.usdt_addres" placeholder="请输入钱包地址" maxlength="10" /></p>
-							<p style="text-align: center; margin: .3rem 0;"><a href="#" id="copy">点击复制地址</a></p>
+							<p style="text-align: center; margin: .3rem 0;"><a href="#" onclick="czcopy()" id="copy">点击复制地址</a></p>
 						</li>
 						<script>
-							document.getElementById('copy').onclick = function(){
+							function czcopy(){
 								var val = document.getElementById('cz_address');
 								val.select();
 								document.execCommand("Copy");
@@ -556,22 +572,22 @@ border-radius: 4px;
 						<li>
 							<p style="font-size: .7rem; color: #999;">提出USDT钱包地址</p>
 							<p><input type="button" id="withdraw_address" v-bind:value="yhk.yhk" placeholder="请输入钱包地址" maxlength="10" /></p>
-							<p style="text-align: center; margin: .3rem 0;"><a href="#" id="copy">点击复制地址</a></p>
+							<p style="text-align: center; margin: .3rem 0;"><a href="#" onclick="txcopy()" class="copy">点击复制地址</a></p>
 						</li>
 						<script>
-							document.getElementById('copy').onclick = function(){
-								var val = document.getElementById('cz_address');
+							function txcopy(){
+								var val = document.getElementById('withdraw_address');
 								val.select();
 								document.execCommand("Copy");
 								alert("已复制到剪贴板");
 							}
 						</script>
-						<!-- <li style="display: flex; align-items: flex-start;">
+						<li style="display: flex; align-items: flex-start;">
 							<div class="inv_sec">
 								<p style="font-size: .7rem; color: #999;">提出数量</p>
 								<p><span id="czje"><input type="text" placeholder="提出金额" id="withdraw_con" style="width: 90%;" /></span></p>
 							</div>
-						</li> -->
+						</li>
 						<li>
 							<p style="padding: 0 5rem;">
 								<a href="#" 
@@ -594,21 +610,33 @@ border-radius: 4px;
 				<h1 class="title">分享好友</h1>
 			</header>
 			<div class="invite">
-				<div class="invite_con">
-					
+				<div class="invite_con" style="display: flex; align-items: center;">
+					<div class="qrcode" style="width: 200px;margin:0 auto">
+					    <div id="qrcode" style="width:180px; height:180px;margin:0 auto"></div>
+					</div>
 				</div>
+				<script>
+					var qrcode = new QRCode(document.getElementById('qrcode'), {
+						  text: window.location.href,
+						  width: 180,
+						  height: 180,
+						  colorDark : '#000000',
+						  colorLight : '#ffffff',
+						  correctLevel : QRCode.CorrectLevel.H
+						});
+				</script>
 				<div class="invite_a">
-					<a href="#" style="color: #FAFAFA; font-size: .6rem;">点击复制分享好友</a>
+					<a href="#" onclick="copyC(12)" style="color: #FAFAFA; font-size: .6rem;">点击复制分享好友</a>
 					<a href="#" style="color: #FAFAFA; font-size: .6rem;">注册拿奖励</a>
 				</div>
 			</div>
 		</div>
 		<div class="page" id="jk_notes">
-			<header class="bar bar-nav" style="background: rgb(50,50,50);">
+			<header class="bar bar-nav" style="background: rgb(50,50,50); position: initial;">
 				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
 				<h1 class="title">{:lang('借款记录')}</h1>
 			</header>
-				<ul class="content" style="position: absolute; top: 0; margin-bottom: 5rem;">
+				<ul class="content" style="position: absolute; top: 0; margin-bottom: 5rem; display: block;">
 					<li v-for="jk in jklist">
 						<div class="jklist">
 							<div class="jklist_l">
@@ -631,11 +659,11 @@ border-radius: 4px;
 				</ul>
 		</div>
 		<div class="page" id="tx_notes">
-			<header class="bar bar-nav" style="background: rgb(50,50,50);">
+			<header class="bar bar-nav" style="background: rgb(50,50,50); position: initial;">
 				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
 				<h1 class="title">{:lang('提出记录')}</h1>
 			</header>
-			<ul class="content" style="position: absolute; top: 0; margin-bottom: 5rem;">
+			<ul class="content" style="position: absolute; top: 0; margin-bottom: 5rem; display: block;">
 				<li v-for="tx in txlist">
 					<div class="jklist">
 						<div class="jklist_l">
@@ -673,27 +701,45 @@ border-radius: 4px;
 					<div>{{t.rq}}</div>
 				</li>
 			</ul> -->
-			<table width="85%" style="margin: 0 auto;">
-				<tr height="50px" style="margin: 1rem 0; color: #fff;" bgcolor="#0016B0">
-					<th width="50px">昵称</th>
-					<th width="50px">id</th>
-					<th width="50px">合伙人</th>
-					<th width="50px">时间</th>
-				</tr>
-				<tr v-for="t in team" style="text-align: center; color: #fff;">
-					<td>{{t.nickname}}</td>
-					<td>{{t.user_id}}</td>
-					<td>{{t.g}}</td>
-					<td>{{t.rq}}</td>
+			<div class="">
+				<ul class="thead">
+					<li>昵称</li>
+					<li>id</li>
+					<li>合伙人</li>
+					<li>时间</li>
+				</ul>
+				<ul class="tcontent">
+					<li v-for="t in team">
+						<span>{{t.nickname}}</span>
+						<span>{{t.user_id}}</span>
+						<span>{{t.g}}</span>
+						<span>{{t.rq}}</span>
+					</li>
+				</ul>
+			</div>
+			<!-- <table width="100%" style="margin: 1rem 0; font-weight: normal;">
+				<tr height="50px" style="color: #fff; background: rgb(68,71,83);">
+					<th width="50px" style="font-weight: normal;">昵称</th>
+					<th width="50px" style="font-weight: normal;">id</th>
+					<th width="50px" style="font-weight: normal;">合伙人</th>
+					<th width="50px" style="font-weight: normal;">时间</th>
 				</tr>
 			</table>
+			<table width="100%" cellpadding="0" cellspacing="0">
+				<tr height="30px" v-for="t in team" style="text-align: center; color: #fff; margin: 1rem 0;">
+					<td width="50px" style="font-weight: normal;">{{t.nickname}}</td>
+					<td width="50px" style="font-weight: normal;">{{t.user_id}}</td>
+					<td width="50px" style="font-weight: normal;">{{t.g}}</td>
+					<td width="50px" style="font-weight: normal;">{{t.rq}}</td>
+				</tr>
+			</table> -->
 		</div>
 		<div class="page" id="inv_notes">
-			<header class="bar bar-nav" style="background: rgb(50,50,50);">
+			<header class="bar bar-nav" style="background: rgb(50,50,50); position: initial;">
 				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
 				<h1 class="title">充值记录</h1>
 			</header>
-			<ul class="content" style="position: absolute; top: 0; margin-bottom: 5rem;">
+			<ul class="content" style="position: absolute; top: 0; margin-bottom: 5rem; display: block;">
 				<li v-for="a in list" v-if="a.type==1">
 				    <!-- <p class="source">
 				        <span class="charge-style">{{a.title}}</span>
@@ -730,34 +776,31 @@ border-radius: 4px;
 				<p style="text-align: center;"><i><img src="__STATIC__/xmt/images/regsiter_pic.png" height="100px" /></i></p>
 				<div class="hk_con">
 					<ul>
-						<li>
-							<p style="font-size: .7rem; color: #999;">转入USDT钱包地址</p>
-							<p><input type="text" id="cz_address" v-bind:value="system.usdt_addres" placeholder="请输入钱包地址" maxlength="10" /></p>
-							<p style="text-align: center; margin: .3rem 0;"><a href="#" id="copy">点击复制地址</a></p>
-						</li>
 						<li style="display: flex; justify-content: space-between; align-items: flex-start;">
 							<div class="inv_sec">
-								<p style="font-size: .7rem; color: #999;">充入数量</p>
-								<p><span id="czje"><input type="button" id="money_usdt" placeholder="充入金额" value="1500" style="width: 90%;" /></span></p>
+								<p style="font-size: .7rem; color: #999;">打款金额</p>
+								<p><span id="hkje"><input type="button" id="money_usdt" placeholder="打款金额" value="500" style="width: 90%; background: none; border: none;" /></span></p>
 							</div>
 							<div class="inv_sec">
-								<p style="font-size: .7rem; color: #999;">上传转账凭证</p>
+								<p style="font-size: .7rem; color: #999;">打款凭证</p>
 								<p><span id="up_cz">
-								<input type="file" id="czimg" onchange="czpz(this)" style="opacity: 0; width: 90%;" />
-								<input type="hidden" value="" class="czimg" />
+								<input type="file" id="hkimg" onchange="hkpz(this)" style="opacity: 0; width: 90%;" />
+								<input type="hidden" value="" class="hkimg" />
 								</span></p>
 							</div>
 						</li>
 						<li>
+							<p style="font-size: .7rem; color: #999;">还款倒计时</p>
+							<p>
+								<!-- <input type="button" id="cz_address" style="border: none;" v-bind:value="hk_time" placeholder="还款倒计时" maxlength="10" /> -->
+								<div id="lasttime"></div>
+							</p>
+						</li>
+						<li>
 							<p style="padding: 0 5rem;">
-								<a href="#"  @click="zc_(3);"
+								<a href="#" v-for="h in hkid" @click="hk_(h.id,$('.hkimg').val());"
 								class="button" 
-								v-if="user.money_usdt != 1500" 
-								style="background: rgb(238,198,127); color: rgb(89,67,33); border: none; height: auto; padding: .5rem 0;">确定充入</a>
-								<a href="#"
-								class="button" 
-								v-else 
-								style="background: rgb(40,40,40); color: gray; border: none; height: auto; padding: .5rem 0;">确定充入</a>
+								style="background: rgb(238,198,127); color: rgb(89,67,33); border: none; height: auto; padding: .5rem 0;">马上还款</a>
 							</p>
 							<p style="padding: 0 5rem; text-align: center;">
 								<a href="#" class="back" style="font-size: .8rem; color: #999;">取消</a>
@@ -780,7 +823,17 @@ function copy(id){
     selection.addRange(range);
     document.execCommand('copy');
 	wboos.toast('{:lang(\'复制成功\')}');
-	}
+}
+function copyC(id){
+	var id = "qbdz"+id;
+    const range = document.createRange();
+    range.selectNode(document.getElementsByClassName(id)[0]);
+    const selection = window.getSelection();//选择
+    if(selection.rangeCount > 0) selection.removeAllRanges();
+    selection.addRange(range);
+    document.execCommand('copy');
+	wboos.toast('{:lang(\'复制成功\')}');
+}
 
     	//xmt转出验证码
 	 function send_phone(id){
@@ -827,7 +880,37 @@ function czpz(d){
 	    }
 	});
 }
+function hkpz(d){
+	var formdata = new FormData();
+	formdata.append("file",d.files[0]);
+	$.ajax({
+	    url:"{:url('user/UpFiles/autonym_upload')}",
+	    type:'POST',
+	    data:formdata,
+		cache: false,
+		contentType: false,    //不可缺
+		processData: false,    //不可缺
+		dataType:'json',
+	    success:function(data){
+			$(".hkimg").val(""+data.url+"");
+			wboos.toast(data.msg);
+	    }
+	});
+}
 
+ function timestampToTime(timestamp) {
+        var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        Y = date.getFullYear() + '-';
+        M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        D = date.getDate() + ' ';
+        h = date.getHours() + ':';
+        m = date.getMinutes() + ':';
+        s = date.getSeconds();
+        return M+D+h+m+s;
+         }
+function size(num) {
+    return num < 10 & num >= 0 ? '0' + num : num;
+}  
 var app = new Vue({
   el: '.page-group',
   data: {
@@ -848,6 +931,8 @@ var app = new Vue({
 	endmoney:'',
 	endstatus:'',
 	team:'',
+	hkid:"",
+	hk_time:'',
 	image:{
         url:'',
         value:'{:lang(\'请上传付款凭证\')}',
@@ -908,6 +993,7 @@ var app = new Vue({
 			this.txlist=i.tx;
 			this.endmoney=i.end_money;
 			this.endstatus=i.end.status;
+			this.hkid = i.jk;
 			if(type>0){
 				this.user.hongbao = 0;
 				wboos.toast('{:lang(\'领取成功\')}！');
@@ -917,6 +1003,32 @@ var app = new Vue({
 				$('.jh_code').click();
 			}
 		})
+	},
+	hktime(time){
+		// var n = new Date();//当前时间
+		// nY = n.getFullYear() + '-';
+		// nM = (n.getMonth()+1 < 10 ? '0'+(n.getMonth()+1) : n.getMonth()+1) + '-';
+		// nD = n.getDate() + ' ';
+		// nh = n.getHours() + ':';
+		// nm = n.getMinutes() + ':';
+		// ns = n.getSeconds();
+		setInterval(function () {
+		    var l =  new Date(time * 1000);//借款时间
+		    l.setDate(l.getDate()+2);//设置还款天数为2天
+		    var timer=new Date(l).getTime();//还款时间毫秒数
+		    var timer_now = new Date().getTime();//当前时间毫秒数
+		    var cut = timer - timer_now;
+			var lasttime;
+		    if(cut >= 0){
+				//this.hk_time = ""+Math.floor(cut/1000/60/60/24)+"天"+Math.floor(cut/1000/60/60%24) + ":" + Math.floor(cut/1000/60%60) + ":" + Math.floor(cut/1000%60) + ""
+				//console.log(hk_time);
+				lasttime = ""+Math.floor(cut/1000/60/60/24)+"天"+Math.floor(cut/1000/60/60%24) + "小时" + Math.floor(cut/1000/60%60) + "分" + Math.floor(cut/1000%60) + "秒";
+				document.getElementById('lasttime').innerHTML = lasttime;
+			}else{
+		    	lasttime = "已逾期";
+				document.getElementById('lasttime').innerHTML = lasttime;
+		    }
+		}, 1000);
 	},
 	zc_(type){
 		var img = $(".czimg").val();
@@ -1034,7 +1146,18 @@ var app = new Vue({
 				console.log(error);
 			})
 	},
-	
+	hk_(id,img){
+		this.$http.get('/user/borret/huankuan',{id:id,img:img}).then(function(res){
+			console.log(res);
+			var msg = JSON.parse(res.body);
+			if(msg.code == 1){
+				// 提示框
+				location.href = "/user/index";
+			}else{
+				console.log(msg.msg);
+			}
+		})
+	},
   },
   created:function (){
 	this.getData(0);
