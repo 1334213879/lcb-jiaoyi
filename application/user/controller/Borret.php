@@ -240,6 +240,7 @@ class Borret extends Common {
 			Db::commit();
 			$result['status'] = 1;
 			$result['msg'] = '终止成功';
+			session('user', null);
 		} catch (Exception $e) {
 			$result['status'] = 0;
 			$result['msg'] = '终止失败';
