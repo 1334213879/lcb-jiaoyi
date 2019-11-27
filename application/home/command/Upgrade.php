@@ -59,7 +59,7 @@ class Upgrade extends Command {
 	}
 
 	public function jisuan($v, $l, $n) {
-		$all = db::name('users')->where('all_fxid', 'like', '%' . $v['user_id'] . '%')->where('level', '>', $l)->select();
+		$all = db::name('users')->where('all_fxid', 'like', '%' . $v['user_id'] . '%')->where('level', '>=', $l)->select();
 		$f_num = $this->quchong($all, 'fxid');
 		$num = count($f_num);
 		if ($num >= $n) {
