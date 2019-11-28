@@ -115,7 +115,7 @@ class Login extends Controller {
 				session('user', $sessionUser);
 				$member_pw = input('remember_pw');
 				if (!empty($member_pw)) {
-					session('user_login', ['mobile' => $mobile, 'pw' => $password]);
+					session('user_login', ['mobile' => $mobile, 'pw' => $password, 'nickname' => $nickname]);
 				} else {
 					session('user_login', null);
 				}
