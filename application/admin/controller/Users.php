@@ -170,6 +170,7 @@ class Users extends Common {
 			$key = input('post.key');
 			$page = input('pageIndex');
 			$pageSize = input('pageSize');
+
 			if ($all_p > 0) {
 				$list = db('users')
 					->where("find_in_set({$all_p},all_fxid)")
@@ -212,6 +213,11 @@ class Users extends Common {
 					->where('level', $type)
 					->paginate(array('list_rows' => $pageSize, 'page' => $page))
 					->toArray();
+			} else if (!empty($type) && $type == 'cj') {
+				$list = db('users')
+					->where('yet_tx_money', '>=', 3000)
+					->paginate(array('list_rows' => $pageSize, 'page' => $page))
+					->toArray();
 			} else if (!empty($type)) {
 				$list = db('users')
 					->where($type, '>', 0)
@@ -226,8 +232,9 @@ class Users extends Common {
 			$tj = [
 				'level' => 0, 'level1' => 0, 'level2' => 0, 'level3' => 0, 'level4' => 0, 'level5' => 0, 'g' => 0, 'dj' => 0, 'ndj' => 0, 'zs' => 0,
 				'usdt' => 0, 'money_cz' => 0, 'xmt' => 0, 'nmct' => 0, 'nmct_dj' => 0,
-				'count' => count($list['data']), 'people_nocz' => 0,
+				'count' => count($list['data']), 'people_nocz' => 0, 'cj' => 0,
 			];
+
 			$fole = 1000000000;
 			foreach ($list['data'] as $key => $value) {
 				$list['data'][$key]['sj_nickname'] = db('users')->where(array('user_id' => $list['data'][$key]['fxid']))->value('nickname');
@@ -238,6 +245,7 @@ class Users extends Common {
 				$tj['level4'] += $list['data'][$key]['level'] == 5 ? 1 : 0;
 				$tj['level5'] += $list['data'][$key]['level'] == 6 ? 1 : 0;
 				$tj['zs'] += $list['data'][$key]['zs'];
+				$tj['cj'] += $list['data'][$key]['yet_tx_money'] >= 3000 ? 1 : 0;
 				$tj['g'] += $list['data'][$key]['g'] > 0 ? 1 : 0;
 				$tj['people_nocz'] += $list['data'][$key]['money_cz'] == 0 ? 1 : 0;
 				$tj['usdt'] += $list['data'][$key]['money_usdt'] * $fole;
@@ -251,6 +259,7 @@ class Users extends Common {
 			$tj['xmt'] = $tj['xmt'] / $fole;
 			$tj['nmct'] = $tj['nmct'] / $fole;
 			$tj['nmct_dj'] = $tj['nmct_dj'] / $fole;
+
 			return $result = ['code' => 0, 'msg' => '获取成功!', 'list' => $list['data'], 'count' => $list['total'], 'rel' => 1, 'tj' => $tj];
 		}
 		$my = db('users')->where(array('user_id' => input('all_p')))->find(); //判断当前状态情况
