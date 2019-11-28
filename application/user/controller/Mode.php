@@ -1,7 +1,6 @@
 <?php
 namespace app\user\controller;
 use app\user\model\Users;
-use think\Cache;
 use think\Db;
 use think\Input;
 
@@ -115,13 +114,10 @@ class Mode extends Common {
 			$log['img'] = $img;
 			$log['title'] = '充值USDT审核中';
 			//邀请注册奖
+
 			if (empty($first_)) {
 				$sj = db('users')->where('user_id', session('user.user_id'))->find();
-				$c = Cache::get('reg_usdt');
-				array_push($c, $sj['fxid']);
-				cache('reg_usdt', $c, 0);
-				Cache::get('reg_usdt');
-
+				db::name('lingshi')->insert(['user_id' => $sj['fxid']]);
 			}
 		}
 		if ($type == 4) {

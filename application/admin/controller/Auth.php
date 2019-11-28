@@ -280,14 +280,14 @@ class Auth extends Common {
 			return $result = ['code' => 1, 'msg' => '权限添加成功!', 'url' => url('adminRule')];
 		} else {
 			$nav = new Leftnav();
-			$arr = cache('authRuleList');
-			if (!$arr) {
-				$authRule = authRule::all(function ($query) {
-					$query->order('sort', 'asc');
-				});
-				$arr = $nav->menu($authRule);
-				cache('authRuleList', $arr, 3600);
-			}
+			// $arr = cache('authRuleList');
+			// if (!$arr) {
+			$authRule = authRule::all(function ($query) {
+				$query->order('sort', 'asc');
+			});
+			$arr = $nav->menu($authRule);
+			// cache('authRuleList', $arr, 3600);
+			// }
 			$this->assign('admin_rule', $arr); //权限列表
 			return $this->fetch('ruleAdd');
 		}

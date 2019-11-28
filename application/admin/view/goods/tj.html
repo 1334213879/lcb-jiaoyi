@@ -84,8 +84,8 @@ html>body td{ font-size:15px;}</style>
 	<tr>
 		<th scope="col" abbr="Configurations">会员统计</th>
 		<th scope="col" abbr="Dual 1.8">USDT统计</th>
-		<th scope="col" abbr="Dual 2">NMCT统计</th>
-		<th scope="col" abbr="Dual 2.5">XMT统计</th>
+		<th scope="col" abbr="Dual 2">LCB统计</th>
+		<th scope="col" abbr="Dual 2.5">奖金统计</th>
 	</tr>
 	<tr>
 		<td>
@@ -95,10 +95,10 @@ html>body td{ font-size:15px;}</style>
 			剩余总USDT：{$user['usdt']}
 		</td>
 		<td>
-			剩余总NMCT资产：{$user['nmct_dj']}
+			剩余总LCB资产：{$user['nmct_dj']}
 		</td>
 		<td>
-			剩余总XMT：{$user['xmt']}
+			剩余总静态奖金池：{$j_bouns}
 		</td>
 	</tr>
 	<tr>
@@ -109,10 +109,11 @@ html>body td{ font-size:15px;}</style>
            累积充值USDT：{$usdt['usdt1']}
 		</td>
 		<td>
-		   剩余总NMCT通证：{$user['nmct']}
+		   剩余总LCB通证：{$user['nmct']}
 		</td>
 		<td>
-		   NMCT通证转XMT通证：{$usdt['nmct2xmt']}
+		   <!-- NMCT通证转XMT通证：{$usdt['nmct2xmt']} -->
+           剩余总动态态奖金池：{$bouns}
 		</td>
 	</tr>
     <tr>
@@ -123,77 +124,82 @@ html>body td{ font-size:15px;}</style>
            充值USDT笔数：{$usdt['count']}
         </td>
         <td>
-          累积领取NMCT红包：{$usdt['lqhb']}({$usdt['count6']}个),未领取NMCT红包：({$hongbao_}个)
+            本月提现金额：{$y_bo['y_tx_m']}
+          <!-- 累积领取NMCT红包：{$usdt['lqhb']}({$usdt['count6']}个),未领取NMCT红包：({$hongbao_}个) -->
         </td>
         <td>
-           
+           本月累计直推奖：{$y_bo['y_z_b']}
         </td>
     </tr>
     <tr>
         <td>
-           VIP1会员：{$user['level1']}
+           普通VIP：{$user['level1']}
         </td>
         <td>
-			购买激活码使用USDT：{$usdt['usdt10']}
+            本月提现金额：{$y_bo['y_tx_m']}
+			<!-- 购买激活码使用USDT：{$usdt['usdt10']} -->
         </td>
         <td>
-            红包复投NMCT资产：-{$usdt['hbft']}NMCT通证,+{$usdt['hbft']}NMCT资产
+            红包复投LCB资产：-{$usdt['hbft']}LCB通证,+{$usdt['hbft']}LCB资产
         </td>
         <td>
-        </td>
-    </tr>
-	<tr>
-        <td>
-           VIP2会员：{$user['level2']}
-        </td>
-        <td>
-        </td>
-        <td>
-            NMCT通证复投NMCT资产：-{$usdt['tz2zc']}NMCT通证,+{$usdt['tz2zc']*6}NMCT资产
-        </td>
-        <td>
+            本月累计静态奖：{$y_bo['y_j_b']}
         </td>
     </tr>
 	<tr>
         <td>
-            VIP3会员：{$user['level3']}
+           区域代理：{$user['level2']}
         </td>
         <td>
         </td>
         <td>
-		挂卖NMCT通证：{$gm['gm_gs']}NMCT通证({$gm['count']}单)
+            LCB通证复投LCB资产：-{$usdt['tz2zc']}LCB通证,+{$usdt['tz2zc']*6}LCB资产
         </td>
         <td>
+            本月累计绩效奖：{$y_bo['y_jx_b']}
         </td>
     </tr>
 	<tr>
         <td>
-           VIP4会员：{$user['level4']}
+            市级代理：{$user['level3']}
+        </td>
+        <td>
+        </td>
+        <td>
+		挂卖LCB通证：{$gm['gm_gs']}LCB通证({$gm['count']}单)
+        </td>
+        <td>
+             本月累计管理奖：{$y_bo['y_g_b']}
+        </td>
+    </tr>
+	<tr>
+        <td>
+           省级代理：{$user['level4']}
         </td>
         <td>
 		
         </td>
         <td>
-		求购NMCT：{$gm['gs1']}NMCT通证({$gm['count1']}单)
+		求购LCB：{$gm['gs1']}LCB通证({$gm['count1']}单)
         </td>
         <td>
         </td>
     </tr>
 	<tr>
         <td>
-           VIP5会员：{$user['level5']}
+          总代理：{$user['level5']}
         </td>
         <td>
         </td>
         <td>
-		NMCT交易成功：{$gm['gm_3']}NMCT通证({$gm['count3']}单)
+		LCB交易成功：{$gm['gm_3']}LCB通证({$gm['count3']}单)
         </td>
         <td>
         </td>
     </tr>
 	<tr>
 	</tr>
-  <tr>
+<!--   <tr>
         <td>
            赠送帐号：{$user['zs']}
         </td>
@@ -205,8 +211,8 @@ html>body td{ font-size:15px;}</style>
         </td>
     </tr>
 	<tr>
-	</tr>
-   <tr>
+	</tr> -->
+<!--    <tr>
         <td>
            G1：{$user['g1']}
         </td>
@@ -242,7 +248,7 @@ html>body td{ font-size:15px;}</style>
         </td>
         <td>
         </td>
-    </tr>
+    </tr> -->
 	<tr>
 	</tr>
 </table>
