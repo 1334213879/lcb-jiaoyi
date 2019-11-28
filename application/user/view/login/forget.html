@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="__STATIC__/xmt/css/pages/loginpage.css">
 </head>    
 <body class="login_bg">
+<div class="logbg_top">
+	<img src="__STATIC__/xmt/images/logbg1.png" width="100%" />
+</div>
 <div class="smz_x" onclick="location.href ='{:url('user/login/index')}';">
 	<img style="width:25px;height:25px;" src="__HOME__/btb/fh.png"/>
 </div>
@@ -55,7 +58,7 @@
 			</div>
 			<span><input id="mm1" type="password" placeholder="{:lang('请再次输入密码')}" maxlength='12'/></span>
 		</div>
-		<div class="sub" onclick="kq($('#yzm').text())">
+		<div class="sub" onclick="kq($('#yzm').text())" style="color: rgb(89, 67, 33);">
 			{:lang('提交')}
 		</div>
 	</div>

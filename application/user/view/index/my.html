@@ -157,7 +157,7 @@
                         </li>
                     </ul>
                 </div>
-                <p class="wboos-p-btn"><a class="button button-fill button-wboos wboos-btn-logout">{:lang('退出登录')}</a></p>
+                <p class="wboos-p-btn"><a class="button button-fill button-wboos wboos-btn-logout" style="color: rgb(89,67,33);">{:lang('退出登录')}</a></p>
             </div>   
 
 
@@ -513,7 +513,7 @@
                             </div>
                             {if condition="$userInfo['head_pic']"}
                             <div class="picboxbg">
-                               <img style="width:120px;height:120px" id='pic' src="{:imgUrl($userInfo['head_pic'])}"> 
+                               <img style="width:120px;height:120px" id='pic' src="{$userInfo['head_pic']}"> 
                             </div>
                             <input id="head_pic" type="text" name="head_pic" value="{:imgUrl($userInfo['head_pic'])}" style="display:none;">
                             {else/}
