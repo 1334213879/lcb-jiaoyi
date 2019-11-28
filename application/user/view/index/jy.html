@@ -420,12 +420,8 @@
               wboos.toast('{:lang(\'请输入安全密码\')}');
             });
           }else if(id==2){
-            if($('#wygm').val()==0 || $('#wygm').val()%100!==0 || $('#jz').text()<199){
-              wboos.toast('{:lang(\'挂卖必须200$起且为挂卖个数为100的倍数\')}');
-            }else if($('#zc').text()-$('#wygm').val()<0){
+             if($('#zc').text()-$('#wygm').val()<0){
               wboos.toast('{:lang(\'NMCT通证不足！\')}');return;
-            }else if(this.gm.level_money<this.gm_number){
-              wboos.toast('{:lang(\'单次挂卖金额不能超过会员级别！\')}');
             }else if(this.aqmm_()){
             var pay =  $('input[name="pay"]:checked').val();
             this.$http.post(wboos.url('user/buy/gm'),{id:id,gm_number:this.gm_number,pay:pay},{withCredentials: true}).then(function (response) {
