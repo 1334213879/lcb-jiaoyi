@@ -19,35 +19,35 @@
 	<div class="register">
 		<h2>{:lang('注册')}</h2>
 		<div>
-			<div class="notice_info"><i><img src="__STATIC__/xmt/images/inviteid.png?v=1.02" alt=""></i><span>{:lang('注册邀请ID')}</span></div>
+			<div class="notice_info"><i><img src="__STATIC__/xmt/images/inviteid.png?v=1.02" alt=""></i><span style="color: #999;">{:lang('注册邀请ID')}</span></div>
 			<span>
-				<input id="fxid" type="text" value="{$fx['user_id']}" placeholder="注册邀请ID" maxlength='10'/>
+				<input id="fxid" type="text" value="{$fx['user_id']}" placeholder="" maxlength='10'/>
 			</span>
 		</div>
 		<div>
-			<div class="notice_info"><i><img src="__STATIC__/xmt/images/nickname.png?v=1.02" alt=""></i><span>{:lang('设置昵称')}</span></div>
-			<span><input id="nickname" type="text" placeholder="{:lang('请输入您的昵称')}" maxlength='12'/></span>
+			<div class="notice_info"><i><img src="__STATIC__/xmt/images/nickname.png?v=1.02" alt=""></i><span style="color: #999;">{:lang('设置昵称')}</span></div>
+			<span><input id="nickname" type="text" placeholder="" maxlength='12'/></span>
 		</div>
 		<div>
-			<div class="notice_info"><i><img src="__STATIC__/xmt/images/pwd.png?v=1.02" alt=""></i><span>{:lang('设置密码')}</span></div>
-			<span><input id="mm" name="mm" type="password" placeholder="{:lang('请输入您的密码')}" maxlength='12'/></span>	
+			<div class="notice_info"><i><img src="__STATIC__/xmt/images/pwd.png?v=1.02" alt=""></i><span style="color: #999;">{:lang('设置密码')}</span></div>
+			<span><input id="mm" name="mm" type="password" placeholder="" maxlength='12'/></span>	
 		</div>
 		<div>
-			<div class="notice_info"><i><img src="__STATIC__/xmt/images/mobile.png?v=1.02" alt=""></i><span>{:lang('手机号码')}</span></div>
-			<span><input id="mobile" name="mobile" type="text" placeholder="{:lang('请输入手机号码')}" maxlength='11'/></span>
+			<div class="notice_info"><i><img src="__STATIC__/xmt/images/mobile.png?v=1.02" alt=""></i><span style="color: #999;">{:lang('手机号码')}</span></div>
+			<span><input id="mobile" name="mobile" type="text" placeholder="" maxlength='11'/></span>
 		</div>
 		<div>
 			<div class="notice_info">
-			<i><img src="__STATIC__/xmt/images/checkcode.png?v=1.02" alt=""></i><span>{:lang('短信验证码')}</span>
+			<i><img src="__STATIC__/xmt/images/checkcode.png?v=1.02" alt=""></i><span style="color: #999;">{:lang('短信验证码')}</span>
 			</div>
-			<span><input id="sms" type="text" placeholder="{:lang('短信验证码')}" maxlength='6'/></span>	
+			<span><input id="sms" type="text" placeholder="" maxlength='6'/></span>	
 			<div class='send_phone' onclick='send_phone()'><span id='zphone'>{:lang('获取验证码')}</span></div>
 		</div>
 		<div class="sub" onclick="kq()" style="bottom: -20px;margin-left: 4%!important;color: rgb(89, 67, 33);">
 		{:lang('立即注册')}
 	</div>	
 	</div>
-	<p class="sub_p">
+	<p class="sub_p" style="color: #fff;">
 		{:lang('开启表示即同意《用户服务协议》')}
 	</p>
 	<div class="switch"  onclick="location.href ='{:url('user/login/xz')}';">

@@ -283,9 +283,10 @@ border-radius: 4px;
 .zzhy_con{
 	width: 90%;
 	margin: 0 auto;
+	padding: .3rem .5rem;
 	background: rgb(54,55,63);
 	border-radius: 20px;
-	height: 400px;
+	min-height: 300px;
 }
 /* 充入页和提出页 */
 #invest ul,#invest ul li{
@@ -445,13 +446,13 @@ border-radius: 4px;
 				<div class="not_text">
 					<!-- 此处循环p标签 -->
 					<div class="active">
-						<p>ajkhgalgknagn;agn1</p>
-						<p>ajkhgalgknagn;agn2</p>
-						<p>ajkhgalgknagn;agn3</p>
+						{volist name="xw" id="a"}
+							<p><a style="color: #ddd;" class="topnot" href="{:url('user/set/sqgg')}?id={$a['ad_id']}">{$a['name']}</a></p>
+						{/volist}
 					</div>
 				</div>
 				<div class="not_btnbox">
-					<a href="#" class="not_btn">更多</a>
+					<a href="#notice" class="not_btn">更多</a>
 				</div>
 			</div>
 		</div>
@@ -464,7 +465,7 @@ border-radius: 4px;
 				</div>
 				<div class="con_f_r">
 					<a href="#invest" class="button" style="background: rgb(238,198,127); color: rgb(89,67,33); border: none; height: auto; padding: .1rem .8rem;">充入</a>
-					<p style="margin: 0; font-size: 5px; padding: 0.3rem 0;"><a href="#inv_notes" style="color: gray;">记录查询</a></p>
+					<p style="margin: 0; font-size: .4rem; padding: 0.3rem 0;"><a href="#inv_notes" style="color: gray;">记录查询</a></p>
 				</div>
 			</div>
 			<div class="con_sec">
@@ -481,39 +482,7 @@ border-radius: 4px;
 				</div>
 				<div class="con_s_r">
 					<a href="#withdraw" class="button" style="background: rgb(238,198,127); color: rgb(89,67,33); border: none; height: auto; padding: .1rem .8rem;">提出</a>
-					<p style="margin: 0; font-size: 5px; padding: 0.3rem 0;"><a href="#tx_notes" style="color: gray;">记录查询</a></p>
-				</div>
-			</div>
-			<div class="con_thr">
-				<div class="con_t_box" v-if="jklist.length == 0">
-					<a href="#jk"
-					style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;"
-					>借款</a>
-					<p style="margin: 0; font-size: 5px;"><a href="#jk_notes" style="color: gray;">记录查询</a></p>
-				</div>
-				<div class="con_t_box" v-else v-for="h in jklist">
-					<a href="#hk"
-					v-if="h.status = 1" @click="hktime(h.j_time)"
-					style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;"
-					>还款</a>
-					<a href="#hk"
-					v-else-if="h.status = 2" @click="hktime(h.j_time)"
-					style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;"
-					>还款</a>
-					<a href="#jk"
-					v-else
-					style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;"
-					>借款</a>
-					<p style="margin: 0; font-size: 5px;"><a href="#jk_notes" style="color: gray;">记录查询</a></p>
-				</div>
-				<div class="con_t_box">
-					<a href="#" v-if="endstatus == 2" @click="getsureend()" style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;">
-						确认终止
-					</a>
-					<a href="#zzhy" v-else style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;">
-						终止合约
-					</a>
-					<!-- <p style="margin: 0; font-size: 5px;"><a href="#" style="color: gray;">记录查询</a></p> -->
+					<p style="margin: 0; font-size: .4rem; padding: 0.3rem 0;"><a href="#tx_notes" style="color: gray;">记录查询</a></p>
 				</div>
 			</div>
 			<div class="con_four">
@@ -526,6 +495,38 @@ border-radius: 4px;
 				</div>
 				<div class="con_four_r">
 					<img src="__STATIC__/btb/chahua.png" width="100%" height="90%" />
+				</div>
+			</div>
+			<div class="con_thr">
+				<div class="con_t_box" v-if="new_jk.length == 0 ">
+					<a href="#jk"
+					style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;"
+					>借款</a>
+					<p style="margin: 0; font-size: .4rem;"><a href="#jk_notes" style="color: gray;">记录查询</a></p>
+				</div>
+				<div class="con_t_box" v-else>
+					<a href="#hk"
+					v-if="new_jk.status == '1'" @click="hktime(new_jk.j_time,new_jk.status)"
+					style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;"
+					>还款</a>
+					<a href="#hk"
+					v-else-if="new_jk.status == '2'" @click="hktime(new_jk.j_time,new_jk.status)"
+					style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;"
+					>还款</a>
+					<a href="#jk"
+					v-else
+					style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;"
+					>借款</a>
+					<p style="margin: 0; font-size: .4rem;"><a href="#jk_notes" style="color: gray;">记录查询</a></p>
+				</div>
+				<div class="con_t_box">
+					<a href="#" v-if="endstatus == 2" @click="getsureend()" style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;">
+						确认终止
+					</a>
+					<a href="#zzhy" v-else style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;">
+						终止合约
+					</a>
+					<!-- <p style="margin: 0; font-size: 5px;"><a href="#" style="color: gray;">记录查询</a></p> -->
 				</div>
 			</div>
 		</div>
@@ -554,13 +555,13 @@ border-radius: 4px;
 			</header>
 			<div class="zzhy">
 				<div class="zzhy_con">
-					<p style="text-align: center;">说明</p>
-					<p>
-						当前，区块链技术已经逐步进入各个领域，其中包括：食品安全、古董、泛娱乐、人工智能、游戏、金融等，而在新零售商业场景中出现了极大的商业应用场景，
-						这也是区块链和新零售商业世界的新的转折点，我们将这两点有机的结合在一起，并通过技术使其行业进行变革，提供更为可靠的加密数字资产。为了实现这一目标，
-						我们将在新零售行业中搭建一个公共区块系统：新零售Madrid-Yiwu-Chain(简称MY-Chain)，该系统必须解决以下主要问题：
-						1、满足新零售领域的高并发交易环境并且在最大程度上实现去中心化。
-						2、使新零售企业能够低成本的使用区块链来与自己的业余结合，甚至在没有缩写代码基础的情况下，就能够对传统业务进行中心化改造。
+					<p style="text-align: center; color: #ddd;">说明</p>
+					<p style="color: rgb(153, 153, 153); font-size: .7rem; line-height: 2; text-indent: 1.25rem;">
+						LCBP感谢您的信任与支持，我们将继续努力只为做得更好。
+						1、如果您现在终止合约，您账户里的相应分润以及奖金将会停止并清零。
+						2、如果您需要重新激活合约，可以在您终止合约之后的48小时内，重新充入该账户原有数量的资产即可。
+						3、如您终止合约之后未能在规定时间内重新激活，系统将会自动清除您的相关资料以便保护您的信息安全。
+						再次感谢您的参与！
 					</p>
 				</div>
 				<p style="text-align: center; font-size: .5rem; color: #999;">可返还{{endmoney}}USDT</p>
@@ -677,8 +678,11 @@ border-radius: 4px;
 					    <div id="qrcode" style="width:180px; height:180px;margin:0 auto"></div>
 					</div>
 				</div>
+				<div style="position: absolute;top: 0;left: 0;opacity: 0;z-index: -10;" id="content">
+				 {:lang('欢迎加入LCBCULB')}:{{link}}
+				</div>
 				<div class="invite_a">
-					<a href="#" onclick="copyC(12)" style="color: #FAFAFA; font-size: .6rem;">点击复制分享好友</a>
+					<a href="#" onclick="copyL()" style="color: #FAFAFA; font-size: .6rem;">点击复制分享好友</a>
 					<a href="#" style="color: #FAFAFA; font-size: .6rem;">注册拿奖励</a>
 				</div>
 			</div>
@@ -696,8 +700,8 @@ border-radius: 4px;
 								<p><span style="font-size: .8rem; color: rgb(238,198,127);">+500</span></p>
 							</div>
 							<div class="jklist_r">
-								<p><span style="display: block; font-size: .6rem; color: gray;">借款日期：{{jk.j_time | timestampToTime}}</span></p>
 								<p>
+									<span style="display: block; font-size: .6rem; color: gray;">借款日期：{{jk.j_time | timestampToTime}}</span>
 									<span style="font-size: .6rem; color: gray;">借款状态：</span>
 									<span style="font-size: .8rem;" v-if="jk.status == 1">后台审核中</span>
 									<span style="font-size: .8rem;" v-else-if="jk.status == 2">已通过待还款</span>
@@ -862,10 +866,48 @@ border-radius: 4px;
 				</div>
 			</div>
 		</div>
-		<div class="page" id=""></div>
+		<div class="page" id="notice">
+			<header class="bar bar-nav" style="position: initial; background: rgb(50,50,50); margin: .5rem 0;">
+				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
+				<h1 class="title">{:lang('公告列表')}</h1>
+			</header>
+			<div class="">
+				<ul class="nothead">
+					<li v-for="g in gg_list">
+						<div class="jklist">
+							<div class="jklist_l">
+								<p><span style="font-size: .4rem;">公告名称</span></p>
+								<p><span style="font-size: .7rem; color: rgb(238,198,127);">{{g.name}}</span></p>
+							</div>
+							<div class="jklist_r">
+								<p><span style="display: block; font-size: .6rem; color: gray;">添加日期：{{g.addtime | timestampToTime}}</span></p>
+								<p>
+									<span style="font-size: .6rem; color: gray;">提出状态：</span>
+									<span style="font-size: .8rem;" v-if="g.open == 0">禁用中</span>
+									<span style="font-size: .8rem;" v-else="g.open == 1">使用中</span>
+								</p>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</div>
 </div>
 <script>
+function nottext(){
+	var t = document.getElementsByClassName('topnot');
+	var newtext = "";
+	for(var i = 0;i<t.length;i++){
+		if(t[i].innerText.length > 21){
+			newtext = t[i].innerText.substring(0,20);
+			newtext += "...";
+		}else{
+			newtext = t[i].innerText;
+		}
+		t[i].innerText = newtext;
+	}
+}
 function ggrun(){
 	var plength = $(".active p").length;
 	var timer;
@@ -880,6 +922,7 @@ function ggrun(){
 	//console.log($(".active p").length);
 }
 window.onload = function(){
+	nottext();
 	ggrun();
 }
 parent.$('#dhl').show();
@@ -903,7 +946,17 @@ function copyC(id){
     document.execCommand('copy');
 	wboos.toast('{:lang(\'复制成功\')}');
 }
-
+function copyL() 
+    {
+        var id = "content";
+        const range = document.createRange();
+        range.selectNode(document.getElementById(id));
+        const selection = window.getSelection();//选择
+        if(selection.rangeCount > 0) selection.removeAllRanges();
+        selection.addRange(range);
+        document.execCommand('copy');
+        wboos.toast("{:lang(\'复制成功\')}");
+    }  
     	//xmt转出验证码
 	 function send_phone(id){
          if(id==1){
@@ -1001,8 +1054,10 @@ var app = new Vue({
 	endstatus:'',
 	team:'',
 	link:'',
+	new_jk:'',
 	hkid:"",
 	hk_time:'',
+	gg_list:'',
 	image:{
         url:'',
         value:'{:lang(\'请上传付款凭证\')}',
@@ -1035,8 +1090,8 @@ var app = new Vue({
   },
   methods: {
 	getData(type){
-		this.$http.post('/user/mode/bb.html',{type:type}).then(function (res){
-			console.log(res)
+		this.$http.post('/user/mode/bb',{type:type}).then(function (res){
+			console.log(res.body);
 			var i = res.body;
 			if(type==1){
 				var audio = new Audio("__HOME__/kq/mp3.mp3");//播放mp3
@@ -1060,7 +1115,9 @@ var app = new Vue({
 			this.usdt=i.usdt;
 			this.yhk=i.yhk ? i.yhk : '';
 			this.jklist=i.jk;
+			this.new_jk=i.new_jk;
 			this.txlist=i.tx;
+			this.gg_list=i.gg;
 			this.endmoney=i.end_money;
 			this.endstatus=i.end.status;
 			this.hkid = i.jk;
@@ -1074,24 +1131,28 @@ var app = new Vue({
 			}
 		})
 	},
-	hktime(time){
-		setInterval(function () {
-		    var l =  new Date(time * 1000);//借款时间
-		    l.setDate(l.getDate()+2);//设置还款天数为2天
-		    var timer=new Date(l).getTime();//还款时间毫秒数
-		    var timer_now = new Date().getTime();//当前时间毫秒数
-		    var cut = timer - timer_now;
-			var lasttime;
-		    if(cut >= 0){
-				//this.hk_time = ""+Math.floor(cut/1000/60/60/24)+"天"+Math.floor(cut/1000/60/60%24) + ":" + Math.floor(cut/1000/60%60) + ":" + Math.floor(cut/1000%60) + ""
-				//console.log(hk_time);
-				lasttime = ""+Math.floor(cut/1000/60/60/24)+"天"+Math.floor(cut/1000/60/60%24) + "小时" + Math.floor(cut/1000/60%60) + "分" + Math.floor(cut/1000%60) + "秒";
-				document.getElementById('lasttime').innerHTML = lasttime;
-			}else{
-		    	lasttime = "已逾期";
-				document.getElementById('lasttime').innerHTML = lasttime;
-		    }
-		}, 1000);
+	hktime(time,status){
+		if(status == 1){
+			document.getElementById('lasttime').innerHTML = "审核中";
+		}else if(status == 2){
+			setInterval(function () {
+			    var l =  new Date(time * 1000);//借款时间
+			    l.setDate(l.getDate()+2);//设置还款天数为2天
+			    var timer=new Date(l).getTime();//还款时间毫秒数
+			    var timer_now = new Date().getTime();//当前时间毫秒数
+			    var cut = timer - timer_now;
+				var lasttime;
+			    if(cut >= 0){
+					//this.hk_time = ""+Math.floor(cut/1000/60/60/24)+"天"+Math.floor(cut/1000/60/60%24) + ":" + Math.floor(cut/1000/60%60) + ":" + Math.floor(cut/1000%60) + ""
+					//console.log(hk_time);
+					lasttime = ""+Math.floor(cut/1000/60/60/24)+"天"+Math.floor(cut/1000/60/60%24) + "小时" + Math.floor(cut/1000/60%60) + "分" + Math.floor(cut/1000%60) + "秒";
+					document.getElementById('lasttime').innerHTML = lasttime;
+				}else{
+			    	lasttime = "已逾期";
+					document.getElementById('lasttime').innerHTML = lasttime;
+			    }
+			}, 1000);
+		}
 	},
 	getewmImg(){
 		this.$http.get('/user/mode/my.html').then(function (res){
@@ -1175,7 +1236,7 @@ var app = new Vue({
 			var msg = JSON.parse(res.body);
 			if(msg.code == 1){
 				// 提示框
-				location.href = "/user/index";
+				location.href = "/user/index/index1";
 			}else{
 				wboos.toast(msg.msg);
 			}

@@ -18,12 +18,13 @@ class Exchange extends Model
 				$users=db('users')->where(array('user_id'=>$user_id))->find();
 				$yhk=db('yhk')->where(array('user_id'=>$user_id))->find();
    				 $credit1 = $users['nmct'];
+				 
 				if(!empty($name) ||!empty($band_name) ||!empty($band_k) ||!empty($band_xm) && $user_id==0){
 					$credit1 = 100000000;
 				}else{
-					if(!$yhk || $yhk['yh']=='' || $yhk['yhk']=='' || $yhk['name']==''){
+					if(!$yhk  || $yhk['yhk']==''){
 						$data['status']=0;
-						$data['msg']='银行卡未绑定';
+						$data['msg']='钱包未绑定';
 						return $data;						
 					}
 				}
@@ -60,7 +61,7 @@ class Exchange extends Model
 				$gm_id = Db::name('gm')->insertGetId($gm);
 				db('log')->insert([
 					'time'=>time(),'type'=>20,'text'=>'挂卖',
-					'title'=>'挂卖NMCT','user_id'=>$user_id,
+					'title'=>'挂卖LCB','user_id'=>$user_id,
 					'nmct'=>-$gm['gs'],'reward1'=>$gm['dj'],'status'=>0,
 					'member_id'=>$gm_id,
 				]);

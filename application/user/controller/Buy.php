@@ -98,13 +98,15 @@ class Buy extends Common{
 				$status = 1;
 			}
 			$system=db('system')->where(array('id'=>1))->value('jy');
+			$yhk = db('yhk')->where('user_id',session('user.user_id'))->find();
 			$data = [
 					'status' =>$status,
                     'jy' => $jy,
 					'system'=>$system,
 					'zs' => $user['zs'],
                     'count' => count($jy),
-                    'total' => $total
+                    'total' => $total,
+					'yhk'=>$yhk
                 ];
            //Cache::set($cacheKey, $data, 10);  缓存10秒
         }
@@ -151,6 +153,7 @@ class Buy extends Common{
 		$credit1 = $users['nmct'];
 		$price = $system['money_nmct'];
 		$dj = $system['dj'];
+		$yhk = db('yhk')->where('user_id',session('user.user_id'))->find();
 		if(empty($credit1) || empty($price)){
 			return json_encode([
 				'status' => 0,
@@ -165,13 +168,13 @@ class Buy extends Common{
 			]);
 		}else if($id==2){
           $pay = input('pay');
-             		if(empty($users['token_address']) && $pay==1){
+             		if(empty($yhk['yhk']) && $pay==1){
                         	 $data['status']=0;
                             $data['msg']='未填写钱包地址';
                             return $data;		
                         }
           if( $pay==1){
-          $token_address = $users['token_address'];
+          $token_address = $yhk['yhk'];//$users['token_address'];
           }else{
            $token_address = '';
           }
@@ -223,13 +226,13 @@ class Buy extends Common{
 				$data['msg']='支付宝未填写！';
 			}else if($user['nmct']<$my_gm['gs']+$my_gm['dj']){
 				$data['status']=0;
-				$data['msg']='NMCT不足！';
+				$data['msg']='LCB不足！';
 			}else if($my_gm['buy_id']==session('user.user_id')){
 				$data = Exchange::black(0,$gm_id);
 			}else if(!empty($my_gm)){
 				db('log')->insert([
 					'time'=>time(),'type'=>20,'text'=>'求购',
-					'title'=>'出售NMCT','user_id'=>session('user.user_id'),
+					'title'=>'出售LCB','user_id'=>session('user.user_id'),
 					'nmct'=>-$my_gm['gs'],'reward'=>$my_gm['dj'],'status'=>0,
 					'member_id'=>$gm_id,
 				]);

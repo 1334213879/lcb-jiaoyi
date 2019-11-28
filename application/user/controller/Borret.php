@@ -26,7 +26,7 @@ class Borret extends Common {
 			return json_encode(['code' => 0, 'msg' => '无钱包地址']);
 		}
 		$data = [];
-		$data['status'] = 1;
+		$data['status'] = "1";
 		$data['j_time'] = time();
 		$data['uid'] = $uid;
 		$data['address'] = $money_address['yhk'];

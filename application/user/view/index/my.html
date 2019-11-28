@@ -53,17 +53,26 @@
                     <div class="card-content">
                         <div class="card-content-inner">
                            <div class="u-pic">
-                              <img v-bind:src="setDefaultImg(user.head_pic)" onerror="javascript:this.src='__STATIC__/xmt/images/avatar.png';"/>
+                              <a href="#page-pic">
+								  <img v-bind:src="setDefaultImg(user.head_pic)" onerror="javascript:this.src='__STATIC__/xmt/images/avatar.png';"/>
+							  </a>
                             </div>
 
                            <div class="username">
                             <span>{:lang('欢迎')}，{$userInfo['nickname']}</span>
                             <span style="font-size: .3rem; font-weight: normal; color: #ddd;">{:lang('会员ID')}:{$userInfo['user_id']}</span>
-							<span><a href="#page-pic" style="font-weight: normal; color: #ddd;">{:lang('点击此处设置头像')}</a></span>
+							<!-- <span><a href="#page-pic" style="font-weight: normal; color: #ddd;">{:lang('点击此处设置头像')}</a></span> -->
                            </div>
                            <div class="user-info" style="top: 35%;">
-                            <span style="font-size: .8rem;;">VIP{$userInfo['level']-1}<i>&nbsp;<img src="__STATIC__/btb/icon_user.png" width="15px" /></i></span>
-                            
+							   
+                            <!-- <span style="font-size: .8rem;;">VIP{$userInfo['level']-1}<i>&nbsp;<img src="__STATIC__/btb/icon_user.png" width="15px" /></i></span> -->
+                            <span style="font-size: .8rem;" v-if="user.level == 1">普通VIP<i>&nbsp;<img src="__STATIC__/btb/icon_user.png" width="15px" /></i></span>
+							<span style="font-size: .8rem;" v-else-if="user.level == 2">区域代理<i>&nbsp;<img src="__STATIC__/btb/icon_user.png" width="15px" /></i></span>
+							<span style="font-size: .8rem;" v-else-if="user.level == 3">市级代理<i>&nbsp;<img src="__STATIC__/btb/icon_user.png" width="15px" /></i></span>
+							<span style="font-size: .8rem;" v-else-if="user.level == 4">省级代理<i>&nbsp;<img src="__STATIC__/btb/icon_user.png" width="15px" /></i></span>
+							<span style="font-size: .8rem;" v-else-if="user.level == 5">总代理<i>&nbsp;<img src="__STATIC__/btb/icon_user.png" width="15px" /></i></span>
+							<span style="font-size: .8rem;" v-else-if="user.level == 6">荣誉董事<i>&nbsp;<img src="__STATIC__/btb/icon_user.png" width="15px" /></i></span>
+							<span style="font-size: .8rem;" v-else>暂无<i>&nbsp;<img src="__STATIC__/btb/icon_user.png" width="15px" /></i></span>
                             <!-- <span v-if="user.g>0">G{{user.g}}</span> -->
                             <!-- 这里有一条VUE数据 -->
                            </div>
@@ -689,61 +698,7 @@ function int_(i){
         return i;
     }
 }
-// function ccclick(name){
-// 	name.click();
-// 	$("#uid_front").change(function (){
-// 		var formdata = new FormData();
-// 		formdata.append("file",this.files[0]);
-// 		$.ajax({
-// 		    url:"{:url('user/index/upload')}",
-// 		    type:'POST',
-// 		    data:formdata,
-// 		    cache: false,
-// 		    contentType: false,    //不可缺
-// 		    processData: false,    //不可缺
-// 		    dataType:'json',
-// 		    success:function(data){
-// 				console.log(data);
-// 		        $('#froimg').attr('src',""+data.url+"");
-// 		        $('#uid_front').value = data.url;
-// 		    }
-// 		});
-// 	});
-// 	$("#uid_back").change(function (){
-// 		var formdata = new FormData();
-// 		formdata.append("file",this.files[0]);
-// 		$.ajax({
-// 		    url:"{:url('user/index/upload')}",
-// 		    type:'POST',
-// 		    data:formdata,
-// 		    cache: false,
-// 		    contentType: false,    //不可缺
-// 		    processData: false,    //不可缺
-// 		    dataType:'json',
-// 		    success:function(data){
-// 		        $('#backimg').attr('src',""+data.url+"");
-// 		        $('#uid_back').value = data.url;
-// 		    }
-// 		});
-// 	});
-// 	$("#uid_hand").change(function (){
-// 		var formdata = new FormData();
-// 		formdata.append("file",this.files[0]);
-// 		$.ajax({
-// 		    url:"{:url('user/index/upload')}",
-// 		    type:'POST',
-// 		    data:formdata,
-// 		    cache: false,
-// 		    contentType: false,    //不可缺
-// 		    processData: false,    //不可缺
-// 		    dataType:'json',
-// 		    success:function(data){
-// 		        $('#handimg').attr('src',""+data.url+"");
-// 		        $('#uid_hand').value = data.url;
-// 		    }
-// 		});
-// 	});
-// }
+
 
 function check(){
 	if($("#cc_name").val() == "" || $("#cc_name").val() == null){

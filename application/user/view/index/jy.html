@@ -142,7 +142,7 @@
 				<span v-else-if="gm.status==2">{:lang('提交求购')}</span>
 			</p>
 			<p style="padding: 0 .5rem;">
-			  <span>{:lang('我的NMCT通证')}:</span><span id='zc' style="float: right;">{{gm.credit1}}</span>
+			  <span>{:lang('我的LCB通证')}:</span><span id='zc' style="float: right;">{{gm.credit1}}</span>
 			</p>
 			<p style=" padding: 0 .5rem;">
 			  <span>{:lang('当前价格')}:</span><span id='jg' style="float: right;">${{gm.price}}</span>
@@ -156,7 +156,7 @@
 			</p>        
 			<p style=" padding: 0 .5rem;">
 			  <span>{:lang('当前价值')}$:</span>
-			  <span id='jz' style="float: right;">{{gm_number*gm.price*0.8}}</span>
+			  <span id='jz' style="float: right;">{{gm_number*gm.price}}</span>
 			</p>
 			    <p style=" padding: 0 .5rem;">
 			      <span v-if="gm.status==1">
@@ -178,14 +178,14 @@
 		</div>
       </div>
       <div v-if="gm.status==1" class='qdgm'>
-		  <a @click="gm_(2);if($('#mm').val().length==6){aqmm_($('#mm').val())}" class="ensure button-round">
+		  <a @click="gm_(2);" class="ensure button-round">
 		    {:lang('发布挂卖')}
 		  </a>
 		  <a @click="gm_(0)" class="cancel">{:lang('取消')}</a>
       </div>
       <div v-else-if="gm.status==2" class='qdgm'>
-		<a @click="want_buy();if($('#mm').val().length==6){aqmm_($('#mm').val())}" class="ensure button-round">
-		    {:lang('发布求购')}
+		<a @click="want_buy();" class="ensure button-round">
+			{:lang('发布求购')}
 		</a>
         <a @click="gm_(0)" class="cancel">{:lang('取消')}</a>
       </div>
@@ -196,7 +196,7 @@
   <!-- 买入卖出弹出框 -->
   <div v-if="buy.status>-1">
     <div class='xs buyin' style="">
-      <h2>{:lang('NMCT通证交易')}</h2>
+      <h2>{:lang('LCB通证交易')}</h2>
       <div>
         <p>
         <span>{:lang('订单ID')}:</span>
@@ -357,6 +357,7 @@
       zs:'',
       zl:'0',
       system:'0',
+	  address:'',
       pageSize:'100'
       },
       methods:{
@@ -368,11 +369,12 @@
           this.$http.post(wboos.url('user/buy/jy_lb'),{ad_id:49,id:id,page:this.page,pageSize:this.pageSize},{withCredentials: true}).then(function (response) {
               this.id = id;
               this.zs = response.body.zs;
+			  this.address = response.body.yhk;
               this.system = response.body.system;
               this.list = response.body.jy;
               this.status = response.body.status;
               $('.header_dh'+id).addClass("now").siblings().removeClass("now");
-			  console.log(this.list);
+			  console.log(response.body);
           });
         }
         },
@@ -392,54 +394,95 @@
           }else{
           if($('#wygm').val()==0 || $('#wygm').val()%100!==0 || $('#wygm').val()<99){
             wboos.toast('{:lang(\'求购必须100的倍数起!\')}');
-          }else if(this.aqmm_('want_buy')){
-                       var pay =  $('input[name="pay"]:checked').val();
-            this.$http.post(wboos.url('user/buy/wantbuy'),{gm_number:this.gm_number,pay:pay},{withCredentials: true}).then(function (response) {
-              wboos.toast(response.body.msg);
-              if(response.body.status==1){
-                 this.getData(10);
-                 this.gm.status = 0;
-              }
-            });
+          }else{
+			  this.aqmm = $('#mm').val();
+			  this.$http.post(wboos.url('user/buy/aqmm'),{aqmm:this.aqmm},{withCredentials: true}).then(function (res) {
+			  	var i = res.body.status;
+			  	if(i == 1){
+			  		var pay =  $('input[name="pay"]:checked').val();
+			  		this.$http.post(wboos.url('user/buy/wantbuy'),{gm_number:this.gm_number,pay:pay},{withCredentials: true}).then(function (response) {
+			  			//console.log(response);
+			  			wboos.toast(response.body.msg);
+			  			if(response.body.status==1){
+			  				 this.getData(0);
+			  				 this.gm_(0);
+			  			}
+			  		});
+			  	}else{
+			  		wboos.toast('{:lang(\'安全密码错误\')}');
+			  		$('#mm').val('');
+			  	}
+			  });
+            //            var pay =  $('input[name="pay"]:checked').val();
+            // this.$http.post(wboos.url('user/buy/wantbuy'),{gm_number:this.gm_number,pay:pay},{withCredentials: true}).then(function (response) {
+            //   wboos.toast(response.body.msg);
+            //   if(response.body.status==1){
+            //      this.getData(10);
+            //      this.gm.status = 0;
+            //   }
+            // });
           }
           }
         },
         gm_(id){
         if(this.system==0){
-                        wboos.toast('{:lang(\'C2C交易暂未开放！\')}');return;
-                     }
-                  if(this.zs==1){
-                        wboos.toast('{:lang(\'无此权限！\')}');return;
-                       }
+               	wboos.toast('{:lang(\'C2C交易暂未开放！\')}');return;
+             }
+          if(this.zs==1){
+               	wboos.toast('{:lang(\'无此权限！\')}');return;
+               }
         if(this.status==1){
-          if(id==0){
-            this.gm = '';
-          }else if(id==1){
-            this.$http.post(wboos.url('user/buy/gm'),{id:id},{withCredentials: true}).then(function (response) {
-              this.gm = response.body;
-              wboos.toast('{:lang(\'请输入安全密码\')}');
-            });
-          }else if(id==2){
-            if($('#wygm').val()==0 || $('#wygm').val()%100!==0 || $('#jz').text()<199){
-              wboos.toast('{:lang(\'挂卖必须200$起且为挂卖个数为100的倍数\')}');
-            }else if($('#zc').text()-$('#wygm').val()<0){
-              wboos.toast('{:lang(\'NMCT通证不足！\')}');return;
-            }else if(this.gm.level_money<this.gm_number){
-              wboos.toast('{:lang(\'单次挂卖金额不能超过会员级别！\')}');
-            }else if(this.aqmm_()){
-            var pay =  $('input[name="pay"]:checked').val();
-            this.$http.post(wboos.url('user/buy/gm'),{id:id,gm_number:this.gm_number,pay:pay},{withCredentials: true}).then(function (response) {
-              wboos.toast(response.body.msg);
-              if(response.body.status==1){
-                 this.getData(0);
-                 this.gm_(0);
-              }
-            });
-            }
-          }
-          }else{
-            this.zl = 1;
-          }
+        	if(id==0){
+        		this.gm = '';
+        	}else if(id==1){
+        		this.$http.post(wboos.url('user/buy/gm'),{id:id},{withCredentials: true}).then(function (response) {
+        			this.gm = response.body;
+        			wboos.toast('{:lang(\'请输入安全密码\')}');
+        		});
+        	}else if(id==2){
+        		if($('#wygm').val()==0 || $('#wygm').val()%100!==0 || $('#wygm').val()<99){
+        			wboos.toast('{:lang(\'挂卖必须100的倍数起\')}');
+        		}else if($('#zc').text()-$('#wygm').val()<0){
+        			wboos.toast('{:lang(\'LCB通证不足！\')}');return;
+        		}else if(this.gm.level_money<this.gm_number){
+        			wboos.toast('{:lang(\'单次挂卖金额不能超过会员级别！\')}');
+        		}else{
+					this.aqmm = $('#mm').val();
+					this.$http.post(wboos.url('user/buy/aqmm'),{aqmm:this.aqmm},{withCredentials: true}).then(function (res) {
+						var i = res.body.status;
+						if(i == 1){
+							var pay =  $('input[name="pay"]:checked').val();
+							console.log(pay);
+							this.$http.post(wboos.url('user/buy/gm'),{id:id,gm_number:this.gm_number,pay:pay,yhk:this.address.yhk},{withCredentials: true}).then(function (response) {
+								console.log(response);
+								wboos.toast(response.body.msg);
+								if(response.body.status==1){
+									 this.getData(0);
+									 this.gm_(0);
+								}
+							});
+						}else{
+							wboos.toast('{:lang(\'安全密码错误\')}');
+							$('#mm').val('');
+						}
+					});
+				}
+				// else if(this.aqmm_($('#mm').val()) == true){
+				//   var pay =  $('input[name="pay"]:checked').val();
+				//   console.log(this.address.yhk);
+				// this.$http.post(wboos.url('user/buy/gm'),{id:id,gm_number:this.gm_number,pay:pay,yhk:this.address.yhk},{withCredentials: true}).then(function (response) {
+				// 	console.log(response);
+				// 	wboos.toast(response.body.msg);
+				// 	if(response.body.status==1){
+				// 		 this.getData(0);
+				// 		 this.gm_(0);
+				// 	}
+				// });
+				// }
+        	}
+        	}else{
+        		this.zl = 1;
+        	}
         },
         buy_(status,id){
         if(this.system==0){
@@ -454,6 +497,7 @@
           }
           if(status==14){
             this.buy.status = status;
+			//location.href = "/user/index/jy";
           }
           if(status==-1){
             this.buy = '';
@@ -538,8 +582,10 @@
               wboos.toast('{:lang(\'安全密码错误\')}');
               $('#mm').val('');
             }else if(this.gm.status==1){
-              console.log('this.gm.status==1');
-              this.gm_(2);
+              //console.log('this.gm.status==1');
+              //this.gm_(2);
+			  console.log("true");
+			  return true;
             }else if(this.gm.status==2){
               console.log('this.gm.status==2');
               this.want_buy();
@@ -553,7 +599,7 @@
             this.aqmm = 0;
           });
          }else if($('#mm').val()=='' || this.aqmm == 0){
-          // wboos.toast('请输入安全密码');
+          wboos.toast('请输入安全密码');
           this.aqmm = 1;  
           return false;
          }else{
