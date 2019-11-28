@@ -337,13 +337,23 @@ class Goods extends Common {
 		$j_bouns = db('users')->sum('j_bonus');
 		$bouns = db('users')->sum('bonus');
 		//本月奖项
-		$y_j_b = db('log')->whereTime('time', 'month')->where('type', '57')->sum('text');
 		$y_g_b = db('log')->whereTime('time', 'month')->where('type', '55')->sum('text');
 		$y_jx_b = db('log')->whereTime('time', 'month')->where('type', '56')->sum('text');
 		$y_z_b = db('log')->whereTime('time', 'month')->where('type', '58')->sum('text');
-		$y_tx_m = db('log')->whereTime('time', 'month')->where('type', '50')->where('status', '2')->sum('usdt');
+		$y_j_b = db('log')->whereTime('time', 'month')->where('type', '57')->sum('text');
 
-		$y_bo = ['y_j_b' => $y_j_b, 'y_g_b' => $y_g_b, 'y_jx_b' => $y_jx_b, 'y_z_b' => $y_z_b, 'y_tx_m' => $y_tx_m];
+		$d_g_b = db('log')->whereTime('time', 'today')->where('type', '55')->sum('text');
+		$d_jx_b = db('log')->whereTime('time', 'today')->where('type', '56')->sum('text');
+		$d_z_b = db('log')->whereTime('time', 'today')->where('type', '58')->sum('text');
+		$d_j_b = db('log')->whereTime('time', 'today')->where('type', '57')->sum('text');
+
+		$y_g_m = db('gm')->where('status', 3)->sum('zg');
+
+		$y_tx_m = db('log')->whereTime('time', 'month')->where('type', '50')->where('status', '2')->sum('usdt');
+		$z_tx_m = db('log')->where('type', '50')->where('status', '2')->sum('usdt');
+		$y_bo = ['y_j_b' => $y_j_b, 'y_g_b' => $y_g_b, 'y_jx_b' => $y_jx_b, 'y_z_b' => $y_z_b, 'y_tx_m' => $y_tx_m,
+			'd_j_b' => $d_j_b, 'd_g_b' => $d_g_b, 'd_jx_b' => $d_jx_b, 'd_z_b' => $d_z_b, 'z_tx_m' => $z_tx_m,
+		];
 		$this->assign([
 			'user' => $user[0],
 			'usdt' => $usdt[0],
@@ -355,6 +365,7 @@ class Goods extends Common {
 			'j_bouns' => $j_bouns,
 			'bouns' => $bouns,
 			'y_bo' => $y_bo,
+			'y_g_m' => $y_g_m,
 		]);
 		return $this->fetch();
 	}

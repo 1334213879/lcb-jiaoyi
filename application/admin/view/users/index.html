@@ -70,8 +70,13 @@ font-size:18px;font-weight:600;text-align:center
                     <a href="{:url('index')}?type=6" class="layui-btn {if $type==6}red{/if}">荣誉董事</a>
                 </div>
 						</th>
-                     
                       <th>
+                        <div class="layui-form-mid layui-word-aux" style="padding:0;">
+                    <a href="{:url('index')}?type=cj" class="layui-btn {if $type=='cj'}red{/if}">出局</a>
+                </div>
+                        </th>
+                     
+                     <!--  <th>
 						<div class="layui-form-mid layui-word-aux" style="padding:0;">
                     <a href="{:url('index')}?g=1" class="layui-btn {if $g==1}red{/if}">G</a>
                 </div>
@@ -105,7 +110,7 @@ font-size:18px;font-weight:600;text-align:center
 						<div class="layui-form-mid layui-word-aux" style="padding:0;">
                     <a href="{:url('index')}?type=gl" class="layui-btn {if $type=='gl'}red{/if}">合伙人</a>
                 </div>
-						</th>
+						</th> -->
 					</tr>
 					<tr id="tj"></tr>
                 </thead>
@@ -114,7 +119,7 @@ font-size:18px;font-weight:600;text-align:center
             <table class="layui-table table-hover">
                 <thead>
                 <tr>
-                    <th>赠送</th>
+                    <!-- <th>赠送</th> -->
                     <th>编号</th>
 					<th>姓名</th>
                     <th>昵称</th>
@@ -123,12 +128,12 @@ font-size:18px;font-weight:600;text-align:center
 					<th>级别</th>
 					<th>USDT</th>
 					<th>USDT充值总额</th>
-					<th>XMT</th>
-					<th>NMCT资产</th>
-					<th>NMCT通证</th>
+					<!-- <th>XMT</th> -->
+					<th>LCB资产</th>
+					<th>LCB通证</th>
                     <th>{:lang('tel')}</th>
                     <!--<th>认证</th>-->
-					<th>冻结</th>
+					<!-- <th>冻结</th> -->
                     <th>创建时间</th>
 					<th>登入时间</th>
 					<th>IP</th>
@@ -158,7 +163,7 @@ font-size:18px;font-weight:600;text-align:center
 <script type="text/html" id="conTemp">
     {{# layui.each(d.list, function(index, item){ }}
     <tr>
-        <td>{{# if(item.zs==0){ }}
+ <!--        <td>{{# if(item.zs==0){ }}
             <a class="red" href="javascript:" onclick="return stateyes('{{ item.user_id }}','1');" title="非赠送">
                 <div id="zs{{ item.user_id }}">
                     <button class="layui-btn layui-btn-warm layui-btn-mini">非赠送</button>
@@ -171,7 +176,7 @@ font-size:18px;font-weight:600;text-align:center
                 </div>
             </a>
             {{# } }}
-		</td>
+		</td> -->
         <td>{{ item.user_id }}</td>
 		<td>{{ item.xm }}</td>
         <td>{{ item.nickname }}</td>
@@ -194,11 +199,11 @@ font-size:18px;font-weight:600;text-align:center
   </td>
 		 <td>{{ item.money_usdt }}</td>
 		 <td>{{ item.money_cz }}</td>
-		 <td>{{ item.xmt }}</td>
+		 <!-- <td>{{ item.xmt }}</td> -->
 		 <td>{{ item.nmct_dj }}</td>
 		 <td>{{ item.nmct }}</td>
         <td>{{ item.mobile }}</td>
-		<td>
+<!-- 		<td>
             {{# if(item.is_lock==0){ }}
             <a class="red" href="javascript:" onclick="return stateyes('{{ item.user_id }}','0');" title="已开启">
                 <div id="zt{{ item.user_id }}">
@@ -225,7 +230,7 @@ font-size:18px;font-weight:600;text-align:center
                 </div>
             </a>
             {{# } }}
-		</td>
+		</td> -->
 		<td>{{ getdate(item.reg_time) }}</td>
 		<td>{{ getdate(item.last_login) }}</td>
 		<td>{{ item.last_ip }}</td>
@@ -271,14 +276,7 @@ font-size:18px;font-weight:600;text-align:center
 						<td>'+tj.level3+'</td>\
 						<td>'+tj.level4+'</td>\
 						<td>'+tj.level5+'</td>\
-						<td>'+tj.g+'</td>\
-						<td>'+tj.usdt+'</td>\
-						<td>'+tj.zs+'</td>\
-						<td>'+tj.xmt+'</td>\
-						<td>'+tj.nmct_dj+'</td>\
-						<td>'+tj.nmct+'</td>\
-						<td>'+tj.g+'</td>\
-					';
+						<td>'+tj.cj+'</td>';
 				}
 				console.log(tj);
 				$('#tj').html(html);

@@ -101,20 +101,21 @@ class Buy extends Common {
 				$status = 1;
 			}
 
-			$system=db('system')->where(array('id'=>1))->value('jy');
-			$yhk = db('yhk')->where('user_id',session('user.user_id'))->find();
+			$system = db('system')->where(array('id' => 1))->value('jy');
+			$yhk = db('yhk')->where('user_id', session('user.user_id'))->find();
 			$data = [
-					'status' =>$status,
-                    'jy' => $jy,
-					'system'=>$system,
-					'zs' => $user['zs'],
-                    'count' => count($jy),
-                    'total' => $total,
-					'yhk'=>$yhk
-                ];
-           //Cache::set($cacheKey, $data, 10);  缓存10秒
-        }
-        return $data;
+				'status' => $status,
+				'jy' => $jy,
+				'system' => $system,
+				'zs' => $user['zs'],
+				'count' => count($jy),
+				'total' => $total,
+				'yhk' => $yhk,
+			];
+			//Cache::set($cacheKey, $data, 10);  缓存10秒
+		}
+		// print_r($data);die;
+		return $data;
 
 	}
 	function time_tran($time) {
@@ -159,8 +160,8 @@ class Buy extends Common {
 		$price = $system['money_nmct'];
 		$dj = $system['dj'];
 
-		$yhk = db('yhk')->where('user_id',session('user.user_id'))->find();
-		if(empty($credit1) || empty($price)){
+		$yhk = db('yhk')->where('user_id', session('user.user_id'))->find();
+		if (empty($credit1) || empty($price)) {
 
 			return json_encode([
 				'status' => 0,
@@ -174,53 +175,53 @@ class Buy extends Common {
 				'dj' => $dj,
 			]);
 
-		}else if($id==2){
-          $pay = input('pay');
-             		if(empty($yhk['yhk']) && $pay==1){
-                        	 $data['status']=0;
-                            $data['msg']='未填写钱包地址';
-                            return $data;		
-                        }
-          if( $pay==1){
-          $token_address = $yhk['yhk'];//$users['token_address'];
-          }else{
-           $token_address = '';
-          }
-		  if(empty($users['alipay']) && $pay==2){
-		                	 $data['status']=0;
-		                    $data['msg']='未填写支付宝账号';
-		                    return $data;		
-		                }
-		  if( $pay==2){
-		  $alipay = $users['alipay'];
-		  }else{
-		   $alipay = '';
-		  }
-			$data = Exchange::gm(session('user.user_id'),input('gm_number'),'','','','',$token_address,$alipay);
+		} else if ($id == 2) {
+			$pay = input('pay');
+			if (empty($yhk['yhk']) && $pay == 1) {
+				$data['status'] = 0;
+				$data['msg'] = '未填写钱包地址';
+				return $data;
+			}
+			if ($pay == 1) {
+				$token_address = $yhk['yhk']; //$users['token_address'];
+			} else {
+				$token_address = '';
+			}
+			if (empty($users['alipay']) && $pay == 2) {
+				$data['status'] = 0;
+				$data['msg'] = '未填写支付宝账号';
+				return $data;
+			}
+			if ($pay == 2) {
+				$alipay = $users['alipay'];
+			} else {
+				$alipay = '';
+			}
+			$data = Exchange::gm(session('user.user_id'), input('gm_number'), '', '', '', '', $token_address, $alipay);
 
-		// } else if ($id == 2) {
-		// 	$pay = input('pay');
-		// 	if (empty($users['token_address']) && $pay == 1) {
-		// 		$data['status'] = 0;
-		// 		$data['msg'] = '未填写钱包地址';
-		// 		return $data;
-		// 	}
-		// 	if ($pay == 1) {
-		// 		$token_address = $users['token_address'];
-		// 	} else {
-		// 		$token_address = '';
-		// 	}
-		// 	if (empty($users['alipay']) && $pay == 2) {
-		// 		$data['status'] = 0;
-		// 		$data['msg'] = '未填写支付宝账号';
-		// 		return $data;
-		// 	}
-		// 	if ($pay == 2) {
-		// 		$alipay = $users['alipay'];
-		// 	} else {
-		// 		$alipay = '';
-		// 	}
-		// 	$data = Exchange::gm(session('user.user_id'), input('gm_number'), '', '', '', '', $token_address, $alipay);
+			// } else if ($id == 2) {
+			// 	$pay = input('pay');
+			// 	if (empty($users['token_address']) && $pay == 1) {
+			// 		$data['status'] = 0;
+			// 		$data['msg'] = '未填写钱包地址';
+			// 		return $data;
+			// 	}
+			// 	if ($pay == 1) {
+			// 		$token_address = $users['token_address'];
+			// 	} else {
+			// 		$token_address = '';
+			// 	}
+			// 	if (empty($users['alipay']) && $pay == 2) {
+			// 		$data['status'] = 0;
+			// 		$data['msg'] = '未填写支付宝账号';
+			// 		return $data;
+			// 	}
+			// 	if ($pay == 2) {
+			// 		$alipay = $users['alipay'];
+			// 	} else {
+			// 		$alipay = '';
+			// 	}
+			// 	$data = Exchange::gm(session('user.user_id'), input('gm_number'), '', '', '', '', $token_address, $alipay);
 
 			return $data;
 		}
@@ -244,31 +245,31 @@ class Buy extends Common {
 				$data['msg'] = '错误';
 			}
 
-		}else if($status==10){
-         
-			$my_gm=db('gm')->where(array('id'=>$gm_id,'status'=>10))->find();
-			$user=db('users')->where("user_id",session('user.user_id'))->find();
-			$yhk=db('yhk')->where(array('user_id'=>session('user.user_id')))->find();
-			if(!$yhk || $yhk['yh']=='' || $yhk['yhk']=='' || $yhk['name']==''){
-				$data['status']=0;
-				$data['msg']='银行卡未绑定!';	
-			}else if($my_gm['pay']==1 && empty($user['token_address'])){
-				$data['status']=0;
-				$data['msg']='钱包地址未填写！';
-			}else if($my_gm['pay']==2 && empty($user['alipay'])){
-				$data['status']=0;
-				$data['msg']='支付宝未填写！';
-			}else if($user['nmct']<$my_gm['gs']+$my_gm['dj']){
-				$data['status']=0;
-				$data['msg']='LCB不足！';
-			}else if($my_gm['buy_id']==session('user.user_id')){
-				$data = Exchange::black(0,$gm_id);
-			}else if(!empty($my_gm)){
+		} else if ($status == 10) {
+
+			$my_gm = db('gm')->where(array('id' => $gm_id, 'status' => 10))->find();
+			$user = db('users')->where("user_id", session('user.user_id'))->find();
+			$yhk = db('yhk')->where(array('user_id' => session('user.user_id')))->find();
+			if (!$yhk || $yhk['yh'] == '' || $yhk['yhk'] == '' || $yhk['name'] == '') {
+				$data['status'] = 0;
+				$data['msg'] = '银行卡未绑定!';
+			} else if ($my_gm['pay'] == 1 && empty($user['token_address'])) {
+				$data['status'] = 0;
+				$data['msg'] = '钱包地址未填写！';
+			} else if ($my_gm['pay'] == 2 && empty($user['alipay'])) {
+				$data['status'] = 0;
+				$data['msg'] = '支付宝未填写！';
+			} else if ($user['nmct'] < $my_gm['gs'] + $my_gm['dj']) {
+				$data['status'] = 0;
+				$data['msg'] = 'LCB不足！';
+			} else if ($my_gm['buy_id'] == session('user.user_id')) {
+				$data = Exchange::black(0, $gm_id);
+			} else if (!empty($my_gm)) {
 				db('log')->insert([
-					'time'=>time(),'type'=>20,'text'=>'求购',
-					'title'=>'出售LCB','user_id'=>session('user.user_id'),
-					'nmct'=>-$my_gm['gs'],'reward'=>$my_gm['dj'],'status'=>0,
-					'member_id'=>$gm_id,
+					'time' => time(), 'type' => 20, 'text' => '求购',
+					'title' => '出售LCB', 'user_id' => session('user.user_id'),
+					'nmct' => -$my_gm['gs'], 'reward' => $my_gm['dj'], 'status' => 0,
+					'member_id' => $gm_id,
 				]);
 				db('gm')->where(array('id' => $gm_id, 'status' => 10))->update([
 					'status' => 11, 'time1' => time(), 'zt' => '求购待打款', 'user_id' => session('user.user_id'),

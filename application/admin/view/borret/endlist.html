@@ -52,7 +52,11 @@
                                 {/switch}
 
                             </td>
-                            <td>{$v.time}</td>
+                            <td>
+                              {if $v.time != 0}
+                                {$v.time|date='Y-m-d h:i:s',###}
+                                {/if}
+                            </td>
                             <td>
                                 {switch $v.status}
                                 {case 1}

@@ -92,13 +92,14 @@ html>body td{ font-size:15px;}</style>
 			总会员：{$user['count']}
 		</td>
 		<td>
-			剩余总USDT：{$user['usdt']}
+			实时总USDT：{$user['usdt']}
 		</td>
 		<td>
-			剩余总LCB资产：{$user['nmct_dj']}
+            已交易USDT：{$y_g_m}
+			<!-- 剩余总LCB资产：{$user['nmct_dj']} -->
 		</td>
 		<td>
-			剩余总静态奖金池：{$j_bouns}
+			已发放总静态奖金池：{$j_bouns}
 		</td>
 	</tr>
 	<tr>
@@ -113,7 +114,7 @@ html>body td{ font-size:15px;}</style>
 		</td>
 		<td>
 		   <!-- NMCT通证转XMT通证：{$usdt['nmct2xmt']} -->
-           剩余总动态态奖金池：{$bouns}
+           已发放总动态奖金池：{$bouns}
 		</td>
 	</tr>
     <tr>
@@ -124,7 +125,8 @@ html>body td{ font-size:15px;}</style>
            充值USDT笔数：{$usdt['count']}
         </td>
         <td>
-            本月提现金额：{$y_bo['y_tx_m']}
+            挂卖LCB通证：{$gm['gm_gs']}LCB通证({$gm['count']}单)
+            <!-- 本月提现金额：{$y_bo['y_tx_m']} -->
           <!-- 累积领取NMCT红包：{$usdt['lqhb']}({$usdt['count6']}个),未领取NMCT红包：({$hongbao_}个) -->
         </td>
         <td>
@@ -140,7 +142,8 @@ html>body td{ font-size:15px;}</style>
 			<!-- 购买激活码使用USDT：{$usdt['usdt10']} -->
         </td>
         <td>
-            红包复投LCB资产：-{$usdt['hbft']}LCB通证,+{$usdt['hbft']}LCB资产
+求购LCB：{$gm['gs1']}LCB通证({$gm['count1']}单)
+            <!-- 红包复投LCB资产：-{$usdt['hbft']}LCB通证,+{$usdt['hbft']}LCB资产 -->
         </td>
         <td>
             本月累计静态奖：{$y_bo['y_j_b']}
@@ -151,9 +154,11 @@ html>body td{ font-size:15px;}</style>
            区域代理：{$user['level2']}
         </td>
         <td>
+            总提现金额：{$y_bo['z_tx_m']}
+            
         </td>
         <td>
-            LCB通证复投LCB资产：-{$usdt['tz2zc']}LCB通证,+{$usdt['tz2zc']*6}LCB资产
+           LCB交易成功：{$gm['gm_3']}LCB通证({$gm['count3']}单)
         </td>
         <td>
             本月累计绩效奖：{$y_bo['y_jx_b']}
@@ -164,9 +169,10 @@ html>body td{ font-size:15px;}</style>
             市级代理：{$user['level3']}
         </td>
         <td>
+             剩余USDT：{$user['usdt'] -$y_g_m }
         </td>
         <td>
-		挂卖LCB通证：{$gm['gm_gs']}LCB通证({$gm['count']}单)
+		
         </td>
         <td>
              本月累计管理奖：{$y_bo['y_g_b']}
@@ -180,9 +186,10 @@ html>body td{ font-size:15px;}</style>
 		
         </td>
         <td>
-		求购LCB：{$gm['gs1']}LCB通证({$gm['count1']}单)
+		
         </td>
         <td>
+            当日累计直推奖：{$y_bo['y_z_b']}
         </td>
     </tr>
 	<tr>
@@ -192,7 +199,46 @@ html>body td{ font-size:15px;}</style>
         <td>
         </td>
         <td>
-		LCB交易成功：{$gm['gm_3']}LCB通证({$gm['count3']}单)
+		
+        </td>
+        <td>
+             当日累计静态奖：{$y_bo['d_j_b']}
+        </td>
+    </tr>
+        <tr>
+        <td>
+          
+        </td>
+        <td>
+        </td>
+        <td>
+        
+        </td>
+        <td>
+             当日累计绩效奖：{$y_bo['d_jx_b']}
+        </td>
+    </tr>
+        <tr>
+        <td>
+          
+        </td>
+        <td>
+        </td>
+        <td>
+        
+        </td>
+        <td>
+             当日累计管理奖：{$y_bo['d_g_b']}
+        </td>
+    </tr>
+        <tr>
+        <td>
+          
+        </td>
+        <td>
+        </td>
+        <td>
+       
         </td>
         <td>
         </td>

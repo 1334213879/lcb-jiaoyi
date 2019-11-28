@@ -63,13 +63,19 @@
                                 {/switch}
 
                             </td>
-                            <td>{$v.j_time}</td>
+                            <td>{if $v.j_time != 0}
+                                {$v.j_time|date='Y-m-d h:i:s',###}
+                                {/if}</td>
                             <td>
                                 <div id="layer-photos-demo{$v.id}" onclick="view({$v.id})">
                                  <img layer-pid="图片id，可以不写" layer-src="{$v.h_voucher}" src="{$v.h_voucher}" alt="{$v.h_voucher}" style="max-width: 70px;">
                                 </div>
                             </td>
-                            <td>{$v.h_time}</td>
+                            <td>
+                                {if $v.h_time != 0}
+                                {$v.h_time|date='Y-m-d h:i:s',###}
+                                {/if}
+                            </td>
                             <td>
                                 {switch $v.status}
                                 {case 1}<button class="su" onclick="tg({$v.id},{$v.uid})">借款审核通过</button>{/case}
@@ -80,7 +86,6 @@
                                     {/case}
                                 {/switch}
 
-                                {$v.h_time}
                             </td>
                         </tr>
                     {/foreach}

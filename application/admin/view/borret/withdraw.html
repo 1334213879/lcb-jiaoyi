@@ -52,7 +52,11 @@
                                 {/switch}
 
                             </td>
-                            <td>{$v.time|date='y-m-d h:i:s',###}</td>                            
+                            <td>
+                            {if $v.time != 0}
+                                {$v.time|date='Y-m-d h:i:s',###}
+                                {/if}
+                            </td>                            
                             <td>
                                 {switch $v.status}
                                 {case 1}<button class="su" onclick="tg({$v.id},{$v.user_id})">通过</button>{/case}
