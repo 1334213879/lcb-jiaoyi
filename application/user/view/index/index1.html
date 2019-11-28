@@ -447,8 +447,9 @@ border-radius: 4px;
 					<!-- 此处循环p标签 -->
 					<div class="active">
 						{volist name="xw" id="a"}
-							<p><a style="color: #ddd;" class="topnot" href="{:url('user/set/sqgg')}?id={$a['ad_id']}">{$a['name']}</a></p>
+							<p><a style="color: #ddd;" class="topnot">{$a['name']}</a></p>
 						{/volist}
+						<!--  href="{:url('user/set/sqgg')}?id={$a['ad_id']}" -->
 					</div>
 				</div>
 				<div class="not_btnbox">
