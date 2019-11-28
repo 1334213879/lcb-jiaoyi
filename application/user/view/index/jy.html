@@ -432,6 +432,7 @@
                	wboos.toast('{:lang(\'无此权限！\')}');return;
                }
         if(this.status==1){
+
         	if(id==0){
         		this.gm = '';
         	}else if(id==1){
@@ -440,12 +441,8 @@
         			wboos.toast('{:lang(\'请输入安全密码\')}');
         		});
         	}else if(id==2){
-        		if($('#wygm').val()==0 || $('#wygm').val()%100!==0 || $('#wygm').val()<99){
-        			wboos.toast('{:lang(\'挂卖必须100的倍数起\')}');
-        		}else if($('#zc').text()-$('#wygm').val()<0){
+        		if($('#zc').text()-$('#wygm').val()<0){
         			wboos.toast('{:lang(\'LCB通证不足！\')}');return;
-        		}else if(this.gm.level_money<this.gm_number){
-        			wboos.toast('{:lang(\'单次挂卖金额不能超过会员级别！\')}');
         		}else{
 					this.aqmm = $('#mm').val();
 					this.$http.post(wboos.url('user/buy/aqmm'),{aqmm:this.aqmm},{withCredentials: true}).then(function (res) {
@@ -483,6 +480,32 @@
         	}else{
         		this.zl = 1;
         	}
+
+          // if(id==0){
+          //   this.gm = '';
+          // }else if(id==1){
+          //   this.$http.post(wboos.url('user/buy/gm'),{id:id},{withCredentials: true}).then(function (response) {
+          //     this.gm = response.body;
+          //     wboos.toast('{:lang(\'请输入安全密码\')}');
+          //   });
+          // }else if(id==2){
+          //    if($('#zc').text()-$('#wygm').val()<0){
+          //     wboos.toast('{:lang(\'NMCT通证不足！\')}');return;
+          //   }else if(this.aqmm_()){
+          //   var pay =  $('input[name="pay"]:checked').val();
+          //   this.$http.post(wboos.url('user/buy/gm'),{id:id,gm_number:this.gm_number,pay:pay},{withCredentials: true}).then(function (response) {
+          //     wboos.toast(response.body.msg);
+          //     if(response.body.status==1){
+          //        this.getData(0);
+          //        this.gm_(0);
+          //     }
+          //   });
+          //   }
+          // }
+          // }else{
+          //   this.zl = 1;
+          // }
+
         },
         buy_(status,id){
         if(this.system==0){

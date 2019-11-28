@@ -52,7 +52,13 @@
                 <input type="text" ng-model="field.email" placeholder="{:lang('pleaseEnter')}{:lang('email')}" class="layui-input">
             </div>
         </div>
-		<div class="layui-form-item">
+         <div class="layui-form-item">
+            <label class="layui-form-label">充值倍数</label>
+            <div class="layui-input-3">
+                <input type="text" ng-model="field.bl" placeholder="充值倍数" class="layui-input">
+            </div>
+        </div>
+	<!-- 	<div class="layui-form-item">
             <label class="layui-form-label">虚拟会员数</label>
             <div class="layui-input-3">
                 <input type="text" ng-model="field.number" placeholder="虚拟会员数" class="layui-input">
@@ -63,8 +69,8 @@
             <div class="layui-input-3">
                 <input type="text" ng-model="field.dj" placeholder="挂买冻结nmct" class="layui-input">(如设置为0.01；挂卖100则冻结1)
             </div>
-        </div>
-      <div class="layui-form-item">
+        </div> -->
+    <div class="layui-form-item">
             <label class="layui-form-label">NMCT单价</label>
             <div class="layui-input-3">
                 <input type="text" ng-model="field.money_nmct" placeholder="NMCT单价" class="layui-input">
@@ -75,7 +81,7 @@
             <div class="layui-input-3">
                 <input type="text" ng-model="field.money_xmt" placeholder="XMT单价" class="layui-input">
             </div>
-        </div>
+        </div> 
 		<div class="layui-form-item">
             <label class="layui-form-label">USDT打款地址</label>
             <div class="layui-input-3">

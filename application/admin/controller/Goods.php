@@ -293,11 +293,12 @@ class Goods extends Common {
             sum(zs) as zs,
 			sum(nmct) as nmct,
 			sum(xmt) as xmt,
-			count(if(level=2,true,null)) as level1,
-			count(if(level=3,true,null)) as level2,
-			count(if(level=4,true,null)) as level3,
-			count(if(level=5,true,null)) as level4,
-			count(if(level=6,true,null)) as level5,
+			count(if(level=1,true,null)) as level1,
+			count(if(level=2,true,null)) as level2,
+			count(if(level=3,true,null)) as level3,
+			count(if(level=4,true,null)) as level4,
+			count(if(level=5,true,null)) as level5,
+			count(if(level=6,true,null)) as level6,
             count(if(g=1,true,null)) as g1,
             count(if(g=2,true,null)) as g2,
             count(if(g=3,true,null)) as g3
@@ -333,6 +334,16 @@ class Goods extends Common {
 		");
 		$qkl = db('qkl')->where('ad_id', '49')->find();
 		$system = db('system')->where('id', 1)->find();
+		$j_bouns = db('users')->sum('j_bonus');
+		$bouns = db('users')->sum('bonus');
+		//本月奖项
+		$y_j_b = db('log')->whereTime('time', 'month')->where('type', '57')->sum('text');
+		$y_g_b = db('log')->whereTime('time', 'month')->where('type', '55')->sum('text');
+		$y_jx_b = db('log')->whereTime('time', 'month')->where('type', '56')->sum('text');
+		$y_z_b = db('log')->whereTime('time', 'month')->where('type', '58')->sum('text');
+		$y_tx_m = db('log')->whereTime('time', 'month')->where('type', '50')->where('status', '2')->sum('usdt');
+
+		$y_bo = ['y_j_b' => $y_j_b, 'y_g_b' => $y_g_b, 'y_jx_b' => $y_jx_b, 'y_z_b' => $y_z_b, 'y_tx_m' => $y_tx_m];
 		$this->assign([
 			'user' => $user[0],
 			'usdt' => $usdt[0],
@@ -341,6 +352,9 @@ class Goods extends Common {
 			'qkl' => $qkl,
 			'system' => $system,
 			'rq' => $rq,
+			'j_bouns' => $j_bouns,
+			'bouns' => $bouns,
+			'y_bo' => $y_bo,
 		]);
 		return $this->fetch();
 	}
@@ -494,6 +508,10 @@ class Goods extends Common {
 			// ]);
 			db('users')->where("`user_id`={$log['user_id']}")->setInc('money_usdt', $log['usdt']);
 			db('users')->where("`user_id`={$log['user_id']}")->setInc('money_cz', $log['usdt']);
+
+			$bl = db('system')->find();
+			db('users')->where("`user_id`={$log['user_id']}")->setInc('xmt', $log['usdt'] * $bl['bl']);
+
 		}
 		return ['status' => 1, 'msg' => '操作成功！'];
 	}

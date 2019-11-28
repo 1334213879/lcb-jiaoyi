@@ -6,7 +6,6 @@ namespace app\home\command;
  * Date: 2019/2/22
  * Time: 14:57
  */
-use think\Cache;
 use think\console\Command;
 use think\console\Input;
 use think\console\Output;
@@ -33,13 +32,16 @@ class liveaward extends Command {
 	public function birthday() {
 		try {
 			Db::startTrans();
-			$arr = Cache::get('reg_usdt');
+			$arr = db::name('lingshi')->select();
+
 			if (!empty($arr)) {
 				foreach ($arr as $k => $v) {
-					$msg = db::name('users')->where('user_id', $v)->setInc('money_usdt', 88);
+					$msg = db::name('users')->where('user_id', $v['user_id'])->setInc('money_usdt', 88);
+					db('lingshi')->delete($v['id']);
+					$data = ['user_id' => $v['user_id'], 'type' => 58, 'text' => 88, 'time' => time()];
+					Db::name('log')->insert($data);
 				}
 			}
-			Cache::rm('reg_usdt');
 			Db::commit();
 		} catch (Exception $e) {
 			Db::rollback();
