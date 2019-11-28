@@ -1,18 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>个人中心</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">   
-    <meta name="description" content="{$title}">
-    <link rel="stylesheet" href="__STATIC__/admin/plugins/layui1/css/layui.css">
-    <link rel="stylesheet" href="__STATIC__/user/css/global.css">
-	    <script src="__HOME__/js/jquery.min.js"></script>
-		<link href="__HOME__/btb/gx.css" rel="stylesheet" type="text/css">
-		<link type="text/css" rel="stylesheet" href="__HOME__/btb/idealMoneyList.css">
-	<script type="text/javascript" src="__ADMIN__/plugins/layui1/layui.js"></script>
-	<script src="__STATIC__/js/jquery.2.1.1.min.js"></script>
-	<script src="__STATIC__/js/angular.min.js"></script>
+{include file="common/head"/}
 <style>
 	.sq_sjid{
 	width:100%;height:100%;background:rgba(72, 76, 86, 0.7);position: fixed;top:0px;left:0;Z-index:2;
@@ -203,8 +189,15 @@
 	parent.$('#dhl').hide();
 </script>
 </head>
-<body style="margin-top:0px;">
-<div class="smz">
+<body style="background: rgba(50,50,50,1);">
+	<header class="bar bar-nav" style="position: initial; background: rgb(50,50,50); margin: .5rem 0;">
+		<a class="icon icon-left pull-left back" style="color: #fff;"></a>
+		<h1 class="title" style="color: #ddd;">公告中心</h1>
+	</header>
+	<div class="" style="width: 90%; margin: 0 auto; padding: 0 .5rem; color: #999;">
+		{$xw['content']}
+	</div>
+<!-- <div class="smz">
 <p class="smz_x" onclick=" window.history.back();">
 	<img style="width:25px;height:25px;margin-left:5%;" src="__HOME__/btb/fh1.png"/> 
 </p>
@@ -226,5 +219,5 @@
 		</p>
 <div style="clear:both;"></div>
 </div>
-</div>
+</div> -->
 {include file="common/footer"/}
