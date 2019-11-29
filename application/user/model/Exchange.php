@@ -7,6 +7,7 @@ class Exchange extends Model
 {
   public static function gm($user_id,$gs,$name='',$band_name='',$band_k='',$band_xm='',$token_address='',$alipay=''){
 				$check = db('gm')->where("buy_id = {$user_id} and status in (0,1,2)")->whereOr("user_id = {$user_id} and status in (0,1,2,10,11,12)")->find();
+				
 				if(!empty($check)){
 					return ['status'=>0,'msg'=>'您有交易尚未完成！'];
 				}
@@ -39,7 +40,7 @@ class Exchange extends Model
 				$gm['gs']=$gs;
 				$gm['dj']=$dj*$gm['gs'];
 				$gm['time']=time();
-				$gm['zg']= ($gm['gs']*$gm['jg']*800000)/1000000;
+				$gm['zg']= ($gm['gs']*$gm['jg']*990000)/1000000;
 				$gm['rq']=date("Y-m-d",time());
 				$gm['user_id']=$user_id;
 				if($credit1<$gm['gs']+$gm['dj']){
@@ -49,6 +50,7 @@ class Exchange extends Model
 				}else if(intval($gm)>99){
 					$data['status']=0;
 					$data['msg']='非法错误';
+					//99000/100000
                   return $data;
 				}else{
 				$gm['zt']='挂卖中';
@@ -106,7 +108,7 @@ class Exchange extends Model
 		$gm['zt'] = '求购中';
 		$gm['gs'] = $gs;
    	 $gm['pay']=$pay;
-		$gm['zg'] = ($gm['gs']*$gm['jg']*80000)/100000;
+		$gm['zg'] = ($gm['gs']*$gm['jg']*990000)/1000000;
 		$gm['dj'] = $gm['gs']*$system['dj'];
 		$gm['time'] = time();
 		if(db('gm')->insert($gm)){
