@@ -15,6 +15,39 @@
     <script type="text/javascript" src="__STATIC__/xmt/js/qrcode.js"></script>
     <link rel="stylesheet" href="__STATIC__/xmt/css/pages/my.css">
 </head>
+<style>
+	#tb_address{
+		border-radius: 5px;
+	    background: rgb(68,71,83);
+	    font-size: .7rem;
+	    width: 100%;
+	    padding: .6rem .3rem;
+	    color: #fff;
+		border: none;
+	}
+	#money_lcb{
+		outline: none;
+		border: none;
+		background: none;
+		font-size: .5rem;
+	}
+	#tbje{
+		border-radius: 5px;
+		    background: rgb(68,71,83);
+		    font-size: .7rem;
+		    width: 100%;
+		    padding: .6rem .3rem;
+		    color: #fff;
+	}
+	.tblist{
+		padding: .2rem .5rem;
+		border-radius: 5px;
+	    box-shadow: 1px 1px 2px rgb(40,40,40);
+	    background: linear-gradient(rgb(68,71,83),rgb(50,50,50));
+	    color: #ddd;
+		margin: .5rem 0;
+	}
+</style>
   <script>
     $(document).on("pageInit", "#wboos-page-my-members", function(e, id, page) {
         $('#wboos-page-my-members .wboos-btn-logout').off('click');
@@ -98,7 +131,12 @@
 					<!-- nmct当前价格字段 -->
 					<li class="rec_list"><span style="color: #fff;">{:lang('LCB当前价格')}</span><span style="color: #fff; float: right;">{{system.money_nmct}}</span></li>
 					<!-- nmct通证字段 -->
-					<li class="rec_list"><span style="color: #fff;">{:lang('LCB通行证')}</span><span style="color: #fff; float: right;">{{user.nmct}}</span></li>
+					<li class="rec_list"><span style="color: #fff;">{:lang('LCB积分')}</span><span style="color: #fff; float: right;">{{user.nmct}}</span></li>
+					
+					<li class="rec_list" style="display: flex;flex-direction: row;align-items: center;justify-content: space-around; padding: .5rem 0;">
+						<span style="display: block;"><a href="#page-getlcb" style="color: #999;">申请提币</a></span>
+						<span style="display: block;"><a href="#page-lcb-not" style="color: #999;">提币记录</a></span>
+					</li>
 				</ul>
             </div>
 
@@ -120,12 +158,21 @@
                                     <div class="item-inner">
                                         <div class="item-title">
                                             <i><img src="__STATIC__/xmt/images/bankcard.png" alt=""></i>
-                                            <span style="color: #999;">{:lang('绑定钱包')}</span>
+                                            <span style="color: #999;">{:lang('绑定USDT钱包')}</span>
                                         </div>
                                     </div>
                                 </div>
                             </a>
                         </li>
+						<li>
+						    <a href="#page-IMToken">
+						        <div class="item-content item-link">
+						            <div class="item-inner">
+						                <div class="item-title"><i><img src="__STATIC__/xmt/images/bankcard.png" alt=""></i><span style="color: #999;">{:lang('绑定IMToken钱包地址')}</span></div>
+						            </div>
+						        </div>
+						    </a>
+						</li>
                         <li>
                             <a class="page-password" href="#page-change-password">
                                 <div class="item-content item-link">
@@ -451,7 +498,7 @@
         <div class="content">
             <header class="bar bar-nav">
                 <a class="icon pull-left back"></a>
-                <h1 class="title">{:lang('绑定个人钱包')}</h1>
+                <h1 class="title">{:lang('绑定USDT钱包')}</h1>
             </header>
             <form method="post" action="{:url('user/set/yhk')}">
                 <div class="list-block qb">
@@ -588,6 +635,106 @@
 						</p>
 					</div>
 			</div>
+		</div>
+		
+		<div class="page" id="page-IMToken">
+			<div class="content">
+			    <header class="bar bar-nav">
+			        <a class="icon pull-left back"></a>
+			        <h1 class="title">{:lang('绑定IMToken钱包地址')}</h1>
+			    </header>
+			    <!-- <form method="post" action="{:url('user/set/imtoken')}"> -->
+			        <div class="list-block qb">
+			            <ul style="background: rgb(50,50,50); padding-top: 1rem;">
+			                <li>
+			                    <div class="item-content" style="border-bottom: 2px solid #999;">
+			                        <div class="item-media"><i class="icon icon-form-name"></i></div>
+			                        <div class="item-inner">
+			                            <!-- <div class="item-title label">{:lang('银行卡账号')}</div> -->
+			                            <div class="item-input">
+			                                <span style="display: flex; align-items: center;">
+												<img src="__STATIC__/xmt/images/wallet.png" height="20px" />
+												<input type="text" id="imt" name="imt" placeholder="{:lang('请输入IMToken钱包地址')}" style="font-size: .7rem; color: #FAFAFA;" v-bind:value="user.mention_address" maxlength=60/>
+											</span>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </li>
+			            </ul>
+			            <p class="wboos-p-btn">
+							<a class="button button-fill button-wboos button-round" @click="addIMT($('#imt').val())" style="color: rgb(89,67,33);">{:lang('保 存')}</a>
+						</p>
+			        </div>
+			    <!-- </form> -->
+			</div>
+		</div>
+
+		<div class="page" id="page-getlcb">
+			<header class="bar bar-nav" style="position: initial; margin: .5rem 0;">
+			    <a class="icon pull-left back"></a>
+			    <h1 class="title">{:lang('申请提币')}</h1>
+			</header>
+			<div class="getlcb">
+				<p style="text-align: center;"><i><img src="__STATIC__/xmt/images/regsiter_pic.png" height="100px" /></i></p>
+				<div class="getlcb">
+					<ul style="padding: 0; margin: 0 auto; width: 90%;">
+						<li>
+							<p style="font-size: .7rem; color: #999;">提币地址</p>
+							<p><input type="text" id="tb_address" v-bind:value="user.mention_address" placeholder="请输入提币地址" maxlength="10" /></p>
+							<p style="text-align: center; margin: .3rem 0;"><a href="#" onclick="tbcopy()" id="copy" style="color: #999; font-size: .5rem;">点击复制地址</a></p>
+						</li>
+						<script>
+							function tbcopy(){
+								var val = document.getElementById('tb_address');
+								val.select();
+								document.execCommand("Copy");
+								wboos.toast("已复制到剪贴板");
+							}
+						</script>
+						<li style="display: flex; justify-content: space-between; align-items: flex-start;">
+							<div class="inv_sec">
+								<p style="font-size: .7rem; color: #999;">提币数量</p>
+								<p><span id="tbje"><input type="text" id="money_lcb" placeholder="提币金额" style="width: 90%;" /></span></p>
+							</div>
+						</li>
+						<li>
+							<p style="padding: 0 5rem;">
+								<a href="#"  @click="getLCB($('#tb_address').val(),$('#money_lcb').val())"
+								class="button" 
+								style="background: rgb(238,198,127); color: rgb(89,67,33); border: none; height: auto; padding: .5rem 0;">确定提币</a>
+							</p>
+							<p style="padding: 0 5rem; text-align: center;">
+								<a href="#" class="back" style="font-size: .8rem; color: #999;">取消</a>
+							</p>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="page" id="page-lcb-not">
+			<header class="bar bar-nav" style="">
+				<a class="icon pull-left back"></a>
+				<h1 class="title">{:lang('提币记录')}</h1>
+			</header>
+			<ul class="content" style="min-height: 800px; background: none; display: block; padding: 0; margin: 0 auto; width: 90%;">
+				<li v-for="t in tb">
+					<div class="tblist">
+						<div class="tblist_l">
+							<p><span style="font-size: .4rem;">提出数量</span></p>
+							<p><span style="font-size: .8rem; color: rgb(238,198,127);">+{{t.nmct}}</span></p>
+						</div>
+						<div class="tblist_r">
+							<p><span style="display: block; font-size: .6rem; color: gray;">提出日期：{{t.time | timestampToTime}}</span></p>
+							<p>
+								<span style="font-size: .6rem; color: gray;">提出状态：</span>
+								<span style="font-size: .8rem;" v-if="t.status == 1">后台审核中</span>
+								<span style="font-size: .8rem;" v-else-if="t.status == 2">已通过</span>
+							</p>
+						</div>
+					</div>
+				</li>
+			</ul>
 		</div>
 </div>
 </div>
@@ -994,7 +1141,7 @@ function setDefaultImg(e){
      return e;
     }
 }
- function timestampToTime(timestamp) {
+function timestampToTime(timestamp) {
         var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
         Y = date.getFullYear() + '-';
         M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
@@ -1002,8 +1149,8 @@ function setDefaultImg(e){
         h = date.getHours() + ':';
         m = date.getMinutes() + ':';
         s = date.getSeconds();
-        return Y+M+D+h+m+s;
-         }
+        return M+D+h+m+s;
+ }
  function timestampToTime1(timestamp) {
         var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
         Y = date.getFullYear() + '-';
@@ -1024,6 +1171,7 @@ var vm = new Vue({
     t:'',
     team:'',
 	system:'',
+	tb:'',
   },
   methods: {
         getData(){
@@ -1079,9 +1227,46 @@ var vm = new Vue({
             })
             }
         },
-    },
+		addIMT(imt){
+			if(imt == "" || imt == null){
+				wboos.toast("请填写提币地址");
+				return false;
+			}else{
+				this.$http.post('/user/set/imtoken',{imt:imt}).then(function(res){
+					var m = res.body;
+					if(m.status == 1){
+						wboos.toast("修改成功");
+					}else if(m.status == 0){
+						wboos.toast("修改失败");
+					}
+				});
+			}
+		},
+		getLCB(address,money){
+			if(address == "" || address == null){
+				wboos.toast("请填写提币地址");
+				return false;
+			}
+			if(money == "" || money == null){
+				wboos.toast("请输入提币金额");
+				return false;
+			}
+			this.$http.post('/user/borret/mention',{address:address,money:money}).then(function(res){
+				var m = res.body;
+				wboos.toast(m.msg);
+			});
+		},
+		getDatabb(type){
+		    this.$http.post('/user/mode/bb.html',{type:type}).then(function (res){
+				console.log(res);
+		        var i = res.body;
+				this.tb=i.tb;
+		    });
+		},
+	},
     created:function () {
         this.getData();
+		this.getDatabb(0);
     },
   })
 </script>
@@ -1101,6 +1286,8 @@ function copy(id)
         document.execCommand('copy');
         wboos.toast('{:lang(\'复制成功\')}');
     }
+
+//以下vue实例无法定义方法
 var app = new Vue({
   el: '#addpage',
   data: {
@@ -1115,6 +1302,7 @@ var app = new Vue({
     xmtt:'',
     usdt:'',
     system:'',
+	tb:'',
     image:{
         url:'',
         value:'{:lang(\'请上传付款凭证\')}',
@@ -1158,6 +1346,7 @@ var app = new Vue({
   methods: {
     getData(type){
         this.$http.post('/user/mode/bb.html',{type:type}).then(function (res){
+			//console.log(res);
             var i = res.body;
             if(type==1){
                 var audio = new Audio("__HOME__/kq/mp3.mp3");//播放mp3
@@ -1179,6 +1368,7 @@ var app = new Vue({
             this.xmtt=i.xmtt;
             this.system = i.system;
             this.usdt=i.usdt;
+			this.tb=i.tb;
             if(type>0){
                 this.user.hongbao = 0;
                 wboos.toast('{:lang(\'领取成功\')}！');

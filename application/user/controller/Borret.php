@@ -260,17 +260,26 @@ class Borret extends Common {
 		if (empty($address)) {
 			$result['status'] = 0;
 			$result['msg'] = '请填写提币地址';
+			return $result;
 		}
 		if (empty($money)) {
 			$result['status'] = 0;
 			$result['msg'] = '请输入金额';
+			return $result;
 		}
 		$user = db::name('users')->where('user_id', $uid)->find();
+
 		if ($user['nmct'] < $money) {
 			$result['status'] = 0;
 			$result['msg'] = '请输入正确金额';
+			return $result;
 		}
-
+		$is_cun = db::name('log')->where('user_id',$uid)->where('type',59)->where('status',1)->find();
+		if($is_cun){
+			$result['status'] = 0;
+			$result['msg'] = '已有审核，请勿重复提交';
+			return $result;
+		}
 		// $yhk = db::name('yhk')->where('user_id', $uid)->find();
 		$data = [];
 		$data['user_id'] = $uid;
@@ -288,7 +297,7 @@ class Borret extends Common {
 			$result['msg'] = '申请失败';
 		}
 
-		return json_encode($result);
+		return $result;
 	}
 
 }

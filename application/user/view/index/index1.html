@@ -15,12 +15,12 @@
 background: url('__STATIC__/btb/top.jpg') center center no-repeat;
 width: 100%;
 background-size:100% 100%;
-padding: 0.7rem 0;
+padding: .7rem 0;
 }
 .title-bar h3{
 text-align: center;
 color:#fff;
-font-size: 16px;
+font-size: 1rem;
 font-weight: 600;
 margin:0;
 padding:0;
@@ -178,8 +178,8 @@ border-radius: 4px;
 }
 /* content list */
 .content{
-	margin-top:45px; 
-	padding-top: 30px;
+	position: initial; 
+	padding-top: 2rem;
 	background: url(__STATIC__/btb/main.jpg) center no-repeat; 
 	background-size: 100% 100%; 
 	display: flex; 
@@ -391,6 +391,7 @@ border-radius: 4px;
 /* 公告 */
 .notice{
 	position: absolute;
+	top: 3.3rem;
 	width: 100%;
 	background: rgba(47,49,61,0.6);
 	z-index: 50;
@@ -559,13 +560,21 @@ border-radius: 4px;
 					<p style="text-align: center; color: #ddd;">说明</p>
 					<p style="color: rgb(153, 153, 153); font-size: .7rem; line-height: 2; text-indent: 1.25rem;">
 						LCBP感谢您的信任与支持，我们将继续努力只为做得更好。
+					</p>
+					<p style="color: rgb(153, 153, 153); font-size: .7rem; line-height: 2; text-indent: 1.25rem;">
 						1、如果您现在终止合约，您账户里的相应分润以及奖金将会停止并清零。
+					</p>
+					<p style="color: rgb(153, 153, 153); font-size: .7rem; line-height: 2; text-indent: 1.25rem;">
 						2、如果您需要重新激活合约，可以在您终止合约之后的48小时内，重新充入该账户原有数量的资产即可。
+					</p>
+					<p style="color: rgb(153, 153, 153); font-size: .7rem; line-height: 2; text-indent: 1.25rem;">
 						3、如您终止合约之后未能在规定时间内重新激活，系统将会自动清除您的相关资料以便保护您的信息安全。
+					</p>
+					<p style="color: rgb(153, 153, 153); font-size: .7rem; line-height: 2;">
 						再次感谢您的参与！
 					</p>
 				</div>
-				<p style="text-align: center; font-size: .7rem; color: #999;">可返还{{endmoney}}USDT</p>
+				<p style="text-align: center; font-size: .7rem; color: #999;">可返还1200USDT</p>
 				<p style="margin: 0 25%;"><a href="#" @click="getendcontract()" class="button button-big" style="background: rgb(238,198,127); color: rgb(89,67,33); border: none;">终止合约</a></p>
 				<p style="text-align: center;"><a href="#" class="back" style="color: #999; border: none;">返回</a></p>
 			</div>
@@ -689,11 +698,11 @@ border-radius: 4px;
 			</div>
 		</div>
 		<div class="page" id="jk_notes">
-			<header class="bar bar-nav" style="background: rgb(50,50,50); position: initial;">
+			<header class="bar bar-nav" style="background: rgb(50,50,50); position: initial; margin: .5rem 0;">
 				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
 				<h1 class="title">{:lang('借款记录')}</h1>
 			</header>
-				<ul class="content" style="position: absolute; top: 0; margin-bottom: 5rem; display: block;">
+				<ul class="content" style="min-height: 800px; background: none; display: block;">
 					<li v-for="jk in jklist">
 						<div class="jklist">
 							<div class="jklist_l">
@@ -716,11 +725,11 @@ border-radius: 4px;
 				</ul>
 		</div>
 		<div class="page" id="tx_notes">
-			<header class="bar bar-nav" style="background: rgb(50,50,50); position: initial;">
+			<header class="bar bar-nav" style="background: rgb(50,50,50); position: initial; margin: .5rem 0;">
 				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
 				<h1 class="title">{:lang('提出记录')}</h1>
 			</header>
-			<ul class="content" style="position: absolute; top: 0; margin-bottom: 5rem; display: block;">
+			<ul class="content" style="min-height: 800px; background: none; display: block;">
 				<li v-for="tx in txlist">
 					<div class="jklist">
 						<div class="jklist_l">
@@ -792,11 +801,11 @@ border-radius: 4px;
 			</table> -->
 		</div>
 		<div class="page" id="inv_notes">
-			<header class="bar bar-nav" style="background: rgb(50,50,50); position: initial;">
+			<header class="bar bar-nav" style="background: rgb(50,50,50); position: initial; margin: .5rem 0;">
 				<a class="icon icon-left pull-left back" style="color: #fff;"></a>
 				<h1 class="title">充值记录</h1>
 			</header>
-			<ul class="content" style="position: absolute; top: 0; margin-bottom: 5rem; display: block;">
+			<ul class="content" style="min-height: 800px; background: none; display: block;">
 				<li v-for="a in list" v-if="a.type==1">
 				    <!-- <p class="source">
 				        <span class="charge-style">{{a.title}}</span>
@@ -1032,7 +1041,7 @@ function hkpz(d){
         m = date.getMinutes() + ':';
         s = date.getSeconds();
         return M+D+h+m+s;
-         }
+ }
 function size(num) {
     return num < 10 & num >= 0 ? '0' + num : num;
 }  

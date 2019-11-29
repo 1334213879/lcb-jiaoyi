@@ -470,9 +470,9 @@ class Set extends Common {
 		$user_id = session('user.user_id');
 		$msg = db::name('users')->where('user_id', $user_id)->update(['mention_address' => $mention_address]);
 		if ($msg) {
-			return json_encode(array('status' => 1, 'msg' => '成功！'));
+			return array('status' => 1, 'msg' => '成功！');
 		} else {
-			return json_encode(array('status' => 0, 'msg' => '失败！'));
+			return array('status' => 0, 'msg' => '失败！');
 		}
 	}
 }
