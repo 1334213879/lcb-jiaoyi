@@ -31,10 +31,10 @@
 	</header>
     <!-- 这里是页面内容区 -->
 <div class="content" style="background: rgb(49,49,49);">
-  <div class='xs' v-if="status<0 && zl==1">
-          <div class='qdgm'>
+  <div class='xs' v-if="status<0 && zl==1" style="position: absolute; top: 40%;">
+          <div class='qdgm' style="margin: 0 auto;">
             <div onclick="location.href='/user/index/my.html';" style="text-align: center;color: #e6e6e6;">
-              <span>{:lang("请完善个人资料待,银行卡信息及安全密码,前往设置")}</span>
+              <span>{:lang("请完善钱包地址及安全密码")}</span>
             </div>
           </div>
         </div>
@@ -433,7 +433,6 @@
                	wboos.toast('{:lang(\'无此权限！\')}');return;
                }
         if(this.status==1){
-
         	if(id==0){
         		this.gm = '';
         	}else if(id==1){

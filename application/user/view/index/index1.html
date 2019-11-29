@@ -500,7 +500,7 @@ border-radius: 4px;
 				</div>
 			</div>
 			<div class="con_thr">
-				<div class="con_t_box" v-if="new_jk.length == 0 ">
+				<div class="con_t_box" v-if="!new_jk">
 					<a href="#jk"
 					style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;"
 					>借款</a>
@@ -780,7 +780,7 @@ border-radius: 4px;
 				<ul class="thead">
 					<li>昵称</li>
 					<li>id</li>
-					<li>合伙人</li>
+					<li>等级</li>
 					<li>时间</li>
 				</ul>
 				<ul class="tcontent">
