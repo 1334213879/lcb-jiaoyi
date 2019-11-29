@@ -24,10 +24,10 @@
                     <tr>
                         <th>编号</th>
                         <th>新闻名称</th>
-                        <th>所属位置</th>
+                        <!-- <th>所属位置</th> -->
                         <th>{:lang('add')}{:lang('time')}</th>
-                        <th>{:lang('order')}</th>
-                        <th>{:lang('status')}</th>
+                        <!-- <th>{:lang('order')}</th> -->
+                        <!-- <th>{:lang('status')}</th> -->
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -37,10 +37,10 @@
                     <tr>
                         <td>{$v.ad_id}</td>
                         <td>{$v.name}{if condition="$v.pic"}<img src="__ADMIN__/images/image.gif">{/if}</td>
-                        <td>{$v.typename}</td>
+                        <!-- <td>{$v.typename}</td> -->
                         <td>{$v.addtime|date='Y-m-d h:i',###}</td>
-                        <td><input name="{$v.ad_id}" value="{$v.sort}" class="list_order"/></td>
-                        <td>
+                        <!-- <td><input name="{$v.ad_id}" value="{$v.sort}" class="list_order"/></td> -->
+                        <!-- <td>
                             {if condition='$v["open"] eq 1'}
                             <a class="red" href="javascript:;" onclick="return stateyes('{$v.ad_id}');" title="已开启">
                                 <div id="zt{$v.ad_id}">
@@ -54,7 +54,7 @@
                                 </div>
                             </a>
                             {/if}
-                        </td>
+                        </td> -->
                         <td>
                             <a href="{:url('edit',['ad_id'=>$v['ad_id']])}" class="layui-btn layui-btn-mini">{:lang('edit')}</a>
                             <a href="javascript:;" onclick="return del('{$v.ad_id}')" class="layui-btn layui-btn-mini layui-btn-danger">{:lang('del')}</a>

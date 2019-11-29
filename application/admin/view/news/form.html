@@ -4,21 +4,22 @@
         <legend>添加新闻</legend>
     </fieldset>
     <form class="layui-form layui-form-pane">
-        <div class="layui-form-item">
+        <input type="hidden" name="ad_id" value="{$adInfo['ad_id']}">
+      <!--   <div class="layui-form-item">
             <label class="layui-form-label">所属位置</label>
             <div class="layui-input-4">
                 <select name="type_id" lay-verify="required" ng-model="field.type_id" ng-options="v.type_id as v.name for v in group" ng-selected="v.type_id==field.type_id">
                     <option value="">请选择所属新闻位</option>
                 </select>
             </div>
-        </div>
+        </div> -->
         <div class="layui-form-item">
-            <label class="layui-form-label">新闻名称</label>
+            <label class="layui-form-label">标题</label>
             <div class="layui-input-4">
-                <input type="text" name="name" ng-model="field.name" lay-verify="required" placeholder="{:lang('pleaseEnter')}新闻名称" class="layui-input">
+                <input type="text" value="{$adInfo['name']}" name="name" ng-model="field.name" lay-verify="required" placeholder="{:lang('pleaseEnter')}新闻名称" class="layui-input">
             </div>
         </div>
-        <div class="layui-form-item">
+    <!--     <div class="layui-form-item">
             <label class="layui-form-label">新闻图片</label>
             <div class="layui-input-block">
                 <div class="site-demo-upload">
@@ -28,35 +29,35 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="layui-form-item">
+        </div> -->
+    <!--     <div class="layui-form-item">
             <label class="layui-form-label">简介</label>
             <div class="layui-input-4">
                 <input type="text" name="jj" ng-model="field.jj" placeholder="{:lang('pleaseEnter')}{:lang('ad')}简介" class="layui-input">
             </div>
-        </div>
-		 <div class="layui-form-item">
+        </div> -->
+	<!-- 	 <div class="layui-form-item">
             <label class="layui-form-label">作者</label>
             <div class="layui-input-4">
                 <select name="qkl_id" lay-verify="required" ng-model="field.qkl_id" ng-options="a.ad_id as a.name for a in qkl" ng-selected="a.ad_id==field.qkl_id">
                     <option value="">请选择作者</option>
                 </select>
             </div>
-        </div>
+        </div> -->
 		
-        <div class="layui-form-item">
+  <!--       <div class="layui-form-item">
             <label class="layui-form-label">是否审核</label>
             <div class="layui-input-block">
                 <input type="radio" name="open" ng-model="field.open" ng-checked="field.open==1" ng-value="1" title="{:lang('open')}">
                 <input type="radio" name="open" ng-model="field.open" ng-checked="field.open==0" ng-value="0" title="{:lang('close')}">
             </div>
-        </div>
-        <div class="layui-form-item">
+        </div> -->
+     <!--    <div class="layui-form-item">
             <label class="layui-form-label">{:lang('order')}</label>
             <div class="layui-input-4">
                 <input type="text" name="sort" ng-model="field.sort" value="" placeholder="从小到大排序" class="layui-input">
             </div>
-        </div>
+        </div> -->
         <!-- <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">内容</label>
             <div class="layui-input-block">
@@ -66,7 +67,7 @@
 		<div class="layui-form-item layui-form-text">
             <label class="layui-form-label">内容</label>
             <div class="layui-input-block">
-                 <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="content">{{field.content}}</textarea>
+                 <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="content">{$adInfo['content']}</textarea>
             </div>
         </div>		
         <div class="layui-form-item">
@@ -116,45 +117,45 @@
     }]);
 </script> -->
  <script>
-    var m = angular.module('hd',[]);
-    m.controller('ctrl',['$scope',function($scope) {
-         $scope.field = '{$info}'!='null'?{$info}:{type_id:'',qkl_id:'',ad_id:'',name:'',url:'',open:1,sort:50,pic:'',content:''};
-		 $scope.group = {$adtypeList};
-		 $scope.qkl = {$qkl};
+    // var m = angular.module('hd',[]);
+   //  m.controller('ctrl',['$scope',function($scope) {
+   //       $scope.field = '{$info}'!='null'?{$info}:{type_id:'',qkl_id:'',ad_id:'',name:'',url:'',open:1,sort:50,pic:'',content:''};
+		 // $scope.group = {$adtypeList};
+		 // $scope.qkl = {$qkl};
         layui.use(['form', 'layer','layedit','upload'], function () {
             var form = layui.form, layer = layui.layer,layedit = layui.layedit, upload = layui.upload;
-            if($scope.field.pic){
-                cltThumb.src = "__PUBLIC__"+ $scope.field.pic;
-            }
+            // if($scope.field.pic){
+            //     cltThumb.src = "__PUBLIC__"+ $scope.field.pic;
+            // }
                           //普通图片上传
-              var uploadInst = upload.render({
-                elem: '#cltThumb'
-                ,url: '{:url("UpFiles/upload")}'
-                ,ext: 'jpg|png|gif'
-                ,before: function(obj){
-                  //预读本地文件示例，不支持ie8
-                  obj.preview(function(index, file, result){
-                    $('#thumb').attr('src', result); //图片链接（base64）
-                  });
-                }
-                ,done: function(res){
-                  //如果上传失败
-                  if(res.code > 0){
-                    cltThumb.src = "__PUBLIC__"+res.url;
-                    $scope.field.pic = res.url;
-                    return layer.msg('上传成功');
-                  }
-                  //上传成功
-                }
-                ,error: function(){
-                  //演示失败状态，并实现重传
-                  var demoText = $('#demoText');
-                  demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
-                  demoText.find('.demo-reload').on('click', function(){
-                    uploadInst.upload();
-                  });
-                }
-              });
+              // var uploadInst = upload.render({
+              //   elem: '#cltThumb'
+              //   ,url: '{:url("UpFiles/upload")}'
+              //   ,ext: 'jpg|png|gif'
+              //   ,before: function(obj){
+              //     //预读本地文件示例，不支持ie8
+              //     obj.preview(function(index, file, result){
+              //       $('#thumb').attr('src', result); //图片链接（base64）
+              //     });
+              //   }
+              //   ,done: function(res){
+              //     //如果上传失败
+              //     if(res.code > 0){
+              //       cltThumb.src = "__PUBLIC__"+res.url;
+              //       $scope.field.pic = res.url;
+              //       return layer.msg('上传成功');
+              //     }
+              //     //上传成功
+              //   }
+              //   ,error: function(){
+              //     //演示失败状态，并实现重传
+              //     var demoText = $('#demoText');
+              //     demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+              //     demoText.find('.demo-reload').on('click', function(){
+              //       uploadInst.upload();
+              //     });
+              //   }
+              // });
             layedit.set({
                 uploadImage: {
                     url: '{:url("UpFiles/editUpload")}',
@@ -165,9 +166,9 @@
            form.on('submit(submit)', function (data) {
                 // 提交到方法 默认为本身
 				 data.field.content = layedit.getContent(layeCon);
-                data.field.ad_id = $scope.field.ad_id;
-                data.field.pic = $scope.field.pic;
-                $.post("", data.field, function (res) {
+                data.field.ad_id = $('input[name=ad_id]').val();
+                // data.field.pic = $scope.field.pic;
+                $.post("/admin/News/aupdate", data.field, function (res) {
                     if (res.code > 0) {
                         layer.msg(res.msg, {time: 1800, icon: 1}, function () {
                             location.href = res.url;
@@ -178,5 +179,5 @@
                 });
             })
         });
-    }]);
+    // }]);
 </script>
