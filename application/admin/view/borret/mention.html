@@ -6,7 +6,7 @@
 #tj>td{
 font-size:18px;font-weight:600;text-align:center
 }
-#is_autonym{
+#status{
     display: inline-block;
     height: 38px;
     line-height: 38px;
@@ -27,10 +27,10 @@ font-size:18px;font-weight:600;text-align:center
 
         <div class="layui-form-mid">
             <div class="layui-input-inline ">
-                <select id="is_autonym" name="is_autonym" lay-filter="is_autonym">
+                <select id="status" name="status" lay-filter="status">
                     <option value="">请选择</option>
-                    <option value="2">未实名</option>
-                    <option value="1">已实名</option>
+                    <option value="1">待审核</option>
+                    <option value="2">已审核</option>
                 </select>
             </div>
         </div>
@@ -50,12 +50,12 @@ font-size:18px;font-weight:600;text-align:center
 
             <div class="layui-form-mid layui-word-aux" style="padding:0;">
                     <button type="button" class="layui-btn" id="search">{:lang('search')}</button>
-                    <a href="{:url('autonym')}" class="layui-btn">显示全部</a>
+                    <a href="{:url('mention')}" class="layui-btn">显示全部</a>
                 </div>
         </form>
     </blockquote>
     <fieldset class="layui-elem-field">
-    <legend>{if !empty($my)}<span style="color:red;">(ID:{$my['user_id']},昵称:{$my['nickname']})的团队成员</span>{else}页面小计{/if}</legend>
+
     <table class="layui-table table-hover">
                 <thead>
                     <tr>
@@ -69,11 +69,9 @@ font-size:18px;font-weight:600;text-align:center
                 <thead>
                 <tr>
                     <th>编号</th>
-                    <th>姓名</th>
                     <th>昵称</th>
-                    <th>图1</th>
-                    <th>图2</th>
-                    <th>图3</th>
+                    <th>凭证</th>
+                    <th>申请时间</th>
                     <th>状态</th>
                     <th>操作</th>
                 </tr>
@@ -95,6 +93,13 @@ font-size:18px;font-weight:600;text-align:center
             </table>
         </div>
     </fieldset>
+    <div class="shou" style="width: 200px;height: 200px;float: left;display: none;position: absolute;left: 30%;top: 30%; ">
+   <button type="button" class="layui-btn" id="test1" style="width: 120px;height: 100px;">
+    <input type="hidden" name="up_id">
+    <input type="hidden" name="u_id">
+    <i class="layui-icon" style="text-align: center;">&#xe67c;</i>上传凭证
+    </button>
+    </div>
 </div>
 
 <!--模板-->
@@ -102,39 +107,32 @@ font-size:18px;font-weight:600;text-align:center
     {{# layui.each(d.list, function(index, item){ }}
     <tr>
         <td>{{ item.user_id }}</td>
-        <td>{{ item.xm }}</td>
+
         <td>{{ item.nickname }}</td>
         <td> <div id="layer-photos-demo{{item.user_id}}" onclick="view({{item.user_id}})">
-                <img layer-pid="图片id，可以不写" layer-src="{{item.autonym_img_1}}" src="{{item.autonym_img_1}}" alt="{{item.autonym_img_1}}" style="max-width: 70px;">
+                <img layer-pid="图片id，可以不写" layer-src="{{item.img}}" src="{{item.img}}" alt="{{item.img}}" style="max-width: 70px;">
              </div>
         </td>
-        <td> <div id="layer-photos-demo{{item.user_id}}" onclick="view({{item.user_id}})">
-                <img layer-pid="图片id，可以不写" layer-src="{{item.autonym_img_2}}" src="{{item.autonym_img_2}}" alt="{{item.autonym_img_2}}" style="max-width: 70px;">
-             </div>
-        </td>
-        <td> <div id="layer-photos-demo{{item.user_id}}" onclick="view({{item.user_id}})">
-                <img layer-pid="图片id，可以不写" layer-src="{{item.autonym_img_3}}" src="{{item.autonym_img_3}}" alt="{{item.autonym_img_3}}" style="max-width: 70px;">
-             </div>
-        </td>
-        <td>{{# if(item.is_autonym){ }}
-            <a style="color: #5FB878" href="javascript:" title="已实名">
+        <td>{{ item.time }}</td>
+        <td>{{# if(item.status == 1){ }}
+            <a style="color: #5FB878" href="javascript:" title="待审核">
                 <div id="zs{{ item.user_id }}">
-                   已实名
+                   待审核
                 </div>
             </a>
             {{# }else{  }}
-            <a class="red" href="javascript:"  title="未实名">
+            <a class="red" href="javascript:"  title="已完成">
                 <div id="zs{{ item.user_id }}">
-                   未实名
+                   已完成
                 </div>
             </a>
             {{# } }}
         </td>
         <td>
-            {{# if(item.is_autonym){ }}
- 
+            {{# if(item.status == 1){ }}
+            <a href="javascript:;"  onclick="return tg({{item.id}})" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">审核通过</a> 
             {{# }else{  }}
-            <a href="javascript:;" onclick="return tg({{item.user_id}})" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">审核通过</a> 
+           
             {{# } }}
             
         </td>
@@ -149,7 +147,7 @@ font-size:18px;font-weight:600;text-align:center
         layui.code();
         var paging = layui.paging(),layer = parent.layer === undefined ? layui.layer : parent.layer;
         paging.init({
-            url: "{:url('autonym')}", //地址
+            url: "{:url('mention')}", //地址
             elem: '#con', //内容容器
             params: {}, //发送到服务端的参数
             tempElem: '#conTemp', //模块容器
@@ -194,7 +192,7 @@ font-size:18px;font-weight:600;text-align:center
         $('#search').on('click', function() {
             var $this = $(this);
             var key = $('#key').val();
-            var is_autonym = $('#is_autonym').val();
+            var status = $('#status').val();
             // if($.trim(key)=='') {
             //     layer.msg('{:lang('pleaseEnter')}关键字！');
             //     return;
@@ -202,120 +200,59 @@ font-size:18px;font-weight:600;text-align:center
             //调用get方法获取数据
             paging.get({
                 key: key, //获取输入的关键字。
-                is_autonym: is_autonym, //获取输入的关键字。
+                status: status, //获取输入的关键字。
             });
         });
     });
-    function stateyes(id,type) {
-        $.post('{:url("usersState")}', {id: id,type:type}, function (data) {
-            if (data.status) {
-                if(type>0){
-                     if (type == 1) {
-                    var a = '<button class="layui-btn layui-btn-danger layui-btn-mini">赠送</button>'
-                    $('#zs' + id).html(a);
-                    layer.msg(data.info, {icon: 5});
-                    return false;
-                    } else {
-                        var b = '<button class="layui-btn layui-btn-warm layui-btn-mini">非赠送</button>'
-                        $('#zs' + id).html(b);
-                        layer.msg(data.info, {icon: 6});
-                        return false;
-                    }
-                }else{
-                    if (data.info == '状态禁止') {
-                    var a = '<button class="layui-btn layui-btn-danger layui-btn-mini">帐号冻结</button>'
-                    $('#zt' + id).html(a);
-                    layer.msg(data.info, {icon: 5});
-                    return false;
-                    } else {
-                        var b = '<button class="layui-btn layui-btn-warm layui-btn-mini">未冻结</button>'
-                        $('#zt' + id).html(b);
-                        layer.msg(data.info, {icon: 6});
-                        return false;
-                    }
-                }
-            }else{
-                layer.msg(data.msg,{time:1000,icon:2});
-                return false;
-            }
-        });
-        return false;
+  function tg(id){
+        console.log(id)
+        if ($('.shou').css('display') == 'none') {
+            $('input[name=up_id]').val(id);
+            $('.shou').css('display','block');
+        }else{
+            $('.shou').css('display','none');
+        }
+
+        
     }
 
-    //冻结红包
-    function redStatus(id) {
-        $.post('{:url("usersRedStatus")}', {id: id}, function (data) {
-            if (data.code = '000000') {
-                if (data.data.status == '1') {
-                    var btn = '<button class="layui-btn layui-btn-danger layui-btn-mini">红包已冻结</button>';
-                    var ico = 5;
-                } else {
-                    var btn = '<button class="layui-btn layui-btn-warm layui-btn-mini">红包未冻结</button>';
-                    var ico = 6;
-                }
-                $('#redFrozen' + id).html(btn);
-                layer.msg(data.msg, {icon: ico});
-                return false;
-            }else{
-                layer.msg(data.msg,{time:1000,icon:5});
-                return false;
-            }
-        });
-        return false;
-    }
+    layui.use('upload', function(){
 
-     function ff() {
-         $.post("http://www.xmtnnewmedia.com/sc/index/reward_gl.html",  function (result) {
-                layer.alert('操作成功',{icon:6},function(){
-                    window.location.href = "{:url('index')}";
-                });
-                return false;
-            });
-    }
-    function tg(id){
-         layer.confirm('你确定要通过吗？', {icon: 3}, function (index) {
-            $.post("{:url('tg')}", {id:id},  function (result) {
-                if(result.status==1){
-                    layer.alert(result.msg,{icon:6},function(){
-                        window.location.href = "{:url('autonym')}";
-                    });
-                }else{
-                    layer.alert(result.msg,{icon:6});
-                }
-                return false;
-            });
-        });
-    }
-    function del(id) {
-        layer.confirm('你确定要删除吗？', {icon: 3}, function (index) {
-            $.post("{:url('usersDel')}", {id:id},  function (result) {
-                if(result.status==1){
-                    layer.alert(result.msg,{icon:6},function(){
-                        window.location.href = "{:url('index')}";
-                    });
-                }else{
-                    layer.alert(result.msg,{icon:6});
-                }
-                return false;
-            });
-        });
-    }
-    function delall() {
-        var ids = '';
-        $('input[name*=\'userId\']:checked').each(function (){
-            ids += $(this).val() + ',';
-        });
-        layer.confirm('确认要删除选中信息吗？', {icon: 3}, function(index){
-            $.post("{:url('delall')}", {ids:ids}, function (result) {
-                layer.alert(result.msg,{icon:6},function(){
-                    window.location.href = result.url;
-                });
-                return false;
-            });
-            layer.close(index);
-        })
+  var upload = layui.upload;
+// ,uid:function(){return $('input[name=u_id]').val();}
+  //执行实例
+      var uploadInst = upload.render({
+        elem: '#test1' //绑定元素
+        ,data:{id:function(){return $('input[name=up_id]').val();}}
+        ,url: "{:url('borret/fex')}" //上传接口
+        ,accept: 'images' //允许上传的文件类型
+        ,number: 1 //允许上传的文件数量
+        ,done: function(res){
+          //上传完毕回调
+           window.location.reload();
+          layer.msg(res.msg,{time:3000});
+        }
+        ,error: function(){
+          layer.msg(res.msg,{time:3000});
+        }
+    });
+});
 
-    }
+    // function del(id) {
+    //     layer.confirm('你确定要删除吗？', {icon: 3}, function (index) {
+    //         $.post("{:url('usersDel')}", {id:id},  function (result) {
+    //             if(result.status==1){
+    //                 layer.alert(result.msg,{icon:6},function(){
+    //                     window.location.href = "{:url('index')}";
+    //                 });
+    //             }else{
+    //                 layer.alert(result.msg,{icon:6});
+    //             }
+    //             return false;
+    //         });
+    //     });
+    // }
+
     function view(id) {
           layer.photos({
             photos: '#layer-photos-demo'+id

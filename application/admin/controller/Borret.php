@@ -211,5 +211,68 @@ class Borret extends Common {
 		}
 
 	}
+//提币列表
+	public function mention() {
+		if (request()->isPost()) {
+			$key = input('post.key');
+			$status = input('status');
+			$page = input('pageIndex');
+			$pageSize = input('pageSize');
+			$where = [];
+			if (isset($key) && !empty($key)) {
+				$where['nickname'] = ['like', '%' . $key . '%'];
+			}
+			if (isset($status) && !empty($status)) {
+				$where['status'] = $status;
+			}
+			$list = Db::table(config('database.prefix') . 'log')->alias('k')
+				->join(config('database.prefix') . 'users i', 'k.user_id = i.user_id', 'left')
+				->field('i.nickname,k.*')
+				->where($where)
+				->where('type', 59)
+				->order('time desc')
+				->paginate(array('list_rows' => $pageSize, 'page' => $page))
+				->toArray();
+			// foreach ($list['data'] as $key => $value) {
+			// 	$arr = explode(',', $value['autonym_img']);
+			// 	$list['data'][$key]['autonym_img_1'] = isset($arr[0]) ? $arr[0] : '';
+			// 	$list['data'][$key]['autonym_img_2'] = isset($arr[1]) ? $arr[1] : '';
+			// 	$list['data'][$key]['autonym_img_3'] = isset($arr[2]) ? $arr[2] : '';
+			// }
+			$this->assign('list', $list);
+			return $result = ['code' => 0, 'msg' => '获取成功!', 'list' => $list['data'], 'count' => $list['total'], 'rel' => 1];
+		}
+		return $this->fetch();
+	}
+	//上传审核
+	public function fex(Request $request) {
+		$file = $request->file('file');
+		$id = input('id');
+		if ($file) {
+			$info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');
+			if ($info) {
+				$img = $info->getSaveName(); //获取名称
+				$imgpath = DS . 'uploads' . DS . $img;
+				$msg = db::name('log')->where('id', $id)->update(['status' => 2, 'img' => $imgpath]);
+				if ($msg) {
+					$status = 1;
+					$message = '成功';
+					return ['code' => $status, 'msg' => $message];
+				}
+				$status = 0;
+				$message = '失败';
+				return ['code' => $status, 'msg' => $message];
+			} else {
+				$status = 0;
+				$message = '图片上传失败';
+				return ['code' => $status, 'msg' => $message];
+			}
+		} else {
+			$status = 0;
+			$message = '图片上传失败';
+			return ['code' => $status, 'msg' => $message];
+		}
+
+	}
 
 }
