@@ -249,4 +249,46 @@ class Borret extends Common {
 		return json_encode($result);
 	}
 
+	//t提币，（通证提取）
+	public function Mention() {
+		if (!session('user.user_id')) {
+			$this->redirect('login/index');
+		}
+		$uid = session('user.user_id');
+		$money = input('money');
+		$address = input('address');
+		if (empty($address)) {
+			$result['status'] = 0;
+			$result['msg'] = '请填写提币地址';
+		}
+		if (empty($money)) {
+			$result['status'] = 0;
+			$result['msg'] = '请输入金额';
+		}
+		$user = db::name('users')->where('user_id', $uid)->find();
+		if ($user['nmct'] < $money) {
+			$result['status'] = 0;
+			$result['msg'] = '请输入正确金额';
+		}
+
+		// $yhk = db::name('yhk')->where('user_id', $uid)->find();
+		$data = [];
+		$data['user_id'] = $uid;
+		$data['time'] = time();
+		$data['type'] = 59;
+		$data['status'] = 1; //已申请待审核
+		$data['nmct'] = $money; //已申请待审核
+		$data['title'] = '通证提币'; //已申请待审核
+		$msg = db::name('log')->insert($data);
+		if ($msg) {
+			$result['status'] = 1;
+			$result['msg'] = '申请成功，请等待审核';
+		} else {
+			$result['status'] = 0;
+			$result['msg'] = '申请失败';
+		}
+
+		return json_encode($result);
+	}
+
 }

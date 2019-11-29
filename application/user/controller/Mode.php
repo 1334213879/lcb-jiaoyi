@@ -24,7 +24,8 @@ class Mode extends Common {
 		$reg['end'] = db('endcontract')->where('user_id', $user_id)->order('id', 'desc')->find();
 		$reg['jk'] = db('borrow')->where('uid', $user_id)->order('id desc')->select();
 		$reg['new_jk'] = db('borrow')->where('uid', $user_id)->order('id desc')->find();
-		$reg['tx'] = db('log')->where('user_id', $user_id)->where('type', 50)->select();
+		$reg['tx'] = db('log')->where('user_id', $user_id)->where('type', 50)->select(); //提现记录
+		$reg['tb'] = db('log')->where('user_id', $user_id)->where('type', 59)->select(); //提币记录
 		$reg['user'] = db('users')->field('user_id,nickname,is_autonym,mobile,level,nmct,token,pass,nmct_dj,xmt,money_usdt,token_address,is_red_envelope,bonus,j_bonus,yet_tx_money')->where(array('user_id' => $user_id))->find();
 		$reg['code'] = db('code')->where("`user_id`={$user_id}")->order('time desc')->select();
 		$reg['level'] = db('user_level')->where("level_id>{$reg['user']['level']}")->order('level_id desc')->select();
