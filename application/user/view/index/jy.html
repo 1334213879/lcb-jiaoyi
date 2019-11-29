@@ -77,8 +77,8 @@
         <!-- 操作 -->
         <span v-if="a.status==0 && a.my_id!=a.user_id"><a @click="buy_(0,i);">{:lang('买入')}&gt;</a></span>
         <span v-else-if="a.status==10 && a.my_id!=a.buy_id"><a @click="buy_(0,i);">{:lang('卖出')}&gt;</a></span>
-        <span v-else-if="a.status==0 && a.my_id==a.user_id"><a @click="buy_(4,i);" style="color:red;">{:lang('撤回')}&gt;</a></span>
-        <span v-else-if="a.status==10 && a.my_id==a.buy_id"><a @click="buy_(14,i);">{:lang('撤回')}&gt;</a></span>
+        <span v-else-if="a.status==0 && a.my_id==a.user_id"><a @click="buy_(4,i,1);" style="color:red;">{:lang('撤回')}&gt;</a></span>
+        <span v-else-if="a.status==10 && a.my_id==a.buy_id"><a @click="buy_(14,i,1);">{:lang('撤回')}&gt;</a></span>
       </p>
     </li>
       <li v-for="(a,i) in list" v-if="a.my_id!=a.buy_id && a.my_id!=a.user_id">
@@ -224,7 +224,7 @@
           <span><input id='mm' name='mm' type='password' maxlength='6'/></span>
         </p>
       </div>
-      <div class='qdgm' v-if="(buy.status==0 && buy.my_id==buy.user_id) || (buy.status==10 && buy.my_id==buy.buy_id)">
+      <div class='qdgm' v-if="(buy.status==0 && buy.my_id==buy.user_id) || (buy.status==10 && buy.my_id==buy.buy_id) || gmtype == 1">
         <a @click="buy_(-1)" class="cancel">{:lang('取消')}</a>
         <a @click="buy_(1);if($('#mm').val().length==6){aqmm_($('#mm').val())}" class="ensure">{:lang('确定撤回')}</a>
       </div>
@@ -358,7 +358,8 @@
       zl:'0',
       system:'0',
 	  address:'',
-      pageSize:'100'
+      pageSize:'100',
+	  gmtype:'',
       },
       methods:{
         getData(id){
@@ -507,7 +508,7 @@
           // }
 
         },
-        buy_(status,id){
+        buy_(status,id,type){
         if(this.system==0){
                         wboos.toast('{:lang(\'C2C交易暂未开放！\')}');return;
                      }
@@ -516,10 +517,12 @@
                        }
         if(this.status==1){
           if(id>=0){
+			this.gmtype = 0;
             this.buy = this.list[id];
           }
           if(status==14){
             this.buy.status = status;
+			this.gmtype = type;
 			//location.href = "/user/index/jy";
           }
           if(status==-1){
