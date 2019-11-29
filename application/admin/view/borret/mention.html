@@ -113,7 +113,7 @@ font-size:18px;font-weight:600;text-align:center
                 <img layer-pid="图片id，可以不写" layer-src="{{item.img}}" src="{{item.img}}" alt="{{item.img}}" style="max-width: 70px;">
              </div>
         </td>
-        <td>{{ item.time }}</td>
+        <td>{{getdate(item.time)}}</td>
         <td>{{# if(item.status == 1){ }}
             <a style="color: #5FB878" href="javascript:" title="待审核">
                 <div id="zs{{ item.user_id }}">

@@ -324,7 +324,7 @@ class Buy extends Common {
 		} elseif (!empty($img) && !empty($my_gm) && $my_gm['buy_id'] == session('user.user_id')) {
 			db('gm')->where(array('id' => $id))->update(array('status' => $status + 1, 'time2' => time(), 'img' => $img, 'zt' => '已打款待确定'));
 			$mobile = db('users')->where('user_id', $my_gm['user_id'])->value('mobile');
-			Users::smsapi($mobile, '【NMCT】您的订单对方已经打款，请即时处理！');
+			Users::smsapi($mobile, '【LCB】您的订单对方已经打款，请即时处理！');
 			$data['code'] = 0;
 			$data['status'] = 1;
 			$data['msg'] = '上传凭证成功';

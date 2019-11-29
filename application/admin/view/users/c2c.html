@@ -23,7 +23,7 @@
     </blockquote> -->
 	<div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
 		<blockquote class="layui-elem-quote layui-quote-nm">
-			NMCT最新价：<b style="color:red">{$nmct}</b>
+			LCB最新价：<b style="color:red">{$nmct}</b>
 			
 			{if $system['jy']==1}
             <a class="red" href="javascript:" onclick="return jy(0,'关闭c2c交易');">
@@ -40,7 +40,7 @@
             {/if}
 			<p>
 				{volist name="$price" id="v"}
-					<b>NMCT{$v['rq']}：{$v['price']};</b>
+					<b>LCB{$v['rq']}：{$v['price']};</b>
 				{/volist}
 			</p>
 		</blockquote>
@@ -80,10 +80,10 @@
 						</th>
 					</tr>
 					<tr>
-						<th>NMCT:{$gm['gm_0']}，合计:{$gm['zg_0']}</th>
-						<th>NMCT:{$gm['gm_10']}，合计:{$gm['zg_10']}</th>
-						<th>NMCT:{$gm['gm_2']}，合计:{$gm['zg_2']}</th>
-						<th>NMCT:{$gm['gm_3']}，合计:{$gm['zg_3']}</th>
+						<th>LCB:{$gm['gm_0']}，合计:{$gm['zg_0']}</th>
+						<th>LCB:{$gm['gm_10']}，合计:{$gm['zg_10']}</th>
+						<th>LCB:{$gm['gm_2']}，合计:{$gm['zg_2']}</th>
+						<th>LCB:{$gm['gm_3']}，合计:{$gm['zg_3']}</th>
 					</tr>
                 </thead>
 		</table>

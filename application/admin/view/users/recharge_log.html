@@ -28,9 +28,9 @@
 					<tr v-for="a in list" v-if="a.usdt!=0">
 						<td>
 							<span v-if="a.usdt!=0">{{int_(a.usdt)}}USDT</span>
-							<span v-if="a.nmct!=0">{{int_(a.nmct)}}NMCT通证</span>
+							<span v-if="a.nmct!=0">{{int_(a.nmct)}}LCB通证</span>
 							<span v-if="a.xmt!=0">{{int_(a.xmt)}}XMT通证</span>
-							<span v-if="a.nmct_dj!=0">{{int_(a.nmct_dj)}}NMCT资产</span>
+							<span v-if="a.nmct_dj!=0">{{int_(a.nmct_dj)}}LCB资产</span>
 						</td>
 						<td>
 							{{a.title}}
@@ -49,7 +49,7 @@
         </div>
     </fieldset>
 	<fieldset class="layui-elem-field" STYLE="width:25%;float:left">
-        <legend>NMCT资产记录（{{user.nmct_dj}}）</legend>
+        <legend>LCB资产记录（{{user.nmct_dj}}）</legend>
         <div class="layui-field-box table-responsive">
             <table class="layui-table table-hover">
                 <thead>
@@ -64,9 +64,9 @@
 					<tr v-for="a in list" v-if="a.nmct_dj!=0">
 						<td>
 							<span v-if="a.usdt!=0">{{int_(a.usdt)}}USDT</span>
-							<span v-if="a.nmct!=0">{{int_(a.nmct)}}NMCT通证</span>
+							<span v-if="a.nmct!=0">{{int_(a.nmct)}}LCB通证</span>
 							<span v-if="a.xmt!=0">{{int_(a.xmt)}}XMT通证</span>
-							<span v-if="a.nmct_dj!=0">{{int_(a.nmct_dj)}}NMCT资产</span>
+							<span v-if="a.nmct_dj!=0">{{int_(a.nmct_dj)}}LCB资产</span>
 						</td>
 						<td>
 							{{a.title}}
@@ -85,7 +85,7 @@
         </div>
     </fieldset>
 	<fieldset class="layui-elem-field" STYLE="width:25%;float:left">
-        <legend>NMCT通证账户记录（{{user.nmct}}）</legend>
+        <legend>LCB通证账户记录（{{user.nmct}}）</legend>
         <div class="layui-field-box table-responsive">
             <table class="layui-table table-hover">
                 <thead>
@@ -100,9 +100,9 @@
 					<tr v-for="a in list" v-if="a.nmct!=0">
 						<td>
 							<span v-if="a.usdt!=0">{{int_(a.usdt)}}USDT</span>
-							<span v-if="a.nmct!=0">{{int_(a.nmct)}}NMCT通证</span>
+							<span v-if="a.nmct!=0">{{int_(a.nmct)}}LCB通证</span>
 							<span v-if="a.xmt!=0">{{int_(a.xmt)}}XMT通证</span>
-							<span v-if="a.nmct_dj!=0">{{int_(a.nmct_dj)}}NMCT资产</span>
+							<span v-if="a.nmct_dj!=0">{{int_(a.nmct_dj)}}LCB资产</span>
 						</td>
 						<td>
 							{{a.title}}
@@ -120,7 +120,7 @@
             </table>
         </div>
     </fieldset>
-	<fieldset class="layui-elem-field" STYLE="width:20%;float:left">
+	<!-- <fieldset class="layui-elem-field" STYLE="width:20%;float:left">
         <legend>XMT通证账户记录（{{user.xmt}}）</legend>
         <div class="layui-field-box table-responsive">
             <table class="layui-table table-hover">
@@ -131,14 +131,14 @@
                     <th>时间</th>
                 </tr>
                 </thead>
-                <!--内容容器-->
+                内容容器
                 <tbody id="con">
 					<tr v-for="a in list" v-if="a.xmt!=0">
 						<td>
 							<span v-if="a.usdt!=0">{{int_(a.usdt)}}USDT</span>
-							<span v-if="a.nmct!=0">{{int_(a.nmct)}}NMCT通证</span>
+							<span v-if="a.nmct!=0">{{int_(a.nmct)}}LCB通证</span>
 							<span v-if="a.xmt!=0">{{int_(a.xmt)}}XMT通证</span>
-							<span v-if="a.nmct_dj!=0">{{int_(a.nmct_dj)}}NMCT资产</span>
+							<span v-if="a.nmct_dj!=0">{{int_(a.nmct_dj)}}LCB资产</span>
 						</td>
 						<td>
 							{{a.title}}
@@ -153,7 +153,7 @@
                 </tfoot>
             </table>
         </div>
-    </fieldset>
+    </fieldset> -->
 </div>
 {include file="common/mainFoot"/}
 <script>

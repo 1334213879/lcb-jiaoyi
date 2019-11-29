@@ -44,7 +44,7 @@ class Login extends Controller {
 			return false;
 		}
 
-		$content = "【NMCT】{$content}";
+		$content = "【LCB】{$content}";
 
 		// 替换参数
 		if (!empty($params['params'])) {
