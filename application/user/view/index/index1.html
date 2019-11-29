@@ -436,7 +436,7 @@ border-radius: 4px;
 <body style="padding-bottom: 1rem; color: initial; min-height: 800px;">
 <div class="page-group" id="#app">
     <div class="page page-current">
-		<div class="title-bar">
+		<div class="title-bar" style="background: rgba(47,49,61,1);">
 			<h3>{:lang('首页')}</h3>
 		</div>
 		<div class="notice">
@@ -500,7 +500,7 @@ border-radius: 4px;
 				</div>
 			</div>
 			<div class="con_thr">
-				<div class="con_t_box" v-if="new_jk.length == 0 ">
+				<div class="con_t_box" v-if="!new_jk">
 					<a href="#jk"
 					style="background: rgb(238,198,127); color: rgb(89,67,33); border-radius: 5px; padding: 0.3rem 0; margin: 0.8rem 0; display: inline-block; width: 80%;"
 					>借款</a>
@@ -1140,7 +1140,7 @@ var app = new Vue({
 			this.txlist=i.tx;
 			this.gg_list=i.gg;
 			this.endmoney=i.end_money;
-			this.endstatus=i.end.status;
+			this.endstatus=i.end ?i.end.status : 0;
 			this.hkid = i.jk;
 			if(type>0){
 				this.user.hongbao = 0;

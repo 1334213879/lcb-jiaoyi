@@ -181,6 +181,7 @@ class Login extends Controller {
 					$map['mobile'] = $data['mobile'];
 					$map['nickname'] = $data['nickname'];
 					$map['reg_time'] = time();
+					$map['pass'] = 1;
 					$map['oec_time'] = $time;
 					$map['password'] = Users::password($data['password'], $map['reg_time']);
 					$map['rq'] = date("Y-m-d", time());
