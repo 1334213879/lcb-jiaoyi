@@ -446,7 +446,7 @@ class Set extends Common {
 		$img1 = input('post.uid_front');
 		$img2 = input('post.uid_back');
 		$img3 = input('post.uid_hand');
-		
+
 		if (empty($img1) || empty($img2) || empty($img3) || empty($autonym_number) || empty($xm)) {
 			return json_encode(array('status' => 0, 'msg' => '数据不全！'));
 		}
@@ -455,6 +455,20 @@ class Set extends Common {
 		$json = implode(',', $img);
 		// $json = json_encode($img1 . ',' . $img2 . ',' . $img3);
 		$msg = db::name('users')->where('user_id', $user_id)->update(['autonym_img' => $json, 'autonym_number' => $autonym_number, 'xm' => $xm]);
+		if ($msg) {
+			return json_encode(array('status' => 1, 'msg' => '成功！'));
+		} else {
+			return json_encode(array('status' => 0, 'msg' => '失败！'));
+		}
+	}
+	//提币地址  imtoken
+	public function imtoken() {
+		if (!session('user.user_id')) {
+			$this->redirect('login/index');
+		}
+		$mention_address = input('post.imt');
+		$user_id = session('user.user_id');
+		$msg = db::name('users')->where('user_id', $user_id)->update(['mention_address' => $mention_address]);
 		if ($msg) {
 			return json_encode(array('status' => 1, 'msg' => '成功！'));
 		} else {
