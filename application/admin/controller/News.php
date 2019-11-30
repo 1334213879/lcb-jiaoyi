@@ -42,6 +42,7 @@ class News extends Common {
 		$this->assign('title', lang('add') . lang('xw'));
 		$this->assign('qkl', json_encode($qkl, true));
 		$this->assign('info', 'null');
+		$this->assign('adInfo', []);
 		return $this->fetch('form');
 		// }
 	}
