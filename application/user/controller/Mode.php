@@ -337,10 +337,10 @@ class Mode extends Common {
 	public function index() {
 		$page = input('post.page');
 		$pageSize = input('post.pageSize');
-		$xw = db('xw')->alias('a')
-			->join(config('database.prefix') . 'qkl c', 'a.qkl_id = c.ad_id', 'left')
-			->where(array('a.open' => 1, 'a.type_id' => 9))
-			->field('a.pic as pic,a.name as name,a.addtime as time,a.ad_id as ad_id,c.name as qkl_name')
+		$xw = db('xw')
+			// ->join(config('database.prefix') . 'qkl c', 'a.qkl_id = c.ad_id', 'left')
+			// ->where(array('a.open' => 1, 'a.type_id' => 9))
+			// ->field('a.pic as pic,a.name as name,a.addtime as time,a.ad_id as ad_id,c.name as qkl_name')
 			->limit($this->_start, $this->_pageSize)
 			->order('ad_id desc')
 			->select();

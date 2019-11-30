@@ -447,10 +447,8 @@ border-radius: 4px;
 				<div class="not_text">
 					<!-- 此处循环p标签 -->
 					<div class="active">
-						{volist name="xw" id="a"}
-							<p><a style="color: #ddd;" class="topnot" href="{:url('user/set/sqgg')}?id={$a['ad_id']}">{$a['name']}</a></p>
-						{/volist}
-						<!--   -->
+							<p v-for="a in gg_list"><a style="color: #ddd;" class="topnot" href="#" @click="gghref(a.ad_id)">{{a.name}}</a></p>
+						
 					</div>
 				</div>
 				<div class="not_btnbox">

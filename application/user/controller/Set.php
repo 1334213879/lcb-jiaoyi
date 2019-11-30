@@ -102,6 +102,15 @@ class Set extends Common {
 		$this->assign('xw', $xw);
 		return $this->fetch();
 	}
+	// 	public function sqggsel() {
+	// 	if (!session('user.user_id')) {
+	// 		$this->redirect('login/index');
+	// 	}
+	// 	$xw = db('xw')->select();
+
+	// 	$this->assign('xw', $xw);
+	// 	return $this->fetch();
+	// }
 	public function sqgg() {
 		if (!session('user.user_id')) {
 			$this->redirect('login/index');
@@ -109,20 +118,21 @@ class Set extends Common {
 		$id = input('id');
 		//$xw = db('xw')->where("ad_id",$id)->find();
 		$xw = db('xw')->alias('a')
-			->join(config('database.prefix') . 'qkl c', 'a.qkl_id = c.ad_id', 'left')
-			->where(array('a.open' => 1, 'a.ad_id' => $id))
-			->field('a.*,c.name as qkl_name,c.pic as img')
+		->where('ad_id',$id)
+			// ->join(config('database.prefix') . 'qkl c', 'a.qkl_id = c.ad_id', 'left')
+			// ->where(array('a.open' => 1, 'a.ad_id' => $id))
+			// ->field('a.*,c.name as qkl_name,c.pic as img')
 			->find();
-		if ($xw) {
-			$reg['code'] = 1;
-			$reg['name'] = $xw['name'];
-			$reg['content'] = $xw['content'];
-			$reg['qkl_name'] = $xw['qkl_name'];
-			$reg['sj'] = date('m-d H:i', $xw['addtime']);
-			$reg['img'] = $xw['img'];
-		} else {
-			$reg['code'] = 0;
-		}
+		// if ($xw) {
+		// 	$reg['code'] = 1;
+		// 	$reg['name'] = $xw['name'];
+		// 	$reg['content'] = $xw['content'];
+		// 	$reg['qkl_name'] = $xw['qkl_name'];
+		// 	$reg['sj'] = date('m-d H:i', $xw['addtime']);
+		// 	$reg['img'] = $xw['img'];
+		// } else {
+		// 	$reg['code'] = 0;
+		// }
 		$this->assign('xw', $xw);
 		return $this->fetch();
 	}
