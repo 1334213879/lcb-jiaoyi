@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html style="background:#181818;background-size:100% 100%;width:100%;height:100%;">
 <head>
     <meta charset="utf-8">
@@ -81,24 +81,24 @@
 		<!-- <p style="text-align:center;color:#f56e6e;margin-top:10px;">{$fx['nickname']}邀您注册</p> -->
 		<div style="border-bottom:1px solid #d0d0d0;height:53px;width:80%;margin:auto;">
 			<div class="reg_top" style="width:60%;float:left;border-bottom:0px solid #d0d0d0;margin-left:0px;">
-				<input id="fxid" type="text" value="{$fx['user_id']}" placeholder="{:lang('注册邀请ID')}" maxlength='10'/>
+				<input id="fxid" type="text" style="color: #ddd;" value="{$fx['user_id']}" placeholder="{:lang('注册邀请ID')}" maxlength='10'/>
 			</div>
 			<div class='fxid'>&nbsp&nbsp <span>{:lang('注册邀请ID')}</span></div>
 		</div>
 		<div class="reg_top">
-			<input id="nickname" type="text" placeholder="{:lang('设置昵称')}" maxlength='12'/>
+			<input id="nickname" type="text" style="color: #ddd;" placeholder="{:lang('设置昵称')}" maxlength='12'/>
 		</div>
 		<div class="reg_top">
-			<input id="mm" name="mm" type="password" placeholder="{:lang('设置密码')}" maxlength='12'/>
+			<input id="mm" name="mm" type="password" style="color: #ddd;" placeholder="{:lang('设置密码')}" maxlength='12'/>
 			<img onclick="$('#mobile').val('');" src="__HOME__/btb/x.png"/>
 		</div>
 		<div class="reg_top">
-			<input id="mobile" name="mobile" type="text" placeholder="{:lang('请输入手机号码')}" maxlength='11'/>
+			<input id="mobile" name="mobile" type="text" style="color: #ddd;" placeholder="{:lang('请输入手机号码')}" maxlength='11'/>
 			<img onclick="$('#mobile').val('');" src="__HOME__/btb/x.png"/>
 		</div>
 		<div class="reg_yzm"style="border-bottom:1px solid #d0d0d0;height:53px;width:80%;margin:auto;">
 			<div class="reg_top" style="width:60%;float:left;border-bottom:0px solid #d0d0d0;margin-left:0px;">
-				<input id="sms" type="text" placeholder="{:lang('短信验证码')}" maxlength='6'/>
+				<input id="sms" type="text" style="color: #ddd;" placeholder="{:lang('短信验证码')}" maxlength='6'/>
 			</div>
 			<div class='send_phone' onclick='send_phone()'>&nbsp&nbsp <span id='zphone' style='text-align:right;'>{:lang('获取验证码')}</span></div>
 		</div>

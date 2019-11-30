@@ -391,6 +391,7 @@
             this.$http.post(wboos.url('user/buy/gm'),{id:1},{withCredentials: true}).then(function (response) {
                 this.gm = response.body;
                 this.gm.status = 2;
+				console.log(this.gm);
               });
           }else{
           if($('#wygm').val()==0 || $('#wygm').val()%100!==0 || $('#wygm').val()<99){
@@ -478,6 +479,7 @@
 				// }
         	}
         	}else{
+				this.gm = '';
         		this.zl = 1;
         	}
 
