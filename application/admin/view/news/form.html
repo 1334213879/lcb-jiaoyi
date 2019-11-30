@@ -1,7 +1,7 @@
 {include file="common/mainHead"/}
 <div class="admin-main fadeInUp animated" ng-app="hd" ng-controller="ctrl">
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>添加公告</legend>
+        <legend>{$adInfo['ad_id']  ?'修改公告' :'添加公告' }</legend>
     </fieldset>
     <form class="layui-form layui-form-pane">
         <input type="hidden" name="ad_id" value="{$adInfo['ad_id'] ?$adInfo['ad_id'] :'' }">
