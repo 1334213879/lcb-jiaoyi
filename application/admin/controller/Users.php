@@ -59,7 +59,7 @@ class Users extends Common {
 				'type' => $type,
 				'user_id' => $user_id,
 			]);
-			return $this->fetch();
+			return $this->fetch('list_');
 		}
 	}
 	public function adduser() {

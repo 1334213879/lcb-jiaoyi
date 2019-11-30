@@ -10,7 +10,7 @@
                 <input type="text" ng-model="field.name" lay-verify="required" placeholder="{:lang('pleaseEnter')}{:lang('websiteName')}" class="layui-input">
             </div>
         </div>
-        <div class="layui-form-item">
+      <!--   <div class="layui-form-item">
             <label class="layui-form-label">网站首页图</label>
             <div class="layui-input-block">
                 <div class="site-demo-upload">
@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="layui-form-item">
             <label class="layui-form-label">{:lang('recordNum')}</label>
             <div class="layui-input-3">
@@ -104,9 +104,9 @@
         $scope.field = {$system};
         layui.use(['form', 'layer','upload'], function () {
             var form = layui.form,layer = layui.layer,upload = layui.upload;
-            if($scope.field.logo){
-                cltLogo.src = "__PUBLIC__"+ $scope.field.logo;
-            }
+            // if($scope.field.logo){
+            //     cltLogo.src = "__PUBLIC__"+ $scope.field.logo;
+            // }
              var uploadInst = upload.render({
                 elem: '#cltLogo'
                 ,url: '{:url("UpFiles/upload")}'
@@ -120,9 +120,9 @@
                 ,done: function(res){
                   //如果上传失败
                   if(res.code > 0){
-                    cltLogo.src = "__PUBLIC__"+res.url;
-                    $scope.field.logo = res.url;
-                    return layer.msg('上传成功');
+                    // cltLogo.src = "__PUBLIC__"+res.url;
+                    // $scope.field.logo = res.url;
+                    // return layer.msg('上传成功');
                   }
                   //上传成功
                 }
