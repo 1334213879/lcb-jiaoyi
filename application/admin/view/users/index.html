@@ -192,10 +192,26 @@ font-size:18px;font-weight:600;text-align:center
 			未激活
 		{{# } }}
 		</td>
-		<td>V{{ item.level-1 }}
+		<td>
+    {{#  if(item.level==1){ }}
+    普通VIP
+    {{#  } else if(item.level === 2) { }}
+    区域代理
+    {{#  } else if(item.level === 3) { }}
+    市级代理
+    {{#  } else if(item.level === 4) { }}
+    省级代理
+    {{#  } else if(item.level === 5) { }}
+    总代理
+    {{#  } else if(item.level === 6) { }}
+    荣誉董事
+    {{#  } else { }}
+    <span style="color: #f53e3d;"></span>
+    {{#  } }}
+ <!--            V{{ item.level-1 }}
   {{# if(item.g>0){ }}
   		(G{{ item.g }})
-  {{# } }}
+  {{# } }} -->
   </td>
 		 <td>{{ item.money_usdt }}</td>
 		 <td>{{ item.money_cz }}</td>
@@ -237,7 +253,7 @@ font-size:18px;font-weight:600;text-align:center
         <td>
             <a href="{:url('edit')}?user_id={{item.user_id}}" class="layui-btn layui-btn-mini">会员信息</a>
 			<a href="{:url('index')}?all_p={{item.user_id}}" class="layui-btn layui-btn-mini">我的团队</a>
-			<a href="{:url('list_')}?user_id={{item.user_id}}" class="layui-btn layui-btn-mini">团队交易信息</a>
+			<!-- <a href="{:url('list_')}?user_id={{item.user_id}}" class="layui-btn layui-btn-mini">团队交易信息</a> -->
 			<a href="{:url('recharge')}?user_id={{item.user_id}}" class="layui-btn layui-btn-mini">充值</a> 
 			<a href="{:url('recharge_log')}?user_id={{item.user_id}}" class="layui-btn layui-btn-mini">资产记录</a>
             <a href="{:url('goods/index')}?user_id={{item.user_id}}" class="layui-btn layui-btn-mini">C2C记录</a>
