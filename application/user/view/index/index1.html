@@ -447,8 +447,7 @@ border-radius: 4px;
 				<div class="not_text">
 					<!-- 此处循环p标签 -->
 					<div class="active">
-							<p v-for="a in gg_list"><a style="color: #ddd;" class="topnot" href="#" @click="gghref(a.ad_id)">{{a.name}}</a></p>
-						
+						<p v-for="a in gg_list"><a style="color: #ddd;" class="topnot" href="#" @click="gghref(a.ad_id)">{{a.name}}</a></p>
 					</div>
 				</div>
 				<div class="not_btnbox">
@@ -942,7 +941,6 @@ function ggrun(){
 }
 window.onload = function(){
 	nottext();
-	ggrun();
 }
 parent.$('#dhl').show();
 function copy(id){
@@ -1333,6 +1331,9 @@ var app = new Vue({
   },
   created:function (){
 	this.getData(0);
+  },
+  updated:function(){
+	ggrun();  
   },
 })
 </script>
