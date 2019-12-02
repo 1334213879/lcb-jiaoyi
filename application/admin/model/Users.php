@@ -4,6 +4,7 @@ namespace app\admin\model;
 use app\user\model\Users as Users_;
 use think\Db;
 use think\Model;
+
 //
 class Users extends Model {
 	protected $name = 'users';
@@ -23,23 +24,28 @@ class Users extends Model {
 					$data['type'] = 1;
 					$data['usdt'] = $data['num'];
 					$data['title'] = !empty($data['title']) ? $data['title'] : '充值USDT';
-					$c['money_usdt'] = ['exp', "`money_usdt`+{$data['num']}"];
-					$c['money_cz'] = ['exp', "`money_cz`+{$data['num']}"];
+					// $c['money_usdt'] = ['exp', "`money_usdt`+{$data['num']}"];
+					$c['money_usdt'] = Db::raw('money_usdt+' . $data['num']);
+					$c['money_cz'] = Db::raw('money_cz+' . $data['num']);
+					// $c['money_cz'] = ['exp', "`money_cz`+{$data['num']}"];
 				} else if ($data['type_'] == 'nmct_dj') {
 					$data['type'] = 2;
 					$data['nmct_dj'] = $data['num'];
 					$data['title'] = !empty($data['title']) ? $data['title'] : '充值NMCT资产';
-					$c['nmct_dj'] = ['exp', "`nmct_dj`+{$data['num']}"];
+					// $c['nmct_dj'] = ['exp', "`nmct_dj`+{$data['num']}"];
+					$c['nmct_dj'] = Db::raw('nmct_dj+' . $data['num']);
 				} else if ($data['type_'] == 'nmct') {
 					$data['type'] = 3;
 					$data['nmct'] = $data['num'];
 					$data['title'] = !empty($data['title']) ? $data['title'] : '充值NMCT通证';
-					$c['nmct'] = ['exp', "`nmct`+{$data['num']}"];
+					// $c['nmct'] = ['exp', "`nmct`+{$data['num']}"];
+					$c['nmct'] = Db::raw('nmct+' . $data['num']);
 				} else if ($data['type_'] == 'xmt') {
 					$data['type'] = 4;
 					$data['xmt'] = $data['num'];
 					$data['title'] = !empty($data['title']) ? $data['title'] : '充值XMT通证';
-					$c['xmt'] = ['exp', "`xmt`+{$data['num']}"];
+					// $c['xmt'] = ['exp', "`xmt`+{$data['num']}"];
+					$c['xmt'] = Db::raw('xmt+' . $data['num']);
 				}
 				Db::name('users')->where('user_id', $data['user_id'])->setField($c);
 				$aid = Db::name('log')->insertGetId($data);
