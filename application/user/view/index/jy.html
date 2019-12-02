@@ -394,9 +394,6 @@
 				console.log(this.gm);
               });
           }else{
-          if($('#wygm').val()==0 || $('#wygm').val()%100!==0 || $('#wygm').val()<99){
-            wboos.toast('{:lang(\'求购必须100的倍数起!\')}');
-          }else{
 			  this.aqmm = $('#mm').val();
 			  this.$http.post(wboos.url('user/buy/aqmm'),{aqmm:this.aqmm},{withCredentials: true}).then(function (res) {
 			  	var i = res.body.status;
@@ -423,7 +420,6 @@
             //      this.gm.status = 0;
             //   }
             // });
-          }
           }
         },
         gm_(id){
