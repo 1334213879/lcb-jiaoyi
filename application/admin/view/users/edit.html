@@ -28,17 +28,17 @@
             </div>
         </div>
 		<div class="layui-form-item">
-            <label class="layui-form-label">银行卡</label>
+            <label class="layui-form-label">钱包地址</label>
             <div class="layui-input-4">
-                 <div style="line-height:40px;margin-left:20px;float:left">银行:{$yhk['yh']}</div>
-				 <div style="line-height:40px;margin-left:20px;float:left">银行号:{$yhk['yhk']}</div>
-				 <div style="line-height:40px;margin-left:20px;float:left">持卡人:{$yhk['name']}</div>
+                 <!-- <div style="line-height:40px;margin-left:20px;float:left">银行:{$yhk['yh']}</div> -->
+				 <div style="line-height:40px;margin-left:20px;float:left">{$yhk['yhk']}</div>
+				 <!-- <div style="line-height:40px;margin-left:20px;float:left">持卡人:{$yhk['name']}</div> -->
             </div>
         </div>
 		<div class="layui-form-item">
-            <label class="layui-form-label">钱包地址</label>
+            <label class="layui-form-label">IM钱包地址</label>
             <div class="layui-input-4">
-                 <div style="line-height:40px;margin-left:20px;float:left">{$users['token_address']}</div>
+                 <div style="line-height:40px;margin-left:20px;float:left">{$users['mention_address']}</div>
             </div>
         </div>
         <div class="layui-form-item">
@@ -65,7 +65,8 @@
                 密码必须大于6位，小于15位
             </div>
         </div>
-		<div class="layui-form-item">
+        <input type="hidden" name="pass" value="1">
+	<!-- 	<div class="layui-form-item">
             <label class="layui-form-label">会员状态</label>
             <div class="layui-input-4">
                 <select name="pass">
@@ -73,7 +74,7 @@
 					<option value="0" {if $users['pass']==0}selected{/if}>未激活</option>
                 </select>
             </div>
-        </div>
+        </div> -->
 		<!-- <div class="layui-form-item">
             <label class="layui-form-label">充值种类</label>
             <div class="layui-input-4">
