@@ -45,21 +45,23 @@
 				ID：{{a.user_id}}，昵称：{{a.nickname}}，姓名：{{a.xm}}，VIP{{a.level-1}}，帐号：{{a.mobile}}
 			</p>
 		</div>
-		<div class="layui-input-6">
+<!-- 		<div class="layui-input-6">
             <label class="layui-form-label">会员级别</label>
             <div class="layui-input-4">
                 <select name="level" v-model="level" style="display: block;width:200px;height:38px;">
 					  <option v-for="a in levels" v-bind:value="a">{{a.level_name}}</option>
 				 </select>
             </div>
-        </div>
-		<div class="layui-input-6">
+        </div> -->
+        <input type="hidden" name="level" value="1">
+        <input type="hidden" name="pass" value="1">
+	<!-- 	<div class="layui-input-6">
             <label class="layui-form-label">是否激活</label>
             <div class="layui-input-4">
                  <input type="radio" value="1" checked name="pass">激活</input>
 				 <input type="radio" value="0" name="pass">不激活</input>
             </div>
-        </div> 		 		
+        </div> 	 -->	 		
 		<div class="layui-input-6">
             <label class="layui-form-label">充值USDT</label>
             <div class="layui-input-4">
