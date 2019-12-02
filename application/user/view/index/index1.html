@@ -538,7 +538,8 @@ border-radius: 4px;
 				<h1 class="title">借款</h1>
 			</header>
 			<div class="jk">
-				<p>每次借款金额为500USDT，您确定借款吗？</p>
+				<p>可以借款金额500U</p>
+				<p>您确认需要借款吗？</p>
 				<p>
 					<a href="#" 
 					@click="getborrow(user.user_id)" 
@@ -1269,7 +1270,7 @@ var app = new Vue({
 			this.$http.post('/user/borret/withdraw',{money:money,address:address}).then(function(res){
 				var json = JSON.parse(res.body);
 				wboos.toast(json.msg);
-			})
+			});
 		}
 	},
 	getendcontract(){
