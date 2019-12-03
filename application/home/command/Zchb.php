@@ -14,7 +14,7 @@ class Zchb extends Command {
 	protected function execute(Input $input, Output $output) {
 		$users = db::name('users')->select();
 		foreach ($users as $key => $value) {
-			$num = $value['xmt'] * 5 / 100;
+			$num = $value['xmt'] * 5 / 100/30;
 			db::name('users')->where('user_id', $value['user_id'])->setInc('nmct', $num);
 			db::name('users')->where('user_id', $value['user_id'])->setDec('xmt', $num);
 		}
