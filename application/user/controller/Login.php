@@ -21,7 +21,8 @@ class Login extends Controller {
 			$mobile = input('post.email');
 			/* 通过手机号获取用户信息 */
 			$jc = db('users')->where("mobile", $mobile)->find();
-			if (count($jc) >= 2) {
+			$jmum = db('users')->where("mobile", $mobile)->select();
+			if (count($jmum) >= 2) {
 				return array('code' => 0, 'msg' => '该手机号已注册2个');
 			}
 
