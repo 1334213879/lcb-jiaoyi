@@ -110,15 +110,15 @@ class Jxj extends Command {
 
 									if ($lev['level'] > $xlev['level']) {
 										//越级
-										$data = ['user_id' => $fxid[$i + 1], 'text' => 1500 * 0.06 * 0.5 / 100, 'type' => 55, 'time' => time()];
+										$data = ['user_id' => $fxid[$i + 1], 'text' => 1500 * 0.06 * 0.5 / 100 / 30, 'type' => 55, 'time' => time()];
 										Db::name('log')->insert($data);
-										db::name('users')->where('user_id', $fxid[$i + 1])->setInc('bonus', (1500 * 0.06 * 0.5 / 100));
+										db::name('users')->where('user_id', $fxid[$i + 1])->setInc('bonus', (1500 * 0.06 * 0.5 / 100 / 30));
 										unset($fxid[$i + 1]);
 									} elseif ($lev['level'] == $xlev['level']) {
 										//平级
-										$data = ['user_id' => $fxid[$i + 1], 'text' => 1500 * 0.06 * 1 / 100, 'type' => 55, 'time' => time()];
+										$data = ['user_id' => $fxid[$i + 1], 'text' => 1500 * 0.06 * 1 / 100 / 30, 'type' => 55, 'time' => time()];
 										Db::name('log')->insert($data);
-										db::name('users')->where('user_id', $fxid[$i + 1])->setInc('bonus', (1500 * 0.06 * 1 / 100));
+										db::name('users')->where('user_id', $fxid[$i + 1])->setInc('bonus', (1500 * 0.06 * 1 / 100 / 30));
 										unset($fxid[$i + 1]);
 									} else {
 										//正常
@@ -156,9 +156,9 @@ class Jxj extends Command {
 						case 1:
 							$zs = db::name('users')->where('user_id', $fxid[0])->find();
 							$pl = $this->beilv($zs['level']);
-							$data = ['user_id' => $fxid[0], 'text' => (1500 * 6 / 100) * $pl, 'type' => 55, 'time' => time()];
+							$data = ['user_id' => $fxid[0], 'text' => (1500 * 6 / 100) * $pl / 30, 'type' => 55, 'time' => time()];
 							Db::name('log')->insert($data);
-							db::name('users')->where('user_id', $fxid[0])->setInc('bonus', (1500 * 6 / 100) * $pl);
+							db::name('users')->where('user_id', $fxid[0])->setInc('bonus', (1500 * 6 / 100) * $pl / 30);
 							break;
 						// case 2:
 						// 	$xc = 0;
@@ -210,6 +210,8 @@ class Jxj extends Command {
 
 								if ($azn < $nv) {
 									$pl = 0;
+									$pl1 = 0;
+									$pl2 = 0;
 								} else {
 									$pl1 = $this->beilv($zs['level']);
 
@@ -264,9 +266,9 @@ class Jxj extends Command {
 
 								//
 								// print_r($pl);	print_r('---');
-								$data = ['user_id' => $value, 'text' => (1500 * 6 / 100) * $pl, 'type' => 55, 'time' => time()];
+								$data = ['user_id' => $value, 'text' => (1500 * 6 / 100) * $pl / 30, 'type' => 55, 'time' => time()];
 								Db::name('log')->insert($data);
-								db::name('users')->where('user_id', $value)->setInc('bonus', (1500 * 6 / 100) * $pl);
+								db::name('users')->where('user_id', $value)->setInc('bonus', (1500 * 6 / 100) * $pl / 30);
 
 							}
 							break;
