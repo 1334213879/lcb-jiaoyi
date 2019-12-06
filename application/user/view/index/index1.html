@@ -653,12 +653,12 @@ border-radius: 4px;
 								alert("已复制到剪贴板");
 							}
 						</script>
-						<li style="display: flex; align-items: center;">
-							<div class="inv_sec">
+						<li style="display: flex; align-items: center; justify-content: center;">
+							<!-- <div class="inv_sec">
 								<p style="font-size: .7rem; color: #999;">提出数量</p>
 								<p><span id="czje"><input type="text" placeholder="提出金额" id="withdraw_con" style="width: 90%;" /></span></p>
-							</div>
-							<div class="inv_sec" style="margin-left: 1rem;">
+							</div> -->
+							<div class="inv_sec" style="text-align: center;">
 								<p style="margin: 0; padding: .95rem 0;">   </p>
 								<p style="font-size: .7rem; color: #999; margin: 0;">
 									满30U可提
@@ -672,7 +672,7 @@ border-radius: 4px;
 							<p style="padding: 0 5rem;">
 								<a href="#" 
 								class="button" 
-								@click="getwithdraw(document.getElementById('withdraw_con').value,document.getElementById('withdraw_address').value)" 
+								@click="getwithdraw(document.getElementById('withdraw_address').value)" 
 								style="background: rgb(238,198,127); color: rgb(89,67,33); border: none; height: auto; padding: .5rem 0;">
 								确定提出</a>
 							</p>
@@ -1269,7 +1269,7 @@ var app = new Vue({
 			}
 		})
 	},
-	getwithdraw(money,address){
+	getwithdraw(address,money){
 		if(money == ""){
 			alert("请先输入提出金额");
 		}else{
