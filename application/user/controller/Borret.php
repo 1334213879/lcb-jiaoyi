@@ -68,6 +68,9 @@ class Borret extends Common {
 	}
 //提现
 	public function withdraw() {
+		if (!session('user.user_id')) {
+			$this->redirect('login/index');
+		}
 		// $t_money = input('money');
 		$address = input('address');
 		// $money = $t_money - 5;
@@ -77,14 +80,14 @@ class Borret extends Common {
 			$result['msg'] = '请实名';
 			return json_encode($result);
 		}
-		$is_tx = DB::name('log')->where('type', 50)->where('status', 1)->find();
+		$is_tx = DB::name('log')->where('type', 50)->where('status', 1)->where('user_id', session('user.user_id'))->find();
 		if ($is_tx) {
 			$result['status'] = 0;
 			$result['msg'] = '已有申请，请勿重新提交';
 			return json_encode($result);
 		}
 
-		$todaymoney = DB::name('log')->where('type', 50)->where('status', 2)->whereTime('time', 'today')->sum('nmct');
+		$todaymoney = DB::name('log')->where('type', 50)->where('status', 2)->where('user_id', session('user.user_id'))->whereTime('time', 'today')->sum('nmct');
 		if ($todaymoney >= 500) {
 			$result['status'] = 0;
 			$result['msg'] = '日提现额度最多为500';
