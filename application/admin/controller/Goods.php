@@ -529,10 +529,10 @@ class Goods extends Common {
 			if (!empty($use)) {
 				if ($use['fxid']) {
 					$fx_user = db('users')->where('user_id', $use['fxid'])->find();
-					if ($fx_user['xmt'] > $log['usdt']) {
-						$jine = $log['usdt'] * $bl['bl'] * 10 / 100;
-						db('users')->where("`user_id`={$fx_user['user_id']}")->setDec('xmt', $log['usdt']);
-						db('users')->where("`user_id`={$fx_user['user_id']}")->setInc('nmct', $log['usdt']);
+					$jine = $log['usdt'] * $bl['bl'] * 10 / 100;
+					if ($fx_user['xmt'] > $jine) {
+						db('users')->where("`user_id`={$fx_user['user_id']}")->setDec('xmt', $jine);
+						db('users')->where("`user_id`={$fx_user['user_id']}")->setInc('nmct', $jine);
 					} else {
 						db('users')->where("`user_id`={$fx_user['user_id']}")->setDec('xmt', $fx_user['xmt']);
 						db('users')->where("`user_id`={$fx_user['user_id']}")->setInc('nmct', $fx_user['xmt']);
