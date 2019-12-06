@@ -93,9 +93,9 @@ class Borret extends Common {
 		//可提
 		$tmonry = $ytx['bonus'] + $ytx['j_bonus'];
 
-		if ($tmonry < 0) {
+		if ($tmonry <= 0) {
 			$result['status'] = 0;
-			$result['msg'] = '金额不足';
+			$result['msg'] = '奖金金额不足';
 			return json_encode($result);
 		}
 
@@ -115,6 +115,10 @@ class Borret extends Common {
 		} elseif ($t > $y) {
 			$money = $y;
 		} else {
+			$money = $tmonry;
+		}
+
+		if ($tmonry < $money) {
 			$money = $tmonry;
 		}
 
@@ -274,8 +278,8 @@ class Borret extends Common {
 			$result['msg'] = '请输入正确金额';
 			return $result;
 		}
-		$is_cun = db::name('log')->where('user_id',$uid)->where('type',59)->where('status',1)->find();
-		if($is_cun){
+		$is_cun = db::name('log')->where('user_id', $uid)->where('type', 59)->where('status', 1)->find();
+		if ($is_cun) {
 			$result['status'] = 0;
 			$result['msg'] = '已有审核，请勿重复提交';
 			return $result;
