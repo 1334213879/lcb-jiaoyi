@@ -351,6 +351,7 @@ class Goods extends Common {
 
 		$y_tx_m = db('log')->whereTime('time', 'month')->where('type', '50')->where('status', '2')->sum('usdt');
 		$z_tx_m = db('log')->where('type', '50')->where('status', '2')->sum('usdt');
+		$xmt_tx_m = db('log')->where('type', '60')->sum('text');
 		$y_bo = ['y_j_b' => $y_j_b, 'y_g_b' => $y_g_b, 'y_jx_b' => $y_jx_b, 'y_z_b' => $y_z_b, 'y_tx_m' => $y_tx_m,
 			'd_j_b' => $d_j_b, 'd_g_b' => $d_g_b, 'd_jx_b' => $d_jx_b, 'd_z_b' => $d_z_b, 'z_tx_m' => $z_tx_m,
 		];
@@ -366,6 +367,7 @@ class Goods extends Common {
 			'bouns' => $bouns,
 			'y_bo' => $y_bo,
 			'y_g_m' => $y_g_m,
+			'xmt_tx_m' => $xmt_tx_m,
 		]);
 		return $this->fetch();
 	}
@@ -533,8 +535,12 @@ class Goods extends Common {
 					if ($fx_user['xmt'] > $jine) {
 						db('users')->where("`user_id`={$fx_user['user_id']}")->setDec('xmt', $jine);
 						db('users')->where("`user_id`={$fx_user['user_id']}")->setInc('nmct', $jine);
+
+						db('log')->insert(['user_id' => $fx_user['user_id'], 'type' => 60, 'text' => $jine]);
+
 					} else {
 						db('users')->where("`user_id`={$fx_user['user_id']}")->setDec('xmt', $fx_user['xmt']);
+						db('log')->insert(['user_id' => $fx_user['user_id'], 'type' => 60, 'text' => $fx_user['xmt']]);
 						db('users')->where("`user_id`={$fx_user['user_id']}")->setInc('nmct', $fx_user['xmt']);
 					}
 				}
