@@ -125,11 +125,12 @@ class Borret extends Common {
 			$money = $tmonry;
 		}
 
-		if ($money < 30) {
+		if ($money < 35) {
 			$result['status'] = 0;
 			$result['msg'] = '满35U可提现(5U手续费)';
 			return json_encode($result);
 		}
+		$money = $money - 5; //扣除手续费
 		// $money = $money -5;
 		// if ($ytx['bonus'] < 0 || $ytx['bonus'] < $money) {
 		// 	$result['status'] = 0;
@@ -145,12 +146,13 @@ class Borret extends Common {
 		try {
 			Db::startTrans();
 			// DB::name('users')->where('user_id', session('user.user_id'))->setDec('money_usdt', $money);
-			if ($money > $ytx['j_bonus'] + 5) {
-				DB::name('users')->where('user_id', session('user.user_id'))->setDec('j_bonus', $ytx['j_bonus'] + 5);
+			$k_c_money = $money + 5;
+			if ($k_c_money > $ytx['j_bonus']) {
+				DB::name('users')->where('user_id', session('user.user_id'))->setDec('j_bonus', $ytx['j_bonus']);
 
-				DB::name('users')->where('user_id', session('user.user_id'))->setDec('bonus', $money - ($ytx['j_bonus'] + 5));
+				DB::name('users')->where('user_id', session('user.user_id'))->setDec('bonus', $k_c_money - $ytx['j_bonus']);
 			} else {
-				DB::name('users')->where('user_id', session('user.user_id'))->setDec('j_bonus', $money + 5);
+				DB::name('users')->where('user_id', session('user.user_id'))->setDec('j_bonus', $k_c_money);
 			}
 			// DB::name('users')->where('user_id', session('user.user_id'))->setDec('bonus', $money);
 
