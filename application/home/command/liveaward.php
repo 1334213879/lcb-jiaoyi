@@ -36,9 +36,9 @@ class liveaward extends Command {
 
 			if (!empty($arr)) {
 				foreach ($arr as $k => $v) {
-					$msg = db::name('users')->where('user_id', $v['user_id'])->setInc('money_usdt', 1500*5/100);
+					$msg = db::name('users')->where('user_id', $v['user_id'])->setInc('bonus', 1500 * 5 / 100);
 					db('lingshi')->delete($v['id']);
-					$data = ['user_id' => $v['user_id'], 'type' => 58, 'text' => 1500*5/100, 'time' => time()];
+					$data = ['user_id' => $v['user_id'], 'type' => 58, 'text' => 1500 * 5 / 100, 'time' => time()];
 					Db::name('log')->insert($data);
 				}
 			}

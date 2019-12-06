@@ -1,6 +1,5 @@
 <?php
 namespace app\user\controller;
-use app\admin\model\Users as UsersModel;
 use app\user\model\Users;
 use think\Controller;
 use think\Db;
@@ -22,8 +21,9 @@ class Login extends Controller {
 			$mobile = input('post.email');
 			/* 通过手机号获取用户信息 */
 			$jc = db('users')->where("mobile", $mobile)->find();
-			if ($jc) {
-				return array('code' => 0, 'msg' => '该手机号已注册');
+			$jmum = db('users')->where("mobile", $mobile)->select();
+			if (count($jmum) >= 2) {
+				return array('code' => 0, 'msg' => '该手机号已注册2个');
 			}
 
 			$vacode = mt_rand(111111, 999999);
@@ -189,12 +189,12 @@ class Login extends Controller {
 					Db::startTrans();
 					try {
 						$user_id = Db::name('users')->insertGetId($map);
-						UsersModel::cz(array(
-							'user_id' => $user_id,
-							'type_' => 'nmct_dj',
-							'title' => '注册赠送NMCT资产',
-							'num' => 88,
-						));
+						// UsersModel::cz(array(
+						// 	'user_id' => $user_id,
+						// 	'type_' => 'nmct_dj',
+						// 	'title' => '注册赠送NMCT资产',
+						// 	'num' => 88,
+						// ));
 						$user = Db::name('users')->field('user_id,nickname')->where("user_id", $user_id)->find();
 						Db::commit();
 						session('user', $user);
@@ -305,7 +305,7 @@ class Login extends Controller {
 		return $this->sms([
 			'type' => 'forget_pass',
 			'mobile' => $phone,
-			'content' => ' XMT转出确认，您的验证码为#code#，在#timeout#分钟内有效。',
+			'content' => ' 转出确认，您的验证码为#code#，在#timeout#分钟内有效。',
 			'params' => [
 				'code' => $vacode,
 				'timeout' => 10,
