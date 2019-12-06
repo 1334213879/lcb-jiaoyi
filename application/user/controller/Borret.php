@@ -73,6 +73,11 @@ class Borret extends Common {
 		}
 		// $t_money = input('money');
 		$address = input('address');
+		if (empty($address)) {
+			$result['status'] = 0;
+			$result['msg'] = '请去个人资料完善钱包地址';
+			return json_encode($result);
+		}
 		// $money = $t_money - 5;
 		$ytx = DB::name('users')->where('user_id', session('user.user_id'))->find();
 		if ($ytx['is_autonym'] == 0) {

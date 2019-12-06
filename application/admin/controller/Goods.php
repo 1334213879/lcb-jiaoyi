@@ -523,6 +523,23 @@ class Goods extends Common {
 			$bl = db('system')->find();
 			db('users')->where("`user_id`={$log['user_id']}")->setInc('xmt', $log['usdt'] * $bl['bl']);
 
+			//加速规则
+			$use = db('users')->where('user_id', $log['user_id'])->find();
+
+			if (!empty($use)) {
+				if ($use['fxid']) {
+					$fx_user = db('users')->where('user_id', $use['fxid'])->find();
+					if ($fx_user['xmt'] > $log['usdt']) {
+						$jine = $log['usdt'] * $bl['bl'] * 10 / 100;
+						db('users')->where("`user_id`={$fx_user['user_id']}")->setDec('xmt', $log['usdt']);
+						db('users')->where("`user_id`={$fx_user['user_id']}")->setInc('nmct', $log['usdt']);
+					} else {
+						db('users')->where("`user_id`={$fx_user['user_id']}")->setDec('xmt', $fx_user['xmt']);
+						db('users')->where("`user_id`={$fx_user['user_id']}")->setInc('nmct', $fx_user['xmt']);
+					}
+				}
+			}
+
 		}
 		return ['status' => 1, 'msg' => '操作成功！'];
 	}
