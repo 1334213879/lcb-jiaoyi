@@ -66,7 +66,8 @@ class Jxj extends Command {
 
 					if (count($fxid) == 1) {
 						// print_r($v['user_id']);
-						if ($v['level'] != 1 && !empty($v['fxid'])) {
+						// if ($v['level'] != 1 && !empty($v['fxid'])) {
+						if (!empty($v['fxid'])) {
 
 							$fd = db::name('users')->where('user_id', $v['fxid'])->find();
 
@@ -106,7 +107,8 @@ class Jxj extends Command {
 							if (isset($fxid[$i + 1])) {
 
 								$xlev = db::name('users')->where('user_id', $fxid[$i + 1])->find();
-								if ($lev['level'] != 1) {
+								// if ($lev['level'] != 1) {
+								if ($lev['level']) {
 
 									if ($lev['level'] > $xlev['level']) {
 										//越级

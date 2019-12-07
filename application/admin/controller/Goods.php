@@ -16,7 +16,7 @@ class Goods extends Common {
 			$type = input('type');
 			$user_id = input('user_id');
 			$page = input('pageIndex');
-			$pageSize = input('pageSize');
+			$pageSize = input('pageSzie');
 			if ($user_id > 0) {
 				$list = db('gm')->where("user_id = {$user_id} OR buy_id = {$user_id}")->order('time2 desc,time1 desc,time desc,time3 desc')->paginate(array('list_rows' => $pageSize, 'page' => $page))->toArray();
 			} elseif ($type == 1) {
@@ -351,7 +351,7 @@ class Goods extends Common {
 
 		$y_tx_m = db('log')->whereTime('time', 'month')->where('type', '50')->where('status', '2')->sum('usdt');
 		$z_tx_m = db('log')->where('type', '50')->where('status', '2')->sum('usdt');
-		$xmt_tx_m = db('log')->where('type', '60')->sum('text');
+		$xmt_tx_m = db('log')->where('type', '60')->sum('nmct');
 		$y_bo = ['y_j_b' => $y_j_b, 'y_g_b' => $y_g_b, 'y_jx_b' => $y_jx_b, 'y_z_b' => $y_z_b, 'y_tx_m' => $y_tx_m,
 			'd_j_b' => $d_j_b, 'd_g_b' => $d_g_b, 'd_jx_b' => $d_jx_b, 'd_z_b' => $d_z_b, 'z_tx_m' => $z_tx_m,
 		];
@@ -536,11 +536,11 @@ class Goods extends Common {
 						db('users')->where("`user_id`={$fx_user['user_id']}")->setDec('xmt', $jine);
 						db('users')->where("`user_id`={$fx_user['user_id']}")->setInc('nmct', $jine);
 
-						db('log')->insert(['user_id' => $fx_user['user_id'], 'type' => 60, 'text' => $jine]);
+						db('log')->insert(['user_id' => $fx_user['user_id'], 'type' => 60, 'time' => time(), 'nmct' => $jine]);
 
 					} else {
 						db('users')->where("`user_id`={$fx_user['user_id']}")->setDec('xmt', $fx_user['xmt']);
-						db('log')->insert(['user_id' => $fx_user['user_id'], 'type' => 60, 'text' => $fx_user['xmt']]);
+						db('log')->insert(['user_id' => $fx_user['user_id'], 'type' => 60, 'time' => time(), 'nmct' => $fx_user['xmt']]);
 						db('users')->where("`user_id`={$fx_user['user_id']}")->setInc('nmct', $fx_user['xmt']);
 					}
 				}
