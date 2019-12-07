@@ -454,7 +454,7 @@ class Goods extends Common {
 			$page = input('pageIndex');
 			$pageSize = input('pageSize');
 			$map['type'] = empty(input('type')) ? 0 : input('type');
-			$list = db('log')->where($map)->order('time desc')->paginate(array('list_rows' => $pageSize, 'page' => $page))->toArray();
+			$list = db('log')->where($map)->order('time asc')->paginate(array('list_rows' => $pageSize, 'page' => $page))->toArray();
 			foreach ($list['data'] as $key => $value) {
 				$users = db('users')->where(array('user_id' => $list['data'][$key]['user_id']))->find();
 				$list['data'][$key]['nickname'] = $users['nickname'];
