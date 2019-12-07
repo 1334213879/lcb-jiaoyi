@@ -16,7 +16,7 @@ class Goods extends Common {
 			$type = input('type');
 			$user_id = input('user_id');
 			$page = input('pageIndex');
-			$pageSize = input('pageSzie');
+			$pageSize = input('pageSize');
 			if ($user_id > 0) {
 				$list = db('gm')->where("user_id = {$user_id} OR buy_id = {$user_id}")->order('time2 desc,time1 desc,time desc,time3 desc')->paginate(array('list_rows' => $pageSize, 'page' => $page))->toArray();
 			} elseif ($type == 1) {
