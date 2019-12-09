@@ -76,7 +76,7 @@
 
     <div class="page page-current wboos-page-my-members" id="wboos-page-my-members" style="background: rgb(50,50,50);">
         <div class="content" style="background: rgb(50,50,50);">
-            <header class="bar-nav">               
+            <header class="bar-nav">
                 <h1 class="title">{:lang('我的资料')}</h1>
                 <!-- <a href="#page-setting" class="modify_selfinfo"><i><img src="__STATIC__/xmt/images/personal.png" alt=""></i></a> -->
             </header>
@@ -134,7 +134,8 @@
 					<li class="rec_list"><span style="color: #fff;">{:lang('流通LCB')}</span><span style="color: #fff; float: right;">{{user.nmct}}</span></li>
 					
 					<li class="rec_list" style="display: flex;flex-direction: row;align-items: center;justify-content: space-around; padding: .5rem 0;">
-						<span style="display: block;"><a href="#page-getlcb" style="color: #999;">LCB提出</a></span>
+						<span style="display: block;" v-if="bbuser.is_autonym == 0"><a @click="wboos.toast('请先进行实名认证')" style="color: #999;">LCB提出</a></span>
+						<span style="display: block;" v-else><a href="#page-getlcb" style="color: #999;">LCB提出</a></span>
 						<span style="display: block;"><a href="#page-lcb-not" style="color: #999;">提出记录</a></span>
 					</li>
 				</ul>
@@ -597,11 +598,11 @@
 					<div class="list-block cc">
 						<p>
 							<span><img src="__STATIC__/xmt/images/cc_1.png" width="50%" height="50%" /></span>
-							<span><input type="text" placeholder="姓名" id="cc_name" name="cc_name" maxlength="10" style="height: auto; padding: 0; font-size: .7rem; color: #ddd;" /></span>
+							<span><input type="text" placeholder="姓名" id="cc_name" :value="bbuser.xm" name="cc_name" maxlength="10" style="height: auto; padding: 0; font-size: .7rem; color: #ddd;" /></span>
 						</p>
 						<p>
-							<span><img src="__STATIC__/xmt/images/cc_2.png" width="50%" height="50%" /></span>
-							<span><input type="text" placeholder="身份证" id="cc_uid" name="cc_uid" maxlength="18" style="height: auto; padding: 0; font-size: .7rem; color: #ddd;" /></span>
+							<span><img src="__STATIC__/xmt/images/cc_2.png" width="50%" height="50%" /></span>	
+							<span><input type="text" placeholder="身份证" id="cc_uid" :value="bbuser.autonym_number" name="cc_uid" maxlength="18" style="height: auto; padding: 0; font-size: .7rem; color: #ddd;" /></span>
 						</p>
 						<p>
 							<span><img src="__STATIC__/xmt/images/cc_3.png" width="50%" height="50%" /></span>
@@ -612,19 +613,22 @@
 								<input type="file" placeholder="点击上传身份证正面" id="uid_front" style="display: none;" />
 								<input type="hidden" name="uid_front" value="" class="uid_front" />
 								<!-- <button class="front_click" type="button" onclick="ccclick($('#uid_front'))">点击上传身份证正面</button> -->
-								<img id="froimg" class="front_click" @click="zclick()" src="__STATIC__/xmt/images/im1.png" alt="点击上传身份证正面" width="100%" height="100%" />
+								<img id="froimg" class="front_click" @click="zclick()" v-if="bbuser.autonym_img_1 == ''" src="__STATIC__/xmt/images/im1.png" alt="点击上传身份证正面" width="100%" height="100%" />
+								<img id="froimg" class="front_click" @click="zclick()" v-else v-bind:src="img1" alt="点击上传身份证正面" width="100%" height="100%" />
 							</div>
 							<div class="cc_picbox">
 								<input type="file" placeholder="点击上传身份证反面" id="uid_back" style="display: none;" />
 								<input type="hidden" name="uid_back" value="" class="uid_back" />
 								<!-- <button class="back_click" type="button" onclick="ccclick($('#uid_back'))">点击上传身份证反面</button> -->
-								<img id="backimg" class="back_click" @click="fclick()" src="__STATIC__/xmt/images/im2.png" alt="点击上传身份证反面" width="100%" height="100%" />
+								<img id="backimg" class="back_click" @click="fclick()" v-if="bbuser.autonym_img_2 == ''" src="__STATIC__/xmt/images/im2.png" alt="点击上传身份证反面" width="100%" height="100%" />
+								<img id="backimg" class="back_click" @click="fclick()" v-else v-bind:src="img2" alt="点击上传身份证反面" width="100%" height="100%" />
 							</div>
 							<div class="cc_picbox">
 								<input type="file" placeholder="点击上传本人手持身份证" id="uid_hand" style="display: none;" />
 								<input type="hidden" name="uid_hand" value="" class="uid_hand" />
 								<!-- <button class="hand_click" type="button" onclick="ccclick($('#uid_hand'))">点击上传本人手持身份证</button> -->
-								<img id="handimg" class="hand_click" @click="sclick()" src="__STATIC__/xmt/images/im3.png" alt="点击上传本人手持身份证" width="100%" height="100%" />
+								<img id="handimg" class="hand_click" @click="sclick()" v-if="bbuser.autonym_img_3 == ''" src="__STATIC__/xmt/images/im3.png" alt="点击上传本人手持身份证" width="100%" height="100%" />
+								<img id="handimg" class="hand_click" @click="sclick()" v-else v-bind:src="img3" alt="点击上传本人手持身份证" width="100%" height="100%" />
 							</div>
 						</div>
 						<p style="position: absolute; bottom: -50px; left: 5%; width: 90%;">
@@ -807,33 +811,6 @@
 		 	    }
 		 	});
 		 });
-	 }
-	 function ccsave(name,uid,img1,img2,img3){
-		if(uid.length < 18){
-			wboos.toast("身份证位数少于18位，请重新填写");
-			//location.href = "/user/index/my";
-			return false;
-		}
-		$.ajax({
-		    url:"{:url('user/set/up_autonym')}",
-		    type:'POST',
-		    data:{
-				cc_name:name,
-				uid:uid,
-				uid_front:img1,
-				uid_back:img2,
-				uid_hand:img3
-			},
-		    // cache: false,
-		    // contentType: false,    //不可缺
-		    // processData: false,    //不可缺
-			dataType:'json',
-		    success:function(data){
-				var j = JSON.parse(data);
-				wboos.toast(j.msg);
-				location.href = "/user/index/my";
-		    }
-		});
 	 }
 </script>
 
@@ -1172,11 +1149,14 @@ var vm = new Vue({
     team:'',
 	system:'',
 	tb:'',
+	bbuser:'',
+	img1:'',
+	img2:'',
+	img3:'',
   },
   methods: {
         getData(){
             this.$http.get('/user/mode/my.html').then(function (res){
-				console.log(res);
                 var i = res.body;
                 if(i.status==0){
                     wboos.toast(i.msg);
@@ -1251,6 +1231,10 @@ var vm = new Vue({
 				wboos.toast("请输入提币金额");
 				return false;
 			}
+			if(this.user.is_autonym == 0 || this.user.is_autonym == ""){
+				wboos.toast("请先实名");
+				return false;
+			}
 			this.$http.post('/user/borret/mention',{address:address,money:money}).then(function(res){
 				var m = res.body;
 				wboos.toast(m.msg);
@@ -1261,8 +1245,39 @@ var vm = new Vue({
 				console.log(res);
 		        var i = res.body;
 				this.tb=i.tb;
+				this.bbuser=i.user;
+				this.img1 = "../.." + i.user.autonym_img_1;
+				this.img2 = "../.." + i.user.autonym_img_2;
+				this.img3 = "../.." + i.user.autonym_img_3;
 		    });
 		},
+		ccsave(name,uid,img1,img2,img3){
+				if(uid.length < 18){
+					wboos.toast("身份证位数少于18位，请重新填写");
+					//location.href = "/user/index/my";
+					return false;
+				}
+				$.ajax({
+				    url:"{:url('user/set/up_autonym')}",
+				    type:'POST',
+				    data:{
+						cc_name:name,
+						uid:uid,
+						uid_front:img1,
+						uid_back:img2,
+						uid_hand:img3
+					},
+				    // cache: false,
+				    // contentType: false,    //不可缺
+				    // processData: false,    //不可缺
+					dataType:'json',
+				    success:function(data){	
+						var j = JSON.parse(data);
+						wboos.toast(j.msg);
+						location.href = "/user/index/my";
+				    }
+				});
+		}
 	},
     created:function () {
         this.getData();
