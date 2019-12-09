@@ -15,6 +15,12 @@ class Borret extends Common {
 		if (!session('user.user_id')) {
 			$this->redirect('login/index');
 		}
+		$_user = db('users')->where('user_id', session('user.user_id'))->find();
+
+		if ($_user['is_autonym'] != 1) {
+			return array('status' => 0, 'msg' => '请实名');
+		}
+
 		$uid = session('user.user_id');
 		$is_ing = db('borrow')->where('uid', $uid)->whereIn('status', [1, 2, 4])->find();
 
