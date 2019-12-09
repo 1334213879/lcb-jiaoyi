@@ -59,7 +59,9 @@
                                 {case 1}后台审核中{/case}
                                 {case 2}已通过待还款{/case}
                                 {case 3}已还款{/case}
-                                {default /}逾期
+                                {case 4}逾期{/case}
+                                {case 5}还款待审核{/case}
+                                {default /}
                                 {/switch}
 
                             </td>
@@ -79,7 +81,7 @@
                             <td>
                                 {switch $v.status}
                                 {case 1}<button class="su" onclick="tg({$v.id},{$v.uid})">借款审核通过</button>{/case}
-                                {case 2}
+                                {case 5}
                                     {if time() - $v.j_time < 172800 }
                                     <button class="su" onclick="hk({$v.id},{$v.uid})">还款完成</button>
                                     {/if}
@@ -149,6 +151,7 @@
                         data : {id:id,uid:uid},
                         //请求成功
                         success : function(res) {
+                             window.location.reload();
                             layer.msg(res.msg,{time:3000});
                         },
                         //请求失败，包含具体的错误信息
