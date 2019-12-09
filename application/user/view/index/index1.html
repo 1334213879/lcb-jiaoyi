@@ -1223,6 +1223,7 @@ var app = new Vue({
 			}
 			if(this.user.is_autonym == 0 && this.user.is_autonym == ""){
 				wboos.toast("请先实名");
+				return false;
 			}
 		}else if(type==4){
 			var number = $('#jh_1').val();
