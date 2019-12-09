@@ -360,6 +360,7 @@
 	  address:'',
       pageSize:'100',
 	  gmtype:'',
+	  is_autonym:'',
       },
       methods:{
         getData(id){
@@ -629,9 +630,22 @@
           return true;
          }
       },
-      },
+		getUser(){
+			this.$http.post('/user/mode/bb').then(function (res){
+				var r = res.body;
+				this.is_autonym = r.user.is_autonym;
+				if(this.is_autonym == 0){
+					wboos.toast("请先实名再访问当前页");
+					setTimeout(function(){
+						history.back();
+					},2000);
+				}
+			});
+		},
+	  },
       created:function () {
          this.getData(10);
+		 this.getUser();
       },
     })
 </script>

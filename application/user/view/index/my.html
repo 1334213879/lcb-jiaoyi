@@ -1235,9 +1235,9 @@ var vm = new Vue({
 				this.$http.post('/user/set/imtoken',{imt:imt}).then(function(res){
 					var m = res.body;
 					if(m.status == 1){
-						wboos.toast("修改成功");
+						wboos.toast(m.msg);
 					}else if(m.status == 0){
-						wboos.toast("修改失败");
+						wboos.toast(m.msg);
 					}
 				});
 			}

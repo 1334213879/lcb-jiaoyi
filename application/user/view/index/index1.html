@@ -619,7 +619,7 @@ border-radius: 4px;
 								v-if="user.money_usdt != 1500" 
 								style="background: rgb(238,198,127); color: rgb(89,67,33); border: none; height: auto; padding: .5rem 0;">确定充入</a>
 								<a href="#"
-								class="button" 
+								class="button"
 								v-else 
 								style="background: rgb(40,40,40); color: gray; border: none; height: auto; padding: .5rem 0;">确定充入</a>
 							</p>
@@ -1324,12 +1324,15 @@ var app = new Vue({
 			})
 	},
 	hk_(id,img){
-		this.$http.get('/user/borret/huankuan',{id:id,img:img}).then(function(res){
+		this.$http.post('/user/borret/huankuan',{id:id,img:img}).then(function(res){
 			console.log(res);
 			var msg = JSON.parse(res.body);
 			if(msg.code == 1){
 				// 提示框
-				location.href = "/user/index";
+				wboos.toast(msg.msg);
+				setTimeout(function(){
+					history.back();
+				},2000);
 			}else{
 				wboos.toast(msg.msg);
 			}
