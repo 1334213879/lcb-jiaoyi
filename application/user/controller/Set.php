@@ -397,8 +397,8 @@ class Set extends Common {
 			$this->redirect('login/index');
 		}
 		$data = input('post.');
-		$yh = input('post.yh');
-		$name = input('post.name');
+		// $yh = input('post.yh');
+		// $name = input('post.name');
 		$yhk = input('post.yhk');
 		$_user = db('users')->where('user_id', session('user.user_id'))->find();
 		if ($_user['is_autonym'] != 1) {
@@ -407,6 +407,13 @@ class Set extends Common {
 		// $money_address = input('post.money_address');
 		$user_id = session('user.user_id');
 		$yz = db('yhk')->where("user_id", session('user.user_id'))->find();
+		$_user = db('users')->where("user_id", session('user.user_id'))->find();
+		if(!empty($_user)){
+			$data['name'] = $_user['nickname'];
+			$map['name'] = $_user['nickname'];
+		}else{
+			return array('status' => 0, 'msg' => '暂无该用户');
+		}
 		// if (!empty($yhk)) {
 		// 	$yhk_ = db('yhk')->where("`yhk`={$yhk} and user_id!={$user_id}")->find();
 		// 	if (!empty($yhk_)) {
@@ -437,6 +444,7 @@ class Set extends Common {
 				// $map['yh'] = $yh;
 				// $map['name'] = $name;
 				$map['yhk'] = $yhk;
+				
 				// $map['money_address'] = $money_address;
 				$map['user_id'] = session('user.user_id');
 				if (db('yhk')->insertGetId($map) !== false) {
