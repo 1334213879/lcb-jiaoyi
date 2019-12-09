@@ -21,6 +21,11 @@ class Jxj extends Command {
 			$users = db::name('users')->field('user_id,fxid,all_fxid,money_usdt,level,last_award_time,is_overdue,is_excess')->where('is_lock', 0)->select(); //2592000一个月2592000
 			$push = [];
 			foreach ($users as $k => $v) {
+
+				//如果没有usdt则停止收益
+				if ($v['money_usdt'] == 0) {
+					continue;
+				}
 				//有借款未还，停止动态奖励，静态变为1/3
 				// $log = db::name('borrow')->where('uid', $v['user_id'])->where('status', 4)->find();
 
