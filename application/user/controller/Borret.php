@@ -18,7 +18,7 @@ class Borret extends Common {
 		$_user = db('users')->where('user_id', session('user.user_id'))->find();
 
 		if ($_user['is_autonym'] != 1) {
-			return array('status' => 0, 'msg' => '请实名');
+			return json_encode(['status' => 0, 'msg' => '请实名']);
 		}
 
 		$uid = session('user.user_id');
