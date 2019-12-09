@@ -118,10 +118,10 @@ class Set extends Common {
 		$id = input('id');
 		//$xw = db('xw')->where("ad_id",$id)->find();
 		$xw = db('xw')->alias('a')
-		->where('ad_id',$id)
-			// ->join(config('database.prefix') . 'qkl c', 'a.qkl_id = c.ad_id', 'left')
-			// ->where(array('a.open' => 1, 'a.ad_id' => $id))
-			// ->field('a.*,c.name as qkl_name,c.pic as img')
+			->where('ad_id', $id)
+		// ->join(config('database.prefix') . 'qkl c', 'a.qkl_id = c.ad_id', 'left')
+		// ->where(array('a.open' => 1, 'a.ad_id' => $id))
+		// ->field('a.*,c.name as qkl_name,c.pic as img')
 			->find();
 		// if ($xw) {
 		// 	$reg['code'] = 1;
@@ -400,6 +400,10 @@ class Set extends Common {
 		$yh = input('post.yh');
 		$name = input('post.name');
 		$yhk = input('post.yhk');
+		$_user = db('users')->where('user_id', session('user.user_id'))->find();
+		if ($_user['is_autonym'] != 1) {
+			return array('status' => 0, 'msg' => '请实名');
+		}
 		// $money_address = input('post.money_address');
 		$user_id = session('user.user_id');
 		$yz = db('yhk')->where("user_id", session('user.user_id'))->find();
@@ -413,7 +417,7 @@ class Set extends Common {
 			return array('status' => 0, 'msg' => '银行卡不能为空');
 		} /* elseif($yh==$yz['yh'] && $name==$yz['name'] && $yhk==$yz['yhk']){
 			return array('status'=>0,'msg'=>'没有修改');
-		} */else if (strlen($yhk) < 20) {
+		} */else if (strlen($yhk) < 50) {
 			// if (!session('yzm.yzm') || session('yzm.time') < time()) {
 			// 	return array('status' => 0, 'msg' => '验证码不存在或已失效!');
 			// }
@@ -475,6 +479,11 @@ class Set extends Common {
 	public function imtoken() {
 		if (!session('user.user_id')) {
 			$this->redirect('login/index');
+		}
+		$_user = db('users')->where('user_id', session('user.user_id'))->find();
+
+		if ($_user['is_autonym'] != 1) {
+			return array('status' => 0, 'msg' => '请实名');
 		}
 		$mention_address = input('post.imt');
 		$user_id = session('user.user_id');
