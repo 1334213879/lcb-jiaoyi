@@ -1221,6 +1221,9 @@ var app = new Vue({
 				wboos.toast("请先上传凭证");
 				return false;
 			}
+			if(this.user.is_autonym == 0 && this.user.is_autonym == ""){
+				wboos.toast("请先实名");
+			}
 		}else if(type==4){
 			var number = $('#jh_1').val();
 		}else if(type==5){
