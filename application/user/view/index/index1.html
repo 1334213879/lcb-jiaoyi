@@ -1263,7 +1263,10 @@ var app = new Vue({
 			var msg = JSON.parse(res.body);
 			if(msg.code == 1){
 				// 提示框
-				location.href = "/user/index/index1";
+				wboos.toast(msg.msg);
+				setTimeout(function(){
+					history.back();
+				},2000)
 			}else{
 				wboos.toast(msg.msg);
 			}
