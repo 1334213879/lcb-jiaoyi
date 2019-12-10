@@ -447,9 +447,12 @@
 						var i = res.body.status;
 						if(i == 1){
 							var pay =  $('input[name="pay"]:checked').val();
-							console.log(pay);
-							this.$http.post(wboos.url('user/buy/gm'),{id:id,gm_number:this.gm_number,pay:pay,yhk:this.address.yhk},{withCredentials: true}).then(function (response) {
-								console.log(response);
+							if(this.gm_number == 0 || this.gm_number < 0 || this.gm_number == ""){
+								wboos.toast("挂卖数量不能为0");
+								return false;
+							}
+							this.$http.post(wboos.url('user/buy/gm'),{id:id,gm_number:this.gm_number,pay:pay,yhk:this.address},{withCredentials: true}).then(function (response) {
+								//console.log(response);
 								wboos.toast(response.body.msg);
 								if(response.body.status==1){
 									 this.getData(0);
