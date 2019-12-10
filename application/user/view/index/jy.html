@@ -400,6 +400,10 @@
 			  	var i = res.body.status;
 			  	if(i == 1){
 			  		var pay =  $('input[name="pay"]:checked').val();
+					if(this.gm_number == 0 || this.gm_number < 0 || this.gm_number == ""){
+						wboos.toast("求购数量不能为0");
+						return false;
+					}
 			  		this.$http.post(wboos.url('user/buy/wantbuy'),{gm_number:this.gm_number,pay:pay},{withCredentials: true}).then(function (response) {
 			  			//console.log(response);
 			  			wboos.toast(response.body.msg);
